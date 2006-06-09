@@ -51,6 +51,7 @@ import org.seasar.kuina.dao.criteria.grammar.StringLiteral;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
 import org.seasar.kuina.dao.criteria.impl.SelectStatementImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Avg;
+import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Count;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Max;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Min;
 import org.seasar.kuina.dao.criteria.impl.grammar.clause.IdentificationVariableDeclarationImpl;
@@ -141,6 +142,14 @@ public abstract class CriteriaOperations {
 
     public static IdentificationVariable variable(final String variable) {
         return new IdentificationVariableImpl(variable);
+    }
+
+    public static AggregateExpression count(final String path) {
+        return count(path(path));
+    }
+
+    public static AggregateExpression count(final PathExpression path) {
+        return new Count(path);
     }
 
     public static AggregateExpression avg(final String path) {
