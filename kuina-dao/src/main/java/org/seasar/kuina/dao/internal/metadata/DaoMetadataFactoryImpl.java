@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.internal.metadata;
 
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.persistence.EntityManager;
@@ -23,6 +25,8 @@ import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.tiger.CollectionsUtil;
+import org.seasar.kuina.dao.internal.Command;
+import org.seasar.kuina.dao.internal.CommandBuilder;
 import org.seasar.kuina.dao.internal.DaoMetadata;
 import org.seasar.kuina.dao.internal.DaoMetadataFactory;
 
@@ -32,8 +36,12 @@ import org.seasar.kuina.dao.internal.DaoMetadataFactory;
  */
 @Component
 public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
+
     @Binding(bindingType = BindingType.MUST)
-    protected EntityManager em;
+    protected EntityManager entityManager;
+
+    protected final List<CommandBuilder> builders = CollectionsUtil
+            .newArrayList();
 
     protected final ConcurrentMap<Class<?>, DaoMetadata> metadataCache = CollectionsUtil
             .newConcurrentHashMap();
@@ -42,6 +50,10 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
      * インスタンスを構築します。
      */
     public DaoMetadataFactoryImpl() {
+    }
+
+    public void addCommandBuilder(final CommandBuilder builder) {
+        builders.add(builder);
     }
 
     /**
@@ -56,9 +68,23 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
     }
 
     protected DaoMetadata createMetadata(final Class<?> daoClass) {
-        final DaoMetadata metadata = new DaoMetadataImpl(em, daoClass);
+        final DaoMetadata metadata = new DaoMetadataImpl(this, daoClass);
         final DaoMetadata current = metadataCache.putIfAbsent(daoClass,
                 metadata);
         return current != null ? current : metadata;
+    }
+
+    protected EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    protected Command createCommand(final Class<?> daoClass, final Method method) {
+        for (final CommandBuilder builder : builders) {
+            final Command command = builder.build(daoClass, method);
+            if (command != null) {
+                return command;
+            }
+        }
+        return null;
     }
 }

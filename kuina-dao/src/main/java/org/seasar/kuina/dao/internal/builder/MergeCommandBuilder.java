@@ -21,17 +21,17 @@ import java.util.regex.Pattern;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.CommandBuilder;
 import org.seasar.kuina.dao.internal.EntityDesc;
-import org.seasar.kuina.dao.internal.command.PersistCommand;
+import org.seasar.kuina.dao.internal.command.MergeCommand;
 import org.seasar.kuina.dao.internal.metadata.EntityDescFactory;
 
 /**
  * 
  * @author koichik
  */
-public class PersistCommandBuilder implements CommandBuilder {
-    protected Pattern methodNamePattern = Pattern.compile("persist");
+public class MergeCommandBuilder implements CommandBuilder {
+    protected Pattern methodNamePattern = Pattern.compile("merge");
 
-    public PersistCommandBuilder() {
+    public MergeCommandBuilder() {
     }
 
     public void setMethodNamePattern(final String methodNamePattern) {
@@ -49,13 +49,18 @@ public class PersistCommandBuilder implements CommandBuilder {
             return null;
         }
 
+        final Class<?> returnType = method.getReturnType();
+        if (returnType != parameterTypes[0]) {
+            return null;
+        }
+
         final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(parameterTypes[0]);
+                .getEntityDesc(returnType);
         if (!entityDesc.isEntity()) {
             return null;
         }
 
-        return new PersistCommand(parameterTypes[0]);
+        return new MergeCommand();
     }
 
 }

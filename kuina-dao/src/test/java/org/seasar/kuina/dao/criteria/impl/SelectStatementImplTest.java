@@ -163,7 +163,7 @@ public class SelectStatementImplTest extends S2TestCase {
         assertEquals(3, list.size());
         assertEquals("マル", list.get(0).getName());
         assertEquals("ラスカル", list.get(1).getName());
-        assertEquals("マイケル", list.get(1).getName());
+        assertEquals("マイケル", list.get(2).getName());
     }
 
     public void testWhereCompoundConditionTx() throws Exception {

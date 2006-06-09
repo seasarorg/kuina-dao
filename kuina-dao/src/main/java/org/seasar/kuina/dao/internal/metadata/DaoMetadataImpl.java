@@ -38,28 +38,39 @@ public class DaoMetadataImpl implements DaoMetadata {
 
     protected BeanDesc beanDesc;
 
-    protected Map<Method, Command> commands = CollectionsUtil.newHashMap();
+    protected Map<String, Command> commands = CollectionsUtil.newHashMap();
 
     /**
      * インスタンスを構築します。
      */
-    public DaoMetadataImpl(final EntityManager em, final Class<?> daoClass) {
-        this.em = em;
+    public DaoMetadataImpl(final DaoMetadataFactoryImpl factory,
+            final Class<?> daoClass) {
+        this.em = factory.getEntityManager();
         this.daoClass = daoClass;
         this.beanDesc = BeanDescFactory.getBeanDesc(daoClass);
+        setupCommands(factory);
     }
 
     /**
      * @see org.seasar.kuina.dao.internal.DaoMetadata#getCommand(java.lang.reflect.Method)
      */
     public Command getCommand(final Method method) {
-        final Command command = commands.get(method);
+        final String methodName = method.getName();
+        final Command command = commands.get(methodName);
         if (command == null) {
             throw new MethodNotFoundRuntimeException(daoClass,
                     method.getName(), method.getParameterTypes());
-
         }
         return command;
     }
 
+    protected void setupCommands(final DaoMetadataFactoryImpl factory) {
+        for (final String methodName : beanDesc.getMethodNames()) {
+            for (final Method method : beanDesc.getMethods(methodName)) {
+                final Command command = factory.createCommand(daoClass, method);
+                assert command != null;
+                commands.put(methodName, command);
+            }
+        }
+    }
 }

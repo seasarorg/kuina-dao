@@ -21,17 +21,17 @@ import java.util.regex.Pattern;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.CommandBuilder;
 import org.seasar.kuina.dao.internal.EntityDesc;
-import org.seasar.kuina.dao.internal.command.PersistCommand;
+import org.seasar.kuina.dao.internal.command.WriteLockCommand;
 import org.seasar.kuina.dao.internal.metadata.EntityDescFactory;
 
 /**
  * 
  * @author koichik
  */
-public class PersistCommandBuilder implements CommandBuilder {
-    protected Pattern methodNamePattern = Pattern.compile("persist");
+public class ReadLockCommandBuilder implements CommandBuilder {
+    protected Pattern methodNamePattern = Pattern.compile("lock|writeLock");
 
-    public PersistCommandBuilder() {
+    public ReadLockCommandBuilder() {
     }
 
     public void setMethodNamePattern(final String methodNamePattern) {
@@ -55,7 +55,7 @@ public class PersistCommandBuilder implements CommandBuilder {
             return null;
         }
 
-        return new PersistCommand(parameterTypes[0]);
+        return new WriteLockCommand();
     }
 
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components namespace="kuinaDao">
+	<include path="javaee5.dicon"/>
+	<include path="s2hibernate-jpa.dicon"/>
+	
+	<component
+		class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"
+	>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.MergeCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.PersistCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.ReadLockCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.RefreshCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.RemoveCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.WriteLockCommandBuilder"/>
+			</arg>
+		</initMethod>
+	</component>
+	
+	<component name="interceptor"
+		class="org.seasar.kuina.dao.interceptor.KuinaDaoInterceptor"
+	/>
+</components>
