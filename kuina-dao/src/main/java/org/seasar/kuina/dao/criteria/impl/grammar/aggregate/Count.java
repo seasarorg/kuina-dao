@@ -50,7 +50,7 @@ public class Count extends AbstractAggregateExpression {
      * インスタンスを構築します。
      */
     public Count(final boolean distinct, final PathExpression pathExpression) {
-        super("SUM", distinct, pathExpression);
+        super("COUNT", distinct, pathExpression);
     }
 
 }
