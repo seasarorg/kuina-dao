@@ -15,28 +15,33 @@
  */
 package org.seasar.kuina.dao;
 
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * 
  * @author koichik
  */
 @Entity
-public class Department {
+public class Customer {
 
     @Id
     private int id;
 
+    private String code;
+
     private String name;
 
-    @OneToMany(mappedBy = "department")
-    private Collection<BelongTo> belongTo;
+    private String address;
 
-    public Department() {
+    @ManyToOne
+    private Prefectural prefectural;
+
+    @ManyToOne
+    private CustomerClass customerClass;
+
+    public Customer() {
     }
 
     public int getId() {
@@ -47,6 +52,14 @@ public class Department {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }
@@ -55,19 +68,35 @@ public class Department {
         this.name = name;
     }
 
-    public Collection<BelongTo> getBelongTo() {
-        return belongTo;
+    public String getAddress() {
+        return address;
     }
 
-    public void setBelongTo(Collection<BelongTo> belongTo) {
-        this.belongTo = belongTo;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public CustomerClass getCustomerClass() {
+        return customerClass;
+    }
+
+    public void setCustomerClass(CustomerClass customerClass) {
+        this.customerClass = customerClass;
+    }
+
+    public Prefectural getPrefectural() {
+        return prefectural;
+    }
+
+    public void setPrefectural(Prefectural prefectural) {
+        this.prefectural = prefectural;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Department))
+        if (!(other instanceof Customer))
             return false;
-        Department castOther = (Department) other;
+        Customer castOther = (Customer) other;
         return this.id == castOther.id;
     }
 

@@ -16,13 +16,11 @@
 package org.seasar.kuina.dao;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  * 
@@ -32,28 +30,28 @@ import javax.persistence.OneToOne;
 public class Employee {
 
     @Id
-    int id;
+    private int id;
 
-    String name;
+    private String name;
 
-    int salary;
+    private int height;
 
-    @ManyToOne
-    @JoinColumn(name = "manager")
-    Employee manager;
+    private int weight;
 
-    @OneToOne
-    Address address;
+    private String email;
+
+    private int hireFiscalYear;
+
+    private Date birthday;
+
+    private String bloodType;
 
     @OneToMany(mappedBy = "employee")
-    Collection<Phone> phones;
+    private Collection<BelongTo> belongTo;
 
-    @ManyToOne
-    Department department;
-
-    //
-    // Project project;
-
+    @OneToMany(mappedBy="employee")
+    private Collection<Salary> salary;
+    
     public Employee() {
     }
 
@@ -61,28 +59,80 @@ public class Employee {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public int getSalary() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getHireFiscalYear() {
+        return hireFiscalYear;
+    }
+
+    public void setHireFiscalYear(int hireFiscalYear) {
+        this.hireFiscalYear = hireFiscalYear;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
+    }
+
+    public Collection<BelongTo> getBelongTo() {
+        return belongTo;
+    }
+
+    public void setBelongTo(Collection<BelongTo> belongTo) {
+        this.belongTo = belongTo;
+    }
+
+    public Collection<Salary> getSalary() {
         return salary;
     }
 
-    public Employee getManager() {
-        return manager;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Collection<Phone> getPhones() {
-        return phones;
-    }
-
-    public Department getDepartment() {
-        return department;
+    public void setSalary(Collection<Salary> salary) {
+        this.salary = salary;
     }
 
     @Override

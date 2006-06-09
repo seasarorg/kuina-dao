@@ -15,28 +15,36 @@
  */
 package org.seasar.kuina.dao;
 
-import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * 
  * @author koichik
  */
 @Entity
-public class Department {
+public class Sale {
 
     @Id
     private int id;
 
-    private String name;
+    private int quantity;
 
-    @OneToMany(mappedBy = "department")
-    private Collection<BelongTo> belongTo;
+    @ManyToOne
+    private Customer customer;
 
-    public Department() {
+    @ManyToOne
+    private Product product;
+
+    @ManyToOne
+    private Employee employee;
+
+    private Date saleDate;
+
+    public Sale() {
     }
 
     public int getId() {
@@ -47,27 +55,51 @@ public class Department {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public Collection<BelongTo> getBelongTo() {
-        return belongTo;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setBelongTo(Collection<BelongTo> belongTo) {
-        this.belongTo = belongTo;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Date getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(Date saleDate) {
+        this.saleDate = saleDate;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Department))
+        if (!(other instanceof Sale))
             return false;
-        Department castOther = (Department) other;
+        Sale castOther = (Sale) other;
         return this.id == castOther.id;
     }
 
@@ -75,4 +107,5 @@ public class Department {
     public int hashCode() {
         return this.id;
     }
+
 }

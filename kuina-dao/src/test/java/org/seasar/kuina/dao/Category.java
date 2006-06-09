@@ -15,32 +15,59 @@
  */
 package org.seasar.kuina.dao;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 /**
  * 
  * @author koichik
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Project {
+public class Category {
 
     @Id
-    int id;
+    private int id;
 
-    String name;
+    private String name;
 
-    public Project() {
+    @OneToMany(mappedBy = "category")
+    private Collection<Product> products;
+
+    public Category() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Collection<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Collection<Product> products) {
+        this.products = products;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Project))
+        if (!(other instanceof Category))
             return false;
-        Project castOther = (Project) other;
+        Category castOther = (Category) other;
         return this.id == castOther.id;
     }
 

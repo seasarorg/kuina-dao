@@ -22,12 +22,16 @@ import javax.persistence.EntityManager;
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Department;
 import org.seasar.kuina.dao.Employee;
+import org.seasar.kuina.dao.Product;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.alias;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.between;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.count;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.desc;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.isNull;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.gt;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.join;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.lt;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.max;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.min;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.or;
@@ -51,42 +55,61 @@ public class SelectStatementImplTest extends S2TestCase {
     public void testFromOnlyTx() throws Exception {
         List<Employee> list = select().from(Employee.class).getResultList(em);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("NEW YORK", list.get(0).getName());
-        assertEquals("AMERICANA MANHASSET", list.get(1).getName());
-        assertEquals("BEVERLY HILLS", list.get(2).getName());
+        assertEquals(30, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+        assertEquals("ゴッチン", list.get(1).getName());
+        assertEquals("マキ子", list.get(2).getName());
     }
 
     public void testSelectTx() throws Exception {
         List<Department> list = select("department").from(Department.class)
                 .getResultList(em);
         assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("Tiffany", list.get(0).getName());
+        assertEquals(6, list.size());
+        assertEquals("営業", list.get(0).getName());
+        assertEquals("総務", list.get(1).getName());
+        assertEquals("人事", list.get(2).getName());
+        assertEquals("経理", list.get(3).getName());
+        assertEquals("販売", list.get(4).getName());
+        assertEquals("購買", list.get(5).getName());
     }
 
     public void testSelectListTx() throws Exception {
         List<Object[]> list = select("d.id", "d.name").from(Department.class,
                 "d").getResultList(em);
         assertNotNull(list);
-        assertEquals(1, list.size());
+        assertEquals(6, list.size());
         assertEquals(new Integer(1), list.get(0)[0]);
-        assertEquals("Tiffany", list.get(0)[1]);
+        assertEquals("営業", list.get(0)[1]);
+        assertEquals(new Integer(2), list.get(1)[0]);
+        assertEquals("総務", list.get(1)[1]);
+        assertEquals(new Integer(3), list.get(2)[0]);
+        assertEquals("人事", list.get(2)[1]);
+        assertEquals(new Integer(4), list.get(3)[0]);
+        assertEquals("経理", list.get(3)[1]);
+        assertEquals(new Integer(5), list.get(4)[0]);
+        assertEquals("販売", list.get(4)[1]);
+        assertEquals(new Integer(6), list.get(5)[0]);
+        assertEquals("購買", list.get(5)[1]);
     }
 
     public void testCrossJoinTx() throws Exception {
-        List<Object[]> list = select().from(Department.class, Employee.class)
+        List<Object[]> list = select().from(Employee.class, Department.class)
                 .getResultList(em);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("Tiffany", Department.class.cast(list.get(0)[0]).getName());
-        assertEquals("NEW YORK", Employee.class.cast(list.get(0)[1]).getName());
-        assertEquals("Tiffany", Department.class.cast(list.get(1)[0]).getName());
-        assertEquals("AMERICANA MANHASSET", Employee.class.cast(list.get(1)[1])
-                .getName());
-        assertEquals("Tiffany", Department.class.cast(list.get(2)[0]).getName());
-        assertEquals("BEVERLY HILLS", Employee.class.cast(list.get(2)[1])
-                .getName());
+        assertEquals(180, list.size());
+        assertEquals("シマゴロー", Employee.class.cast(list.get(0)[0]).getName());
+        assertEquals("営業", Department.class.cast(list.get(0)[1]).getName());
+        assertEquals("シマゴロー", Employee.class.cast(list.get(1)[0]).getName());
+        assertEquals("総務", Department.class.cast(list.get(1)[1]).getName());
+        assertEquals("シマゴロー", Employee.class.cast(list.get(2)[0]).getName());
+        assertEquals("人事", Department.class.cast(list.get(2)[1]).getName());
+        assertEquals("シマゴロー", Employee.class.cast(list.get(3)[0]).getName());
+        assertEquals("経理", Department.class.cast(list.get(3)[1]).getName());
+        assertEquals("シマゴロー", Employee.class.cast(list.get(4)[0]).getName());
+        assertEquals("販売", Department.class.cast(list.get(4)[1]).getName());
+        assertEquals("シマゴロー", Employee.class.cast(list.get(5)[0]).getName());
+        assertEquals("購買", Department.class.cast(list.get(5)[1]).getName());
     }
 
     public void testSelectDestinctAndCrossJoinWithAliasTx() throws Exception {
@@ -94,80 +117,94 @@ public class SelectStatementImplTest extends S2TestCase {
                 alias(Department.class, "d"), alias(Employee.class, "e"))
                 .getResultList(em);
         assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("Tiffany", list.get(0).getName());
+        assertEquals(6, list.size());
+        assertEquals("営業", list.get(0).getName());
+        assertEquals("総務", list.get(1).getName());
+        assertEquals("人事", list.get(2).getName());
+        assertEquals("経理", list.get(3).getName());
+        assertEquals("販売", list.get(4).getName());
+        assertEquals("購買", list.get(5).getName());
     }
 
     public void testInnerJoinTx() throws Exception {
         List<Employee> list = select().from(
-                join(Employee.class).inner("employee.manager")).getResultList(
-                em);
+                join(Employee.class).inner("employee.belongTo").inner(
+                        "belongTo.department")).getResultList(em);
         assertNotNull(list);
-        assertEquals(2, list.size());
-        assertEquals("AMERICANA MANHASSET", list.get(0).getName());
-        assertNotNull(list.get(0).getManager());
-        assertEquals("BEVERLY HILLS", list.get(1).getName());
-        assertNotNull(list.get(1).getManager());
+        assertEquals(34, list.size());
+        Employee employee = list.get(0);
+        assertEquals("シマゴロー", employee.getName());
+        assertEquals(1, employee.getBelongTo().size());
+        assertEquals("総務", employee.getBelongTo().iterator().next()
+                .getDepartment().getName());
+        employee = list.get(2);
+        assertEquals("マキ子", employee.getName());
+        assertEquals(2, employee.getBelongTo().size());
     }
 
     public void testLeftOuterJoinTx() throws Exception {
-        List<Employee> list = select().from(
-                join(Employee.class, "e").left("e.manager")).getResultList(em);
+        List<Product> list = selectDistinct().from(
+                join(Product.class, "p").leftFetch("p.sales"))
+                .getResultList(em);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("NEW YORK", list.get(0).getName());
-        assertNull(list.get(0).getManager());
-        assertEquals("AMERICANA MANHASSET", list.get(1).getName());
-        assertNotNull(list.get(1).getManager());
-        assertEquals("BEVERLY HILLS", list.get(2).getName());
-        assertNotNull(list.get(2).getManager());
+        assertEquals(50, list.size());
+        Product p = list.get(0);
+        assertEquals("まぐろ", p.getName());
+        assertEquals(14, p.getSales().size());
+        p = list.get(44);
+        assertEquals("フリスビー", p.getName());
+        assertEquals(0, p.getSales().size());
     }
 
     public void testWhereSingleConditionTx() throws Exception {
         List<Employee> list = select().from(Employee.class).where(
-                eq("employee.name", "NEW YORK")).getResultList(em);
+                eq("employee.bloodType", "AB")).getResultList(em);
         assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("NEW YORK", list.get(0).getName());
+        assertEquals(3, list.size());
+        assertEquals("マル", list.get(0).getName());
+        assertEquals("ラスカル", list.get(1).getName());
+        assertEquals("マイケル", list.get(1).getName());
     }
 
     public void testWhereCompoundConditionTx() throws Exception {
-        List<Employee> list = select().from(Employee.class).where(
-                eq("employee.department.name", "Tiffany"),
-                or(eq("employee.id", 1), isNull("employee.id"))).getResultList(
-                em);
+        List<Employee> list = select().from(Employee.class, "e").where(
+                between("e.height", 150, 170),
+                or(lt("e.weight", 45), gt("e.weight", 70))).getResultList(em);
         assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("NEW YORK", list.get(0).getName());
-        assertEquals("Tiffany", list.get(0).getDepartment().getName());
+        assertEquals(4, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+        assertEquals("みなみ", list.get(1).getName());
+        assertEquals("マー", list.get(2).getName());
+        assertEquals("うさぎ", list.get(3).getName());
     }
 
     public void testAggregateFunctionTx() throws Exception {
-        List<Object[]> list = select(max("e.salary"), min("e.salary")).from(
-                Employee.class, "e").getResultList(em);
+        List<Object[]> list = select(count("e"), max("e.height"),
+                min("e.weight")).from(Employee.class, "e").getResultList(em);
         assertNotNull(list);
         assertEquals(1, list.size());
-        assertEquals(new Integer(5000000), list.get(0)[0]);
-        assertEquals(new Integer(3000000), list.get(0)[1]);
+        assertEquals(new Long(30), list.get(0)[0]);
+        assertEquals(new Integer(190), list.get(0)[1]);
+        assertEquals(new Integer(38), list.get(0)[2]);
     }
 
     public void testOrderbyTx() throws Exception {
         List<Employee> list = select().from(Employee.class, "e").orderby(
-                "e.salary").getResultList(em);
+                "e.birthday").getResultList(em);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("BEVERLY HILLS", list.get(0).getName());
-        assertEquals("AMERICANA MANHASSET", list.get(1).getName());
-        assertEquals("NEW YORK", list.get(2).getName());
+        assertEquals(30, list.size());
+        assertEquals("ゴッチン", list.get(0).getName());
+        assertEquals("マル", list.get(1).getName());
+        assertEquals("シマゴロー", list.get(2).getName());
     }
 
     public void testOrderbyDescTx() throws Exception {
         List<Employee> list = select().from(Employee.class, "e").orderby(
-                desc("e.salary")).getResultList(em);
+                desc("e.birthday")).getResultList(em);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("NEW YORK", list.get(0).getName());
-        assertEquals("AMERICANA MANHASSET", list.get(1).getName());
-        assertEquals("BEVERLY HILLS", list.get(2).getName());
+        assertEquals(30, list.size());
+        assertEquals("ミーヤ", list.get(0).getName());
+        assertEquals("スー", list.get(1).getName());
+        assertEquals("マイケル", list.get(2).getName());
     }
 }

@@ -15,28 +15,33 @@
  */
 package org.seasar.kuina.dao;
 
-import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * 
  * @author koichik
  */
 @Entity
-public class Department {
+public class BelongTo {
 
     @Id
     private int id;
 
-    private String name;
+    @ManyToOne
+    private Employee employee;
 
-    @OneToMany(mappedBy = "department")
-    private Collection<BelongTo> belongTo;
+    @ManyToOne
+    private Department department;
 
-    public Department() {
+    private Date startDate;
+
+    private Date endDate;
+
+    public BelongTo() {
     }
 
     public int getId() {
@@ -47,27 +52,43 @@ public class Department {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public Collection<BelongTo> getBelongTo() {
-        return belongTo;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setBelongTo(Collection<BelongTo> belongTo) {
-        this.belongTo = belongTo;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Department))
+        if (!(other instanceof BelongTo))
             return false;
-        Department castOther = (Department) other;
+        BelongTo castOther = (BelongTo) other;
         return this.id == castOther.id;
     }
 
@@ -75,4 +96,5 @@ public class Department {
     public int hashCode() {
         return this.id;
     }
+
 }

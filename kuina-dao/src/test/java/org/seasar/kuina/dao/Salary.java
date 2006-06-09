@@ -15,35 +15,59 @@
  */
 package org.seasar.kuina.dao;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * 
  * @author koichik
  */
 @Entity
-public class Address {
+public class Salary {
 
     @Id
-    int id;
+    private int id;
 
-    String street;
+    private Date payDate;
 
-    String city;
+    @ManyToOne
+    private Employee employee;
 
-    String state;
+    public Salary() {
+    }
 
-    String zip;
+    public int getId() {
+        return id;
+    }
 
-    public Address() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDate(Date payDate) {
+        this.payDate = payDate;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Address))
+        if (!(other instanceof Salary))
             return false;
-        Address castOther = (Address) other;
+        Salary castOther = (Salary) other;
         return this.id == castOther.id;
     }
 

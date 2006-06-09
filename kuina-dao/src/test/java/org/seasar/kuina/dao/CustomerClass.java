@@ -15,35 +15,59 @@
  */
 package org.seasar.kuina.dao;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * 
  * @author koichik
  */
 @Entity
-public class Phone {
+public class CustomerClass {
 
     @Id
-    int id;
+    private int id;
 
-    String number;
+    private String name;
 
-    String type;
+    @OneToMany(mappedBy = "customerClass")
+    private Collection<Customer> customers;
 
-    @ManyToOne
-    Employee employee;
+    public CustomerClass() {
+    }
 
-    public Phone() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Collection<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Collection<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Phone))
+        if (!(other instanceof CustomerClass))
             return false;
-        Phone castOther = (Phone) other;
+        CustomerClass castOther = (CustomerClass) other;
         return this.id == castOther.id;
     }
 

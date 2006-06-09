@@ -26,17 +26,17 @@ import javax.persistence.OneToMany;
  * @author koichik
  */
 @Entity
-public class Department {
+public class Prefectural {
 
     @Id
     private int id;
 
     private String name;
 
-    @OneToMany(mappedBy = "department")
-    private Collection<BelongTo> belongTo;
+    @OneToMany(mappedBy = "prefectural")
+    private Collection<Customer> customers;
 
-    public Department() {
+    public Prefectural() {
     }
 
     public int getId() {
@@ -55,19 +55,19 @@ public class Department {
         this.name = name;
     }
 
-    public Collection<BelongTo> getBelongTo() {
-        return belongTo;
+    public Collection<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setBelongTo(Collection<BelongTo> belongTo) {
-        this.belongTo = belongTo;
+    public void setCustomers(Collection<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Department))
+        if (!(other instanceof Prefectural))
             return false;
-        Department castOther = (Department) other;
+        Prefectural castOther = (Prefectural) other;
         return this.id == castOther.id;
     }
 

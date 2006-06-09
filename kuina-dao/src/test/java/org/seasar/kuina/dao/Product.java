@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -26,17 +27,24 @@ import javax.persistence.OneToMany;
  * @author koichik
  */
 @Entity
-public class Department {
+public class Product {
 
     @Id
     private int id;
 
+    private String code;
+
     private String name;
 
-    @OneToMany(mappedBy = "department")
-    private Collection<BelongTo> belongTo;
+    private int price;
 
-    public Department() {
+    @ManyToOne
+    private Category category;
+
+    @OneToMany(mappedBy = "product")
+    private Collection<Sale> sales;
+
+    public Product() {
     }
 
     public int getId() {
@@ -47,6 +55,14 @@ public class Department {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }
@@ -55,19 +71,35 @@ public class Department {
         this.name = name;
     }
 
-    public Collection<BelongTo> getBelongTo() {
-        return belongTo;
+    public int getPrice() {
+        return price;
     }
 
-    public void setBelongTo(Collection<BelongTo> belongTo) {
-        this.belongTo = belongTo;
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Collection<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(Collection<Sale> sales) {
+        this.sales = sales;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Department))
+        if (!(other instanceof Product))
             return false;
-        Department castOther = (Department) other;
+        Product castOther = (Product) other;
         return this.id == castOther.id;
     }
 
