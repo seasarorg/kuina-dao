@@ -13,23 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.operator;
+package org.seasar.kuina.dao.criteria;
 
-import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
+import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 
 /**
  * 
  * @author koichik
  */
-public class BinaryPlus extends AbstractBinaryOperator implements
-        SimpleArithmeticExpression {
+public interface IdentificationVarialbleVisitor {
 
-    /**
-     * インスタンスを構築します。
-     */
-    public BinaryPlus(final SimpleArithmeticExpression lhs,
-            final SimpleArithmeticExpression rhs) {
-        super(" + ", lhs, rhs);
-    }
+    void identificationVariable(IdentificationVariable identificationVariable);
 
 }

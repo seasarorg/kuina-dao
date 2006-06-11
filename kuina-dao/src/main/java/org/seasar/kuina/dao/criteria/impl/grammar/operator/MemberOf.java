@@ -13,17 +13,24 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.grammar;
+package org.seasar.kuina.dao.criteria.impl.grammar.operator;
 
-import org.seasar.kuina.dao.criteria.Criterion;
-import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
+import org.seasar.kuina.dao.criteria.grammar.CollectionMemberExpression;
+import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
  * 
  * @author koichik
  */
-public interface RangeVarialbeDeclaration extends Criterion {
+public class MemberOf extends AbstractBinaryOperator implements
+        CollectionMemberExpression {
 
-    void accept(IdentificationVarialbleVisitor visitor);
+    /**
+     * インスタンスを構築します。
+     */
+    public MemberOf(final EntityExpression lhs, final PathExpression rhs) {
+        super(" MEMBER OF ", lhs, rhs);
+    }
 
 }

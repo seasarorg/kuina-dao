@@ -17,24 +17,28 @@ package org.seasar.kuina.dao.criteria.impl.grammar.clause;
 
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
-import org.seasar.kuina.dao.criteria.grammar.WhereClause;
+import org.seasar.kuina.dao.criteria.grammar.HavingClause;
 import org.seasar.kuina.dao.criteria.impl.grammar.conditional.And;
 
 /**
  * 
  * @author koichik
  */
-public class WhereClauseImpl implements WhereClause {
+public class HavingClauseImpl implements HavingClause {
+
     protected ConditionalExpression conditionalExpression;
 
-    public WhereClauseImpl() {
+    /**
+     * インスタンスを構築します。
+     */
+    public HavingClauseImpl() {
     }
 
-    public WhereClauseImpl(final ConditionalExpression... expressions) {
+    public HavingClauseImpl(final ConditionalExpression... expressions) {
         and(expressions);
     }
 
-    public WhereClause and(final ConditionalExpression... expressions) {
+    public HavingClause and(final ConditionalExpression... expressions) {
         if (conditionalExpression == null && expressions.length == 1) {
             conditionalExpression = expressions[0];
         } else if (conditionalExpression instanceof And) {
@@ -46,15 +50,12 @@ public class WhereClauseImpl implements WhereClause {
         return this;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         if (conditionalExpression == null) {
             return;
         }
 
-        context.append(" WHERE ");
+        context.append(" HAVING ");
         conditionalExpression.evaluate(context);
     }
 

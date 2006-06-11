@@ -18,6 +18,7 @@ package org.seasar.kuina.dao;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -33,7 +34,7 @@ public class Salary {
 
     private Date payDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
     public Salary() {

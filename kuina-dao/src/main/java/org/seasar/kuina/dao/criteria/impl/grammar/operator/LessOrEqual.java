@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.AllOrAnyExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.ComparisonExpression;
 import org.seasar.kuina.dao.criteria.grammar.DatetimeExpression;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
@@ -31,6 +32,10 @@ public class LessOrEqual extends AbstractBinaryOperator implements
     /**
      * インスタンスを構築します。
      */
+    public LessOrEqual(final PathExpression lhs, final PathExpression rhs) {
+        super(" <= ", lhs, rhs);
+    }
+
     public LessOrEqual(final StringExpression lhs, final StringExpression rhs) {
         super(" <= ", lhs, rhs);
     }

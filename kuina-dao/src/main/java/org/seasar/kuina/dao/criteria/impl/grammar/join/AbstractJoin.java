@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.clause;
+package org.seasar.kuina.dao.criteria.impl.grammar.join;
 
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
@@ -43,6 +43,14 @@ public abstract class AbstractJoin implements JoinOrFetchJoin {
         this.joinSpec = joinSpec;
         this.associationPathSpec = associationPathSpec;
         this.identificationVariable = identificationVariable;
+    }
+
+    public IdentificationVariable getIdentificationVariable() {
+        return identificationVariable;
+    }
+
+    public PathExpression getAssociationPathSpec() {
+        return associationPathSpec;
     }
 
     /**

@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.criteria.grammar;
 
 import org.seasar.kuina.dao.criteria.Criterion;
+import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
  * 
@@ -27,11 +28,15 @@ public interface FromClause extends Criterion {
 
     FromClause add(CollectionMemberDeclaration... declarations);
 
+    boolean isEmpty();
+
     int size();
 
     IdentificationVariableDeclaration getIdentificationVariableDeclaration(
             int index);
 
     IdentificationVariable getIdentificationVariable(int index);
+
+    void accept(IdentificationVarialbleVisitor visitor);
 
 }

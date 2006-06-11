@@ -23,4 +23,5 @@ import org.seasar.kuina.dao.criteria.Criterion;
  */
 public interface InExpression extends Criterion, SimpleCondExpression {
 
+    InExpression add(InItem... inItem);
 }

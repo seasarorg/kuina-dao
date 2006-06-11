@@ -13,50 +13,55 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.function;
+package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
 import java.util.List;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
-import org.seasar.kuina.dao.criteria.Criterion;
+import org.seasar.kuina.dao.criteria.grammar.InExpression;
+import org.seasar.kuina.dao.criteria.grammar.InItem;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
  * 
  * @author koichik
  */
-public class AbstractFunction {
-    protected final String functor;
+public abstract class AbstractInExpression implements InExpression {
 
-    protected final List<Criterion> arguments = CollectionsUtil.newArrayList();
+    protected final String operator;
 
-    /**
-     * インスタンスを構築します。
-     */
-    public AbstractFunction(final String functor) {
-        this.functor = functor;
+    protected final PathExpression pathExpression;
+
+    protected final List<InItem> inItems = CollectionsUtil.newArrayList();
+
+    public AbstractInExpression(final String operator,
+            final PathExpression pathExpression, final InItem... inItems) {
+        this.operator = operator;
+        this.pathExpression = pathExpression;
+        add(inItems);
     }
 
-    /**
-     * インスタンスを構築します。
-     */
-    public AbstractFunction(final String functor, final Criterion... arguments) {
-        this.functor = functor;
-        for (final Criterion argument : arguments) {
-            this.arguments.add(argument);
+    public InExpression add(final InItem... inItems) {
+        for (final InItem inItem : inItems) {
+            this.inItems.add(inItem);
         }
+        return this;
     }
 
     /**
      * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
      */
     public void evaluate(final CriteriaContext context) {
-        context.append(functor).append("(");
-        for (final Criterion argument : arguments) {
-            argument.evaluate(context);
+        pathExpression.evaluate(context);
+        context.append(operator).append("(");
+        for (final InItem inItem : inItems) {
+            inItem.evaluate(context);
             context.append(", ");
         }
         context.cutBack(2);
         context.append(")");
+
     }
+
 }

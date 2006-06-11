@@ -45,13 +45,6 @@ public class OrderbyClauseImpl implements OrderbyClause {
     }
 
     /**
-     * @see org.seasar.kuina.dao.criteria.grammar.OrderbyClause#size()
-     */
-    public int size() {
-        return orderbyItems.size();
-    }
-
-    /**
      * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
      */
     public void evaluate(CriteriaContext context) {
@@ -62,7 +55,9 @@ public class OrderbyClauseImpl implements OrderbyClause {
         context.append(" ORDER BY ");
         for (final Criterion orderbyItem : orderbyItems) {
             orderbyItem.evaluate(context);
+            context.append(", ");
         }
+        context.cutBack(2);
     }
 
 }

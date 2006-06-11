@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.criteria.impl.grammar.operator;
 
 import org.seasar.kuina.dao.criteria.grammar.EmptyCollectionComparisonExpression;
+import org.seasar.kuina.dao.criteria.grammar.InputParameter;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
@@ -29,6 +30,13 @@ public class IsEmpty extends AbstractUnaryPostfixOperator implements
      * インスタンスを構築します。
      */
     public IsEmpty(final PathExpression operand) {
+        super(" IS EMPTY", operand);
+    }
+
+    /**
+     * インスタンスを構築します。
+     */
+    public IsEmpty(final InputParameter operand) {
         super(" IS EMPTY", operand);
     }
 

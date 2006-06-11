@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.operator;
 
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.DatetimeExpression;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
@@ -26,6 +27,14 @@ import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 public class Between extends AbstractBetween {
 
     protected static final String OPERATOR = " BETWEEN ";
+
+    /**
+     * インスタンスを構築します。
+     */
+    public Between(final PathExpression operand, final PathExpression from,
+            final PathExpression to) {
+        super(OPERATOR, operand, from, to);
+    }
 
     /**
      * インスタンスを構築します。

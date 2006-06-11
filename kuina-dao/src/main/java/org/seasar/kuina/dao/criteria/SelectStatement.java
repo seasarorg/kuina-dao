@@ -20,6 +20,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
+import org.seasar.kuina.dao.criteria.grammar.GroupbyItem;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.grammar.OrderbyItem;
 import org.seasar.kuina.dao.criteria.grammar.SelectExpression;
@@ -35,21 +36,27 @@ public interface SelectStatement extends Criteria {
 
     SelectStatement select(Object... selectExpression);
 
-    SelectStatement from(Class<?> entityClass);
-
     SelectStatement from(Class<?>... entityClasses);
 
     SelectStatement from(Class<?> entityClass, String alias);
 
     SelectStatement from(IdentificationVariableDeclaration... declarations);
 
-    SelectStatement where(ConditionalExpression conditionalExpression);
-
     SelectStatement where(ConditionalExpression... conditionalExpressions);
+
+    SelectStatement groupby(String... groupbyItems);
+
+    SelectStatement groupby(GroupbyItem... groupbyItems);
+
+    SelectStatement having(ConditionalExpression... conditionalExpressions);
 
     SelectStatement orderby(String... orderbyItems);
 
     SelectStatement orderby(OrderbyItem... orderbyItems);
+
+    SelectStatement setFirstResult(int startPosition);
+
+    SelectStatement setMaxResult(int maxResult);
 
     <T> List<T> getResultList(EntityManager em);
 

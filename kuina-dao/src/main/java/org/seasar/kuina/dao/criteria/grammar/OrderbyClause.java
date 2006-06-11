@@ -25,6 +25,4 @@ public interface OrderbyClause extends Criterion {
 
     OrderbyClause add(OrderbyItem... orderbyItems);
 
-    int size();
-
 }

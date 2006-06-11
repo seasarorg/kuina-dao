@@ -21,5 +21,5 @@ import org.seasar.kuina.dao.criteria.Criterion;
  * 
  * @author koichik
  */
-public interface StringLiteral extends Criterion, StringPrimary {
+public interface StringLiteral extends Criterion, Literal, StringPrimary {
 }

@@ -23,5 +23,6 @@ import org.seasar.kuina.dao.criteria.Criterion;
  */
 public interface PathExpression extends Criterion, SelectExpression,
         GroupbyItem, OrderbyItem, SimpleSelectExpression, ArithmeticPrimary,
-        StringPrimary, DatetimePrimary, BooleanPrimary, EntityExpression {
+        StringPrimary, DatetimePrimary, BooleanPrimary, EnumExpression,
+        EntityExpression {
 }

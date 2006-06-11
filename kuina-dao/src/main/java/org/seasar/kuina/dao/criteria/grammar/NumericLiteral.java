@@ -21,6 +21,6 @@ import org.seasar.kuina.dao.criteria.Criterion;
  * 
  * @author koichik
  */
-public interface NumericLiteral extends Criterion, ArithmeticPrimary {
+public interface NumericLiteral extends Criterion, Literal, ArithmeticPrimary {
 
 }

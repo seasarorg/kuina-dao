@@ -13,50 +13,51 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.function;
+package org.seasar.kuina.dao.criteria.impl.grammar.clause;
 
 import java.util.List;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
+import org.seasar.kuina.dao.criteria.grammar.GroupbyClause;
+import org.seasar.kuina.dao.criteria.grammar.GroupbyItem;
 
 /**
  * 
  * @author koichik
  */
-public class AbstractFunction {
-    protected final String functor;
+public class GroupbyClauseImpl implements GroupbyClause {
+    protected List<Criterion> groupbyItems = CollectionsUtil.newArrayList();
 
-    protected final List<Criterion> arguments = CollectionsUtil.newArrayList();
-
-    /**
-     * インスタンスを構築します。
-     */
-    public AbstractFunction(final String functor) {
-        this.functor = functor;
+    public GroupbyClauseImpl(final GroupbyItem... groupbyItems) {
+        add(groupbyItems);
     }
 
     /**
-     * インスタンスを構築します。
+     * @see org.seasar.kuina.dao.criteria.grammar.OrderbyClause#add(org.seasar.kuina.dao.criteria.grammar.OrderbyItem...)
      */
-    public AbstractFunction(final String functor, final Criterion... arguments) {
-        this.functor = functor;
-        for (final Criterion argument : arguments) {
-            this.arguments.add(argument);
+    public GroupbyClause add(final GroupbyItem... groupbyItems) {
+        for (final GroupbyItem item : groupbyItems) {
+            this.groupbyItems.add(item);
         }
+        return this;
     }
 
     /**
      * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
      */
-    public void evaluate(final CriteriaContext context) {
-        context.append(functor).append("(");
-        for (final Criterion argument : arguments) {
-            argument.evaluate(context);
+    public void evaluate(CriteriaContext context) {
+        if (groupbyItems.isEmpty()) {
+            return;
+        }
+
+        context.append(" GROUP BY ");
+        for (final Criterion groupbyItem : groupbyItems) {
+            groupbyItem.evaluate(context);
             context.append(", ");
         }
         context.cutBack(2);
-        context.append(")");
     }
+
 }

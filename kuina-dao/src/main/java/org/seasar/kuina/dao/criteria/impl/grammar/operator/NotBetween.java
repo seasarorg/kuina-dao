@@ -15,7 +15,6 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.operator;
 
-import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.DatetimeExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
@@ -32,7 +31,7 @@ public class NotBetween extends AbstractBetween {
      * インスタンスを構築します。
      */
     public NotBetween(final ArithmeticExpression operand,
-            final ArithmeticExpression from, final Criterion to) {
+            final ArithmeticExpression from, final ArithmeticExpression to) {
         super(OPERATOR, operand, from, to);
     }
 

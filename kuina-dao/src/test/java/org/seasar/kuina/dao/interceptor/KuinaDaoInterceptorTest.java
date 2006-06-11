@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.interceptor;
 
+import javax.persistence.EntityManager;
 import javax.transaction.TransactionManager;
 
 import org.seasar.extension.unit.S2TestCase;
@@ -27,6 +28,8 @@ import org.seasar.kuina.dao.Employee;
 public class KuinaDaoInterceptorTest extends S2TestCase {
 
     TransactionManager tm;
+
+    EntityManager em;
 
     TestDao dao;
 
@@ -53,16 +56,13 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("シマゴロー", emp.getName());
     }
 
-    public void testMerge() throws Exception {
-        tm.begin();
+    public void testMergeTx() throws Exception {
         Employee emp = dao.get(1);
         assertEquals("シマゴロー", emp.getName());
-        tm.rollback();
+        em.clear();
 
-        tm.begin();
         Employee emp2 = dao.merge(emp);
         assertEquals("シマゴロー", emp2.getName());
-        tm.rollback();
     }
 
     public void testPersistTx() throws Exception {

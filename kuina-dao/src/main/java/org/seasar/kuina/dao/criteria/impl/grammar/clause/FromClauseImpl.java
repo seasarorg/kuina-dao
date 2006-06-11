@@ -20,6 +20,7 @@ import java.util.List;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
+import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 import org.seasar.kuina.dao.criteria.grammar.CollectionMemberDeclaration;
 import org.seasar.kuina.dao.criteria.grammar.FromClause;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
@@ -32,38 +33,26 @@ import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 public class FromClauseImpl implements FromClause {
     protected List<Criterion> declarations = CollectionsUtil.newArrayList();
 
-    /**
-     * インスタンスを構築します。
-     */
-    public FromClauseImpl(final IdentificationVariableDeclaration declaration) {
-        declarations.add(declaration);
-    }
-
-    public FromClauseImpl(final IdentificationVariableDeclaration declaration,
-            final IdentificationVariableDeclaration... declarations) {
-        this.declarations.add(declaration);
-        add(declarations);
-    }
-
-    public FromClauseImpl(final IdentificationVariableDeclaration declaration,
-            final CollectionMemberDeclaration... declarations) {
-        this.declarations.add(declaration);
-        add(declarations);
+    public FromClause add(
+            final IdentificationVariableDeclaration... identificationVariableDeclarations) {
+        for (final IdentificationVariableDeclaration declaration : identificationVariableDeclarations) {
+            this.declarations.add(declaration);
+        }
+        return this;
     }
 
     public FromClause add(
-            final IdentificationVariableDeclaration... declarations) {
-        for (final IdentificationVariableDeclaration declaration : declarations) {
+            final CollectionMemberDeclaration... collectionMemberDeclarations) {
+        assert !declarations.isEmpty();
+
+        for (final CollectionMemberDeclaration declaration : collectionMemberDeclarations) {
             this.declarations.add(declaration);
         }
         return this;
     }
 
-    public FromClause add(final CollectionMemberDeclaration... declarations) {
-        for (final CollectionMemberDeclaration declaration : declarations) {
-            this.declarations.add(declaration);
-        }
-        return this;
+    public boolean isEmpty() {
+        return declarations.isEmpty();
     }
 
     public int size() {
@@ -81,10 +70,24 @@ public class FromClauseImpl implements FromClause {
                 .getIdentificationVariable();
     }
 
+    public void accept(final IdentificationVarialbleVisitor visitor) {
+        for (final Criterion declaration : declarations) {
+            if (declaration instanceof IdentificationVariableDeclaration) {
+                IdentificationVariableDeclaration.class.cast(declaration)
+                        .accept(visitor);
+            } else {
+                CollectionMemberDeclaration.class.cast(declaration).accept(
+                        visitor);
+            }
+        }
+    }
+
     /**
      * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
      */
     public void evaluate(final CriteriaContext context) {
+        assert !declarations.isEmpty();
+
         context.append(" FROM ");
         for (final Criterion criterion : declarations) {
             criterion.evaluate(context);

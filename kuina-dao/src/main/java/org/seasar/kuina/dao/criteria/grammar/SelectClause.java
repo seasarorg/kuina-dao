@@ -23,6 +23,8 @@ import org.seasar.kuina.dao.criteria.Criterion;
  */
 public interface SelectClause extends Criterion {
 
+    SelectClause setDistinct(boolean distinct);
+
     SelectClause add(SelectExpression... selectExpressions);
 
     boolean isEmpty();

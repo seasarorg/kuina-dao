@@ -13,17 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.grammar;
+package org.seasar.kuina.dao.criteria.impl.grammar.join;
 
-import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
+import org.seasar.kuina.dao.criteria.grammar.FetchJoin;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
  * 
  * @author koichik
  */
-public interface RangeVarialbeDeclaration extends Criterion {
+public class InnerFetchJoin extends AbstractJoin implements FetchJoin {
 
-    void accept(IdentificationVarialbleVisitor visitor);
+    public InnerFetchJoin(final PathExpression associationPathSpec) {
+        super(" INNER JOIN FETCH ", associationPathSpec);
+    }
+
+    public void accept(final IdentificationVarialbleVisitor visitor) {
+    }
 
 }

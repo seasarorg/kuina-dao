@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.AllOrAnyExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.ComparisonExpression;
 import org.seasar.kuina.dao.criteria.grammar.DatetimeExpression;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
@@ -31,6 +32,10 @@ public class GreaterThan extends AbstractBinaryOperator implements
     /**
      * インスタンスを構築します。
      */
+    public GreaterThan(final PathExpression lhs, final PathExpression rhs) {
+        super(" > ", lhs, rhs);
+    }
+
     public GreaterThan(final StringExpression lhs, final StringExpression rhs) {
         super(" > ", lhs, rhs);
     }

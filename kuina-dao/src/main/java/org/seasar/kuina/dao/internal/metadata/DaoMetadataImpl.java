@@ -67,6 +67,9 @@ public class DaoMetadataImpl implements DaoMetadata {
     protected void setupCommands(final DaoMetadataFactoryImpl factory) {
         for (final String methodName : beanDesc.getMethodNames()) {
             for (final Method method : beanDesc.getMethods(methodName)) {
+                if (method.isBridge()) {
+                    continue;
+                }
                 final Command command = factory.createCommand(daoClass, method);
                 assert command != null;
                 commands.put(methodName, command);

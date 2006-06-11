@@ -13,23 +13,30 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.operator;
+package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
-import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
+import org.seasar.kuina.dao.criteria.CriteriaContext;
+import org.seasar.kuina.dao.criteria.grammar.EnumLiteral;
 
 /**
  * 
  * @author koichik
  */
-public class BinaryMinus extends AbstractBinaryOperator implements
-        SimpleArithmeticExpression {
+public class EnumLiteralImpl implements EnumLiteral {
+    protected final Enum literal;
 
     /**
      * インスタンスを構築します。
      */
-    public BinaryMinus(final SimpleArithmeticExpression lhs,
-            final SimpleArithmeticExpression rhs) {
-        super(" - ", lhs, rhs);
+    public EnumLiteralImpl(final Enum literal) {
+        this.literal = literal;
+    }
+
+    /**
+     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
+     */
+    public void evaluate(final CriteriaContext context) {
+        context.append(literal);
     }
 
 }

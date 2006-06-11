@@ -13,13 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.clause;
+package org.seasar.kuina.dao.criteria.impl.grammar.declaration;
 
 import java.util.List;
 
 import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
+import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 import org.seasar.kuina.dao.criteria.grammar.FetchJoin;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
@@ -29,6 +30,10 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.RangeVarialbeDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerFetchJoin;
+import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerJoin;
+import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterFetchJoin;
+import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterJoin;
 import org.seasar.kuina.dao.internal.EntityDesc;
 import org.seasar.kuina.dao.internal.metadata.EntityDescFactory;
 
@@ -158,6 +163,13 @@ public class IdentificationVariableDeclarationImpl implements
 
     public IdentificationVariable getIdentificationVariable() {
         return identificationVariable;
+    }
+
+    public void accept(final IdentificationVarialbleVisitor visitor) {
+        visitor.identificationVariable(identificationVariable);
+        for (final JoinOrFetchJoin join : joins) {
+            join.accept(visitor);
+        }
     }
 
     public void evaluate(final CriteriaContext context) {

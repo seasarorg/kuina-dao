@@ -13,26 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.clause;
+package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
-import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
-import org.seasar.kuina.dao.criteria.grammar.Join;
+import org.seasar.kuina.dao.criteria.grammar.InItem;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
  * 
  * @author koichik
  */
-public class LeftOuterJoin extends AbstractJoin implements Join {
+public class NotInExpressionImpl extends AbstractInExpression {
 
-    public LeftOuterJoin(final PathExpression associationPathSpec) {
-        this(associationPathSpec,
-                getDefaultIdentificationVariable(associationPathSpec));
+    /**
+     * インスタンスを構築します。
+     */
+    public NotInExpressionImpl(final String pathExpression,
+            final InItem... inItems) {
+        this(new PathExpressionImpl(pathExpression), inItems);
     }
 
-    public LeftOuterJoin(final PathExpression associationPathSpec,
-            IdentificationVariable identificationVariable) {
-        super(" LEFT OUTER JOIN ", associationPathSpec, identificationVariable);
+    /**
+     * インスタンスを構築します。
+     */
+    public NotInExpressionImpl(final PathExpression pathExpression,
+            final InItem... inItems) {
+        super(" NOT IN ", pathExpression, inItems);
     }
 
 }

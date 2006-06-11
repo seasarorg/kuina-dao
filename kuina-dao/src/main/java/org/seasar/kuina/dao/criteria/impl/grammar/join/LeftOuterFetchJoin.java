@@ -13,8 +13,9 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.clause;
+package org.seasar.kuina.dao.criteria.impl.grammar.join;
 
+import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 import org.seasar.kuina.dao.criteria.grammar.FetchJoin;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
@@ -22,10 +23,13 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
  * 
  * @author koichik
  */
-public class InnerFetchJoin extends AbstractJoin implements FetchJoin {
+public class LeftOuterFetchJoin extends AbstractJoin implements FetchJoin {
 
-    public InnerFetchJoin(final PathExpression associationPathSpec) {
-        super(" INNER JOIN FETCH ", associationPathSpec);
+    public LeftOuterFetchJoin(final PathExpression associationPathSpec) {
+        super(" LEFT OUTER JOIN FETCH ", associationPathSpec);
+    }
+
+    public void accept(final IdentificationVarialbleVisitor visitor) {
     }
 
 }

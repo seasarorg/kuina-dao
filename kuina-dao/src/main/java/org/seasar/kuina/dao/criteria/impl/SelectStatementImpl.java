@@ -24,9 +24,14 @@ import javax.persistence.Query;
 
 import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
+import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.FromClause;
+import org.seasar.kuina.dao.criteria.grammar.GroupbyClause;
+import org.seasar.kuina.dao.criteria.grammar.GroupbyItem;
+import org.seasar.kuina.dao.criteria.grammar.HavingClause;
+import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.grammar.OrderbyClause;
 import org.seasar.kuina.dao.criteria.grammar.OrderbyItem;
@@ -34,10 +39,12 @@ import org.seasar.kuina.dao.criteria.grammar.SelectClause;
 import org.seasar.kuina.dao.criteria.grammar.SelectExpression;
 import org.seasar.kuina.dao.criteria.grammar.WhereClause;
 import org.seasar.kuina.dao.criteria.impl.grammar.clause.FromClauseImpl;
-import org.seasar.kuina.dao.criteria.impl.grammar.clause.IdentificationVariableDeclarationImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.clause.GroupbyClauseImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.clause.HavingClauseImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.clause.OrderbyClauseImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.clause.SelectClauseImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.clause.WhereClauseImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
 
@@ -49,13 +56,21 @@ public class SelectStatementImpl implements SelectStatement {
     private static final Logger logger = Logger
             .getLogger(SelectStatementImpl.class);
 
-    protected SelectClause selectClause;
+    protected final SelectClause selectClause = new SelectClauseImpl();
 
-    protected FromClause fromClause;
+    protected final FromClause fromClause = new FromClauseImpl();
 
-    protected WhereClause whereClause;
+    protected final WhereClause whereClause = new WhereClauseImpl();
 
-    protected OrderbyClause orderbyClause;
+    protected final GroupbyClause groupbyClause = new GroupbyClauseImpl();
+
+    protected final HavingClause havingClause = new HavingClauseImpl();
+
+    protected final OrderbyClause orderbyClause = new OrderbyClauseImpl();
+
+    protected Integer firstResult;
+
+    protected Integer maxResult;
 
     /**
      * インスタンスを構築します。
@@ -65,7 +80,7 @@ public class SelectStatementImpl implements SelectStatement {
     }
 
     public SelectStatementImpl(final boolean distinct) {
-        selectClause = new SelectClauseImpl(distinct);
+        selectClause.setDistinct(distinct);
     }
 
     public SelectStatement select(final String selectExpression) {
@@ -93,13 +108,9 @@ public class SelectStatementImpl implements SelectStatement {
 
     public SelectStatement from(final Class<?>... entityClasses) {
         for (final Class<?> entityClass : entityClasses) {
-            from(entityClass);
+            from(new IdentificationVariableDeclarationImpl(entityClass));
         }
         return this;
-    }
-
-    public SelectStatement from(final Class<?> entityClass) {
-        return from(new IdentificationVariableDeclarationImpl(entityClass));
     }
 
     public SelectStatement from(final Class<?> entityClass, final String alias) {
@@ -110,20 +121,7 @@ public class SelectStatementImpl implements SelectStatement {
     public SelectStatement from(
             final IdentificationVariableDeclaration... declarations) {
         for (final IdentificationVariableDeclaration declaration : declarations) {
-            if (fromClause == null) {
-                fromClause = new FromClauseImpl(declaration);
-            } else {
-                fromClause.add(declaration);
-            }
-        }
-        return this;
-    }
-
-    public SelectStatement where(ConditionalExpression conditionalExpression) {
-        if (whereClause == null) {
-            whereClause = new WhereClauseImpl(conditionalExpression);
-        } else {
-            whereClause.and(conditionalExpression);
+            fromClause.add(declaration);
         }
         return this;
     }
@@ -131,7 +129,27 @@ public class SelectStatementImpl implements SelectStatement {
     public SelectStatement where(
             ConditionalExpression... conditionalExpressions) {
         for (final ConditionalExpression expression : conditionalExpressions) {
-            where(expression);
+            whereClause.and(expression);
+        }
+        return this;
+    }
+
+    public SelectStatement groupby(final String... groupbyItems) {
+        for (final String groupbyItem : groupbyItems) {
+            groupby(new PathExpressionImpl(groupbyItem));
+        }
+        return this;
+    }
+
+    public SelectStatement groupby(final GroupbyItem... groupbyItems) {
+        groupbyClause.add(groupbyItems);
+        return this;
+    }
+
+    public SelectStatement having(
+            ConditionalExpression... conditionalExpressions) {
+        for (final ConditionalExpression expression : conditionalExpressions) {
+            havingClause.and(expression);
         }
         return this;
     }
@@ -144,75 +162,70 @@ public class SelectStatementImpl implements SelectStatement {
     }
 
     public SelectStatement orderby(final OrderbyItem... orderbyItems) {
-        if (orderbyClause == null) {
-            orderbyClause = new OrderbyClauseImpl(orderbyItems);
-        } else {
-            orderbyClause.add(orderbyItems);
-        }
+        orderbyClause.add(orderbyItems);
+        return this;
+    }
+
+    public SelectStatement setFirstResult(final int startPosition) {
+        this.firstResult = startPosition;
+        return this;
+    }
+
+    public SelectStatement setMaxResult(final int maxResult) {
+        this.maxResult = maxResult;
         return this;
     }
 
     @SuppressWarnings("unchecked")
     public <T> List<T> getResultList(final EntityManager em) {
-        return createQuery(em).getResultList();
+        return createQuery(em, true).getResultList();
     }
 
     @SuppressWarnings("unchecked")
     public <T> T getSingleResult(final EntityManager em) {
-        return (T) createQuery(em).getSingleResult();
+        return (T) createQuery(em, true).getSingleResult();
     }
 
     public Query getQuery(final EntityManager em) {
-        final CriteriaContext context = new CriteriaContextImpl();
-        evaluate(context);
-        final String queryString = context.getQueryString().trim();
-        logger.debug(queryString);
-        return em.createQuery(queryString);
+        return createQuery(em, false);
     }
 
-    protected Query createQuery(final EntityManager em) {
+    protected Query createQuery(final EntityManager em,
+            final boolean fillParameter) {
         final CriteriaContext context = new CriteriaContextImpl();
         evaluate(context);
         final String queryString = context.getQueryString().trim();
         logger.debug(queryString);
         final Query query = em.createQuery(queryString);
-        context.fillParameters(query);
+        if (firstResult != null) {
+            query.setFirstResult(firstResult);
+        }
+        if (maxResult != null) {
+            query.setMaxResults(maxResult);
+        }
+        if (fillParameter) {
+            context.fillParameters(query);
+        }
         return query;
     }
 
     protected void evaluate(final CriteriaContext context) {
-        evaluateSelectClause(context);
-        evaluateFromClause(context);
-        evaluateWhereClause(context);
-        evaluateOrderbyClause(context);
-    }
+        assert !fromClause.isEmpty();
 
-    protected void evaluateSelectClause(final CriteriaContext context) {
         if (selectClause.isEmpty()) {
-            assert fromClause != null;
-            assert fromClause.size() == 1;
-            for (int i = 0; i < fromClause.size(); ++i) {
-                select(fromClause.getIdentificationVariable(i));
-            }
+            fromClause.accept(new IdentificationVarialbleVisitor() {
+                public void identificationVariable(
+                        final IdentificationVariable identificationVariable) {
+                    select(identificationVariable);
+                }
+            });
         }
         selectClause.evaluate(context);
-    }
-
-    protected void evaluateFromClause(final CriteriaContext context) {
-        assert fromClause != null;
         fromClause.evaluate(context);
-    }
-
-    protected void evaluateWhereClause(final CriteriaContext context) {
-        if (whereClause != null) {
-            whereClause.evaluate(context);
-        }
-    }
-
-    protected void evaluateOrderbyClause(final CriteriaContext context) {
-        if (orderbyClause != null) {
-            orderbyClause.evaluate(context);
-        }
+        whereClause.evaluate(context);
+        groupbyClause.evaluate(context);
+        havingClause.evaluate(context);
+        orderbyClause.evaluate(context);
     }
 
     protected void setupParameters(final Map<String, Object> parameters,

@@ -21,6 +21,7 @@ import org.seasar.kuina.dao.Department;
 import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.impl.CriteriaContextImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
 
 /**
@@ -30,8 +31,8 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVaria
 public class FromClauseImplTest extends TestCase {
 
     public void test1() throws Exception {
-        FromClauseImpl from = new FromClauseImpl(
-                new IdentificationVariableDeclarationImpl(Department.class));
+        FromClauseImpl from = new FromClauseImpl();
+        from.add(new IdentificationVariableDeclarationImpl(Department.class));
         CriteriaContext context = new CriteriaContextImpl();
         from.evaluate(context);
         String jpql = context.getQueryString();
@@ -39,8 +40,8 @@ public class FromClauseImplTest extends TestCase {
     }
 
     public void test2() throws Exception {
-        FromClauseImpl from = new FromClauseImpl(
-                new IdentificationVariableDeclarationImpl(Department.class));
+        FromClauseImpl from = new FromClauseImpl();
+        from.add(new IdentificationVariableDeclarationImpl(Department.class));
         from.add(new IdentificationVariableDeclarationImpl(Employee.class));
         CriteriaContext context = new CriteriaContextImpl();
         from.evaluate(context);
@@ -50,10 +51,10 @@ public class FromClauseImplTest extends TestCase {
     }
 
     public void test4() throws Exception {
-        FromClauseImpl from = new FromClauseImpl(
-                new IdentificationVariableDeclarationImpl(Department.class,
-                        new IdentificationVariableImpl("d")).inner(
-                        "d.employee", "e").leftFetch("d.hogehoge"));
+        FromClauseImpl from = new FromClauseImpl();
+        from.add(new IdentificationVariableDeclarationImpl(Department.class,
+                new IdentificationVariableImpl("d")).inner("d.employee", "e")
+                .leftFetch("d.hogehoge"));
         CriteriaContext context = new CriteriaContextImpl();
         from.evaluate(context);
         String jpql = context.getQueryString();

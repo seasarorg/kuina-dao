@@ -28,7 +28,7 @@ import org.seasar.kuina.dao.criteria.grammar.SelectExpression;
  * @author koichik
  */
 public class SelectClauseImpl implements SelectClause {
-    protected final boolean distinct;
+    protected boolean distinct;
 
     protected final List<Criterion> selectExpressions = CollectionsUtil
             .newArrayList();
@@ -39,6 +39,11 @@ public class SelectClauseImpl implements SelectClause {
 
     public SelectClauseImpl(final boolean distinct) {
         this.distinct = distinct;
+    }
+
+    public SelectClause setDistinct(final boolean distinct) {
+        this.distinct = distinct;
+        return this;
     }
 
     public SelectClause add(final SelectExpression... selectExpressions) {

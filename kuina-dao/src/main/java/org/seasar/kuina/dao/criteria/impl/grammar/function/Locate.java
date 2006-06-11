@@ -30,7 +30,7 @@ public class Locate extends AbstractFunction implements
      * インスタンスを構築します。
      */
     public Locate(final StringPrimary located, final StringPrimary searched) {
-        super("LOCATED", located, searched);
+        super("LOCATE", located, searched);
     }
 
     /**
@@ -38,7 +38,7 @@ public class Locate extends AbstractFunction implements
      */
     public Locate(final StringPrimary located, final StringPrimary searched,
             final SimpleArithmeticExpression start) {
-        super("LOCATED", located, searched, start);
+        super("LOCATE", located, searched, start);
     }
 
 }

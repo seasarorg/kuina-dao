@@ -21,6 +21,6 @@ import org.seasar.kuina.dao.criteria.Criterion;
  * 
  * @author koichik
  */
-public interface EnumLiteral extends Criterion, EnumPrimary {
+public interface EnumLiteral extends Criterion, Literal, EnumPrimary {
 
 }

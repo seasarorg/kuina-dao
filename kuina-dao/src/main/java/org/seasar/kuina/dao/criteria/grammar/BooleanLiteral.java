@@ -21,6 +21,6 @@ import org.seasar.kuina.dao.criteria.Criterion;
  * 
  * @author koichik
  */
-public interface BooleanLiteral extends Criterion, BooleanPrimary {
+public interface BooleanLiteral extends Criterion, Literal, BooleanPrimary {
 
 }

@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.criteria.grammar;
 
 import org.seasar.kuina.dao.criteria.Criterion;
+import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
  * 
@@ -59,5 +60,7 @@ public interface IdentificationVariableDeclaration extends Criterion {
     String getAbstractSchemaName();
 
     IdentificationVariable getIdentificationVariable();
+
+    void accept(IdentificationVarialbleVisitor visitor);
 
 }

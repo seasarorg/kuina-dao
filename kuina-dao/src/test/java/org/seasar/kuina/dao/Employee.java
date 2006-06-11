@@ -49,9 +49,9 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private Collection<BelongTo> belongTo;
 
-    @OneToMany(mappedBy="employee")
+    @OneToMany(mappedBy = "employee")
     private Collection<Salary> salary;
-    
+
     public Employee() {
     }
 

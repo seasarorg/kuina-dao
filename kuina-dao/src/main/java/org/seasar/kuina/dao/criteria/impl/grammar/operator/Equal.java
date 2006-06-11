@@ -22,6 +22,7 @@ import org.seasar.kuina.dao.criteria.grammar.ComparisonExpression;
 import org.seasar.kuina.dao.criteria.grammar.DatetimeExpression;
 import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.EnumExpression;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
@@ -34,6 +35,14 @@ public class Equal extends AbstractBinaryOperator implements
     /**
      * インスタンスを構築します。
      */
+    public Equal(final PathExpression lhs, final PathExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    public Equal(final PathExpression lhs, final AllOrAnyExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
     public Equal(final StringExpression lhs, final StringExpression rhs) {
         super(" = ", lhs, rhs);
     }

@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -35,10 +36,10 @@ public class Customer {
 
     private String address;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Prefectural prefectural;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private CustomerClass customerClass;
 
     public Customer() {

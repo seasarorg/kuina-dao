@@ -13,17 +13,30 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.grammar;
+package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
-import org.seasar.kuina.dao.criteria.Criterion;
-import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
+import org.seasar.kuina.dao.criteria.CriteriaContext;
+import org.seasar.kuina.dao.criteria.grammar.BooleanLiteral;
 
 /**
  * 
  * @author koichik
  */
-public interface RangeVarialbeDeclaration extends Criterion {
+public class BooleanLiteralImpl implements BooleanLiteral {
+    protected final boolean literal;
 
-    void accept(IdentificationVarialbleVisitor visitor);
+    /**
+     * インスタンスを構築します。
+     */
+    public BooleanLiteralImpl(final boolean literal) {
+        this.literal = literal;
+    }
+
+    /**
+     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
+     */
+    public void evaluate(final CriteriaContext context) {
+        context.append(literal);
+    }
 
 }

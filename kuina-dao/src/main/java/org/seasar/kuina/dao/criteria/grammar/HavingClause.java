@@ -13,19 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl.grammar.clause;
+package org.seasar.kuina.dao.criteria.grammar;
 
-import org.seasar.kuina.dao.criteria.grammar.FetchJoin;
-import org.seasar.kuina.dao.criteria.grammar.PathExpression;
+import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
  * 
  * @author koichik
  */
-public class LeftOuterFetchJoin extends AbstractJoin implements FetchJoin {
-
-    public LeftOuterFetchJoin(final PathExpression associationPathSpec) {
-        super(" LEFT OUTER JOIN FETCH ", associationPathSpec);
-    }
-
+public interface HavingClause extends Criterion {
+    HavingClause and(ConditionalExpression... expressions);
 }

@@ -16,11 +16,14 @@
 package org.seasar.kuina.dao.criteria.grammar;
 
 import org.seasar.kuina.dao.criteria.Criterion;
+import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
  * 
  * @author koichik
  */
 public interface JoinOrFetchJoin extends Criterion {
+
+    void accept(IdentificationVarialbleVisitor visitor);
 
 }
