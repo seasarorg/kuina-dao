@@ -30,6 +30,16 @@
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
 				<component class="org.seasar.kuina.dao.internal.builder.PersistCommandBuilder"/>
 			</arg>
 		</initMethod>

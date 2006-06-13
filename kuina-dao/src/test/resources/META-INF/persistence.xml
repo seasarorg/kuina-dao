@@ -2,6 +2,7 @@
 <persistence>
 	<persistence-unit name="S2HibernateJPA" transaction-type="JTA">
 		<jta-data-source>jdbc/DataSource</jta-data-source>
+		<mapping-file>META-INF/employee_queries.xml</mapping-file>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
 			<property name="hibernate.jndi.class" value="org.seasar.extension.j2ee.JndiContextFactory"/>

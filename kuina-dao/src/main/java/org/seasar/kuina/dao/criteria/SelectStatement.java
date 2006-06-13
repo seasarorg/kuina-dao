@@ -56,7 +56,7 @@ public interface SelectStatement extends Criteria {
 
     SelectStatement setFirstResult(int startPosition);
 
-    SelectStatement setMaxResult(int maxResult);
+    SelectStatement setMaxResults(int maxResult);
 
     <T> List<T> getResultList(EntityManager em);
 

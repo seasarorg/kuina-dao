@@ -13,19 +13,28 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal;
+package org.seasar.kuina.dao.internal.command;
 
-import javax.persistence.NamedQuery;
+import org.seasar.extension.unit.S2TestCase;
+import org.seasar.kuina.dao.EmployeeDao;
 
 /**
  * 
  * @author koichik
  */
-public interface EntityDesc {
+public class NamedQuerySingleResultCommandTest extends S2TestCase {
 
-    boolean isEntity();
+    private EmployeeDao dao;
 
-    String getName();
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        include("s2hibernate-jpa.dicon");
+        include(EmployeeDao.class.getName().replace('.', '/') + ".dicon");
+    }
 
-    NamedQuery getNamedQuery(String name);
+    public void testGetNameTx() throws Exception {
+        String name = dao.getName(1);
+        assertEquals("シマゴロー", name);
+    }
 }

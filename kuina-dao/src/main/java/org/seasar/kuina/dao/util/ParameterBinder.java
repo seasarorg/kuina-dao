@@ -13,19 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal;
+package org.seasar.kuina.dao.util;
 
-import javax.persistence.NamedQuery;
+import javax.persistence.Query;
 
 /**
  * 
  * @author koichik
  */
-public interface EntityDesc {
+public interface ParameterBinder {
 
-    boolean isEntity();
+    void bind(Query query);
 
-    String getName();
+    void bind(Query query, Object value);
 
-    NamedQuery getNamedQuery(String name);
 }

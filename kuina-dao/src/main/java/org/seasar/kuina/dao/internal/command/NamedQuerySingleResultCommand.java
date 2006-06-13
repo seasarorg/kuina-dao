@@ -13,19 +13,29 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal;
+package org.seasar.kuina.dao.internal.command;
 
-import javax.persistence.NamedQuery;
+import javax.persistence.EntityManager;
+
+import org.seasar.kuina.dao.util.ParameterBinder;
 
 /**
  * 
  * @author koichik
  */
-public interface EntityDesc {
+public class NamedQuerySingleResultCommand extends AbstractNamedQueryCommand {
 
-    boolean isEntity();
+    public NamedQuerySingleResultCommand(final String queryName,
+            final ParameterBinder[] binders) {
+        super(queryName, binders);
+    }
 
-    String getName();
+    /**
+     * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
+     *      java.lang.Object[])
+     */
+    public Object execute(final EntityManager em, final Object[] parameters) {
+        return createQuery(em, parameters).getSingleResult();
+    }
 
-    NamedQuery getNamedQuery(String name);
 }

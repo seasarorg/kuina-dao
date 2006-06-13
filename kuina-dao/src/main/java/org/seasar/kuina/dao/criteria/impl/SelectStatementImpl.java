@@ -171,7 +171,7 @@ public class SelectStatementImpl implements SelectStatement {
         return this;
     }
 
-    public SelectStatement setMaxResult(final int maxResult) {
+    public SelectStatement setMaxResults(final int maxResult) {
         this.maxResult = maxResult;
         return this;
     }
@@ -186,16 +186,19 @@ public class SelectStatementImpl implements SelectStatement {
         return (T) createQuery(em, true).getSingleResult();
     }
 
+    public String getQueryString() {
+        return createContext().getQueryString();
+    }
+
     public Query getQuery(final EntityManager em) {
         return createQuery(em, false);
     }
 
     protected Query createQuery(final EntityManager em,
             final boolean fillParameter) {
-        final CriteriaContext context = new CriteriaContextImpl();
-        evaluate(context);
-        final String queryString = context.getQueryString().trim();
-        logger.debug(queryString);
+        final CriteriaContext context = createContext();
+        final String queryString = context.getQueryString();
+        logger.debug(queryString); // TODO
         final Query query = em.createQuery(queryString);
         if (firstResult != null) {
             query.setFirstResult(firstResult);
@@ -207,6 +210,12 @@ public class SelectStatementImpl implements SelectStatement {
             context.fillParameters(query);
         }
         return query;
+    }
+
+    protected CriteriaContext createContext() {
+        final CriteriaContext context = new CriteriaContextImpl();
+        evaluate(context);
+        return context;
     }
 
     protected void evaluate(final CriteriaContext context) {

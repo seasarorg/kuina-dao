@@ -13,19 +13,35 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal;
+package org.seasar.kuina.dao.util;
 
-import javax.persistence.NamedQuery;
+import javax.persistence.Query;
 
 /**
  * 
  * @author koichik
  */
-public interface EntityDesc {
+public class MaxResultsBinder implements ParameterBinder {
 
-    boolean isEntity();
+    protected final Number value;
 
-    String getName();
+    public MaxResultsBinder() {
+        this(null);
+    }
 
-    NamedQuery getNamedQuery(String name);
+    protected MaxResultsBinder(final Number value) {
+        this.value = value;
+    }
+
+    /**
+     * @see org.seasar.kuina.dao.util.ParameterBinder#bind(javax.persistence.Query)
+     */
+    public void bind(final Query query) {
+        bind(query, value);
+    }
+
+    public void bind(final Query query, final Object value) {
+        query.setMaxResults(Number.class.cast(value).intValue());
+    }
+
 }

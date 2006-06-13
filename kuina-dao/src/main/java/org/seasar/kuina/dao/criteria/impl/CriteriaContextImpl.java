@@ -24,6 +24,10 @@ import javax.persistence.TemporalType;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
+import org.seasar.kuina.dao.util.CalendarParameterBinder;
+import org.seasar.kuina.dao.util.DateParameterBinder;
+import org.seasar.kuina.dao.util.ObjectParameterBinder;
+import org.seasar.kuina.dao.util.ParameterBinder;
 
 /**
  * 
@@ -33,7 +37,7 @@ public class CriteriaContextImpl implements CriteriaContext {
 
     protected final StringBuilder stringBuilder = new StringBuilder(1000);
 
-    protected final Set<Parameter> parameters = CollectionsUtil
+    protected final Set<ParameterBinder> binders = CollectionsUtil
             .newLinkedHashSet();
 
     /**
@@ -107,17 +111,17 @@ public class CriteriaContextImpl implements CriteriaContext {
      *      java.lang.Object)
      */
     public void setParameter(final String name, final Object value) {
-        parameters.add(new ObjectParameter(name, value));
+        binders.add(new ObjectParameterBinder(name, value));
     }
 
     public void setParameter(final String name, final Date value,
             TemporalType temporalType) {
-        parameters.add(new DateParameter(name, value, temporalType));
+        binders.add(new DateParameterBinder(name, value, temporalType));
     }
 
     public void setParameter(final String name, final Calendar value,
             TemporalType temporalType) {
-        parameters.add(new CalendarParameter(name, value, temporalType));
+        binders.add(new CalendarParameterBinder(name, value, temporalType));
     }
 
     public String getQueryString() {
@@ -125,65 +129,8 @@ public class CriteriaContextImpl implements CriteriaContext {
     }
 
     public void fillParameters(final Query query) {
-        for (final Parameter parameter : parameters) {
-            parameter.fill(query);
-        }
-    }
-
-    protected interface Parameter {
-        void fill(final Query query);
-    }
-
-    protected static class ObjectParameter implements Parameter {
-        protected final String name;
-
-        protected final Object value;
-
-        public ObjectParameter(final String name, final Object value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        public void fill(final Query query) {
-            query.setParameter(name, value);
-        }
-    }
-
-    protected static class DateParameter implements Parameter {
-        protected final String name;
-
-        protected final Date value;
-
-        protected final TemporalType temporalType;
-
-        public DateParameter(final String name, final Date value,
-                final TemporalType temporalType) {
-            this.name = name;
-            this.value = value;
-            this.temporalType = temporalType;
-        }
-
-        public void fill(final Query query) {
-            query.setParameter(name, value, temporalType);
-        }
-    }
-
-    protected static class CalendarParameter implements Parameter {
-        protected final String name;
-
-        protected final Calendar value;
-
-        protected final TemporalType temporalType;
-
-        public CalendarParameter(final String name, final Calendar value,
-                final TemporalType temporalType) {
-            this.name = name;
-            this.value = value;
-            this.temporalType = temporalType;
-        }
-
-        public void fill(final Query query) {
-            query.setParameter(name, value, temporalType);
+        for (final ParameterBinder binder : binders) {
+            binder.bind(query);
         }
     }
 

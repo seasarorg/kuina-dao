@@ -13,19 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal;
+package org.seasar.kuina.dao.annotation;
 
-import javax.persistence.NamedQuery;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * 
  * @author koichik
  */
-public interface EntityDesc {
+@Target( { ElementType.TYPE, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TargetEntity {
 
-    boolean isEntity();
+    Class<?> value();
 
-    String getName();
-
-    NamedQuery getNamedQuery(String name);
 }

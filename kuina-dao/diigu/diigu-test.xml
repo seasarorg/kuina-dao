@@ -1,0 +1,42 @@
+<project name="Kuina-Dao parameter name enhancer for test classes" default="build" basedir="..">
+	<property name="test.src"		value="src/test/java" />
+	<property name="test.classes"	value="build/classes" />
+	<property name="s2.classes"		value="../seasar2/build/classes"/>
+	<property name="s2tiger.classes"	value="../s2-tiger/build/classes"/>
+	<property name="seasar2.lib"	value="../seasar2/lib" />
+	<property name="diigu.lib"		value="diigu" />
+
+	<path id="source.path">
+		<pathelement path="${src.test}/" />
+	</path>
+	<path id="project.classpath">
+		<pathelement path="${java.class.path}"/>
+		<pathelement path="${s2.classes}"/>
+		<pathelement path="${s2tiger.classes}"/>
+		<pathelement path="${test.classes}"/>
+		<fileset dir="${seasar2.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${diigu.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="build">
+		<antcall target="enhance"/>
+	</target>
+
+	<target name="enhance">
+		<javadoc
+			doclet="org.seasar.diigu.ParameterNameDoclet"
+			packagenames="org.seasar.kuina.dao"
+			classpathref="project.classpath"
+			docletpathref="project.classpath"
+			docletpath="${test.classes}"
+		>
+			<fileset dir="${test.src}">
+				<include name="org/seasar/kuina/dao/**/*Dao.java"/>
+			</fileset>
+		</javadoc>
+	</target>
+</project>
