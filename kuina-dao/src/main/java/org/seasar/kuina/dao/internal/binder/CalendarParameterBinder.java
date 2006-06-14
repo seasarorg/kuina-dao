@@ -34,6 +34,16 @@ public class CalendarParameterBinder implements ParameterBinder {
 
     protected TemporalType temporalType;
 
+    public CalendarParameterBinder(final String name,
+            final TemporalType temporalType) {
+        this(name, null, temporalType);
+    }
+
+    public CalendarParameterBinder(final int position,
+            final TemporalType temporalType) {
+        this(position, null, temporalType);
+    }
+
     public CalendarParameterBinder(final String name, final Calendar value,
             final TemporalType temporalType) {
         this.name = name;

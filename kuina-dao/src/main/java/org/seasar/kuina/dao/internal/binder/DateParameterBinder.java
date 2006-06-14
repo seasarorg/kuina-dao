@@ -34,6 +34,16 @@ public class DateParameterBinder implements ParameterBinder {
 
     protected TemporalType temporalType;
 
+    public DateParameterBinder(final String name,
+            final TemporalType temporalType) {
+        this(name, null, temporalType);
+    }
+
+    public DateParameterBinder(final int position,
+            final TemporalType temporalType) {
+        this(position, null, temporalType);
+    }
+
     public DateParameterBinder(final String name, final Date value,
             final TemporalType temporalType) {
         this.name = name;

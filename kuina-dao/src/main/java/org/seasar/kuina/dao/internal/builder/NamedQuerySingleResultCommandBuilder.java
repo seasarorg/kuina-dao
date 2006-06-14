@@ -16,68 +16,40 @@
 package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
-import java.util.regex.Pattern;
 
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.kuina.dao.annotation.QueryName;
 import org.seasar.kuina.dao.annotation.TargetEntity;
-import org.seasar.kuina.dao.entity.EntityDesc;
-import org.seasar.kuina.dao.entity.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.CommandBuilder;
-import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
-import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 import org.seasar.kuina.dao.internal.command.NamedQuerySingleResultCommand;
 
 /**
  * 
  * @author koichik
  */
-public class NamedQuerySingleResultCommandBuilder implements CommandBuilder {
-    protected Pattern methodNamePattern = Pattern.compile("get.+");
+public class NamedQuerySingleResultCommandBuilder extends
+        AbstractNamedQueryCommandBuilder {
 
     public NamedQuerySingleResultCommandBuilder() {
-    }
-
-    public void setMethodNamePattern(final String methodNamePattern) {
-        this.methodNamePattern = Pattern.compile(methodNamePattern);
+        setMethodNamePattern("get.+");
     }
 
     public Command build(final Class<?> daoClass, final Method method) {
-        final String methodName = method.getName();
-        if (!methodNamePattern.matcher(methodName).matches()) {
+        if (!isMatch(method)) {
             return null;
         }
 
-        final QueryName queryName = method.getAnnotation(QueryName.class);
-        if (queryName != null) {
-            final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-            return new NamedQuerySingleResultCommand(
-                    queryName.value(),
-                    getBinders(method, beanDesc.getMethodParameterNames(method)));
-        }
-
-        final Class<?> entityClass = resolveEntityClass(daoClass, method);
-        if (entityClass != null) {
-            return createCommand(daoClass, method, entityClass);
-        }
-        return null;
-    }
-
-    protected Command createCommand(final Class<?> daoClass,
-            final Method method, final Class<?> entityClass) {
-        final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(entityClass);
-        if (!entityDesc.isEntity()) {
+        final String queryName = getQueryName(daoClass, method);
+        if (queryName == null) {
             return null;
         }
+
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQuerySingleResultCommand(getQueryName(entityDesc,
-                method), getBinders(method, beanDesc
-                .getMethodParameterNames(method)));
+        return new NamedQuerySingleResultCommand(queryName, getBinders(method,
+                beanDesc.getMethodParameterNames(method)));
     }
 
+    @Override
     protected Class<?> resolveEntityClass(final Class<?> daoClass,
             final Method method) {
         TargetEntity targetEntity = method.getAnnotation(TargetEntity.class);
@@ -90,40 +62,5 @@ public class NamedQuerySingleResultCommandBuilder implements CommandBuilder {
             return targetEntity.value();
         }
         return method.getReturnType();
-    }
-
-    protected String getQueryName(final EntityDesc entityDesc,
-            final Method method) {
-        final QueryName queryName = method.getAnnotation(QueryName.class);
-        if (queryName != null) {
-            return queryName.value();
-        }
-
-        return entityDesc.getName() + "." + method.getName();
-    }
-
-    protected ParameterBinder[] getBinders(final Method method,
-            final String[] parameterNames) {
-        if (parameterNames == null) {
-            return getBindersForPositionalParameter(method);
-        }
-
-        final Class<?>[] parameterTypes = method.getParameterTypes();
-        final ParameterBinder[] binders = new ParameterBinder[parameterTypes.length];
-        for (int i = 0; i < parameterTypes.length; ++i) {
-            final String name = parameterNames[i];
-            binders[i] = new ObjectParameterBinder(name);
-        }
-        return binders;
-    }
-
-    protected ParameterBinder[] getBindersForPositionalParameter(
-            final Method method) {
-        final Class<?>[] parameterTypes = method.getParameterTypes();
-        final ParameterBinder[] binders = new ParameterBinder[parameterTypes.length];
-        for (int i = 0; i < parameterTypes.length; ++i) {
-            binders[i] = new ObjectParameterBinder(i);
-        }
-        return binders;
     }
 }

@@ -16,31 +16,24 @@
 package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
-import java.util.regex.Pattern;
 
 import org.seasar.kuina.dao.entity.EntityDesc;
 import org.seasar.kuina.dao.entity.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.CommandBuilder;
 import org.seasar.kuina.dao.internal.command.ContainsCommand;
 
 /**
  * 
  * @author koichik
  */
-public class ContainsCommandBuilder implements CommandBuilder {
-    protected Pattern methodNamePattern = Pattern.compile("contains");
+public class ContainsCommandBuilder extends AbstractCommandBuilder {
 
     public ContainsCommandBuilder() {
-    }
-
-    public void setMethodNamePattern(final String methodNamePattern) {
-        this.methodNamePattern = Pattern.compile(methodNamePattern);
+        setMethodNamePattern("contains");
     }
 
     public Command build(final Class<?> daoClass, final Method method) {
-        final String methodName = method.getName();
-        if (!methodNamePattern.matcher(methodName).matches()) {
+        if (!isMatch(method)) {
             return null;
         }
 

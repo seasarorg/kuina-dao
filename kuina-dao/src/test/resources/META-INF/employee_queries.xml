@@ -15,6 +15,16 @@
 				e.name = :name
 		]]></query>
 	</named-query>
+	<named-query name="Employee.findByBirthday">
+		<query><![CDATA[
+			SELECT
+				e
+			FROM
+				Employee e
+			WHERE
+				e.birthday = ?1
+		]]></query>
+	</named-query>
 	<named-query name="Employee.findByDepartmentName">
 		<query><![CDATA[
 			SELECT

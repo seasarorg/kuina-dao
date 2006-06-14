@@ -87,7 +87,7 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
 
     public void testWriteLockTx() throws Exception {
         Employee emp = dao.find(1);
-        dao.readLock(emp);
+        dao.writeLock(emp);
     }
 
     public static interface TestDao {

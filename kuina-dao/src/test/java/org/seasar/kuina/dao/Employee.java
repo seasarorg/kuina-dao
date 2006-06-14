@@ -21,6 +21,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 /**
  * 
@@ -45,6 +46,9 @@ public class Employee {
     private Date birthday;
 
     private String bloodType;
+
+    @Version
+    private int version;
 
     @OneToMany(mappedBy = "employee")
     private Collection<BelongTo> belongTo;

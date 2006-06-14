@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.seasar.extension.unit.S2TestCase;
@@ -60,5 +61,13 @@ public class NamedQueryResultListCommandTest extends S2TestCase {
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("くま", list.get(0).getName());
+    }
+
+    public void testFindByBirthdayTx() throws Exception {
+        List<Employee> list = dao.findByBirthday(new SimpleDateFormat(
+                "yyyy-MM-dd").parse("1953-10-01"));
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
     }
 }
