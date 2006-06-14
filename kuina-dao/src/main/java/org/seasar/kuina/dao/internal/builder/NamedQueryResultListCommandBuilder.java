@@ -29,15 +29,15 @@ import org.seasar.kuina.dao.annotation.FirstResult;
 import org.seasar.kuina.dao.annotation.MaxResults;
 import org.seasar.kuina.dao.annotation.NamedParameter;
 import org.seasar.kuina.dao.annotation.QueryName;
+import org.seasar.kuina.dao.entity.EntityDesc;
+import org.seasar.kuina.dao.entity.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.CommandBuilder;
-import org.seasar.kuina.dao.internal.EntityDesc;
+import org.seasar.kuina.dao.internal.binder.FirstResultBinder;
+import org.seasar.kuina.dao.internal.binder.MaxResultsBinder;
+import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
+import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 import org.seasar.kuina.dao.internal.command.NamedQueryResultListCommand;
-import org.seasar.kuina.dao.internal.metadata.EntityDescFactory;
-import org.seasar.kuina.dao.util.FirstResultBinder;
-import org.seasar.kuina.dao.util.MaxResultsBinder;
-import org.seasar.kuina.dao.util.ObjectParameterBinder;
-import org.seasar.kuina.dao.util.ParameterBinder;
 
 /**
  * 

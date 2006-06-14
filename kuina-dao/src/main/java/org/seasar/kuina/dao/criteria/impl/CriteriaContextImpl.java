@@ -24,10 +24,10 @@ import javax.persistence.TemporalType;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
-import org.seasar.kuina.dao.util.CalendarParameterBinder;
-import org.seasar.kuina.dao.util.DateParameterBinder;
-import org.seasar.kuina.dao.util.ObjectParameterBinder;
-import org.seasar.kuina.dao.util.ParameterBinder;
+import org.seasar.kuina.dao.internal.binder.CalendarParameterBinder;
+import org.seasar.kuina.dao.internal.binder.DateParameterBinder;
+import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
+import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
  * 

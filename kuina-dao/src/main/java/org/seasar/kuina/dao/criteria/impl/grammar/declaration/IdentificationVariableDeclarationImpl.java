@@ -34,8 +34,8 @@ import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerFetchJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterFetchJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterJoin;
-import org.seasar.kuina.dao.internal.EntityDesc;
-import org.seasar.kuina.dao.internal.metadata.EntityDescFactory;
+import org.seasar.kuina.dao.entity.EntityDesc;
+import org.seasar.kuina.dao.entity.EntityDescFactory;
 
 /**
  * 

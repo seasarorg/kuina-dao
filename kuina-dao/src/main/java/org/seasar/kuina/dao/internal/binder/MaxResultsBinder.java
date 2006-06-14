@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.util;
+package org.seasar.kuina.dao.internal.binder;
 
 import javax.persistence.Query;
 
@@ -21,27 +21,27 @@ import javax.persistence.Query;
  * 
  * @author koichik
  */
-public class FirstResultBinder implements ParameterBinder {
+public class MaxResultsBinder implements ParameterBinder {
 
     protected final Number value;
 
-    public FirstResultBinder() {
+    public MaxResultsBinder() {
         this(null);
     }
 
-    protected FirstResultBinder(final Number value) {
+    protected MaxResultsBinder(final Number value) {
         this.value = value;
     }
 
     /**
-     * @see org.seasar.kuina.dao.util.ParameterBinder#bind(javax.persistence.Query)
+     * @see org.seasar.kuina.dao.internal.binder.ParameterBinder#bind(javax.persistence.Query)
      */
     public void bind(final Query query) {
         bind(query, value);
     }
 
     public void bind(final Query query, final Object value) {
-        query.setFirstResult(Number.class.cast(value).intValue());
+        query.setMaxResults(Number.class.cast(value).intValue());
     }
 
 }

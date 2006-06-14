@@ -13,9 +13,9 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.util;
+package org.seasar.kuina.dao.internal.binder;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
@@ -24,17 +24,17 @@ import javax.persistence.TemporalType;
  * 
  * @author koichik
  */
-public class DateParameterBinder implements ParameterBinder {
+public class CalendarParameterBinder implements ParameterBinder {
 
     protected final String name;
 
     protected final int position;
 
-    protected final Date value;
+    protected final Calendar value;
 
     protected TemporalType temporalType;
 
-    public DateParameterBinder(final String name, final Date value,
+    public CalendarParameterBinder(final String name, final Calendar value,
             final TemporalType temporalType) {
         this.name = name;
         this.position = 0;
@@ -42,7 +42,7 @@ public class DateParameterBinder implements ParameterBinder {
         this.temporalType = temporalType;
     }
 
-    public DateParameterBinder(final int position, final Date value,
+    public CalendarParameterBinder(final int position, final Calendar value,
             final TemporalType temporalType) {
         this.name = null;
         this.position = position;
@@ -51,18 +51,18 @@ public class DateParameterBinder implements ParameterBinder {
     }
 
     /**
-     * @see org.seasar.kuina.dao.util.ParameterBinder#bind(javax.persistence.Query)
+     * @see org.seasar.kuina.dao.internal.binder.ParameterBinder#bind(javax.persistence.Query)
      */
     public void bind(final Query query) {
         bind(query, value);
     }
 
     public void bind(final Query query, final Object value) {
-        final Date date = Date.class.cast(value);
+        final Calendar calendar = Calendar.class.cast(value);
         if (name != null) {
-            query.setParameter(name, date, temporalType);
+            query.setParameter(name, calendar, temporalType);
         } else {
-            query.setParameter(position, date, temporalType);
+            query.setParameter(position, calendar, temporalType);
         }
     }
 

@@ -22,13 +22,13 @@ import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.kuina.dao.annotation.QueryName;
 import org.seasar.kuina.dao.annotation.TargetEntity;
+import org.seasar.kuina.dao.entity.EntityDesc;
+import org.seasar.kuina.dao.entity.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.CommandBuilder;
-import org.seasar.kuina.dao.internal.EntityDesc;
+import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
+import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 import org.seasar.kuina.dao.internal.command.NamedQuerySingleResultCommand;
-import org.seasar.kuina.dao.internal.metadata.EntityDescFactory;
-import org.seasar.kuina.dao.util.ObjectParameterBinder;
-import org.seasar.kuina.dao.util.ParameterBinder;
 
 /**
  * 

@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.metadata;
+package org.seasar.kuina.dao.entity.impl;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ import javax.persistence.NamedQuery;
 
 import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
-import org.seasar.kuina.dao.internal.EntityDesc;
+import org.seasar.kuina.dao.entity.EntityDesc;
 
 /**
  * 

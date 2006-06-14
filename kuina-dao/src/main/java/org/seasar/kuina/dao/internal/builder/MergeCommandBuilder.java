@@ -18,11 +18,11 @@ package org.seasar.kuina.dao.internal.builder;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
+import org.seasar.kuina.dao.entity.EntityDesc;
+import org.seasar.kuina.dao.entity.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.CommandBuilder;
-import org.seasar.kuina.dao.internal.EntityDesc;
 import org.seasar.kuina.dao.internal.command.MergeCommand;
-import org.seasar.kuina.dao.internal.metadata.EntityDescFactory;
 
 /**
  * 

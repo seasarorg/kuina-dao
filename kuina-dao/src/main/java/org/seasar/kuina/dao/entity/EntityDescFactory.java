@@ -13,12 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.metadata;
+package org.seasar.kuina.dao.entity;
 
 import java.util.concurrent.ConcurrentMap;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
-import org.seasar.kuina.dao.internal.EntityDesc;
+import org.seasar.kuina.dao.entity.impl.EntityDescImpl;
 
 /**
  * 

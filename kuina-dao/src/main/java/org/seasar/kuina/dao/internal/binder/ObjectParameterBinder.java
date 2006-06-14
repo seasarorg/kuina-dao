@@ -13,56 +13,57 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.util;
-
-import java.util.Calendar;
+package org.seasar.kuina.dao.internal.binder;
 
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 
 /**
  * 
  * @author koichik
  */
-public class CalendarParameterBinder implements ParameterBinder {
+public class ObjectParameterBinder implements ParameterBinder {
 
     protected final String name;
 
     protected final int position;
 
-    protected final Calendar value;
+    protected final Object value;
 
-    protected TemporalType temporalType;
-
-    public CalendarParameterBinder(final String name, final Calendar value,
-            final TemporalType temporalType) {
-        this.name = name;
-        this.position = 0;
-        this.value = value;
-        this.temporalType = temporalType;
+    public ObjectParameterBinder(final String name) {
+        this(name, 0, null);
     }
 
-    public CalendarParameterBinder(final int position, final Calendar value,
-            final TemporalType temporalType) {
-        this.name = null;
+    public ObjectParameterBinder(final int position) {
+        this(null, position, null);
+    }
+
+    public ObjectParameterBinder(final String name, final Object value) {
+        this(name, 0, value);
+    }
+
+    public ObjectParameterBinder(final int position, final Object value) {
+        this(null, position, value);
+    }
+
+    protected ObjectParameterBinder(final String name, final int position,
+            final Object value) {
+        this.name = name;
         this.position = position;
         this.value = value;
-        this.temporalType = temporalType;
     }
 
     /**
-     * @see org.seasar.kuina.dao.util.ParameterBinder#bind(javax.persistence.Query)
+     * @see org.seasar.kuina.dao.internal.binder.ParameterBinder#bind(javax.persistence.Query)
      */
     public void bind(final Query query) {
         bind(query, value);
     }
 
     public void bind(final Query query, final Object value) {
-        final Calendar calendar = Calendar.class.cast(value);
         if (name != null) {
-            query.setParameter(name, calendar, temporalType);
+            query.setParameter(name, value);
         } else {
-            query.setParameter(position, calendar, temporalType);
+            query.setParameter(position, value);
         }
     }
 

@@ -17,7 +17,7 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
-import org.seasar.kuina.dao.util.ParameterBinder;
+import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
  * 

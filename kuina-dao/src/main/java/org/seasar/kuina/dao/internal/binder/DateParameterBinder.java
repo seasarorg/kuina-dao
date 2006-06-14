@@ -13,57 +13,56 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.util;
+package org.seasar.kuina.dao.internal.binder;
+
+import java.util.Date;
 
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 /**
  * 
  * @author koichik
  */
-public class ObjectParameterBinder implements ParameterBinder {
+public class DateParameterBinder implements ParameterBinder {
 
     protected final String name;
 
     protected final int position;
 
-    protected final Object value;
+    protected final Date value;
 
-    public ObjectParameterBinder(final String name) {
-        this(name, 0, null);
-    }
+    protected TemporalType temporalType;
 
-    public ObjectParameterBinder(final int position) {
-        this(null, position, null);
-    }
-
-    public ObjectParameterBinder(final String name, final Object value) {
-        this(name, 0, value);
-    }
-
-    public ObjectParameterBinder(final int position, final Object value) {
-        this(null, position, value);
-    }
-
-    protected ObjectParameterBinder(final String name, final int position,
-            final Object value) {
+    public DateParameterBinder(final String name, final Date value,
+            final TemporalType temporalType) {
         this.name = name;
+        this.position = 0;
+        this.value = value;
+        this.temporalType = temporalType;
+    }
+
+    public DateParameterBinder(final int position, final Date value,
+            final TemporalType temporalType) {
+        this.name = null;
         this.position = position;
         this.value = value;
+        this.temporalType = temporalType;
     }
 
     /**
-     * @see org.seasar.kuina.dao.util.ParameterBinder#bind(javax.persistence.Query)
+     * @see org.seasar.kuina.dao.internal.binder.ParameterBinder#bind(javax.persistence.Query)
      */
     public void bind(final Query query) {
         bind(query, value);
     }
 
     public void bind(final Query query, final Object value) {
+        final Date date = Date.class.cast(value);
         if (name != null) {
-            query.setParameter(name, value);
+            query.setParameter(name, date, temporalType);
         } else {
-            query.setParameter(position, value);
+            query.setParameter(position, date, temporalType);
         }
     }
 
