@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.GroupbyItem;
@@ -61,4 +62,8 @@ public interface SelectStatement extends Criteria {
     <T> List<T> getResultList(EntityManager em);
 
     <T> T getSingleResult(EntityManager em);
+
+    String getQueryString();
+
+    Query getQuery(EntityManager em);
 }

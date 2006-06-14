@@ -19,37 +19,46 @@ import java.lang.reflect.Method;
 
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
+import org.seasar.kuina.dao.internal.command.DynamicQueryCommand;
 
 /**
  * 
  * @author koichik
  */
-public class NamedQueryResultListCommandBuilder extends
-        AbstractNamedQueryCommandBuilder {
+public class DynamicQueryResultListCommandBuilder extends
+        AbstractQueryCommandBuilder {
 
-    public NamedQueryResultListCommandBuilder() {
+    public DynamicQueryResultListCommandBuilder() {
         setMethodNamePattern("find.+");
     }
 
+    /**
+     * @see org.seasar.kuina.dao.internal.CommandBuilder#build(java.lang.Class,
+     *      java.lang.reflect.Method)
+     */
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
             return null;
         }
 
-        final String queryName = getQueryName(daoClass, method);
-        if (queryName == null || !isExists(queryName)) {
+        final Class<?> entityClass = getElementTypeOfList(method
+                .getGenericReturnType());
+        if (entityClass == null) {
             return null;
         }
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQueryCommand(true, queryName, getBinders(method,
-                beanDesc.getMethodParameterNames(method)));
+        final String[] parameterNames = beanDesc
+                .getMethodParameterNames(method);
+        if (parameterNames == null) {
+            return null;
+        }
+
+        return new DynamicQueryCommand(entityClass, true, false,
+                new IdentificationVariableDeclarationImpl(entityClass),
+                parameterNames, getBinders(method, parameterNames));
     }
 
-    @Override
-    protected Class<?> resolveEntityClass(Class<?> daoClass, Method method) {
-        return getElementTypeOfList(method.getGenericReturnType());
-    }
 }

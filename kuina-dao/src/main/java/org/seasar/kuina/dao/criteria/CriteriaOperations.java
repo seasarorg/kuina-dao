@@ -170,6 +170,10 @@ public abstract class CriteriaOperations {
         return result;
     }
 
+    public static ArithmeticPrimary parameter(final String name) {
+        return new InputParameterImpl(name, null);
+    }
+
     public static ArithmeticPrimary parameter(final String name,
             final Number value) {
         return new InputParameterImpl(name, value);

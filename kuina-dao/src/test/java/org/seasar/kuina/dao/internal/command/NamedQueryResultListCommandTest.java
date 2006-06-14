@@ -15,18 +15,15 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.EmployeeDao;
 
 /**
  * 
  * @author koichik
  */
-public class NamedQueryResultListCommandTest extends S2TestCase {
+@SuppressWarnings("unchecked")
+public abstract class NamedQueryResultListCommandTest extends S2TestCase {
 
     private EmployeeDao dao;
 
@@ -34,40 +31,5 @@ public class NamedQueryResultListCommandTest extends S2TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         include("s2hibernate-jpa.dicon");
-        include(EmployeeDao.class.getName().replace('.', '/') + ".dicon");
-    }
-
-    public void testFindByNameTx() throws Exception {
-        List<Employee> list = dao.findByName("シマゴロー");
-        assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("シマゴロー", list.get(0).getName());
-    }
-
-    public void testFindByDepartmentNameTx() throws Exception {
-        List<Employee> list = dao.findByDepartmentName("営業", 0, 2);
-        assertNotNull(list);
-        assertEquals(2, list.size());
-        assertEquals("ミチロー", list.get(0).getName());
-        assertEquals("サラ", list.get(1).getName());
-
-        list = dao.findByDepartmentName("営業", 2, 2);
-        assertNotNull(list);
-        assertEquals(2, list.size());
-        assertEquals("みなみ", list.get(0).getName());
-        assertEquals("ぱんだ", list.get(1).getName());
-
-        list = dao.findByDepartmentName("営業", 4, 2);
-        assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("くま", list.get(0).getName());
-    }
-
-    public void testFindByBirthdayTx() throws Exception {
-        List<Employee> list = dao.findByBirthday(new SimpleDateFormat(
-                "yyyy-MM-dd").parse("1953-10-01"));
-        assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("シマゴロー", list.get(0).getName());
     }
 }

@@ -21,7 +21,6 @@ import java.util.List;
 import javax.persistence.TemporalType;
 
 import org.seasar.kuina.dao.annotation.PositionalParameter;
-import org.seasar.kuina.dao.annotation.QueryName;
 import org.seasar.kuina.dao.annotation.TargetEntity;
 import org.seasar.kuina.dao.annotation.TemporalSpec;
 
@@ -32,13 +31,14 @@ import org.seasar.kuina.dao.annotation.TemporalSpec;
 @TargetEntity(Employee.class)
 public interface EmployeeDao {
 
+    List<Employee> findByNameAndOrBloodType(String name, String bloodType);
+
     List<Employee> findByName(String name);
 
     List<Employee> findByDepartmentName(String name, int firstResult,
             int maxResults);
 
     @PositionalParameter
-    @QueryName("Employee.findByBirthday")
     List<Employee> findByBirthday(@TemporalSpec(TemporalType.DATE)
     Date birthday);
 

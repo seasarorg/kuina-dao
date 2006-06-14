@@ -22,7 +22,7 @@ import org.seasar.kuina.dao.EmployeeDao;
  * 
  * @author koichik
  */
-public class NamedQuerySingleResultCommandTest extends S2TestCase {
+public abstract class NamedQuerySingleResultCommandTest extends S2TestCase {
 
     private EmployeeDao dao;
 
@@ -30,11 +30,5 @@ public class NamedQuerySingleResultCommandTest extends S2TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         include("s2hibernate-jpa.dicon");
-        include(EmployeeDao.class.getName().replace('.', '/') + ".dicon");
-    }
-
-    public void testGetNameTx() throws Exception {
-        String name = dao.getName(1);
-        assertEquals("シマゴロー", name);
     }
 }

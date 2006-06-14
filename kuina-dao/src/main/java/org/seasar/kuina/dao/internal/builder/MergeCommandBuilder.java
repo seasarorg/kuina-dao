@@ -33,7 +33,7 @@ public class MergeCommandBuilder extends AbstractCommandBuilder {
     }
 
     public Command build(final Class<?> daoClass, final Method method) {
-        if (!isMatch(method)) {
+        if (!isMatched(method)) {
             return null;
         }
 

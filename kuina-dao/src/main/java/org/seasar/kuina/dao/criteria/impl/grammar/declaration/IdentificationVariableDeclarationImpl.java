@@ -17,7 +17,6 @@ package org.seasar.kuina.dao.criteria.impl.grammar.declaration;
 
 import java.util.List;
 
-import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
@@ -28,14 +27,13 @@ import org.seasar.kuina.dao.criteria.grammar.Join;
 import org.seasar.kuina.dao.criteria.grammar.JoinOrFetchJoin;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.RangeVarialbeDeclaration;
+import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerFetchJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterFetchJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterJoin;
-import org.seasar.kuina.dao.entity.EntityDesc;
-import org.seasar.kuina.dao.entity.EntityDescFactory;
 
 /**
  * 
@@ -52,21 +50,21 @@ public class IdentificationVariableDeclarationImpl implements
 
     public IdentificationVariableDeclarationImpl(
             final Class<?> abstractSchemaClass, final JoinOrFetchJoin... joins) {
-        this(toAbstractSchemaName(abstractSchemaClass), joins);
+        this(JpqlUtil.toAbstractSchemaName(abstractSchemaClass), joins);
     }
 
     public IdentificationVariableDeclarationImpl(
             final String abstractSchemaName, final JoinOrFetchJoin... joins) {
-        this(abstractSchemaName, new IdentificationVariableImpl(
-                toDefaultIdentificationVariable(abstractSchemaName)), joins);
+        this(abstractSchemaName, new IdentificationVariableImpl(JpqlUtil
+                .toDefaultIdentificationVariable(abstractSchemaName)), joins);
     }
 
     public IdentificationVariableDeclarationImpl(
             final Class<?> abstractSchemaClass,
             final IdentificationVariable identificationVariable,
             final JoinOrFetchJoin... joins) {
-        this(toAbstractSchemaName(abstractSchemaClass), identificationVariable,
-                joins);
+        this(JpqlUtil.toAbstractSchemaName(abstractSchemaClass),
+                identificationVariable, joins);
     }
 
     public IdentificationVariableDeclarationImpl(
@@ -181,17 +179,5 @@ public class IdentificationVariableDeclarationImpl implements
         for (final JoinOrFetchJoin join : joins) {
             join.evaluate(context);
         }
-    }
-
-    protected static String toAbstractSchemaName(final Class<?> clazz) {
-        final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
-        assert entityDesc.isEntity();
-        return entityDesc.getName();
-    }
-
-    protected static String toDefaultIdentificationVariable(
-            final String abstractSchemaName) {
-        return StringUtil.decapitalize(abstractSchemaName
-                .substring(abstractSchemaName.lastIndexOf('.') + 1));
     }
 }

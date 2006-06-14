@@ -15,11 +15,14 @@
  */
 package org.seasar.kuina.dao.interceptor;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import javax.persistence.EntityManager;
-import javax.transaction.TransactionManager;
 
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Employee;
+import org.seasar.kuina.dao.EmployeeDao;
 
 /**
  * 
@@ -27,16 +30,71 @@ import org.seasar.kuina.dao.Employee;
  */
 public class KuinaDaoInterceptorTest extends S2TestCase {
 
-    TransactionManager tm;
+    private EntityManager em;
 
-    EntityManager em;
-
-    TestDao dao;
+    private EmployeeDao dao;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include(getClass().getName().replace('.', '/') + ".dicon");
+        include("s2hibernate-jpa.dicon");
+        include(EmployeeDao.class.getName().replace('.', '/') + ".dicon");
+    }
+
+    public void testFindNameAndOrBloodTx() throws Exception {
+        List<Employee> list = dao.findByNameAndOrBloodType("シマゴロー", null);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+
+        list = dao.findByNameAndOrBloodType(null, "AB");
+        assertEquals(3, list.size());
+        assertEquals("マル", list.get(0).getName());
+        assertEquals("ラスカル", list.get(1).getName());
+        assertEquals("マイケル", list.get(2).getName());
+
+        list = dao.findByNameAndOrBloodType("マル", "AB");
+        assertEquals(1, list.size());
+        assertEquals("マル", list.get(0).getName());
+    }
+
+    public void testFindByNameTx() throws Exception {
+        List<Employee> list = dao.findByName("シマゴロー");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+    }
+
+    public void testFindByDepartmentNameTx() throws Exception {
+        List<Employee> list = dao.findByDepartmentName("営業", 0, 2);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("ミチロー", list.get(0).getName());
+        assertEquals("サラ", list.get(1).getName());
+
+        list = dao.findByDepartmentName("営業", 2, 2);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("みなみ", list.get(0).getName());
+        assertEquals("ぱんだ", list.get(1).getName());
+
+        list = dao.findByDepartmentName("営業", 4, 2);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("くま", list.get(0).getName());
+    }
+
+    public void testFindByBirthdayTx() throws Exception {
+        List<Employee> list = dao.findByBirthday(new SimpleDateFormat(
+                "yyyy-MM-dd").parse("1953-10-01"));
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+    }
+
+    public void testGetNameTx() throws Exception {
+        String name = dao.getName(1);
+        assertEquals("シマゴロー", name);
     }
 
     public void testContainsTx() throws Exception {
@@ -88,26 +146,6 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     public void testWriteLockTx() throws Exception {
         Employee emp = dao.find(1);
         dao.writeLock(emp);
-    }
-
-    public static interface TestDao {
-        boolean contains(Employee employee);
-
-        Employee find(int id);
-
-        Employee get(int id);
-
-        Employee merge(Employee employee);
-
-        void persist(Employee employee);
-
-        void readLock(Employee employee);
-
-        void refresh(Employee employee);
-
-        void remove(Employee employee);
-
-        void writeLock(Employee employee);
     }
 
 }

@@ -10,7 +10,17 @@
 	>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.DynamicQueryResultListCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">
@@ -25,17 +35,7 @@
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.MergeCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">
@@ -45,7 +45,12 @@
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.ReadLockCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.RemoveCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.MergeCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">
@@ -55,7 +60,7 @@
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.RemoveCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.ReadLockCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">

@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.metadata;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -67,7 +68,8 @@ public class DaoMetadataImpl implements DaoMetadata {
     protected void setupCommands(final DaoMetadataFactoryImpl factory) {
         for (final String methodName : beanDesc.getMethodNames()) {
             for (final Method method : beanDesc.getMethods(methodName)) {
-                if (method.isBridge()) {
+                if (!Modifier.isAbstract(method.getModifiers())
+                        || method.isBridge()) {
                     continue;
                 }
                 final Command command = factory.createCommand(daoClass, method);

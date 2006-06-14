@@ -13,29 +13,28 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.command;
+package org.seasar.kuina.dao.criteria.impl;
 
-import javax.persistence.EntityManager;
-
-import org.seasar.kuina.dao.internal.binder.ParameterBinder;
+import org.seasar.framework.util.StringUtil;
+import org.seasar.kuina.dao.entity.EntityDesc;
+import org.seasar.kuina.dao.entity.EntityDescFactory;
 
 /**
  * 
  * @author koichik
  */
-public class NamedQueryResultListCommand extends AbstractNamedQueryCommand {
+public class JpqlUtil {
 
-    public NamedQueryResultListCommand(final String queryName,
-            final ParameterBinder[] binders) {
-        super(queryName, binders);
+    public static String toAbstractSchemaName(final Class<?> clazz) {
+        final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
+        assert entityDesc.isEntity();
+        return entityDesc.getName();
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
-     *      java.lang.Object[])
-     */
-    public Object execute(EntityManager em, Object[] parameters) {
-        return createQuery(em, parameters).getResultList();
+    public static String toDefaultIdentificationVariable(
+            final String abstractSchemaName) {
+        return StringUtil.decapitalize(abstractSchemaName
+                .substring(abstractSchemaName.lastIndexOf('.') + 1));
     }
 
 }

@@ -19,9 +19,8 @@ import java.lang.reflect.Method;
 
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.kuina.dao.annotation.TargetEntity;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.NamedQuerySingleResultCommand;
+import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
 
 /**
  * 
@@ -35,32 +34,23 @@ public class NamedQuerySingleResultCommandBuilder extends
     }
 
     public Command build(final Class<?> daoClass, final Method method) {
-        if (!isMatch(method)) {
+        if (!isMatched(method)) {
             return null;
         }
 
         final String queryName = getQueryName(daoClass, method);
-        if (queryName == null) {
+        if (queryName == null || !isExists(queryName)) {
             return null;
         }
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQuerySingleResultCommand(queryName, getBinders(method,
+        return new NamedQueryCommand(false, queryName, getBinders(method,
                 beanDesc.getMethodParameterNames(method)));
     }
 
     @Override
     protected Class<?> resolveEntityClass(final Class<?> daoClass,
             final Method method) {
-        TargetEntity targetEntity = method.getAnnotation(TargetEntity.class);
-        if (targetEntity != null) {
-            return targetEntity.value();
-        }
-
-        targetEntity = daoClass.getAnnotation(TargetEntity.class);
-        if (targetEntity != null) {
-            return targetEntity.value();
-        }
-        return method.getReturnType();
+        return getTargetClass(daoClass, method);
     }
 }

@@ -32,7 +32,7 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         this.methodNamePattern = Pattern.compile(methodNamePattern);
     }
 
-    protected boolean isMatch(final Method method) {
+    protected boolean isMatched(final Method method) {
         return methodNamePattern.matcher(method.getName()).matches();
     }
 
