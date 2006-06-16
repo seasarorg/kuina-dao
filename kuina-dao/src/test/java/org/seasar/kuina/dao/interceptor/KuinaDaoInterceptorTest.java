@@ -92,6 +92,12 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("シマゴロー", list.get(0).getName());
     }
 
+    public void testGetEmployeeTx() throws Exception {
+        Employee emp = dao.getEmployee(1, "シマゴロー");
+        assertNotNull(emp);
+        assertEquals("シマゴロー", emp.getName());
+    }
+
     public void testGetNameTx() throws Exception {
         String name = dao.getName(1);
         assertEquals("シマゴロー", name);
