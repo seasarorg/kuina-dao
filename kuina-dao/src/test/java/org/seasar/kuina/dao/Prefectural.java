@@ -18,6 +18,7 @@ package org.seasar.kuina.dao;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -29,6 +30,7 @@ import javax.persistence.OneToMany;
 public class Prefectural {
 
     @Id
+    @GeneratedValue
     private int id;
 
     private String name;
