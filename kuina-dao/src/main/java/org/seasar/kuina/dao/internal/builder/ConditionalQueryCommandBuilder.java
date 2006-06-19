@@ -17,21 +17,19 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
-import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.DynamicQueryCommand;
+import org.seasar.kuina.dao.internal.command.ConditionalQueryCommand;
 
 /**
  * 
  * @author koichik
  */
-public class DynamicQueryResultListCommandBuilder extends
-        AbstractQueryCommandBuilder {
+public class ConditionalQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
-    public DynamicQueryResultListCommandBuilder() {
-        setMethodNamePattern("find.+");
+    public ConditionalQueryCommandBuilder() {
+        setMethodNamePattern("(find|get).+");
     }
 
     /**
@@ -43,22 +41,21 @@ public class DynamicQueryResultListCommandBuilder extends
             return null;
         }
 
-        final Class<?> entityClass = getElementTypeOfList(method
-                .getGenericReturnType());
+        final Class<?>[] parameterTypes = method.getParameterTypes();
+        if (parameterTypes.length != 1
+                || parameterTypes[0] != ConditionalExpression[].class) {
+            return null;
+        }
+
+        final boolean resultList = method.getName().startsWith("find");
+        final Class<?> entityClass = resultList ? getElementTypeOfList(method
+                .getGenericReturnType()) : getTargetClass(daoClass, method);
         if (entityClass == null) {
             return null;
         }
 
-        final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        final String[] parameterNames = beanDesc
-                .getMethodParameterNames(method);
-        if (parameterNames == null) {
-            return null;
-        }
-
-        return new DynamicQueryCommand(entityClass, true, false,
-                new IdentificationVariableDeclarationImpl(entityClass),
-                parameterNames, getBinders(method, parameterNames));
+        return new ConditionalQueryCommand(entityClass, resultList, false,
+                new IdentificationVariableDeclarationImpl(entityClass));
     }
 
 }

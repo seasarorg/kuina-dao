@@ -270,22 +270,22 @@ public abstract class CriteriaOperations {
         return new Parenthesis(expression);
     }
 
-    public static Between between(final String operand, final String from,
-            final String to) {
+    public static BetweenExpression between(final String operand,
+            final String from, final String to) {
         return new Between(path(operand), path(from), path(to));
     }
 
-    public static Between between(final String operand, final Number from,
-            final Number to) {
+    public static BetweenExpression between(final String operand,
+            final Number from, final Number to) {
         return between(operand, literal(from), literal(to));
     }
 
-    public static Between between(final String operand,
+    public static BetweenExpression between(final String operand,
             final ArithmeticExpression from, final ArithmeticExpression to) {
         return new Between(path(operand), from, to);
     }
 
-    public static Between between(final String operand,
+    public static BetweenExpression between(final String operand,
             final StringExpression from, final StringExpression to) {
         return new Between(path(operand), from, to);
     }

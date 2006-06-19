@@ -22,7 +22,6 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 
 import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.MethodNotFoundRuntimeException;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.internal.Command;
@@ -57,12 +56,7 @@ public class DaoMetadataImpl implements DaoMetadata {
      */
     public Command getCommand(final Method method) {
         final String methodName = method.getName();
-        final Command command = commands.get(methodName);
-        if (command == null) {
-            throw new MethodNotFoundRuntimeException(daoClass,
-                    method.getName(), method.getParameterTypes());
-        }
-        return command;
+        return commands.get(methodName);
     }
 
     protected void setupCommands(final DaoMetadataFactoryImpl factory) {

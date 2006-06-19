@@ -17,39 +17,38 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
-import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
+import org.seasar.kuina.dao.internal.command.FindAllQueryCommand;
 
 /**
  * 
  * @author koichik
  */
-public class NamedQueryResultListCommandBuilder extends
-        AbstractNamedQueryCommandBuilder {
+public class FindAllQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
-    public NamedQueryResultListCommandBuilder() {
-        setMethodNamePattern("find.+");
+    /**
+     * インスタンスを構築します。
+     */
+    public FindAllQueryCommandBuilder() {
+        setMethodNamePattern("findAll");
     }
 
+    /**
+     * @see org.seasar.kuina.dao.internal.CommandBuilder#build(java.lang.Class,
+     *      java.lang.reflect.Method)
+     */
     public Command build(final Class<?> daoClass, final Method method) {
-        if (!isMatched(method)) {
+        if (!isMatched(method) || method.getParameterTypes().length != 0) {
             return null;
         }
 
-        final String queryName = getQueryName(daoClass, method);
-        if (queryName == null || !isExists(queryName)) {
+        final Class<?> entityClass = getElementTypeOfList(method
+                .getGenericReturnType());
+        if (entityClass == null) {
             return null;
         }
 
-        final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQueryCommand(true, queryName, getBinders(method,
-                beanDesc.getMethodParameterNames(method)));
+        return new FindAllQueryCommand(entityClass);
     }
 
-    @Override
-    protected Class<?> resolveEntityClass(Class<?> daoClass, Method method) {
-        return getElementTypeOfList(method.getGenericReturnType());
-    }
 }

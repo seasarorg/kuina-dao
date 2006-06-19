@@ -51,13 +51,17 @@ public class KuinaDaoInterceptor extends AbstractInterceptor {
      */
     public Object invoke(final MethodInvocation invocation) throws Throwable {
         final Method method = invocation.getMethod();
-        if (!MethodUtil.isAbstract(method)) {
-            return invocation.proceed();
+        if (MethodUtil.isAbstract(method)) {
+            final Class<?> targetClass = getTargetClass(invocation);
+            final DaoMetadata metadata = metadataFactory
+                    .getMetadata(targetClass);
+            final Command command = metadata.getCommand(method);
+            if (command != null) {
+                return command
+                        .execute(entityManager, invocation.getArguments());
+            }
         }
-        final Class<?> targetClass = getTargetClass(invocation);
-        final DaoMetadata metadata = metadataFactory.getMetadata(targetClass);
-        final Command command = metadata.getCommand(method);
-        return command.execute(entityManager, invocation.getArguments());
+        return invocation.proceed();
     }
 
 }

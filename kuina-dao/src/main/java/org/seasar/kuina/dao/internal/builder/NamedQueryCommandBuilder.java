@@ -19,6 +19,8 @@ import java.lang.reflect.Method;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
@@ -26,28 +28,49 @@ import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.kuina.dao.annotation.QueryName;
 import org.seasar.kuina.dao.entity.EntityDesc;
 import org.seasar.kuina.dao.entity.EntityDescFactory;
+import org.seasar.kuina.dao.internal.Command;
+import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
 
 /**
  * 
  * @author koichik
  */
 @Component
-public abstract class AbstractNamedQueryCommandBuilder extends
+public abstract class NamedQueryCommandBuilder extends
         AbstractQueryCommandBuilder {
 
     @Binding(bindingType = BindingType.MUST)
     protected EntityManager em;
 
-    public AbstractNamedQueryCommandBuilder() {
+    public NamedQueryCommandBuilder() {
+        setMethodNamePattern("(find|get).+");
     }
 
-    protected String getQueryName(final Class<?> daoClass, final Method method) {
+    public Command build(final Class<?> daoClass, final Method method) {
+        if (!isMatched(method)) {
+            return null;
+        }
+
+        final boolean resultList = method.getName().startsWith("find");
+        final String queryName = getQueryName(daoClass, method, resultList);
+        if (queryName == null || !isExists(queryName)) {
+            return null;
+        }
+
+        final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
+        return new NamedQueryCommand(resultList, queryName, getBinders(method,
+                beanDesc.getMethodParameterNames(method)));
+    }
+
+    protected String getQueryName(final Class<?> daoClass, final Method method,
+            final boolean resultList) {
         final QueryName queryName = method.getAnnotation(QueryName.class);
         if (queryName != null) {
             return queryName.value();
         }
 
-        final Class<?> entityClass = resolveEntityClass(daoClass, method);
+        final Class<?> entityClass = resultList ? getElementTypeOfList(method
+                .getGenericReturnType()) : getTargetClass(daoClass, method);
         if (entityClass == null) {
             return null;
         }

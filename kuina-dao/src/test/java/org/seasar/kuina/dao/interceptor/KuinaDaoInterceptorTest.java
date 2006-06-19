@@ -24,6 +24,11 @@ import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.EmployeeDao;
 
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.between;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.gt;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.lt;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.or;
+
 /**
  * 
  * @author koichik
@@ -41,19 +46,25 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         include(EmployeeDao.class.getName().replace('.', '/') + ".dicon");
     }
 
-    public void testFindNameAndOrBloodTx() throws Exception {
-        List<Employee> list = dao.findByNameAndOrBloodType("シマゴロー", null);
+    public void testFindAllTx() throws Exception {
+        List<Employee> list = dao.findAll();
+        assertNotNull(list);
+        assertEquals(30, list.size());
+    }
+
+    public void testFindNameOrBloodTx() throws Exception {
+        List<Employee> list = dao.findByNameOrBloodType("シマゴロー", null);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("シマゴロー", list.get(0).getName());
 
-        list = dao.findByNameAndOrBloodType(null, "AB");
+        list = dao.findByNameOrBloodType(null, "AB");
         assertEquals(3, list.size());
         assertEquals("マル", list.get(0).getName());
         assertEquals("ラスカル", list.get(1).getName());
         assertEquals("マイケル", list.get(2).getName());
 
-        list = dao.findByNameAndOrBloodType("マル", "AB");
+        list = dao.findByNameOrBloodType("マル", "AB");
         assertEquals(1, list.size());
         assertEquals("マル", list.get(0).getName());
     }
@@ -63,6 +74,17 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("シマゴロー", list.get(0).getName());
+    }
+
+    public void testFindConditionTx() throws Exception {
+        List<Employee> list = dao.findCondition(between("height", 150, 170),
+                or(lt("weight", 45), gt("weight", 70)));
+        assertNotNull(list);
+        assertEquals(4, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+        assertEquals("みなみ", list.get(1).getName());
+        assertEquals("マー", list.get(2).getName());
+        assertEquals("うさぎ", list.get(3).getName());
     }
 
     public void testFindByDepartmentNameTx() throws Exception {

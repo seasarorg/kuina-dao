@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import org.seasar.kuina.dao.annotation.PositionalParameter;
 import org.seasar.kuina.dao.annotation.TargetEntity;
 import org.seasar.kuina.dao.annotation.TemporalSpec;
+import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 
 /**
  * 
@@ -31,9 +32,13 @@ import org.seasar.kuina.dao.annotation.TemporalSpec;
 @TargetEntity(Employee.class)
 public interface EmployeeDao {
 
-    List<Employee> findByNameAndOrBloodType(String name, String bloodType);
+    List<Employee> findAll();
 
     List<Employee> findByName(String name);
+
+    List<Employee> findByNameOrBloodType(String name, String bloodType);
+
+    List<Employee> findCondition(ConditionalExpression... conditions);
 
     List<Employee> findByDepartmentName(String name, int firstResult,
             int maxResults);

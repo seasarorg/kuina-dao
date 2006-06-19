@@ -27,11 +27,10 @@ import org.seasar.kuina.dao.internal.command.DynamicQueryCommand;
  * 
  * @author koichik
  */
-public class DynamicQuerySingleResultCommandBuilder extends
-        AbstractQueryCommandBuilder {
+public class DynamicQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
-    public DynamicQuerySingleResultCommandBuilder() {
-        setMethodNamePattern("get.*");
+    public DynamicQueryCommandBuilder() {
+        setMethodNamePattern("(find|get).+");
     }
 
     /**
@@ -43,7 +42,9 @@ public class DynamicQuerySingleResultCommandBuilder extends
             return null;
         }
 
-        final Class<?> entityClass = getTargetClass(daoClass, method);
+        final boolean resultList = method.getName().startsWith("find");
+        final Class<?> entityClass = resultList ? getElementTypeOfList(method
+                .getGenericReturnType()) : getTargetClass(daoClass, method);
         if (entityClass == null) {
             return null;
         }
@@ -55,7 +56,7 @@ public class DynamicQuerySingleResultCommandBuilder extends
             return null;
         }
 
-        return new DynamicQueryCommand(entityClass, false, false,
+        return new DynamicQueryCommand(entityClass, resultList, false,
                 new IdentificationVariableDeclarationImpl(entityClass),
                 parameterNames, getBinders(method, parameterNames));
     }

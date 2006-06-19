@@ -10,22 +10,22 @@
 	>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.NamedQueryCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.DynamicQueryResultListCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.DynamicQuerySingleResultCommandBuilder"/>
+				<component class="org.seasar.kuina.dao.internal.builder.DynamicQueryCommandBuilder"/>
 			</arg>
 		</initMethod>
 		<initMethod name="addCommandBuilder">
