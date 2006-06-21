@@ -15,9 +15,9 @@
  */
 package org.seasar.kuina.dao.criteria.impl;
 
+import org.seasar.framework.jpa.EntityDesc;
+import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.kuina.dao.entity.EntityDesc;
-import org.seasar.kuina.dao.entity.EntityDescFactory;
 
 /**
  * 
@@ -27,7 +27,7 @@ public class JpqlUtil {
 
     public static String toAbstractSchemaName(final Class<?> clazz) {
         final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
-        assert entityDesc.isEntity();
+        assert entityDesc != null;
         return entityDesc.getName();
     }
 

@@ -15,8 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.clause;
 
-import junit.framework.TestCase;
-
+import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Department;
 import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
@@ -28,7 +27,13 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVaria
  * 
  * @author koichik
  */
-public class FromClauseImplTest extends TestCase {
+public class FromClauseImplTest extends S2TestCase {
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        include("s2hibernate-jpa.dicon");
+    }
 
     public void test1() throws Exception {
         FromClauseImpl from = new FromClauseImpl();

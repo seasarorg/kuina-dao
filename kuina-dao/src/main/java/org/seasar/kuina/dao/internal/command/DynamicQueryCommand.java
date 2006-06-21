@@ -18,11 +18,11 @@ package org.seasar.kuina.dao.internal.command;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.seasar.framework.jpa.EntityDesc;
+import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
-import org.seasar.kuina.dao.entity.EntityDesc;
-import org.seasar.kuina.dao.entity.EntityDescFactory;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
@@ -76,6 +76,7 @@ public class DynamicQueryCommand extends AbstractCommand {
     protected SelectStatement createSelectStatement(final Object[] arguments) {
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
+        assert entityDesc != null;
         final String alias = JpqlUtil
                 .toDefaultIdentificationVariable(entityDesc.getName());
         final SelectStatement statement = distinct ? selectDistinct(path(alias))

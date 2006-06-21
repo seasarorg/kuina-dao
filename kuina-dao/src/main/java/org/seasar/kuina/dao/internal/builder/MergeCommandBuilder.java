@@ -17,8 +17,8 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
-import org.seasar.kuina.dao.entity.EntityDesc;
-import org.seasar.kuina.dao.entity.EntityDescFactory;
+import org.seasar.framework.jpa.EntityDesc;
+import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.MergeCommand;
 
@@ -49,7 +49,7 @@ public class MergeCommandBuilder extends AbstractCommandBuilder {
 
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(returnType);
-        if (!entityDesc.isEntity()) {
+        if (entityDesc == null) {
             return null;
         }
 

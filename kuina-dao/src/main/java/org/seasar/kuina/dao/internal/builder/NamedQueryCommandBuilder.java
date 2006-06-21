@@ -25,9 +25,9 @@ import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.framework.jpa.EntityDesc;
+import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.kuina.dao.annotation.QueryName;
-import org.seasar.kuina.dao.entity.EntityDesc;
-import org.seasar.kuina.dao.entity.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
 
@@ -77,7 +77,7 @@ public abstract class NamedQueryCommandBuilder extends
 
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
-        if (!entityDesc.isEntity()) {
+        if (entityDesc == null) {
             return null;
         }
 

@@ -15,8 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.clause;
 
-import junit.framework.TestCase;
-
+import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Department;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.impl.CriteriaContextImpl;
@@ -27,7 +26,13 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVaria
  * 
  * @author koichik
  */
-public class IdentificationVariableDeclarationImplTest extends TestCase {
+public class IdentificationVariableDeclarationImplTest extends S2TestCase {
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        include("s2hibernate-jpa.dicon");
+    }
 
     public void test() throws Exception {
         IdentificationVariableDeclarationImpl range = new IdentificationVariableDeclarationImpl(
