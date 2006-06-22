@@ -81,7 +81,7 @@ public abstract class NamedQueryCommandBuilder extends
             return null;
         }
 
-        return entityDesc.getName() + "." + method.getName();
+        return entityDesc.getEntityName() + "." + method.getName();
     }
 
     protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,

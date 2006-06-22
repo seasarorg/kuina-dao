@@ -32,9 +32,9 @@ public class Sale {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
-    private int quantity;
+    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
@@ -50,19 +50,19 @@ public class Sale {
     public Sale() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -108,7 +108,7 @@ public class Sale {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return id == null ? 0 : id;
     }
 
 }

@@ -17,6 +17,7 @@ package org.seasar.kuina.dao;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,24 +34,24 @@ public class Employee {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private String name;
 
-    private int height;
+    private Integer height;
 
-    private int weight;
+    private Integer weight;
 
     private String email;
 
-    private int hireFiscalYear;
+    private Integer hireFiscalYear;
 
     private Date birthday;
 
     private String bloodType;
 
     @Version
-    private int version;
+    private Integer version;
 
     @OneToMany(mappedBy = "employee")
     private Collection<BelongTo> belongTo;
@@ -61,11 +62,11 @@ public class Employee {
     public Employee() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -77,19 +78,19 @@ public class Employee {
         this.name = name;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -101,11 +102,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getHireFiscalYear() {
+    public Integer getHireFiscalYear() {
         return hireFiscalYear;
     }
 
-    public void setHireFiscalYear(int hireFiscalYear) {
+    public void setHireFiscalYear(Integer hireFiscalYear) {
         this.hireFiscalYear = hireFiscalYear;
     }
 
@@ -133,6 +134,15 @@ public class Employee {
         this.belongTo = belongTo;
     }
 
+    public void addDepartment(Department department) {
+        if (belongTo == null) {
+            this.belongTo = new HashSet<BelongTo>();
+        }
+        BelongTo belongTo = new BelongTo();
+        belongTo.setDepartment(department);
+        this.belongTo.add(belongTo);
+    }
+
     public Collection<Salary> getSalary() {
         return salary;
     }
@@ -151,6 +161,6 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return id == null ? 0 : id;
     }
 }

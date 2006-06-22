@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Department {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -41,11 +42,11 @@ public class Department {
     public Department() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -65,6 +66,19 @@ public class Department {
         this.belongTo = belongTo;
     }
 
+    public void addBelongTo(BelongTo belongTo) {
+        if (belongTo == null) {
+            this.belongTo = new HashSet<BelongTo>();
+        }
+        this.belongTo.add(belongTo);
+    }
+
+    public void addEmployee(Employee employee) {
+        BelongTo belongTo = new BelongTo();
+        belongTo.setEmployee(employee);
+        addBelongTo(belongTo);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Department))
@@ -75,6 +89,6 @@ public class Department {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return id == null ? 0 : id;
     }
 }

@@ -30,7 +30,7 @@ public class Customer {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private String code;
 
@@ -47,11 +47,11 @@ public class Customer {
     public Customer() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -105,6 +105,6 @@ public class Customer {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return id == null ? 0 : id;
     }
 }

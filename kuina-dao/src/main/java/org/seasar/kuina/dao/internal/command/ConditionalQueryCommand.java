@@ -80,7 +80,7 @@ public class ConditionalQueryCommand extends AbstractCommand {
                 .getEntityDesc(entityClass);
         assert entityDesc != null;
         final String alias = JpqlUtil
-                .toDefaultIdentificationVariable(entityDesc.getName());
+                .toDefaultIdentificationVariable(entityDesc.getEntityName());
         final SelectStatement statement = distinct ? selectDistinct(path(alias))
                 : select(path(alias));
         return statement.from(fromDecl);

@@ -3,8 +3,13 @@
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
 	<include path="kuina-dao.dicon"/>
-	
+
 	<component class="org.seasar.kuina.dao.EmployeeDao">
 		<aspect>kuinaDao.interceptor</aspect>
 	</component>
+
+	<component class="org.seasar.kuina.dao.ProductDao">
+		<aspect>kuinaDao.interceptor</aspect>
+	</component>
+
 </components>

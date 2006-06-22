@@ -20,6 +20,11 @@
 		</initMethod>
 		<initMethod name="addCommandBuilder">
 			<arg>
+				<component class="org.seasar.kuina.dao.internal.builder.QueryByExampleCommandBuilder"/>
+			</arg>
+		</initMethod>
+		<initMethod name="addCommandBuilder">
+			<arg>
 				<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryCommandBuilder"/>
 			</arg>
 		</initMethod>

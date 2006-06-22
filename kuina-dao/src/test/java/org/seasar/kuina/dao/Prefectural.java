@@ -31,7 +31,7 @@ public class Prefectural {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -41,11 +41,11 @@ public class Prefectural {
     public Prefectural() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,6 +75,6 @@ public class Prefectural {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return id == null ? 0 : id;
     }
 }

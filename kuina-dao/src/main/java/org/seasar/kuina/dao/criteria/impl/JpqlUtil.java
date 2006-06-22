@@ -27,8 +27,8 @@ public class JpqlUtil {
 
     public static String toAbstractSchemaName(final Class<?> clazz) {
         final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
-        assert entityDesc != null;
-        return entityDesc.getName();
+        assert entityDesc != null;// TODO
+        return entityDesc.getEntityName();
     }
 
     public static String toDefaultIdentificationVariable(

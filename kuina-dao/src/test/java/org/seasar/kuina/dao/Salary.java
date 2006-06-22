@@ -32,7 +32,7 @@ public class Salary {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private Date payDate;
 
@@ -42,11 +42,11 @@ public class Salary {
     public Salary() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,6 +76,6 @@ public class Salary {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return id == null ? 0 : id;
     }
 }

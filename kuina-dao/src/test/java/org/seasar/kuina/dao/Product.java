@@ -33,13 +33,13 @@ public class Product {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private String code;
 
     private String name;
 
-    private int price;
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
@@ -50,11 +50,11 @@ public class Product {
     public Product() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -74,11 +74,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -108,6 +108,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return id == null ? 0 : id;
     }
 }
