@@ -40,7 +40,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  * 
  * @author koichik
  */
-public class QueryByExampleCommand extends AbstractCommand {
+public class ExampleQueryCommand extends AbstractCommand {
 
     protected Class<?> entityClass;
 
@@ -57,7 +57,7 @@ public class QueryByExampleCommand extends AbstractCommand {
     /**
      * インスタンスを構築します。
      */
-    public QueryByExampleCommand(final Class<?> entityClass,
+    public ExampleQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
             final int firstResult, final int maxResults) {
         this.entityClass = entityClass;

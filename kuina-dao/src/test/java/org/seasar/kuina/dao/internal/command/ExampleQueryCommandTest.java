@@ -27,7 +27,7 @@ import org.seasar.kuina.dao.Employee;
  * @author koichik
  */
 @SuppressWarnings("unchecked")
-public class QueryByExampleCommandTest extends S2TestCase {
+public class ExampleQueryCommandTest extends S2TestCase {
 
     private EntityManager em;
 
@@ -38,7 +38,7 @@ public class QueryByExampleCommandTest extends S2TestCase {
     }
 
     public void testSimpleTx() throws Exception {
-        QueryByExampleCommand command = new QueryByExampleCommand(
+        ExampleQueryCommand command = new ExampleQueryCommand(
                 Employee.class, true, false, -1, -1);
         Employee emp = new Employee();
         emp.setName("シマゴロー");
@@ -49,7 +49,7 @@ public class QueryByExampleCommandTest extends S2TestCase {
     }
 
     public void testFirstResultMaxResultsTx() throws Exception {
-        QueryByExampleCommand command = new QueryByExampleCommand(
+        ExampleQueryCommand command = new ExampleQueryCommand(
                 Employee.class, true, false, 1, 2);
         Employee emp = new Employee();
         emp.setBloodType("A");

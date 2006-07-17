@@ -78,16 +78,13 @@
         <executions>
           <execution>
             <goals>
-              <goal>enhance</goal>
               <goal>testEnhance</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
           <verbose>true</verbose>
-          <!--
           <encoding>UTF-8</encoding>
-          -->
         </configuration>
       </plugin>
     </plugins>
@@ -124,6 +121,13 @@
       <version>1.0</version>
       <type>jar</type>
       <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.seasar.container</groupId>
+      <artifactId>diigu-core</artifactId>
+      <version>0.0.2</version>
+      <type>jar</type>
       <optional>true</optional>
     </dependency>
     <dependency>
