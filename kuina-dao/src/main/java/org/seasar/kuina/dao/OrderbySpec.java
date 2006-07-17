@@ -13,18 +13,32 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.annotation;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.seasar.kuina.dao;
 
 /**
  * 
  * @author koichik
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface PositionalParameter {
+public class OrderbySpec {
+    protected final String pathExpression;
+
+    protected final OrderingSpec orderingSpec;
+
+    public OrderbySpec(final String pathExpression) {
+        this(pathExpression, OrderingSpec.ASC);
+    }
+
+    public OrderbySpec(final String pathExpression, final OrderingSpec orderingSpec) {
+        this.pathExpression = pathExpression;
+        this.orderingSpec = orderingSpec;
+    }
+
+    public String getPathExpression() {
+        return pathExpression;
+    }
+
+    public OrderingSpec getOrderingSpec() {
+        return orderingSpec;
+    }
+
 }

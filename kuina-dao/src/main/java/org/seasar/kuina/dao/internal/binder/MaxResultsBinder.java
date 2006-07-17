@@ -29,7 +29,7 @@ public class MaxResultsBinder implements ParameterBinder {
         this(null);
     }
 
-    protected MaxResultsBinder(final Number value) {
+    public MaxResultsBinder(final Number value) {
         this.value = value;
     }
 

@@ -27,7 +27,7 @@ import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
-import org.seasar.kuina.dao.annotation.QueryName;
+import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
 

@@ -43,6 +43,12 @@ public class DynamicQueryCommand extends AbstractCommand {
 
     protected boolean distinct;
 
+    protected int orderby;
+
+    protected int firstResult;
+
+    protected int maxResults;
+
     protected IdentificationVariableDeclaration fromDecl;
 
     protected String[] parameterNames;
@@ -51,20 +57,20 @@ public class DynamicQueryCommand extends AbstractCommand {
 
     public DynamicQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
+            final int orderby, final int firstResult, final int maxResults,
             final IdentificationVariableDeclaration fromDecl,
             final String[] parameterNames, final ParameterBinder[] binders) {
         this.entityClass = entityClass;
         this.resultList = resultList;
         this.distinct = distinct;
+        this.orderby = orderby;
+        this.firstResult = firstResult;
+        this.maxResults = maxResults;
         this.fromDecl = fromDecl;
         this.parameterNames = parameterNames;
         this.binders = binders;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
-     *      java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
         System.out.println(statement.getQueryString());
@@ -81,14 +87,22 @@ public class DynamicQueryCommand extends AbstractCommand {
                 .toDefaultIdentificationVariable(entityDesc.getEntityName());
         final SelectStatement statement = distinct ? selectDistinct(path(alias))
                 : select(path(alias));
+
         statement.from(fromDecl);
+        if (orderby >= 0) {
+            appendOrderbyClause(statement, arguments[orderby]);
+        }
 
         for (int i = 0; i < arguments.length; ++i) {
-            final Object value = arguments[i];
-            if (value != null) {
-                final String name = parameterNames[i];
-                statement.where(eq(name.replace('$', '.'), parameter(name)));
+            if (i == orderby || i == firstResult || i == maxResults) {
+                continue;
             }
+            final Object value = arguments[i];
+            if (value == null) {
+                continue;
+            }
+            final String name = parameterNames[i];
+            statement.where(eq(name.replace('$', '.'), parameter(name)));
         }
 
         return statement;

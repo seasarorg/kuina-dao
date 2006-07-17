@@ -13,16 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.annotation;
+package org.seasar.kuina.dao;
 
-import javax.persistence.TemporalType;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * 
  * @author koichik
  */
-public @interface TemporalSpec {
-
-    TemporalType value();
-
+@Target( { ElementType.METHOD, ElementType.PARAMETER })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NamedParameter {
 }

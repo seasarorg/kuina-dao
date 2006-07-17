@@ -50,6 +50,8 @@ public class ExampleQueryCommand extends AbstractCommand {
 
     protected boolean distinct;
 
+    protected int orderby;
+
     protected int firstResult;
 
     protected int maxResults;
@@ -59,11 +61,12 @@ public class ExampleQueryCommand extends AbstractCommand {
      */
     public ExampleQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
-            final int firstResult, final int maxResults) {
+            final int orderby, final int firstResult, final int maxResults) {
         this.entityClass = entityClass;
         this.entityDesc = EntityDescFactory.getEntityDesc(entityClass);
         this.resultList = resultList;
         this.distinct = distinct;
+        this.orderby = orderby;
         this.firstResult = firstResult;
         this.maxResults = maxResults;
     }
@@ -93,6 +96,9 @@ public class ExampleQueryCommand extends AbstractCommand {
         addCondition(statement, fromDecl, entityDesc, entity, alias + ".");
 
         statement.from(fromDecl);
+        if (orderby >= 0) {
+            appendOrderbyClause(statement, arguments[orderby]);
+        }
         if (firstResult >= 0) {
             statement.setFirstResult(Number.class.cast(arguments[firstResult])
                     .intValue());

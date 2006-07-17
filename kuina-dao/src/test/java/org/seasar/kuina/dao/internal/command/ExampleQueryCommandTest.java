@@ -21,6 +21,8 @@ import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Employee;
+import org.seasar.kuina.dao.OrderbySpec;
+import org.seasar.kuina.dao.OrderingSpec;
 
 /**
  * 
@@ -38,8 +40,8 @@ public class ExampleQueryCommandTest extends S2TestCase {
     }
 
     public void testSimpleTx() throws Exception {
-        ExampleQueryCommand command = new ExampleQueryCommand(
-                Employee.class, true, false, -1, -1);
+        ExampleQueryCommand command = new ExampleQueryCommand(Employee.class,
+                true, false, -1, -1, -1);
         Employee emp = new Employee();
         emp.setName("シマゴロー");
         List<Employee> list = (List) command.execute(em, new Object[] { emp });
@@ -48,9 +50,67 @@ public class ExampleQueryCommandTest extends S2TestCase {
         assertEquals("シマゴロー", list.get(0).getName());
     }
 
-    public void testFirstResultMaxResultsTx() throws Exception {
-        ExampleQueryCommand command = new ExampleQueryCommand(
-                Employee.class, true, false, 1, 2);
+    public void testOrderbyTx() throws Exception {
+        ExampleQueryCommand command = new ExampleQueryCommand(Employee.class,
+                true, false, 1, -1, -1);
+        Employee emp = new Employee();
+        emp.setBloodType("AB");
+        List<Employee> list = (List) command.execute(em, new Object[] { emp,
+                "birthday" });
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("マル", list.get(0).getName());
+        assertEquals("ラスカル", list.get(1).getName());
+        assertEquals("マイケル", list.get(2).getName());
+
+        list = (List) command.execute(em, new Object[] { emp,
+                new OrderbySpec("birthday", OrderingSpec.DESC) });
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("マイケル", list.get(0).getName());
+        assertEquals("ラスカル", list.get(1).getName());
+        assertEquals("マル", list.get(2).getName());
+
+        emp.setBloodType("A");
+        list = (List) command.execute(em, new Object[] { emp,
+                new String[] { "height", "weight" } });
+        assertNotNull(list);
+        assertEquals(11, list.size());
+        assertEquals("ローリー", list.get(0).getName());
+        assertEquals("サリー", list.get(1).getName());
+        assertEquals("ぴよ", list.get(2).getName());
+        assertEquals("マー", list.get(3).getName());
+        assertEquals("うさぎ", list.get(4).getName());
+        assertEquals("サラ", list.get(5).getName());
+        assertEquals("シマゴロー", list.get(6).getName());
+        assertEquals("モンチー", list.get(7).getName());
+        assertEquals("うー太", list.get(8).getName());
+        assertEquals("ミチロー", list.get(9).getName());
+        assertEquals("クー", list.get(10).getName());
+
+        list = (List) command.execute(em, new Object[] {
+                emp,
+                new OrderbySpec[] {
+                        new OrderbySpec("height", OrderingSpec.ASC),
+                        new OrderbySpec("weight", OrderingSpec.DESC) } });
+        assertNotNull(list);
+        assertEquals(11, list.size());
+        assertEquals("ローリー", list.get(0).getName());
+        assertEquals("サリー", list.get(1).getName());
+        assertEquals("ぴよ", list.get(2).getName());
+        assertEquals("マー", list.get(3).getName());
+        assertEquals("うさぎ", list.get(4).getName());
+        assertEquals("サラ", list.get(5).getName());
+        assertEquals("シマゴロー", list.get(6).getName());
+        assertEquals("モンチー", list.get(7).getName());
+        assertEquals("ミチロー", list.get(8).getName());
+        assertEquals("うー太", list.get(9).getName());
+        assertEquals("クー", list.get(10).getName());
+    }
+
+    public void testPagingTx() throws Exception {
+        ExampleQueryCommand command = new ExampleQueryCommand(Employee.class,
+                true, false, -1, 1, 2);
         Employee emp = new Employee();
         emp.setBloodType("A");
         List<Employee> list = (List) command.execute(em, new Object[] { emp, 5,

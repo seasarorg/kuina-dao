@@ -46,8 +46,7 @@ public abstract class AbstractExampleQueryCommandBuilder extends
 
         final Class<?>[] parameterTypes = method.getParameterTypes();
         final int parameterSize = parameterTypes.length;
-        if (parameterSize < 1 || parameterSize > 3
-                || parameterTypes[0] != entityClass) {
+        if (parameterSize == 0 || parameterTypes[0] != entityClass) {
             return null;
         }
 
@@ -57,7 +56,8 @@ public abstract class AbstractExampleQueryCommandBuilder extends
         final Annotation[][] annotations = method.getParameterAnnotations();
 
         return new ExampleQueryCommand(entityClass, isResultList(),
-                isDistinct(method), getFirstResultParameter(parameterNames,
+                isDistinct(method), getOrderbyParameter(parameterNames,
+                        annotations), getFirstResultParameter(parameterNames,
                         annotations), getMaxResultsParameter(parameterNames,
                         annotations));
     }
@@ -65,29 +65,4 @@ public abstract class AbstractExampleQueryCommandBuilder extends
     protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,
             final Method method);
 
-    protected int getFirstResultParameter(final String[] parameterNames,
-            final Annotation[][] annotations) {
-        if (parameterNames == null) {
-            return -1;
-        }
-        for (int i = 0; i < parameterNames.length; ++i) {
-            if (isFirstResult(parameterNames[i], annotations[i])) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    protected int getMaxResultsParameter(final String[] parameterNames,
-            final Annotation[][] annotations) {
-        if (parameterNames == null) {
-            return -1;
-        }
-        for (int i = 0; i < parameterNames.length; ++i) {
-            if (isMaxResults(parameterNames[i], annotations[i])) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }

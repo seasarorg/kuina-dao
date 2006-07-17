@@ -20,9 +20,6 @@ import java.util.List;
 
 import javax.persistence.TemporalType;
 
-import org.seasar.kuina.dao.annotation.PositionalParameter;
-import org.seasar.kuina.dao.annotation.TargetEntity;
-import org.seasar.kuina.dao.annotation.TemporalSpec;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 
 /**
@@ -36,12 +33,20 @@ public interface EmployeeDao {
 
     List<Employee> findByExample(Employee employee);
 
-    List<Employee> findByExample2(Employee employee, int firstResult,
+    List<Employee> findByExample2(Employee employee, String[] orderby);
+
+    List<Employee> findByExample3(Employee employee, int firstResult,
             int maxResults);
 
     List<Employee> findByName(String name);
 
     List<Employee> findByNameOrBloodType(String name, String bloodType);
+
+    List<Employee> findByBloodTypeOrderbyHeightWeight(String bloodType,
+            String[] orderby);
+
+    List<Employee> findByBloodTypePaging(String bloodType, int firstResult,
+            int maxResults);
 
     List<Employee> findCondition(ConditionalExpression... conditions);
 

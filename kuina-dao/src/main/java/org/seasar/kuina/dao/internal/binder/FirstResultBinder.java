@@ -29,7 +29,7 @@ public class FirstResultBinder implements ParameterBinder {
         this(null);
     }
 
-    protected FirstResultBinder(final Number value) {
+    public FirstResultBinder(final Number value) {
         this.value = value;
     }
 

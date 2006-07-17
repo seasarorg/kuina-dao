@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.annotation;
+package org.seasar.kuina.dao;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -24,7 +24,10 @@ import java.lang.annotation.Target;
  * 
  * @author koichik
  */
-@Target(ElementType.PARAMETER)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FirstResult {
+public @interface QueryName {
+
+    String value();
+
 }

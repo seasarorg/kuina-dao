@@ -26,17 +26,18 @@ import java.util.regex.Pattern;
 
 import javax.persistence.TemporalType;
 
-import org.seasar.kuina.dao.annotation.Distinct;
-import org.seasar.kuina.dao.annotation.FirstResult;
-import org.seasar.kuina.dao.annotation.MaxResults;
-import org.seasar.kuina.dao.annotation.NamedParameter;
-import org.seasar.kuina.dao.annotation.PositionalParameter;
-import org.seasar.kuina.dao.annotation.TargetEntity;
-import org.seasar.kuina.dao.annotation.TemporalSpec;
+import org.seasar.kuina.dao.Distinct;
+import org.seasar.kuina.dao.FirstResult;
+import org.seasar.kuina.dao.MaxResults;
+import org.seasar.kuina.dao.NamedParameter;
+import org.seasar.kuina.dao.PositionalParameter;
+import org.seasar.kuina.dao.TargetEntity;
+import org.seasar.kuina.dao.TemporalSpec;
 import org.seasar.kuina.dao.internal.binder.CalendarParameterBinder;
 import org.seasar.kuina.dao.internal.binder.DateParameterBinder;
 import org.seasar.kuina.dao.internal.binder.FirstResultBinder;
 import org.seasar.kuina.dao.internal.binder.MaxResultsBinder;
+import org.seasar.kuina.dao.internal.binder.NullBinder;
 import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
@@ -49,12 +50,18 @@ public abstract class AbstractQueryCommandBuilder extends
 
     protected final boolean resultList;
 
+    protected Pattern orderbyPattern = Pattern.compile("order[bB]y");
+
     protected Pattern firstResultPattern = Pattern.compile("firstResult");
 
     protected Pattern maxResultsPattern = Pattern.compile("maxResults");
 
     public AbstractQueryCommandBuilder(final boolean resultList) {
         this.resultList = resultList;
+    }
+
+    public void setOrderbyPattern(final String orderbyPattern) {
+        this.orderbyPattern = Pattern.compile(orderbyPattern);
     }
 
     public void setFirstResultPattern(final String firstResultPattern) {
@@ -94,7 +101,9 @@ public abstract class AbstractQueryCommandBuilder extends
             final String name = parameterNames[i];
             final Annotation[] annotations = parameterAnnotations[i];
 
-            if (isFirstResult(name, annotations)) {
+            if (isOrderby(name, annotations)) {
+                binders[i] = new NullBinder();
+            } else if (isFirstResult(name, annotations)) {
                 binders[i] = new FirstResultBinder();
             } else if (isMaxResults(name, annotations)) {
                 binders[i] = new MaxResultsBinder();
@@ -122,7 +131,9 @@ public abstract class AbstractQueryCommandBuilder extends
             final Class<?> type = parameterTypes[i];
             final Annotation[] annotations = parameterAnnotations[i];
 
-            if (isFirstResult(null, annotations)) {
+            if (isOrderby(null, annotations)) {
+                binders[i] = new NullBinder();
+            } else if (isFirstResult(null, annotations)) {
                 binders[i] = new FirstResultBinder();
             } else if (isMaxResults(null, annotations)) {
                 binders[i] = new MaxResultsBinder();
@@ -139,6 +150,30 @@ public abstract class AbstractQueryCommandBuilder extends
         return binders;
     }
 
+    protected boolean isOrderby(final String name,
+            final Annotation[] annotations) {
+        for (final Annotation annotation : annotations) {
+            if (annotation instanceof NamedParameter) {
+                return false;
+            } else if (annotation instanceof FirstResult)
+                return true;
+        }
+        return name != null && orderbyPattern.matcher(name).matches();
+    }
+
+    protected int getOrderbyParameter(final String[] parameterNames,
+            final Annotation[][] annotations) {
+        if (parameterNames == null) {
+            return -1;
+        }
+        for (int i = 0; i < parameterNames.length; ++i) {
+            if (isOrderby(parameterNames[i], annotations[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     protected boolean isFirstResult(final String name,
             final Annotation[] annotations) {
         for (final Annotation annotation : annotations) {
@@ -148,6 +183,19 @@ public abstract class AbstractQueryCommandBuilder extends
                 return true;
         }
         return name != null && firstResultPattern.matcher(name).matches();
+    }
+
+    protected int getFirstResultParameter(final String[] parameterNames,
+            final Annotation[][] annotations) {
+        if (parameterNames == null) {
+            return -1;
+        }
+        for (int i = 0; i < parameterNames.length; ++i) {
+            if (isFirstResult(parameterNames[i], annotations[i])) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     protected boolean isMaxResults(final String name,
@@ -160,6 +208,19 @@ public abstract class AbstractQueryCommandBuilder extends
             }
         }
         return name != null && maxResultsPattern.matcher(name).matches();
+    }
+
+    protected int getMaxResultsParameter(final String[] parameterNames,
+            final Annotation[][] annotations) {
+        if (parameterNames == null) {
+            return -1;
+        }
+        for (int i = 0; i < parameterNames.length; ++i) {
+            if (isMaxResults(parameterNames[i], annotations[i])) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     protected TemporalType getTemporalType(final Annotation[] annotations) {
@@ -214,4 +275,5 @@ public abstract class AbstractQueryCommandBuilder extends
         }
         return method.getReturnType();
     }
+
 }

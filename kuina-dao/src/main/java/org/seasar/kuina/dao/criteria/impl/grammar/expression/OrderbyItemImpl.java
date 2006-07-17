@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
+import org.seasar.kuina.dao.OrderingSpec;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.OrderbyItem;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
@@ -26,21 +27,21 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 public class OrderbyItemImpl implements OrderbyItem {
     protected final PathExpression pathExpression;
 
-    protected final boolean desc;
+    protected final OrderingSpec orderingSpec;
 
     public OrderbyItemImpl(final PathExpression pathExpression) {
-        this(pathExpression, false);
+        this(pathExpression, OrderingSpec.ASC);
     }
 
     public OrderbyItemImpl(final PathExpression pathExpression,
-            final boolean desc) {
+            final OrderingSpec orderingSpec) {
         this.pathExpression = pathExpression;
-        this.desc = desc;
+        this.orderingSpec = orderingSpec;
     }
 
     public void evaluate(final CriteriaContext context) {
         pathExpression.evaluate(context);
-        if (desc) {
+        if (OrderingSpec.DESC.equals(orderingSpec)) {
             context.append(" DESC");
         }
     }

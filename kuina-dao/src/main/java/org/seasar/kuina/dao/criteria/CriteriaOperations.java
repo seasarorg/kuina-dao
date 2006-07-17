@@ -20,6 +20,7 @@ import java.util.Date;
 
 import javax.persistence.TemporalType;
 
+import org.seasar.kuina.dao.OrderingSpec;
 import org.seasar.kuina.dao.criteria.grammar.AggregateExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticFactor;
@@ -1512,6 +1513,6 @@ public abstract class CriteriaOperations {
     }
 
     public static OrderbyItem desc(final PathExpression path) {
-        return new OrderbyItemImpl(path, true);
+        return new OrderbyItemImpl(path, OrderingSpec.DESC);
     }
 }

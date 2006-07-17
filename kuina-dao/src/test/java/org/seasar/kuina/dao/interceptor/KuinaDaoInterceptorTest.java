@@ -116,21 +116,61 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
 
     public void testFindByExample2Tx() throws Exception {
         Employee emp = new Employee();
+        emp.setBloodType("AB");
+        List<Employee> list = employeeDao.findByExample2(emp,
+                new String[] { "birthday" });
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("マル", list.get(0).getName());
+        assertEquals("ラスカル", list.get(1).getName());
+        assertEquals("マイケル", list.get(2).getName());
+
         emp.setBloodType("A");
-        List<Employee> list = employeeDao.findByExample2(emp, -1, -1);
+        list = employeeDao.findByExample2(emp, new String[] { "height",
+                "weight" });
+        assertNotNull(list);
+        assertEquals(11, list.size());
+        assertEquals("ローリー", list.get(0).getName());
+        assertEquals("サリー", list.get(1).getName());
+        assertEquals("ぴよ", list.get(2).getName());
+        assertEquals("マー", list.get(3).getName());
+        assertEquals("うさぎ", list.get(4).getName());
+        assertEquals("サラ", list.get(5).getName());
+        assertEquals("シマゴロー", list.get(6).getName());
+        assertEquals("モンチー", list.get(7).getName());
+        assertEquals("うー太", list.get(8).getName());
+        assertEquals("ミチロー", list.get(9).getName());
+        assertEquals("クー", list.get(10).getName());
+    }
+
+    public void testFindByExample3Tx() throws Exception {
+        Employee emp = new Employee();
+        emp.setBloodType("A");
+        List<Employee> list = employeeDao.findByExample3(emp, -1, -1);
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("シマゴロー", list.get(0).getName());
 
-        list = employeeDao.findByExample2(emp, 1, -1);
+        list = employeeDao.findByExample3(emp, 1, -1);
         assertNotNull(list);
         assertEquals(10, list.size());
         assertEquals("ミチロー", list.get(0).getName());
 
-        list = employeeDao.findByExample2(emp, 5, 5);
+        list = employeeDao.findByExample3(emp, 5, 5);
         assertNotNull(list);
         assertEquals(5, list.size());
         assertEquals("ぴよ", list.get(0).getName());
+        assertEquals("マー", list.get(1).getName());
+        assertEquals("サリー", list.get(2).getName());
+        assertEquals("うさぎ", list.get(3).getName());
+        assertEquals("うー太", list.get(4).getName());
+    }
+
+    public void testFindByNameTx() throws Exception {
+        List<Employee> list = employeeDao.findByName("シマゴロー");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
     }
 
     public void testFindNameOrBloodTx() throws Exception {
@@ -150,11 +190,33 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("マル", list.get(0).getName());
     }
 
-    public void testFindByNameTx() throws Exception {
-        List<Employee> list = employeeDao.findByName("シマゴロー");
+    public void testFindByBloodTypeOrderbyHeightWeightTx() throws Exception {
+        List<Employee> list = employeeDao.findByBloodTypeOrderbyHeightWeight(
+                "A", new String[] { "height", "weight" });
         assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("シマゴロー", list.get(0).getName());
+        assertEquals(11, list.size());
+        assertEquals("ローリー", list.get(0).getName());
+        assertEquals("サリー", list.get(1).getName());
+        assertEquals("ぴよ", list.get(2).getName());
+        assertEquals("マー", list.get(3).getName());
+        assertEquals("うさぎ", list.get(4).getName());
+        assertEquals("サラ", list.get(5).getName());
+        assertEquals("シマゴロー", list.get(6).getName());
+        assertEquals("モンチー", list.get(7).getName());
+        assertEquals("うー太", list.get(8).getName());
+        assertEquals("ミチロー", list.get(9).getName());
+        assertEquals("クー", list.get(10).getName());
+    }
+
+    public void testFindByBlooeTypePagingTx() throws Exception {
+        List<Employee> list = employeeDao.findByBloodTypePaging("A", 5, 5);
+        assertNotNull(list);
+        assertEquals(5, list.size());
+        assertEquals("ぴよ", list.get(0).getName());
+        assertEquals("マー", list.get(1).getName());
+        assertEquals("サリー", list.get(2).getName());
+        assertEquals("うさぎ", list.get(3).getName());
+        assertEquals("うー太", list.get(4).getName());
     }
 
     public void testFindConditionTx() throws Exception {

@@ -22,6 +22,9 @@ import javax.persistence.EntityManager;
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
+import org.seasar.kuina.dao.internal.binder.FirstResultBinder;
+import org.seasar.kuina.dao.internal.binder.MaxResultsBinder;
+import org.seasar.kuina.dao.internal.binder.NullBinder;
 import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
@@ -44,8 +47,9 @@ public class DynamicQueryCommandTest extends S2TestCase {
 
     public void testFindByNameTx() throws Exception {
         DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, new IdentificationVariableDeclarationImpl(
-                        Employee.class), new String[] { "name" },
+                true, false, -1, -1, -1,
+                new IdentificationVariableDeclarationImpl(Employee.class),
+                new String[] { "name" },
                 new ParameterBinder[] { new ObjectParameterBinder("name") });
         List<Employee> list = (List) command.execute(em,
                 new Object[] { "シマゴロー" });
@@ -56,9 +60,10 @@ public class DynamicQueryCommandTest extends S2TestCase {
 
     public void testFindByNameAndBloodtypeTx() throws Exception {
         DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, new IdentificationVariableDeclarationImpl(
-                        Employee.class), new String[] { "name", "bloodType" },
-                new ParameterBinder[] { new ObjectParameterBinder("name"),
+                true, false, -1, -1, -1,
+                new IdentificationVariableDeclarationImpl(Employee.class),
+                new String[] { "name", "bloodType" }, new ParameterBinder[] {
+                        new ObjectParameterBinder("name"),
                         new ObjectParameterBinder("bloodType") });
         List<Employee> list = (List) command.execute(em, new Object[] { null,
                 "AB" });
@@ -70,9 +75,10 @@ public class DynamicQueryCommandTest extends S2TestCase {
 
     public void testFindByDeparmentNameTx() throws Exception {
         DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, new IdentificationVariableDeclarationImpl(
-                        Employee.class).inner(path("employee.belongTo")).inner(
-                        path("belongTo.department")),
+                true, false, -1, -1, -1,
+                new IdentificationVariableDeclarationImpl(Employee.class)
+                        .inner(path("employee.belongTo")).inner(
+                                path("belongTo.department")),
                 new String[] { "department$name" },
                 new ParameterBinder[] { new ObjectParameterBinder(
                         "department$name") });
@@ -84,5 +90,47 @@ public class DynamicQueryCommandTest extends S2TestCase {
         assertEquals("みなみ", list.get(2).getName());
         assertEquals("ぱんだ", list.get(3).getName());
         assertEquals("くま", list.get(4).getName());
+    }
+
+    public void testOrderbyTx() throws Exception {
+        DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
+                true, false, 1, -1, -1,
+                new IdentificationVariableDeclarationImpl(Employee.class),
+                new String[] { "bloodType", "orderby" }, new ParameterBinder[] {
+                        new ObjectParameterBinder("bloodType"),
+                        new NullBinder() });
+        List<Employee> list = (List) command.execute(em, new Object[] { "A",
+                new String[] { "height", "weight" } });
+        assertNotNull(list);
+        assertEquals(11, list.size());
+        assertEquals("ローリー", list.get(0).getName());
+        assertEquals("サリー", list.get(1).getName());
+        assertEquals("ぴよ", list.get(2).getName());
+        assertEquals("マー", list.get(3).getName());
+        assertEquals("うさぎ", list.get(4).getName());
+        assertEquals("サラ", list.get(5).getName());
+        assertEquals("シマゴロー", list.get(6).getName());
+        assertEquals("モンチー", list.get(7).getName());
+        assertEquals("うー太", list.get(8).getName());
+        assertEquals("ミチロー", list.get(9).getName());
+        assertEquals("クー", list.get(10).getName());
+    }
+
+    public void testPagingTx() throws Exception {
+        DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
+                true, false, -1, 1, 2,
+                new IdentificationVariableDeclarationImpl(Employee.class),
+                new String[] { "bloodType", "firstResult", "maxResults" },
+                new ParameterBinder[] { new ObjectParameterBinder("bloodType"),
+                        new FirstResultBinder(), new MaxResultsBinder() });
+        List<Employee> list = (List) command.execute(em, new Object[] { "A", 5,
+                5 });
+        assertNotNull(list);
+        assertEquals(5, list.size());
+        assertEquals("ぴよ", list.get(0).getName());
+        assertEquals("マー", list.get(1).getName());
+        assertEquals("サリー", list.get(2).getName());
+        assertEquals("うさぎ", list.get(3).getName());
+        assertEquals("うー太", list.get(4).getName());
     }
 }
