@@ -21,30 +21,12 @@ import javax.persistence.Query;
  * 
  * @author koichik
  */
-public class MaxResultsBinder implements ParameterBinder {
+public class NullBinder implements ParameterBinder {
 
-    protected final Number value;
-
-    public MaxResultsBinder() {
-        this(null);
-    }
-
-    protected MaxResultsBinder(final Number value) {
-        this.value = value;
-    }
-
-    /**
-     * @see org.seasar.kuina.dao.internal.binder.ParameterBinder#bind(javax.persistence.Query)
-     */
     public void bind(final Query query) {
-        bind(query, value);
     }
 
     public void bind(final Query query, final Object value) {
-        final int maxResults = Number.class.cast(value).intValue();
-        if (maxResults >= 0) {
-            query.setMaxResults(maxResults);
-        }
     }
 
 }

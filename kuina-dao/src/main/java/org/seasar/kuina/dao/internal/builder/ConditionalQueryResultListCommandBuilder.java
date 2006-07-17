@@ -17,32 +17,22 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
-import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.FindAllQueryCommand;
-
 /**
  * 
  * @author koichik
  */
-public class FindAllQueryCommandBuilder extends AbstractQueryCommandBuilder {
+public class ConditionalQueryResultListCommandBuilder extends
+        AbstractConditionalQueryCommandBuilder {
 
-    public FindAllQueryCommandBuilder() {
+    public ConditionalQueryResultListCommandBuilder() {
         super(true);
-        setMethodNamePattern("findAll");
+        setMethodNamePattern("find.+");
     }
 
-    public Command build(final Class<?> daoClass, final Method method) {
-        if (!isMatched(method) || method.getParameterTypes().length != 0) {
-            return null;
-        }
-
-        final Class<?> entityClass = getElementTypeOfList(method
-                .getGenericReturnType());
-        if (entityClass == null) {
-            return null;
-        }
-
-        return new FindAllQueryCommand(entityClass);
+    @Override
+    protected Class<?> resolveEntityClass(final Class<?> daoClass,
+            final Method method) {
+        return getElementTypeOfList(method.getGenericReturnType());
     }
 
 }

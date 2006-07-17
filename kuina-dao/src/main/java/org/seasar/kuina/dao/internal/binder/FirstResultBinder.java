@@ -41,7 +41,10 @@ public class FirstResultBinder implements ParameterBinder {
     }
 
     public void bind(final Query query, final Object value) {
-        query.setFirstResult(Number.class.cast(value).intValue());
+        final int firstResult = Number.class.cast(value).intValue();
+        if (firstResult >= 0) {
+            query.setFirstResult(firstResult);
+        }
     }
 
 }

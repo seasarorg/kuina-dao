@@ -39,13 +39,29 @@ public class QueryByExampleCommandTest extends S2TestCase {
 
     public void testSimpleTx() throws Exception {
         QueryByExampleCommand command = new QueryByExampleCommand(
-                Employee.class, true, false);
+                Employee.class, true, false, -1, -1);
         Employee emp = new Employee();
         emp.setName("シマゴロー");
         List<Employee> list = (List) command.execute(em, new Object[] { emp });
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("シマゴロー", list.get(0).getName());
+    }
+
+    public void testFirstResultMaxResultsTx() throws Exception {
+        QueryByExampleCommand command = new QueryByExampleCommand(
+                Employee.class, true, false, 1, 2);
+        Employee emp = new Employee();
+        emp.setBloodType("A");
+        List<Employee> list = (List) command.execute(em, new Object[] { emp, 5,
+                5 });
+        assertNotNull(list);
+        assertEquals(5, list.size());
+        assertEquals("ぴよ", list.get(0).getName());
+        assertEquals("マー", list.get(1).getName());
+        assertEquals("サリー", list.get(2).getName());
+        assertEquals("うさぎ", list.get(3).getName());
+        assertEquals("うー太", list.get(4).getName());
     }
 
 }

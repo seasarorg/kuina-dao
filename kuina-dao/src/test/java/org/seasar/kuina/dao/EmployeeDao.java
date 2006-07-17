@@ -36,6 +36,9 @@ public interface EmployeeDao {
 
     List<Employee> findByExample(Employee employee);
 
+    List<Employee> findByExample2(Employee employee, int firstResult,
+            int maxResults);
+
     List<Employee> findByName(String name);
 
     List<Employee> findByNameOrBloodType(String name, String bloodType);

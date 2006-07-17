@@ -5,78 +5,24 @@
 	<include path="javaee5.dicon"/>
 	<include path="s2hibernate-jpa.dicon"/>
 
-	<component
-		class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"
-	>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.NamedQueryCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.QueryByExampleCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.DynamicQueryCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.PersistCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.RemoveCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.MergeCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.RefreshCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.ReadLockCommandBuilder"/>
-			</arg>
-		</initMethod>
-		<initMethod name="addCommandBuilder">
-			<arg>
-				<component class="org.seasar.kuina.dao.internal.builder.WriteLockCommandBuilder"/>
-			</arg>
-		</initMethod>
-	</component>
+	<component class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"/>
+
+	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ExampleQueryResultListCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ExampleQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryResultListCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.DynamicQueryResultListCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.DynamicQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.PersistCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.RemoveCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.MergeCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.RefreshCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ReadLockCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.WriteLockCommandBuilder"/>
 </components>

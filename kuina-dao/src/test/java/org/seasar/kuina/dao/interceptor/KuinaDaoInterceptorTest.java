@@ -16,11 +16,14 @@
 package org.seasar.kuina.dao.interceptor;
 
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
+import org.seasar.kuina.dao.BelongTo;
 import org.seasar.kuina.dao.Category;
 import org.seasar.kuina.dao.Department;
 import org.seasar.kuina.dao.Employee;
@@ -44,6 +47,13 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     private EmployeeDao employeeDao;
 
     private ProductDao productDao;
+
+    public KuinaDaoInterceptorTest() {
+    }
+
+    public KuinaDaoInterceptorTest(String name) {
+        super(name);
+    }
 
     @Override
     protected void setUp() throws Exception {
@@ -74,7 +84,7 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("シマゴロー", list.get(0).getName());
 
         Category category = new Category();
-        category.setId(1);
+        category.setName("魚");
         Product product = new Product();
         product.setCategory(category);
         List<Product> products = productDao.findByExample(product);
@@ -87,9 +97,13 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("あなご", products.get(4).getName());
 
         Department dept = new Department();
-        dept.setId(1);
+        dept.setName("営業");
+        BelongTo belongTo = new BelongTo();
+        belongTo.setDepartment(dept);
         emp = new Employee();
-        emp.addDepartment(dept);
+        Set<BelongTo> set = new HashSet<BelongTo>();
+        set.add(belongTo);
+        emp.setBelongTo(set);
         list = employeeDao.findByExample(emp);
         assertNotNull(list);
         assertEquals(5, list.size());
@@ -98,6 +112,25 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("みなみ", list.get(2).getName());
         assertEquals("ぱんだ", list.get(3).getName());
         assertEquals("くま", list.get(4).getName());
+    }
+
+    public void testFindByExample2Tx() throws Exception {
+        Employee emp = new Employee();
+        emp.setBloodType("A");
+        List<Employee> list = employeeDao.findByExample2(emp, -1, -1);
+        assertNotNull(list);
+        assertEquals(11, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+
+        list = employeeDao.findByExample2(emp, 1, -1);
+        assertNotNull(list);
+        assertEquals(10, list.size());
+        assertEquals("ミチロー", list.get(0).getName());
+
+        list = employeeDao.findByExample2(emp, 5, 5);
+        assertNotNull(list);
+        assertEquals(5, list.size());
+        assertEquals("ぴよ", list.get(0).getName());
     }
 
     public void testFindNameOrBloodTx() throws Exception {

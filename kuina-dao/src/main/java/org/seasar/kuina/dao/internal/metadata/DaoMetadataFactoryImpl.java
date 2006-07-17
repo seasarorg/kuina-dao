@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.metadata;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
@@ -52,13 +53,14 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
     public DaoMetadataFactoryImpl() {
     }
 
+    public void setCommandBuilders(final CommandBuilder[] builders) {
+        this.builders.addAll(Arrays.asList(builders));
+    }
+
     public void addCommandBuilder(final CommandBuilder builder) {
         builders.add(builder);
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.DaoMetadataFactory#getMetadata(java.lang.Class)
-     */
     public DaoMetadata getMetadata(final Class<?> daoClass) {
         final DaoMetadata metadata = metadataCache.get(daoClass);
         if (metadata != null) {

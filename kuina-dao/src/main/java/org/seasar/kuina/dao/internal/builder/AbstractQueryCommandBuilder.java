@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 import javax.persistence.TemporalType;
 
+import org.seasar.kuina.dao.annotation.Distinct;
 import org.seasar.kuina.dao.annotation.FirstResult;
 import org.seasar.kuina.dao.annotation.MaxResults;
 import org.seasar.kuina.dao.annotation.NamedParameter;
@@ -46,11 +47,14 @@ import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 public abstract class AbstractQueryCommandBuilder extends
         AbstractCommandBuilder {
 
+    protected final boolean resultList;
+
     protected Pattern firstResultPattern = Pattern.compile("firstResult");
 
     protected Pattern maxResultsPattern = Pattern.compile("maxResults");
 
-    public AbstractQueryCommandBuilder() {
+    public AbstractQueryCommandBuilder(final boolean resultList) {
+        this.resultList = resultList;
     }
 
     public void setFirstResultPattern(final String firstResultPattern) {
@@ -61,6 +65,14 @@ public abstract class AbstractQueryCommandBuilder extends
         this.maxResultsPattern = Pattern.compile(maxResultsPattern);
     }
 
+    protected boolean isResultList() {
+        return resultList;
+    }
+
+    protected boolean isDistinct(final Method method) {
+        return method.getAnnotation(Distinct.class) != null;
+    }
+
     protected ParameterBinder[] getBinders(final Method method,
             final String[] parameterNames) {
         final PositionalParameter positional = method
@@ -68,7 +80,11 @@ public abstract class AbstractQueryCommandBuilder extends
         if (positional != null || parameterNames == null) {
             return getBindersForPositionalParameter(method);
         }
+        return getBindersForNamedParameter(method, parameterNames);
+    }
 
+    protected ParameterBinder[] getBindersForNamedParameter(
+            final Method method, final String[] parameterNames) {
         final Class<?>[] parameterTypes = method.getParameterTypes();
         final Annotation[][] parameterAnnotations = method
                 .getParameterAnnotations();

@@ -27,24 +27,19 @@ import org.seasar.kuina.dao.internal.command.DynamicQueryCommand;
  * 
  * @author koichik
  */
-public class DynamicQueryCommandBuilder extends AbstractQueryCommandBuilder {
+public abstract class AbstractDynamicQueryCommandBuilder extends
+        AbstractQueryCommandBuilder {
 
-    public DynamicQueryCommandBuilder() {
-        setMethodNamePattern("(find|get).+");
+    public AbstractDynamicQueryCommandBuilder(final boolean resultList) {
+        super(resultList);
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.CommandBuilder#build(java.lang.Class,
-     *      java.lang.reflect.Method)
-     */
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
             return null;
         }
 
-        final boolean resultList = method.getName().startsWith("find");
-        final Class<?> entityClass = resultList ? getElementTypeOfList(method
-                .getGenericReturnType()) : getTargetClass(daoClass, method);
+        final Class<?> entityClass = resolveEntityClass(daoClass, method);
         if (entityClass == null) {
             return null;
         }
@@ -56,9 +51,13 @@ public class DynamicQueryCommandBuilder extends AbstractQueryCommandBuilder {
             return null;
         }
 
-        return new DynamicQueryCommand(entityClass, resultList, false,
-                new IdentificationVariableDeclarationImpl(entityClass),
-                parameterNames, getBinders(method, parameterNames));
+        return new DynamicQueryCommand(entityClass, isResultList(),
+                isDistinct(method), new IdentificationVariableDeclarationImpl(
+                        entityClass), parameterNames, getBinders(method,
+                        parameterNames));
     }
+
+    protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,
+            final Method method);
 
 }

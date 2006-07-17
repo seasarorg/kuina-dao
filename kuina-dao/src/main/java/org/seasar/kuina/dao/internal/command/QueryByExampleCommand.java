@@ -50,15 +50,22 @@ public class QueryByExampleCommand extends AbstractCommand {
 
     protected boolean distinct;
 
+    protected int firstResult;
+
+    protected int maxResults;
+
     /**
      * インスタンスを構築します。
      */
     public QueryByExampleCommand(final Class<?> entityClass,
-            final boolean resultList, final boolean distinct) {
+            final boolean resultList, final boolean distinct,
+            final int firstResult, final int maxResults) {
         this.entityClass = entityClass;
         this.entityDesc = EntityDescFactory.getEntityDesc(entityClass);
         this.resultList = resultList;
         this.distinct = distinct;
+        this.firstResult = firstResult;
+        this.maxResults = maxResults;
     }
 
     /**
@@ -86,6 +93,15 @@ public class QueryByExampleCommand extends AbstractCommand {
         addCondition(statement, fromDecl, entityDesc, entity, alias + ".");
 
         statement.from(fromDecl);
+        if (firstResult >= 0) {
+            statement.setFirstResult(Number.class.cast(arguments[firstResult])
+                    .intValue());
+        }
+        if (maxResults >= 0) {
+            statement.setMaxResults(Number.class.cast(arguments[maxResults])
+                    .intValue());
+        }
+
         return statement;
     }
 

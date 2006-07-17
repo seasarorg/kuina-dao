@@ -36,30 +36,29 @@ import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
  * @author koichik
  */
 @Component
-public abstract class NamedQueryCommandBuilder extends
+public abstract class AbstractNamedQueryCommandBuilder extends
         AbstractQueryCommandBuilder {
+
+    public AbstractNamedQueryCommandBuilder(boolean resultList) {
+        super(resultList);
+    }
 
     @Binding(bindingType = BindingType.MUST)
     protected EntityManager em;
-
-    public NamedQueryCommandBuilder() {
-        setMethodNamePattern("(find|get).+");
-    }
 
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
             return null;
         }
 
-        final boolean resultList = method.getName().startsWith("find");
-        final String queryName = getQueryName(daoClass, method, resultList);
+        final String queryName = getQueryName(daoClass, method, isResultList());
         if (queryName == null || !isExists(queryName)) {
             return null;
         }
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQueryCommand(resultList, queryName, getBinders(method,
-                beanDesc.getMethodParameterNames(method)));
+        return new NamedQueryCommand(isResultList(), queryName, getBinders(
+                method, beanDesc.getMethodParameterNames(method)));
     }
 
     protected String getQueryName(final Class<?> daoClass, final Method method,

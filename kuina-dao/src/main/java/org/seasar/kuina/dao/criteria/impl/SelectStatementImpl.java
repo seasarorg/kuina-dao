@@ -70,7 +70,7 @@ public class SelectStatementImpl implements SelectStatement {
 
     protected Integer firstResult;
 
-    protected Integer maxResult;
+    protected Integer maxResults;
 
     /**
      * インスタンスを構築します。
@@ -171,8 +171,8 @@ public class SelectStatementImpl implements SelectStatement {
         return this;
     }
 
-    public SelectStatement setMaxResults(final int maxResult) {
-        this.maxResult = maxResult;
+    public SelectStatement setMaxResults(final int maxResults) {
+        this.maxResults = maxResults;
         return this;
     }
 
@@ -200,11 +200,11 @@ public class SelectStatementImpl implements SelectStatement {
         final String queryString = context.getQueryString();
         logger.debug(queryString); // TODO
         final Query query = em.createQuery(queryString);
-        if (firstResult != null) {
+        if (firstResult != null && firstResult >= 0) {
             query.setFirstResult(firstResult);
         }
-        if (maxResult != null) {
-            query.setMaxResults(maxResult);
+        if (maxResults != null && maxResults >= 0) {
+            query.setMaxResults(maxResults);
         }
         if (fillParameter) {
             context.fillParameters(query);

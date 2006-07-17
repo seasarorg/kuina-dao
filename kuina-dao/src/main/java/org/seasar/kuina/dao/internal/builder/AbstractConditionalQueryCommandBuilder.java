@@ -17,41 +17,44 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
+import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
+import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.QueryByExampleCommand;
+import org.seasar.kuina.dao.internal.command.ConditionalQueryCommand;
 
 /**
  * 
  * @author koichik
  */
-public class QueryByExampleCommandBuilder extends AbstractQueryCommandBuilder {
+public abstract class AbstractConditionalQueryCommandBuilder extends
+        AbstractQueryCommandBuilder {
 
-    public QueryByExampleCommandBuilder() {
-        setMethodNamePattern("(find|get).+");
+    public AbstractConditionalQueryCommandBuilder(boolean resultList) {
+        super(resultList);
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.CommandBuilder#build(java.lang.Class,
-     *      java.lang.reflect.Method)
-     */
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
             return null;
         }
 
-        final boolean resultList = method.getName().startsWith("find");
-        final Class<?> entityClass = resultList ? getElementTypeOfList(method
-                .getGenericReturnType()) : getTargetClass(daoClass, method);
+        final Class<?>[] parameterTypes = method.getParameterTypes();
+        if (parameterTypes.length != 1
+                || parameterTypes[0] != ConditionalExpression[].class) {
+            return null;
+        }
+
+        final Class<?> entityClass = resolveEntityClass(daoClass, method);
         if (entityClass == null) {
             return null;
         }
 
-        final Class<?>[] parameterTypes = method.getParameterTypes();
-        if (parameterTypes.length != 1 || parameterTypes[0] != entityClass) {
-            return null;
-        }
-
-        return new QueryByExampleCommand(entityClass, resultList, false);
+        return new ConditionalQueryCommand(entityClass, isResultList(),
+                isDistinct(method), new IdentificationVariableDeclarationImpl(
+                        entityClass));
     }
+
+    protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,
+            final Method method);
 
 }
