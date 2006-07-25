@@ -20,8 +20,10 @@ import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  * 
@@ -31,7 +33,8 @@ import javax.persistence.OneToMany;
 public class Department {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Department_Id_Generator")
+    @SequenceGenerator(name = "Department_Id_Generator", sequenceName = "Department_Id_Sequence")
     private Integer id;
 
     private String name;

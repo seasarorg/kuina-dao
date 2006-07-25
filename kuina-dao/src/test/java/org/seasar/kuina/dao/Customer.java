@@ -18,8 +18,10 @@ package org.seasar.kuina.dao;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  * 
@@ -29,7 +31,8 @@ import javax.persistence.ManyToOne;
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Customer_Id_Generator")
+    @SequenceGenerator(name = "Customer_Id_Generator", sequenceName = "Customer_Id_Sequence")
     private Integer id;
 
     private String code;

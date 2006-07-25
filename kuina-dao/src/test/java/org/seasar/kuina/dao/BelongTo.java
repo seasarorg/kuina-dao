@@ -20,8 +20,10 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  * 
@@ -31,7 +33,8 @@ import javax.persistence.ManyToOne;
 public class BelongTo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BelongTo_Id_Generator")
+    @SequenceGenerator(name = "BelongTo_Id_Generator", sequenceName = "BelongTo_Id_Sequence")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)

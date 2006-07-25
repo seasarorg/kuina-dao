@@ -19,8 +19,10 @@ import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  * 
@@ -30,7 +32,8 @@ import javax.persistence.OneToMany;
 public class CustomerClass {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CustomerClass_Id_Generator")
+    @SequenceGenerator(name = "CustomerClass_Id_Generator", sequenceName = "CustomerClass_Id_Sequence")
     private Integer id;
 
     private String name;
