@@ -16,17 +16,14 @@
 package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
-import org.seasar.kuina.dao.internal.binder.ParameterBinder;
+import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.parameter;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
@@ -35,7 +32,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  * 
  * @author koichik
  */
-public class DynamicQueryCommand extends AbstractCommand {
+public class DynamicQueryCommand extends AbstractQueryCommand {
 
     protected Class<?> entityClass;
 
@@ -43,40 +40,30 @@ public class DynamicQueryCommand extends AbstractCommand {
 
     protected boolean distinct;
 
-    protected int orderby;
-
-    protected int firstResult;
-
-    protected int maxResults;
-
     protected IdentificationVariableDeclaration fromDecl;
 
     protected String[] parameterNames;
 
-    protected ParameterBinder[] binders;
+    protected ConditionalExpressionBuilder[] builders;
 
     public DynamicQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
-            final int orderby, final int firstResult, final int maxResults,
             final IdentificationVariableDeclaration fromDecl,
-            final String[] parameterNames, final ParameterBinder[] binders) {
+            final String[] parameterNames,
+            final ConditionalExpressionBuilder[] builders) {
         this.entityClass = entityClass;
         this.resultList = resultList;
         this.distinct = distinct;
-        this.orderby = orderby;
-        this.firstResult = firstResult;
-        this.maxResults = maxResults;
         this.fromDecl = fromDecl;
         this.parameterNames = parameterNames;
-        this.binders = binders;
+        this.builders = builders;
     }
 
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
         System.out.println(statement.getQueryString());
-        final Query query = statement.getQuery(em);
-        bindParameter(query, arguments);
-        return resultList ? query.getResultList() : query.getSingleResult();
+        return resultList ? statement.getResultList(em) : statement
+                .getSingleResult(em);
     }
 
     protected SelectStatement createSelectStatement(final Object[] arguments) {
@@ -87,35 +74,12 @@ public class DynamicQueryCommand extends AbstractCommand {
                 .toDefaultIdentificationVariable(entityDesc.getEntityName());
         final SelectStatement statement = distinct ? selectDistinct(path(alias))
                 : select(path(alias));
-
         statement.from(fromDecl);
-        if (orderby >= 0) {
-            appendOrderbyClause(statement, arguments[orderby]);
-        }
-
         for (int i = 0; i < arguments.length; ++i) {
-            if (i == orderby || i == firstResult || i == maxResults) {
-                continue;
-            }
-            final Object value = arguments[i];
-            if (value == null) {
-                continue;
-            }
-            final String name = parameterNames[i];
-            statement.where(eq(name.replace('$', '.'), parameter(name)));
+            builders[i].appendCondition(statement, arguments[i]);
         }
 
         return statement;
-    }
-
-    protected void bindParameter(final Query query, final Object[] arguments) {
-        for (int i = 0; i < arguments.length; ++i) {
-            final ParameterBinder binder = binders[i];
-            final Object value = arguments[i];
-            if (value != null) {
-                binder.bind(query, arguments[i]);
-            }
-        }
     }
 
 }

@@ -40,7 +40,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  * 
  * @author koichik
  */
-public class ExampleQueryCommand extends AbstractCommand {
+public class ExampleQueryCommand extends AbstractQueryCommand {
 
     protected Class<?> entityClass;
 

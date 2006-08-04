@@ -74,7 +74,6 @@
       <plugin>
         <groupId>org.seasar.container</groupId>
         <artifactId>diigu-maven-plugin</artifactId>
-        <version>0.0.2</version>
         <executions>
           <execution>
             <goals>
@@ -86,6 +85,18 @@
           <verbose>true</verbose>
           <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>source-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

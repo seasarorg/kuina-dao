@@ -22,11 +22,8 @@ import javax.persistence.EntityManager;
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
-import org.seasar.kuina.dao.internal.binder.FirstResultBinder;
-import org.seasar.kuina.dao.internal.binder.MaxResultsBinder;
-import org.seasar.kuina.dao.internal.binder.NullBinder;
-import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
-import org.seasar.kuina.dao.internal.binder.ParameterBinder;
+import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
+import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
 
@@ -46,11 +43,14 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testFindByNameTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, -1, -1, -1,
+        DynamicQueryCommand command = new DynamicQueryCommand(
+                Employee.class,
+                true,
+                false,
                 new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "name" },
-                new ParameterBinder[] { new ObjectParameterBinder("name") });
+                new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
+                        .createBuilder("name", String.class) });
         List<Employee> list = (List) command.execute(em,
                 new Object[] { "シマゴロー" });
         assertNotNull(list);
@@ -58,13 +58,30 @@ public class DynamicQueryCommandTest extends S2TestCase {
         assertEquals("シマゴロー", list.get(0).getName());
     }
 
+    public void testFindByBooldtypeNeTx() throws Exception {
+        DynamicQueryCommand command = new DynamicQueryCommand(
+                Employee.class,
+                true,
+                false,
+                new IdentificationVariableDeclarationImpl(Employee.class),
+                new String[] { "blootType_NE" },
+                new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
+                        .createBuilder("bloodType_NE", String.class) });
+        List<Employee> list = (List) command.execute(em, new Object[] { "A" });
+        assertNotNull(list);
+        assertEquals(19, list.size());
+        assertEquals("ゴッチン", list.get(0).getName());
+    }
+
     public void testFindByNameAndBloodtypeTx() throws Exception {
         DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, -1, -1, -1,
-                new IdentificationVariableDeclarationImpl(Employee.class),
-                new String[] { "name", "bloodType" }, new ParameterBinder[] {
-                        new ObjectParameterBinder("name"),
-                        new ObjectParameterBinder("bloodType") });
+                true, false, new IdentificationVariableDeclarationImpl(
+                        Employee.class), new String[] { "name", "bloodType" },
+                new ConditionalExpressionBuilder[] {
+                        ConditionalExpressionBuilderFactory.createBuilder(
+                                "name", String.class),
+                        ConditionalExpressionBuilderFactory.createBuilder(
+                                "bloodType", String.class) });
         List<Employee> list = (List) command.execute(em, new Object[] { null,
                 "AB" });
         assertEquals(3, list.size());
@@ -74,14 +91,16 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testFindByDeparmentNameTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, -1, -1, -1,
+        DynamicQueryCommand command = new DynamicQueryCommand(
+                Employee.class,
+                true,
+                false,
                 new IdentificationVariableDeclarationImpl(Employee.class)
                         .inner(path("employee.belongTo")).inner(
                                 path("belongTo.department")),
                 new String[] { "department$name" },
-                new ParameterBinder[] { new ObjectParameterBinder(
-                        "department$name") });
+                ConditionalExpressionBuilderFactory
+                        .createBuilders(new String[] {"department$name"}, new Class<?>[] {String.class}));
         List<Employee> list = (List) command.execute(em, new Object[] { "営業" });
         assertNotNull(list);
         assertEquals(5, list.size());
@@ -94,11 +113,11 @@ public class DynamicQueryCommandTest extends S2TestCase {
 
     public void testOrderbyTx() throws Exception {
         DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, 1, -1, -1,
-                new IdentificationVariableDeclarationImpl(Employee.class),
-                new String[] { "bloodType", "orderby" }, new ParameterBinder[] {
-                        new ObjectParameterBinder("bloodType"),
-                        new NullBinder() });
+                true, false, new IdentificationVariableDeclarationImpl(
+                        Employee.class),
+                new String[] { "bloodType", "orderby" },
+                ConditionalExpressionBuilderFactory
+                .createBuilders(new String[] {"bloodType", "orderby"}, new Class<?>[] {String.class, int.class}));
         List<Employee> list = (List) command.execute(em, new Object[] { "A",
                 new String[] { "height", "weight" } });
         assertNotNull(list);
@@ -118,11 +137,11 @@ public class DynamicQueryCommandTest extends S2TestCase {
 
     public void testPagingTx() throws Exception {
         DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
-                true, false, -1, 1, 2,
-                new IdentificationVariableDeclarationImpl(Employee.class),
-                new String[] { "bloodType", "firstResult", "maxResults" },
-                new ParameterBinder[] { new ObjectParameterBinder("bloodType"),
-                        new FirstResultBinder(), new MaxResultsBinder() });
+                true, false, new IdentificationVariableDeclarationImpl(
+                        Employee.class), new String[] { "bloodType",
+                        "firstResult", "maxResults" },
+                        ConditionalExpressionBuilderFactory
+                        .createBuilders(new String[] {"bloodType", "firstResult", "maxResults"}, new Class<?>[] {String.class, int.class, int.class}));
         List<Employee> list = (List) command.execute(em, new Object[] { "A", 5,
                 5 });
         assertNotNull(list);

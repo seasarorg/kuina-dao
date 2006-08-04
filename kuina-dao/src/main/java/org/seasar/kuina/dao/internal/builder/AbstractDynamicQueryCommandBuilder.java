@@ -15,7 +15,6 @@
  */
 package org.seasar.kuina.dao.internal.builder;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import org.seasar.framework.beans.BeanDesc;
@@ -51,15 +50,11 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
         if (parameterNames == null) {
             return null;
         }
-        final Annotation[][] annotations = method.getParameterAnnotations();
 
         return new DynamicQueryCommand(entityClass, isResultList(),
-                isDistinct(method), getOrderbyParameter(parameterNames,
-                        annotations), getFirstResultParameter(parameterNames,
-                        annotations), getMaxResultsParameter(parameterNames,
-                        annotations),
-                new IdentificationVariableDeclarationImpl(entityClass),
-                parameterNames, getBinders(method, parameterNames));
+                isDistinct(method), new IdentificationVariableDeclarationImpl(
+                        entityClass), parameterNames, getBuilders(method,
+                        parameterNames));
     }
 
     protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,

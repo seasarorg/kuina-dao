@@ -41,6 +41,7 @@ import org.seasar.kuina.dao.criteria.grammar.EmptyCollectionComparisonExpression
 import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.EnumExpression;
 import org.seasar.kuina.dao.criteria.grammar.EnumLiteral;
+import org.seasar.kuina.dao.criteria.grammar.EnumPrimary;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningDatetime;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningNumerics;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningStrings;
@@ -55,6 +56,7 @@ import org.seasar.kuina.dao.criteria.grammar.NumericLiteral;
 import org.seasar.kuina.dao.criteria.grammar.OrderbyItem;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
+import org.seasar.kuina.dao.criteria.grammar.SimpleEntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringLiteral;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
@@ -171,10 +173,6 @@ public abstract class CriteriaOperations {
         return result;
     }
 
-    public static ArithmeticPrimary parameter(final String name) {
-        return new InputParameterImpl(name, null);
-    }
-
     public static ArithmeticPrimary parameter(final String name,
             final Number value) {
         return new InputParameterImpl(name, value);
@@ -190,6 +188,21 @@ public abstract class CriteriaOperations {
     }
 
     public static DatetimePrimary parameter(final String name,
+            final java.sql.Date value) {
+        return new InputParameterImpl(name, value);
+    }
+
+    public static DatetimePrimary parameter(final String name,
+            final java.sql.Time value) {
+        return new InputParameterImpl(name, value);
+    }
+
+    public static DatetimePrimary parameter(final String name,
+            final java.sql.Timestamp value) {
+        return new InputParameterImpl(name, value);
+    }
+
+    public static DatetimePrimary parameter(final String name,
             final Date value, final TemporalType temporalType) {
         return new InputParameterImpl(name, value, temporalType);
     }
@@ -197,6 +210,15 @@ public abstract class CriteriaOperations {
     public static DatetimePrimary parameter(final String name,
             final Calendar value, final TemporalType temporalType) {
         return new InputParameterImpl(name, value, temporalType);
+    }
+
+    public static EnumPrimary parameter(final String name, final Enum value) {
+        return new InputParameterImpl(name, value);
+    }
+
+    public static SimpleEntityExpression parameter(final String name,
+            final Object value) {
+        return new InputParameterImpl(name, value);
     }
 
     public static IdentificationVariable variable(final String variable) {

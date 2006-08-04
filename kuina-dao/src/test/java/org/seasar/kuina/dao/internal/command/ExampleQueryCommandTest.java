@@ -40,7 +40,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
     }
 
     public void testSimpleTx() throws Exception {
-        ExampleQueryCommand command = new ExampleQueryCommand(Employee.class,
+        AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
                 true, false, -1, -1, -1);
         Employee emp = new Employee();
         emp.setName("シマゴロー");
@@ -51,7 +51,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
     }
 
     public void testOrderbyTx() throws Exception {
-        ExampleQueryCommand command = new ExampleQueryCommand(Employee.class,
+        AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
                 true, false, 1, -1, -1);
         Employee emp = new Employee();
         emp.setBloodType("AB");
@@ -109,7 +109,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
     }
 
     public void testPagingTx() throws Exception {
-        ExampleQueryCommand command = new ExampleQueryCommand(Employee.class,
+        AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
                 true, false, -1, 1, 2);
         Employee emp = new Employee();
         emp.setBloodType("A");
