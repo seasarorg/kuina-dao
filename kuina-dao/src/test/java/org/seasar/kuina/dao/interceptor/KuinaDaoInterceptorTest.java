@@ -28,6 +28,7 @@ import org.seasar.kuina.dao.Category;
 import org.seasar.kuina.dao.Department;
 import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.EmployeeDao;
+import org.seasar.kuina.dao.EmployeeDto;
 import org.seasar.kuina.dao.Product;
 import org.seasar.kuina.dao.ProductDao;
 
@@ -164,6 +165,92 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("サリー", list.get(2).getName());
         assertEquals("うさぎ", list.get(3).getName());
         assertEquals("うー太", list.get(4).getName());
+    }
+
+    public void testFindByDtoEqTx() throws Exception {
+        EmployeeDto dto = new EmployeeDto();
+        dto.setName_EQ("シマゴロー");
+        List<Employee> list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_NE("シマゴロー");
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(29, list.size());
+        assertEquals("ゴッチン", list.get(0).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_GT("マー");
+        dto.setName_LT("モンチー");
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("ミチロー", list.get(0).getName());
+        assertEquals("ミーヤ", list.get(1).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_GE("マー");
+        dto.setName_LE("モンチー");
+        dto.setOrderby("name");
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(4, list.size());
+        assertEquals("マー", list.get(0).getName());
+        assertEquals("ミチロー", list.get(1).getName());
+        assertEquals("ミーヤ", list.get(2).getName());
+        assertEquals("モンチー", list.get(3).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_LIKE("%マ%ー");
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+        assertEquals("マー", list.get(1).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_STARTS("ミ");
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("ミチロー", list.get(0).getName());
+        assertEquals("ミーヤ", list.get(1).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_ENDS("ロー");
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("シマゴロー", list.get(0).getName());
+        assertEquals("ミチロー", list.get(1).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_CONTAINS("ー");
+        dto.setFirstResult(5);
+        dto.setMaxResults(5);
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(5, list.size());
+        assertEquals("キュー", list.get(0).getName());
+        assertEquals("マー", list.get(1).getName());
+        assertEquals("サリー", list.get(2).getName());
+        assertEquals("うー太", list.get(3).getName());
+        assertEquals("ローリー", list.get(4).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_IS_NULL(true);
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(0, list.size());
+
+        dto = new EmployeeDto();
+        dto.setName_IS_NOT_NULL(true);
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(30, list.size());
     }
 
     public void testFindByNameTx() throws Exception {

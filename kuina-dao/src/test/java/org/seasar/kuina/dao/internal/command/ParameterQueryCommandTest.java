@@ -32,7 +32,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
  * @author koichik
  */
 @SuppressWarnings("unchecked")
-public class DynamicQueryCommandTest extends S2TestCase {
+public class ParameterQueryCommandTest extends S2TestCase {
 
     private EntityManager em;
 
@@ -43,7 +43,7 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testFindByNameTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(
+        ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,
                 true,
                 false,
@@ -59,7 +59,7 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testFindByBooldtypeNeTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(
+        ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,
                 true,
                 false,
@@ -74,7 +74,7 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testFindByNameAndBloodtypeTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
+        ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
                 true, false, new IdentificationVariableDeclarationImpl(
                         Employee.class), new String[] { "name", "bloodType" },
                 new ConditionalExpressionBuilder[] {
@@ -91,7 +91,7 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testFindByDeparmentNameTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(
+        ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,
                 true,
                 false,
@@ -112,7 +112,7 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testOrderbyTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
+        ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
                 true, false, new IdentificationVariableDeclarationImpl(
                         Employee.class),
                 new String[] { "bloodType", "orderby" },
@@ -136,7 +136,7 @@ public class DynamicQueryCommandTest extends S2TestCase {
     }
 
     public void testPagingTx() throws Exception {
-        DynamicQueryCommand command = new DynamicQueryCommand(Employee.class,
+        ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
                 true, false, new IdentificationVariableDeclarationImpl(
                         Employee.class), new String[] { "bloodType",
                         "firstResult", "maxResults" },
@@ -152,4 +152,5 @@ public class DynamicQueryCommandTest extends S2TestCase {
         assertEquals("うさぎ", list.get(3).getName());
         assertEquals("うー太", list.get(4).getName());
     }
+
 }

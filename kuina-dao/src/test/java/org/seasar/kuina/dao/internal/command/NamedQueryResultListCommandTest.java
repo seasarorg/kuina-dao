@@ -15,21 +15,36 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.EmployeeDao;
+import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
  * 
  * @author koichik
  */
 @SuppressWarnings("unchecked")
-public abstract class NamedQueryResultListCommandTest extends S2TestCase {
+public class NamedQueryResultListCommandTest extends S2TestCase {
 
-    private EmployeeDao dao;
+    private EntityManager em;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         include("s2hibernate-jpa.dicon");
     }
+
+    public void testCountTx() throws Exception {
+        NamedQueryCommand command = new NamedQueryCommand(true,
+                "Employee.count", new ParameterBinder[0]);
+        List<Object[]> list = (List) command.execute(em, new Object[0]);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals(new Integer(30), list.get(0)[0]);
+        assertEquals("猫丸", list.get(0)[1]);
+    }
+
 }

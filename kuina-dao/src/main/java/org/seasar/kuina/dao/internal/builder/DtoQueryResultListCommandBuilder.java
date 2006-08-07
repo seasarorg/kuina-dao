@@ -21,18 +21,18 @@ import java.lang.reflect.Method;
  * 
  * @author koichik
  */
-public class NamedQuerySingleResultCommandBuilder extends
-        AbstractNamedQueryCommandBuilder {
+public class DtoQueryResultListCommandBuilder extends
+        AbstractDtoQueryCommandBuilder {
 
-    public NamedQuerySingleResultCommandBuilder() {
-        super(false);
-        setMethodNamePattern("get.+");
+    public DtoQueryResultListCommandBuilder() {
+        super(true);
+        setMethodNamePattern("find.+");
     }
 
     @Override
     protected Class<?> resolveEntityClass(final Class<?> daoClass,
             final Method method) {
-        return getTargetClass(daoClass, method);
+        return getElementTypeOfList(method.getGenericReturnType());
     }
 
 }

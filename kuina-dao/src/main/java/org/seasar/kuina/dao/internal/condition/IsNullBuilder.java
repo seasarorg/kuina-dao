@@ -27,8 +27,9 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
  */
 public class IsNullBuilder extends AbstractConditionalExpressionBuilder {
 
-    public IsNullBuilder(final String name, final Method operationMethod) {
-        super(name, null, operationMethod);
+    public IsNullBuilder(final String propertyName, final String parameterName,
+            final Method operationMethod) {
+        super(propertyName, parameterName, null, operationMethod);
     }
 
     public void appendCondition(final SelectStatement statement,
@@ -36,9 +37,12 @@ public class IsNullBuilder extends AbstractConditionalExpressionBuilder {
         if (value == null) {
             return;
         }
+        if (!Boolean.class.cast(value).booleanValue()) {
+            return;
+        }
 
         final Object expression = ReflectionUtil.invokeStatic(
-                getOperationMethod(), getName().replace('$', '.'));
+                getOperationMethod(), getPropertyName());
         statement.where(ConditionalExpression.class.cast(expression));
     }
 

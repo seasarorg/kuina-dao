@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 
 import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.util.ClassUtil;
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.criteria.CriteriaOperations;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
@@ -91,10 +92,10 @@ public class ConditionalExpressionBuilderFactory {
         for (String[] basicOperation : BASIC_OPERATIONS) {
             final String suffix = basicOperation[0];
             if (name.endsWith(suffix)) {
-                final String propertyName = name.substring(0, name.length()
-                        - suffix.length());
+                final String propertyName = name.substring(0,
+                        name.length() - suffix.length()).replace('$', '.');
                 final String operationName = basicOperation[1];
-                return new BasicBuilder(propertyName,
+                return new BasicBuilder(propertyName, name,
                         getParameterMethod(parameterType), getOperationMethod(
                                 operationName, parameterType));
             }
@@ -104,9 +105,9 @@ public class ConditionalExpressionBuilderFactory {
             final String starts = likeOperation[1];
             final String ends = likeOperation[2];
             if (name.endsWith(suffix)) {
-                final String propertyName = name.substring(0, name.length()
-                        - suffix.length());
-                return new LikeBuilder(propertyName,
+                final String propertyName = name.substring(0,
+                        name.length() - suffix.length()).replace('$', '.');
+                return new LikeBuilder(propertyName, name,
                         getParameterMethod(parameterType), getOperationMethod(
                                 "like", parameterType), starts, ends);
             }
@@ -114,11 +115,11 @@ public class ConditionalExpressionBuilderFactory {
         for (String[] isNullOperation : IS_NULL_OPERATIONS) {
             final String suffix = isNullOperation[0];
             if (name.endsWith(suffix)) {
-                final String propertyName = name.substring(0, name.length()
-                        - suffix.length());
+                final String propertyName = name.substring(0,
+                        name.length() - suffix.length()).replace('$', '.');
                 final String operationName = isNullOperation[1];
-                return new IsNullBuilder(propertyName, getOperationMethod(
-                        operationName, parameterType));
+                return new IsNullBuilder(propertyName, name,
+                        getOperationMethod(operationName));
             }
         }
         if (name.equals("orderby")) {
@@ -130,8 +131,9 @@ public class ConditionalExpressionBuilderFactory {
         if (name.equals("maxResults")) {
             return new MaxResultsBuilder();
         }
-        return new BasicBuilder(name, getParameterMethod(parameterType),
-                getOperationMethod("eq", parameterType));
+        return new BasicBuilder(name.replace('$', '.'), name,
+                getParameterMethod(parameterType), getOperationMethod("eq",
+                        parameterType));
     }
 
     public static Method getOperationMethod(final String name) {
@@ -147,7 +149,8 @@ public class ConditionalExpressionBuilderFactory {
 
     public static Class<?> getOperationMethodParameterType(
             final Class<?> parameterType) {
-        if (Number.class.isAssignableFrom(parameterType)) {
+        if (Number.class.isAssignableFrom(ClassUtil
+                .getWrapperClassIfPrimitive(parameterType))) {
             return ArithmeticExpression.class;
         }
         if (String.class.isAssignableFrom(parameterType)) {
@@ -174,7 +177,8 @@ public class ConditionalExpressionBuilderFactory {
     }
 
     public static Method getParameterMethod(final Class<?> parameterType) {
-        if (Number.class.isAssignableFrom(parameterType)) {
+        if (Number.class.isAssignableFrom(ClassUtil
+                .getWrapperClassIfPrimitive(parameterType))) {
             return ARITHMETIC_PARAMETER_METHOD;
         }
         if (String.class.isAssignableFrom(parameterType)) {

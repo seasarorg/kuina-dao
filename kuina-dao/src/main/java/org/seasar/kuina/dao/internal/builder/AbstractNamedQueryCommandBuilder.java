@@ -68,12 +68,22 @@ public abstract class AbstractNamedQueryCommandBuilder extends
             return queryName.value();
         }
 
-        final Class<?> entityClass = resultList ? getElementTypeOfList(method
-                .getGenericReturnType()) : getTargetClass(daoClass, method);
-        if (entityClass == null) {
-            return null;
+        final Class<?> targetClass = getTargetClass(daoClass, method);
+        if (targetClass != null) {
+            return getEntityName(targetClass, method);
         }
 
+        final Class<?> entityClass = resultList ? getElementTypeOfList(method
+                .getGenericReturnType()) : getTargetClass(daoClass, method);
+        if (entityClass != null) {
+            return getEntityName(entityClass, method);
+        }
+
+        return null;
+    }
+
+    protected String getEntityName(final Class<?> entityClass,
+            final Method method) {
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
         if (entityDesc == null) {
@@ -95,4 +105,5 @@ public abstract class AbstractNamedQueryCommandBuilder extends
         }
         return false;
     }
+
 }

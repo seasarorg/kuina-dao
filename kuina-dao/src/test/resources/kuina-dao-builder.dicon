@@ -4,6 +4,7 @@
 <components namespace="kuinaDao">
 	<include path="javaee5.dicon"/>
 	<include path="s2hibernate-jpa.dicon"/>
+	<include path="convention.dicon"/>
 
 	<component class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"/>
 
@@ -12,10 +13,12 @@
 	<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ExampleQueryResultListCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ExampleQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.DtoQueryResultListCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.DtoQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ParameterQueryResultListCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ParameterQuerySingleResultCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryResultListCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQuerySingleResultCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.DynamicQueryResultListCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.DynamicQuerySingleResultCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>

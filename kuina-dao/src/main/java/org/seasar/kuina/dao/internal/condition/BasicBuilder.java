@@ -27,9 +27,9 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
  */
 public class BasicBuilder extends AbstractConditionalExpressionBuilder {
 
-    public BasicBuilder(final String name, final Method parameterMethod,
-            final Method operationMethod) {
-        super(name, parameterMethod, operationMethod);
+    public BasicBuilder(final String propertyName, final String parameterName,
+            final Method parameterMethod, final Method operationMethod) {
+        super(propertyName, parameterName, parameterMethod, operationMethod);
     }
 
     public void appendCondition(final SelectStatement statement,
@@ -39,9 +39,9 @@ public class BasicBuilder extends AbstractConditionalExpressionBuilder {
         }
 
         final Object parameter = ReflectionUtil.invokeStatic(
-                getParameterMethod(), getName(), value);
+                getParameterMethod(), getParameterName(), value);
         final Object expression = ReflectionUtil.invokeStatic(
-                getOperationMethod(), getName().replace('$', '.'), parameter);
+                getOperationMethod(), getPropertyName(), parameter);
         statement.where(ConditionalExpression.class.cast(expression));
     }
 

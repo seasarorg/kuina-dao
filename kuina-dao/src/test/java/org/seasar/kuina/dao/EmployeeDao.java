@@ -57,6 +57,9 @@ public interface EmployeeDao {
     List<Employee> findByBirthday(@TemporalSpec(TemporalType.DATE)
     Date birthday);
 
+    @TargetEntity(Employee.class)
+    List<Employee> findByDto(final EmployeeDto dto);
+
     Employee getEmployee(Integer id, String name);
 
     String getName(int id);

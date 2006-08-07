@@ -47,4 +47,17 @@
 				e.id = :id
 		]]></query>
 	</named-query>
+	<named-native-query name="Employee.count" result-set-mapping="count">
+		<query><![CDATA[
+			SELECT
+				COUNT(*) AS cnt,
+				MAX(name) AS name
+			FROM
+				Employee e
+		]]></query>
+	</named-native-query>
+	<sql-result-set-mapping name="count">
+		<column-result name="cnt"/>
+		<column-result name="name"/>
+	</sql-result-set-mapping>
 </entity-mappings>

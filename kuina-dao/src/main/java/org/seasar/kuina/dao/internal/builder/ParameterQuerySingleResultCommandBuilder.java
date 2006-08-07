@@ -21,10 +21,10 @@ import java.lang.reflect.Method;
  * 
  * @author koichik
  */
-public class NamedQuerySingleResultCommandBuilder extends
-        AbstractNamedQueryCommandBuilder {
+public class ParameterQuerySingleResultCommandBuilder extends
+        AbstractParameterQueryCommandBuilder {
 
-    public NamedQuerySingleResultCommandBuilder() {
+    public ParameterQuerySingleResultCommandBuilder() {
         super(false);
         setMethodNamePattern("get.+");
     }

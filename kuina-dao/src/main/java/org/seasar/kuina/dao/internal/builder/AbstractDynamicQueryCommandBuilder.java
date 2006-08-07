@@ -17,11 +17,7 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
-import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.DynamicQueryCommand;
 
 /**
  * 
@@ -44,18 +40,11 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
             return null;
         }
 
-        final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        final String[] parameterNames = beanDesc
-                .getMethodParameterNames(method);
-        if (parameterNames == null) {
-            return null;
-        }
-
-        return new DynamicQueryCommand(entityClass, isResultList(),
-                isDistinct(method), new IdentificationVariableDeclarationImpl(
-                        entityClass), parameterNames, getBuilders(method,
-                        parameterNames));
+        return build(daoClass, method, entityClass);
     }
+
+    protected abstract Command build(final Class<?> daoClass,
+            final Method method, final Class<?> entityClass);
 
     protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,
             final Method method);

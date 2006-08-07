@@ -13,26 +13,22 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.builder;
-
-import java.lang.reflect.Method;
+package org.seasar.kuina.dao;
 
 /**
  * 
  * @author koichik
  */
-public class NamedQuerySingleResultCommandBuilder extends
-        AbstractNamedQueryCommandBuilder {
+public class Count {
 
-    public NamedQuerySingleResultCommandBuilder() {
-        super(false);
-        setMethodNamePattern("get.+");
+    protected Integer count;
+
+    public Integer getCount() {
+        return count;
     }
 
-    @Override
-    protected Class<?> resolveEntityClass(final Class<?> daoClass,
-            final Method method) {
-        return getTargetClass(daoClass, method);
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
 }

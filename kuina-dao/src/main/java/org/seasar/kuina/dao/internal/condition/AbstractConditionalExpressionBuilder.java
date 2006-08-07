@@ -24,21 +24,29 @@ import java.lang.reflect.Method;
 public abstract class AbstractConditionalExpressionBuilder implements
         ConditionalExpressionBuilder {
 
-    protected String name;
+    protected String propertyName;
+
+    protected String parameterName;
 
     protected Method parameterMethod;
 
     protected Method operationMethod;
 
-    public AbstractConditionalExpressionBuilder(final String name,
-            final Method parameterMethod, final Method operationMethod) {
-        this.name = name;
+    public AbstractConditionalExpressionBuilder(final String propertyName,
+            final String parameterName, final Method parameterMethod,
+            final Method operationMethod) {
+        this.propertyName = propertyName;
+        this.parameterName = parameterName;
         this.parameterMethod = parameterMethod;
         this.operationMethod = operationMethod;
     }
 
-    public String getName() {
-        return name;
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public String getParameterName() {
+        return parameterName;
     }
 
     public Method getParameterMethod() {

@@ -31,10 +31,10 @@ public class LikeBuilder extends AbstractConditionalExpressionBuilder {
 
     protected String suffix;
 
-    public LikeBuilder(final String name, final Method parameterMethod,
-            final Method operationMethod, final String prefix,
-            final String suffix) {
-        super(name, parameterMethod, operationMethod);
+    public LikeBuilder(final String propertyName, final String parameterName,
+            final Method parameterMethod, final Method operationMethod,
+            final String prefix, final String suffix) {
+        super(propertyName, parameterName, parameterMethod, operationMethod);
         this.prefix = prefix;
         this.suffix = suffix;
     }
@@ -46,9 +46,10 @@ public class LikeBuilder extends AbstractConditionalExpressionBuilder {
         }
 
         final Object parameter = ReflectionUtil.invokeStatic(
-                getParameterMethod(), getName(), prefix + value + suffix);
+                getParameterMethod(), getParameterName(), prefix + value
+                        + suffix);
         final Object expression = ReflectionUtil.invokeStatic(
-                getOperationMethod(), getName().replace('$', '.'), parameter);
+                getOperationMethod(), getPropertyName(), parameter);
         statement.where(ConditionalExpression.class.cast(expression));
     }
 

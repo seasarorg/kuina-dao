@@ -31,9 +31,10 @@ public class TimeBuilder extends AbstractConditionalExpressionBuilder {
 
     protected TemporalType temporalType;
 
-    public TimeBuilder(final String name, final Method parameterMethod,
-            final Method operationMethod, final TemporalType temporalType) {
-        super(name, parameterMethod, operationMethod);
+    public TimeBuilder(final String propertyName, final String parameterName,
+            final Method parameterMethod, final Method operationMethod,
+            final TemporalType temporalType) {
+        super(propertyName, parameterName, parameterMethod, operationMethod);
         this.temporalType = temporalType;
     }
 
@@ -44,9 +45,9 @@ public class TimeBuilder extends AbstractConditionalExpressionBuilder {
         }
 
         final Object parameter = ReflectionUtil.invokeStatic(
-                getParameterMethod(), getName(), value, temporalType);
+                getParameterMethod(), getParameterName(), value, temporalType);
         final Object expression = ReflectionUtil.invokeStatic(
-                getOperationMethod(), getName().replace('$', '.'), parameter);
+                getOperationMethod(), getPropertyName(), parameter);
         statement.where(ConditionalExpression.class.cast(expression));
     }
 

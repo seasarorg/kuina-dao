@@ -22,7 +22,6 @@ import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
@@ -32,7 +31,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  * 
  * @author koichik
  */
-public class DynamicQueryCommand extends AbstractQueryCommand {
+public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
     protected Class<?> entityClass;
 
@@ -42,26 +41,18 @@ public class DynamicQueryCommand extends AbstractQueryCommand {
 
     protected IdentificationVariableDeclaration fromDecl;
 
-    protected String[] parameterNames;
-
-    protected ConditionalExpressionBuilder[] builders;
-
-    public DynamicQueryCommand(final Class<?> entityClass,
+    public AbstractDynamicQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
-            final IdentificationVariableDeclaration fromDecl,
-            final String[] parameterNames,
-            final ConditionalExpressionBuilder[] builders) {
+            final IdentificationVariableDeclaration fromDecl) {
         this.entityClass = entityClass;
         this.resultList = resultList;
         this.distinct = distinct;
         this.fromDecl = fromDecl;
-        this.parameterNames = parameterNames;
-        this.builders = builders;
     }
 
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
-        System.out.println(statement.getQueryString());
+        System.out.println(statement.getQueryString()); // TODO
         return resultList ? statement.getResultList(em) : statement
                 .getSingleResult(em);
     }
@@ -75,11 +66,11 @@ public class DynamicQueryCommand extends AbstractQueryCommand {
         final SelectStatement statement = distinct ? selectDistinct(path(alias))
                 : select(path(alias));
         statement.from(fromDecl);
-        for (int i = 0; i < arguments.length; ++i) {
-            builders[i].appendCondition(statement, arguments[i]);
-        }
-
+        bindParameter(statement, arguments);
         return statement;
     }
+
+    protected abstract void bindParameter(SelectStatement statement,
+            Object[] arguments);
 
 }
