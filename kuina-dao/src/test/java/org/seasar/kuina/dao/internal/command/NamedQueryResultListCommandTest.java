@@ -15,8 +15,6 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
@@ -38,13 +36,10 @@ public class NamedQueryResultListCommandTest extends S2TestCase {
     }
 
     public void testCountTx() throws Exception {
-        NamedQueryCommand command = new NamedQueryCommand(true,
-                "Employee.count", new ParameterBinder[0]);
-        List<Object[]> list = (List) command.execute(em, new Object[0]);
-        assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals(new Integer(30), list.get(0)[0]);
-        assertEquals("猫丸", list.get(0)[1]);
+        NamedQueryCommand command = new NamedQueryCommand(false,
+                "Employee.getCount", new ParameterBinder[0]);
+        int result = Integer.class.cast(command.execute(em, new Object[0]));
+        assertEquals(30, result);
     }
 
 }
