@@ -28,7 +28,8 @@ public class OrderbySpec {
         this(pathExpression, OrderingSpec.ASC);
     }
 
-    public OrderbySpec(final String pathExpression, final OrderingSpec orderingSpec) {
+    public OrderbySpec(final String pathExpression,
+            final OrderingSpec orderingSpec) {
         this.pathExpression = pathExpression;
         this.orderingSpec = orderingSpec;
     }

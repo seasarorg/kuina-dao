@@ -40,6 +40,8 @@ public interface EmployeeDao {
 
     List<Employee> findByName(String name);
 
+    List<Employee> findByBloodType(String... bloodType_IN);
+
     List<Employee> findByNameOrBloodType(String name, String bloodType);
 
     List<Employee> findByBloodTypeOrderbyHeightWeight(String bloodType,

@@ -15,10 +15,6 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
-import org.seasar.kuina.dao.OrderbySpec;
-import org.seasar.kuina.dao.criteria.SelectStatement;
-import org.seasar.kuina.dao.criteria.impl.grammar.expression.OrderbyItemImpl;
-import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
 import org.seasar.kuina.dao.internal.Command;
 
 /**
@@ -26,26 +22,4 @@ import org.seasar.kuina.dao.internal.Command;
  * @author koichik
  */
 public abstract class AbstractCommand implements Command {
-
-    protected void appendOrderbyClause(final SelectStatement selectStatement,
-            final Object orderbySpec) {
-        if (orderbySpec instanceof String) {
-            selectStatement.orderby(String.class.cast(orderbySpec));
-        } else if (orderbySpec instanceof String[]) {
-            for (final String path : String[].class.cast(orderbySpec)) {
-                selectStatement.orderby(path);
-            }
-        } else if (orderbySpec instanceof OrderbySpec) {
-            final OrderbySpec spec = OrderbySpec.class.cast(orderbySpec);
-            selectStatement.orderby(new OrderbyItemImpl(new PathExpressionImpl(
-                    spec.getPathExpression()), spec.getOrderingSpec()));
-        } else if (orderbySpec instanceof OrderbySpec[]) {
-            for (final OrderbySpec spec : OrderbySpec[].class.cast(orderbySpec)) {
-                selectStatement.orderby(new OrderbyItemImpl(
-                        new PathExpressionImpl(spec.getPathExpression()), spec
-                                .getOrderingSpec()));
-            }
-        }
-    }
-
 }

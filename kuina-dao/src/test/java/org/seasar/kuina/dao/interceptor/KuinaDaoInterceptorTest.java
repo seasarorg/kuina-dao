@@ -38,7 +38,6 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.lt;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.or;
 
 /**
- * 
  * @author koichik
  */
 public class KuinaDaoInterceptorTest extends S2TestCase {
@@ -167,7 +166,7 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("うー太", list.get(4).getName());
     }
 
-    public void testFindByDtoEqTx() throws Exception {
+    public void testFindByDtoTx() throws Exception {
         EmployeeDto dto = new EmployeeDto();
         dto.setName_EQ("シマゴロー");
         List<Employee> list = employeeDao.findByDto(dto);
@@ -202,6 +201,15 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals("ミチロー", list.get(1).getName());
         assertEquals("ミーヤ", list.get(2).getName());
         assertEquals("モンチー", list.get(3).getName());
+
+        dto = new EmployeeDto();
+        dto.setName_IN("マー", "ミチロー", "モンチー");
+        list = employeeDao.findByDto(dto);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("ミチロー", list.get(0).getName());
+        assertEquals("モンチー", list.get(1).getName());
+        assertEquals("マー", list.get(2).getName());
 
         dto = new EmployeeDto();
         dto.setName_LIKE("%マ%ー");
@@ -258,6 +266,23 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("シマゴロー", list.get(0).getName());
+    }
+
+    public void testFindByBloodTypeTx() throws Exception {
+        List<Employee> list = employeeDao.findByBloodType("B", "AB");
+        assertNotNull(list);
+        assertEquals(11, list.size());
+        assertEquals("ゴッチン", list.get(0).getName());
+        assertEquals("マル", list.get(1).getName());
+        assertEquals("プリン", list.get(2).getName());
+        assertEquals("ぱんだ", list.get(3).getName());
+        assertEquals("猫丸", list.get(4).getName());
+        assertEquals("にゃん太郎", list.get(5).getName());
+        assertEquals("ラスカル", list.get(6).getName());
+        assertEquals("太助", list.get(7).getName());
+        assertEquals("トントン", list.get(8).getName());
+        assertEquals("マイケル", list.get(9).getName());
+        assertEquals("ミーヤ", list.get(10).getName());
     }
 
     public void testFindNameOrBloodTx() throws Exception {

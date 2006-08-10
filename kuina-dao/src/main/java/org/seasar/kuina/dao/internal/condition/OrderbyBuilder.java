@@ -15,10 +15,8 @@
  */
 package org.seasar.kuina.dao.internal.condition;
 
-import org.seasar.kuina.dao.OrderbySpec;
 import org.seasar.kuina.dao.criteria.SelectStatement;
-import org.seasar.kuina.dao.criteria.impl.grammar.expression.OrderbyItemImpl;
-import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
+import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 
 /**
  * 
@@ -32,25 +30,7 @@ public class OrderbyBuilder implements ConditionalExpressionBuilder {
             return;
         }
 
-        if (value instanceof String) {
-            final String orderbySpec = String.class.cast(value);
-            statement.orderby(orderbySpec);
-        } else if (value instanceof String[]) {
-            final String[] orderbySpecs = String[].class.cast(value);
-            statement.orderby(orderbySpecs);
-        } else if (value instanceof OrderbySpec) {
-            final OrderbySpec orderbySpec = OrderbySpec.class.cast(value);
-            statement.orderby(new OrderbyItemImpl(new PathExpressionImpl(
-                    orderbySpec.getPathExpression()), orderbySpec
-                    .getOrderingSpec()));
-        } else if (value instanceof OrderbySpec[]) {
-            final OrderbySpec[] orderbySpecs = OrderbySpec[].class.cast(value);
-            for (final OrderbySpec orderbySpec : orderbySpecs) {
-                statement.orderby(new OrderbyItemImpl(new PathExpressionImpl(
-                        orderbySpec.getPathExpression()), orderbySpec
-                        .getOrderingSpec()));
-            }
-        }
+        SelectStatementUtil.appendOrderbyClause(statement, value);
     }
 
 }

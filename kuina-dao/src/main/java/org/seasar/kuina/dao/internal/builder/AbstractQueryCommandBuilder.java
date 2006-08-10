@@ -40,11 +40,6 @@ import org.seasar.kuina.dao.internal.binder.MaxResultsBinder;
 import org.seasar.kuina.dao.internal.binder.NullBinder;
 import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
-import org.seasar.kuina.dao.internal.condition.FirstResultBuilder;
-import org.seasar.kuina.dao.internal.condition.MaxResultsBuilder;
-import org.seasar.kuina.dao.internal.condition.OrderbyBuilder;
 
 /**
  * 
@@ -83,32 +78,6 @@ public abstract class AbstractQueryCommandBuilder extends
 
     protected boolean isDistinct(final Method method) {
         return method.getAnnotation(Distinct.class) != null;
-    }
-
-    protected ConditionalExpressionBuilder[] getBuilders(final Method method,
-            final String[] parameterNames) {
-        final Class<?>[] parameterTypes = method.getParameterTypes();
-        final Annotation[][] parameterAnnotations = method
-                .getParameterAnnotations();
-        final ConditionalExpressionBuilder[] builders = new ConditionalExpressionBuilder[parameterTypes.length];
-        for (int i = 0; i < parameterTypes.length; ++i) {
-            final Class<?> type = parameterTypes[i];
-            final String name = parameterNames[i];
-            final Annotation[] annotations = parameterAnnotations[i];
-
-            if (isOrderby(name, annotations)) {
-                builders[i] = new OrderbyBuilder();
-            } else if (isFirstResult(name, annotations)) {
-                builders[i] = new FirstResultBuilder();
-            } else if (isMaxResults(name, annotations)) {
-                builders[i] = new MaxResultsBuilder();
-            } else {
-                builders[i] = ConditionalExpressionBuilderFactory
-                        .createBuilder(name, type);
-            }
-        }
-        return builders;
-
     }
 
     protected ParameterBinder[] getBinders(final Method method,

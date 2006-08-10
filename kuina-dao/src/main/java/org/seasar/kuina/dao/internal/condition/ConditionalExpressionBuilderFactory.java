@@ -31,6 +31,7 @@ import org.seasar.kuina.dao.criteria.grammar.BooleanExpression;
 import org.seasar.kuina.dao.criteria.grammar.DatetimeExpression;
 import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.EnumExpression;
+import org.seasar.kuina.dao.criteria.grammar.InputParameter;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
@@ -42,6 +43,9 @@ public class ConditionalExpressionBuilderFactory {
     protected static final String[][] BASIC_OPERATIONS = new String[][] {
             { "_EQ", "eq" }, { "_NE", "ne" }, { "_LT", "lt" }, { "_LE", "le" },
             { "_GT", "gt" }, { "_GE", "ge" } };
+
+    protected static final String[][] IN_OPERATIONS = new String[][] {
+            { "_IN", "in" }, { "_NOT_IN", "notIn" } };
 
     protected static final String[][] LIKE_OPERATIONS = new String[][] {
             { "_LIKE", "", "" }, { "_STARTS", "", "%" }, { "_ENDS", "%", "" },
@@ -98,6 +102,20 @@ public class ConditionalExpressionBuilderFactory {
                 return new BasicBuilder(propertyName, name,
                         getParameterMethod(parameterType), getOperationMethod(
                                 operationName, parameterType));
+            }
+        }
+        for (String[] inOperation : IN_OPERATIONS) {
+            final String suffix = inOperation[0];
+            if (name.endsWith(suffix)) {
+                final String propertyName = name.substring(0,
+                        name.length() - suffix.length()).replace('$', '.');
+                final String operationName = inOperation[1];
+                final Class<?> componentType = parameterType.getComponentType();
+                return new InBuilder(propertyName, name,
+                        getParameterMethod(componentType), ReflectionUtil
+                                .getMethod(CriteriaOperations.class,
+                                        operationName, String.class,
+                                        InputParameter[].class));
             }
         }
         for (String[] likeOperation : LIKE_OPERATIONS) {
@@ -184,7 +202,8 @@ public class ConditionalExpressionBuilderFactory {
         if (String.class.isAssignableFrom(parameterType)) {
             return STRING_PARAMETER_METHOD;
         }
-        if (boolean.class.isAssignableFrom(parameterType)) {
+        if (boolean.class.isAssignableFrom(ClassUtil
+                .getWrapperClassIfPrimitive(parameterType))) {
             return BOOLEAN_PARAMETER_METHOD;
         }
         if (Date.class.isAssignableFrom(parameterType)) {

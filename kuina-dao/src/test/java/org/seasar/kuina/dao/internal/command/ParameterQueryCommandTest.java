@@ -42,7 +42,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
         include("s2hibernate-jpa.dicon");
     }
 
-    public void testFindByNameTx() throws Exception {
+    public void testTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,
                 true,
@@ -58,7 +58,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
         assertEquals("シマゴロー", list.get(0).getName());
     }
 
-    public void testFindByBooldtypeNeTx() throws Exception {
+    public void testNeTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,
                 true,
@@ -73,7 +73,23 @@ public class ParameterQueryCommandTest extends S2TestCase {
         assertEquals("ゴッチン", list.get(0).getName());
     }
 
-    public void testFindByNameAndBloodtypeTx() throws Exception {
+    public void testInTx() throws Exception {
+        ParameterQueryCommand command = new ParameterQueryCommand(
+                Employee.class,
+                true,
+                false,
+                new IdentificationVariableDeclarationImpl(Employee.class),
+                new String[] { "name_IN" },
+                new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
+                        .createBuilder("name_IN", String[].class) });
+        List<Employee> list = (List) command.execute(em, new Object[] { new String[] {"ミチロー", "にゃん太郎"} });
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("ミチロー", list.get(0).getName());
+        assertEquals("にゃん太郎", list.get(1).getName());
+    }
+
+    public void testMultiParameterTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
                 true, false, new IdentificationVariableDeclarationImpl(
                         Employee.class), new String[] { "name", "bloodType" },
@@ -90,7 +106,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
         assertEquals("マイケル", list.get(2).getName());
     }
 
-    public void testFindByDeparmentNameTx() throws Exception {
+    public void testRelationshipTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,
                 true,

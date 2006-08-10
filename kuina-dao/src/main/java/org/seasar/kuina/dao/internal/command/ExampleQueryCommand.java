@@ -29,6 +29,7 @@ import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
+import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.parameter;
@@ -97,7 +98,8 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
 
         statement.from(fromDecl);
         if (orderby >= 0) {
-            appendOrderbyClause(statement, arguments[orderby]);
+            SelectStatementUtil.appendOrderbyClause(statement,
+                    arguments[orderby]);
         }
         if (firstResult >= 0) {
             statement.setFirstResult(Number.class.cast(arguments[firstResult])
