@@ -55,6 +55,16 @@
 				Employee e
 		]]></query>
 	</named-native-query>
+	<named-native-query name="Employee.getCountByBloodType" result-set-mapping="getCount">
+		<query><![CDATA[
+			SELECT
+				COUNT(*) AS cnt
+			FROM
+				Employee e
+			WHERE
+				e.bloodType = ?1
+		]]></query>
+	</named-native-query>
 	<sql-result-set-mapping name="getCount">
 		<column-result name="cnt"/>
 	</sql-result-set-mapping>

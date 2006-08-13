@@ -62,6 +62,9 @@ public interface EmployeeDao {
     @PositionalParameter
     Integer getCount();
 
+    @PositionalParameter
+    Integer getCountByBloodType(String bloodType);
+
     List<Employee> findByDto(final EmployeeDto dto);
 
     Employee getEmployee(Integer id, String name);
