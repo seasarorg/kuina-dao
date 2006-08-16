@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.internal.condition;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
@@ -53,7 +54,8 @@ public class InBuilder extends AbstractConditionalExpressionBuilder {
         if (Collection.class.isInstance(values)) {
             return createParameterFromCollection(Collection.class.cast(values));
         }
-        throw new IllegalArgumentException();// TODO
+        throw new SIllegalArgumentException("EKuinaDao2002",
+                new Object[] { values });
     }
 
     protected Object createParametersFromArray(final Object[] values) {

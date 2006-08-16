@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.kuina.dao.OrderingSpec;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.OrderbyItem;
@@ -35,6 +36,10 @@ public class OrderbyItemImpl implements OrderbyItem {
 
     public OrderbyItemImpl(final PathExpression pathExpression,
             final OrderingSpec orderingSpec) {
+        if (pathExpression == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "pathExpression" });
+        }
         this.pathExpression = pathExpression;
         this.orderingSpec = orderingSpec;
     }

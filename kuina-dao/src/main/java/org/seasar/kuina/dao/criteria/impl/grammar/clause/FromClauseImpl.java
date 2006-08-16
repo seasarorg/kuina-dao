@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.clause;
 
 import java.util.List;
 
+import org.seasar.framework.exception.SIllegalStateException;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
@@ -82,11 +83,10 @@ public class FromClauseImpl implements FromClause {
         }
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
-        assert !declarations.isEmpty();
+        if (declarations.isEmpty()) {
+            throw new SIllegalStateException("EKuinaDao1004", new Object[] {});
+        }
 
         context.append(" FROM ");
         for (final Criterion criterion : declarations) {

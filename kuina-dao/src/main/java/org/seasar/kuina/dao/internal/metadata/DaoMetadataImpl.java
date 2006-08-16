@@ -32,6 +32,7 @@ import org.seasar.kuina.dao.internal.DaoMetadata;
  * @author koichik
  */
 public class DaoMetadataImpl implements DaoMetadata {
+
     protected EntityManager em;
 
     protected Class<?> daoClass;
@@ -51,9 +52,6 @@ public class DaoMetadataImpl implements DaoMetadata {
         setupCommands(factory);
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.DaoMetadata#getCommand(java.lang.reflect.Method)
-     */
     public Command getCommand(final Method method) {
         final String methodName = method.getName();
         return commands.get(methodName);
@@ -67,9 +65,9 @@ public class DaoMetadataImpl implements DaoMetadata {
                     continue;
                 }
                 final Command command = factory.createCommand(daoClass, method);
-                assert command != null;
                 commands.put(methodName, command);
             }
         }
     }
+
 }

@@ -27,14 +27,19 @@ public class InExpressionImpl extends AbstractInExpression {
     /**
      * インスタンスを構築します。
      */
+    public InExpressionImpl(final String pathExpression) {
+        this(new PathExpressionImpl(pathExpression));
+    }
+
     public InExpressionImpl(final String pathExpression,
             final InItem... inItems) {
         this(new PathExpressionImpl(pathExpression), inItems);
     }
 
-    /**
-     * インスタンスを構築します。
-     */
+    public InExpressionImpl(final PathExpression pathExpression) {
+        super(" IN ", pathExpression);
+    }
+
     public InExpressionImpl(final PathExpression pathExpression,
             final InItem... inItems) {
         super(" IN ", pathExpression, inItems);

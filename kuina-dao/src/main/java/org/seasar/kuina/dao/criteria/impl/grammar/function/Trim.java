@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.function;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningStrings;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
@@ -53,6 +54,14 @@ public class Trim implements FunctionReturningStrings {
 
     public Trim(final TrimSpecification trimSpecification,
             final char trimCharacter, final StringPrimary trimSource) {
+        if (trimSpecification == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "trimSpecification" });
+        }
+        if (trimSource == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "trimSource" });
+        }
         this.trimSpecificatin = trimSpecification;
         this.trimCharacter = trimCharacter;
         this.trimSource = trimSource;

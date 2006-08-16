@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.join;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 import org.seasar.kuina.dao.criteria.grammar.Join;
@@ -34,6 +35,10 @@ public class InnerJoin extends AbstractJoin implements Join {
     public InnerJoin(final PathExpression associationPathSpec,
             IdentificationVariable identificationVariable) {
         super(" INNER JOIN ", associationPathSpec, identificationVariable);
+        if (identificationVariable == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "identificationVariable" });
+        }
     }
 
     public void accept(final IdentificationVarialbleVisitor visitor) {

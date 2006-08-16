@@ -13,28 +13,30 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.impl;
+package org.seasar.kuina.dao.internal.util;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
-import org.seasar.framework.util.StringUtil;
 
 /**
  * 
  * @author koichik
  */
-public class JpqlUtil {
+public class KuinaDaoUtil {
 
-    public static String toAbstractSchemaName(final Class<?> clazz) {
+    public static EntityDesc getEntityDesc(final Class<?> clazz) {
         final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
-        assert entityDesc != null;// TODO
-        return entityDesc.getEntityName();
+        if (entityDesc == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { clazz });
+        }
+        return entityDesc;
     }
 
-    public static String toDefaultIdentificationVariable(
-            final String abstractSchemaName) {
-        return StringUtil.decapitalize(abstractSchemaName
-                .substring(abstractSchemaName.lastIndexOf('.') + 1));
+    public static boolean isEntityClass(final Class<?> clazz) {
+        final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
+        return entityDesc != null;
     }
 
 }

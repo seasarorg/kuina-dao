@@ -26,9 +26,9 @@ import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
-import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
+import org.seasar.kuina.dao.internal.util.JpqlUtil;
 import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
@@ -72,10 +72,6 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
         this.maxResults = maxResults;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
-     *      java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
         return resultList ? statement.getResultList(em) : statement
@@ -147,6 +143,15 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
         } else if (Boolean.class.isAssignableFrom(type)) {
             statement.where(eq(path, parameter(parameterName, Boolean.class
                     .cast(value))));
+        } else if (java.sql.Date.class.isAssignableFrom(type)) {
+            statement.where(eq(path, parameter(parameterName,
+                    java.sql.Date.class.cast(value))));
+        } else if (java.sql.Time.class.isAssignableFrom(type)) {
+            statement.where(eq(path, parameter(parameterName,
+                    java.sql.Time.class.cast(value))));
+        } else if (java.sql.Timestamp.class.isAssignableFrom(type)) {
+            statement.where(eq(path, parameter(parameterName,
+                    java.sql.Timestamp.class.cast(value))));
         } else if (Date.class.isAssignableFrom(type)) {
             statement.where(eq(path, parameter(parameterName, Date.class
                     .cast(value), attribute.getTemporalType())));

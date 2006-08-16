@@ -27,13 +27,13 @@ import org.seasar.kuina.dao.criteria.grammar.Join;
 import org.seasar.kuina.dao.criteria.grammar.JoinOrFetchJoin;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.RangeVarialbeDeclaration;
-import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerFetchJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.InnerJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterFetchJoin;
 import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterJoin;
+import org.seasar.kuina.dao.internal.util.JpqlUtil;
 
 /**
  * 

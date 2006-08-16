@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 
@@ -29,12 +31,13 @@ public class IdentificationVariableImpl implements IdentificationVariable {
      * インスタンスを構築します。
      */
     public IdentificationVariableImpl(final String identificationVariable) {
+        if (StringUtil.isEmpty(identificationVariable)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "identificationVariable" });
+        }
         this.identificationVariable = identificationVariable;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(identificationVariable);
     }

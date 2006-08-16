@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
@@ -31,6 +32,10 @@ public class Parenthesis implements Criterion, ConditionalPrimary {
      * インスタンスを構築します。
      */
     public Parenthesis(final ConditionalExpression expression) {
+        if (expression == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "expression" });
+        }
         this.expression = expression;
     }
 

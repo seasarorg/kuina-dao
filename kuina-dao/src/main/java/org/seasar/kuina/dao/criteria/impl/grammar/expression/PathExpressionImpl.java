@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
@@ -29,6 +31,10 @@ public class PathExpressionImpl implements PathExpression {
      * インスタンスを構築します。
      */
     public PathExpressionImpl(final String pathExpression) {
+        if (StringUtil.isEmpty(pathExpression)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "pathExpression" });
+        }
         this.pathExpression = pathExpression;
     }
 
@@ -37,9 +43,6 @@ public class PathExpressionImpl implements PathExpression {
         return pathExpression;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(pathExpression);
     }

@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.conditional;
 
 import java.util.List;
 
+import org.seasar.framework.exception.SIllegalStateException;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
@@ -37,13 +38,9 @@ public abstract class AbstractConditionalExpression implements
     /**
      * インスタンスを構築します。
      */
-    public AbstractConditionalExpression(final String operator) {
-        this.operator = operator;
-    }
-
     public AbstractConditionalExpression(final String operator,
             final ConditionalExpression... expressions) {
-        this(operator);
+        this.operator = operator;
         add(expressions);
     }
 
@@ -55,12 +52,12 @@ public abstract class AbstractConditionalExpression implements
         return this;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         final int size = expressions.size();
-        assert size > 0;
+        if (size == 0) {
+            throw new SIllegalStateException("EKuinaDao1005",
+                    new Object[] { operator });
+        }
 
         if (size > 1) {
             context.append("(");

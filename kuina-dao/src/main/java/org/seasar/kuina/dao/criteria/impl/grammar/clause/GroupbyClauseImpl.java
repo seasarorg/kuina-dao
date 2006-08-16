@@ -34,9 +34,6 @@ public class GroupbyClauseImpl implements GroupbyClause {
         add(groupbyItems);
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.grammar.OrderbyClause#add(org.seasar.kuina.dao.criteria.grammar.OrderbyItem...)
-     */
     public GroupbyClause add(final GroupbyItem... groupbyItems) {
         for (final GroupbyItem item : groupbyItems) {
             this.groupbyItems.add(item);
@@ -44,9 +41,6 @@ public class GroupbyClauseImpl implements GroupbyClause {
         return this;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(CriteriaContext context) {
         if (groupbyItems.isEmpty()) {
             return;

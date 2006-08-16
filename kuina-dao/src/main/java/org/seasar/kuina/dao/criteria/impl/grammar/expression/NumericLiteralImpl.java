@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.NumericLiteral;
 
@@ -29,12 +30,13 @@ public class NumericLiteralImpl implements NumericLiteral {
      * インスタンスを構築します。
      */
     public NumericLiteralImpl(final Number literal) {
+        if (literal == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "literal" });
+        }
         this.literal = literal;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(literal);
     }

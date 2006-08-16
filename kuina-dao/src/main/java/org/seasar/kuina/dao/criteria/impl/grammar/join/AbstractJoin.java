@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.join;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 import org.seasar.kuina.dao.criteria.grammar.JoinOrFetchJoin;
@@ -40,6 +42,14 @@ public abstract class AbstractJoin implements JoinOrFetchJoin {
     public AbstractJoin(final String joinSpec,
             final PathExpression associationPathSpec,
             final IdentificationVariable identificationVariable) {
+        if (StringUtil.isEmpty(joinSpec)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "joinSpec" });
+        }
+        if (associationPathSpec == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "associationPathSpec" });
+        }
         this.joinSpec = joinSpec;
         this.associationPathSpec = associationPathSpec;
         this.identificationVariable = identificationVariable;
@@ -53,9 +63,6 @@ public abstract class AbstractJoin implements JoinOrFetchJoin {
         return associationPathSpec;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(joinSpec);
         associationPathSpec.evaluate(context);

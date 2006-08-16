@@ -13,26 +13,26 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.command;
+package org.seasar.kuina.dao.internal.util;
 
-import javax.persistence.EntityManager;
+import org.seasar.framework.jpa.EntityDesc;
+import org.seasar.framework.util.StringUtil;
 
 /**
  * 
  * @author koichik
  */
-public class ContainsCommand extends AbstractCommand {
-    /**
-     * インスタンスを構築します。
-     */
-    public ContainsCommand() {
+public class JpqlUtil {
+
+    public static String toAbstractSchemaName(final Class<?> clazz) {
+        final EntityDesc entityDesc = KuinaDaoUtil.getEntityDesc(clazz);
+        return entityDesc.getEntityName();
     }
 
-    public Object execute(final EntityManager em, final Object[] arguments) {
-        assert arguments != null;
-        assert arguments.length == 1;
-
-        final Object entity = arguments[0];
-        return em.contains(entity);
+    public static String toDefaultIdentificationVariable(
+            final String abstractSchemaName) {
+        return StringUtil.decapitalize(abstractSchemaName
+                .substring(abstractSchemaName.lastIndexOf('.') + 1));
     }
+
 }

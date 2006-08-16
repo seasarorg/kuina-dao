@@ -17,6 +17,8 @@ package org.seasar.kuina.dao.criteria.impl.grammar.clause;
 
 import java.util.List;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.exception.SIllegalStateException;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
@@ -47,8 +49,10 @@ public class SelectClauseImpl implements SelectClause {
     }
 
     public SelectClause add(final SelectExpression... selectExpressions) {
-        assert selectExpressions != null;
-        assert selectExpressions.length > 0;
+        if (selectExpressions == null || selectExpressions.length == 0) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "selectExpressions" });
+        }
 
         for (final SelectExpression selectExpression : selectExpressions) {
             this.selectExpressions.add(selectExpression);
@@ -60,11 +64,10 @@ public class SelectClauseImpl implements SelectClause {
         return selectExpressions.isEmpty();
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
-        assert !selectExpressions.isEmpty();
+        if (selectExpressions == null || selectExpressions.size() == 0) {
+            throw new SIllegalStateException("EKuinaDao1003", new Object[] {});
+        }
 
         context.append("SELECT ");
         if (distinct) {

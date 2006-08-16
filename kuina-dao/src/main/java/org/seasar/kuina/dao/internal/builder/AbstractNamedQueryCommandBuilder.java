@@ -27,6 +27,7 @@ import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
@@ -38,6 +39,9 @@ import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
 @Component
 public abstract class AbstractNamedQueryCommandBuilder extends
         AbstractQueryCommandBuilder {
+
+    protected static final Logger logger = Logger
+            .getLogger(AbstractNamedQueryCommandBuilder.class);
 
     public AbstractNamedQueryCommandBuilder(boolean resultList) {
         super(resultList);
@@ -74,7 +78,7 @@ public abstract class AbstractNamedQueryCommandBuilder extends
         }
 
         final Class<?> entityClass = resultList ? getElementTypeOfList(method
-                .getGenericReturnType()) : getTargetClass(daoClass, method);
+                .getGenericReturnType()) : method.getReturnType();
         if (entityClass != null) {
             return getEntityName(entityClass, method);
         }
@@ -100,6 +104,9 @@ public abstract class AbstractNamedQueryCommandBuilder extends
     public boolean isExists(final String queryName) {
         try {
             em.createNamedQuery(queryName);
+            if (logger.isDebugEnabled()) {
+                logger.log("DKuinaDao2002", new Object[] { queryName });
+            }
             return true;
         } catch (final Exception ignore) {
         }

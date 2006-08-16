@@ -23,7 +23,7 @@ import org.seasar.framework.jpa.EntityDescFactory;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
-import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
+import org.seasar.kuina.dao.internal.util.JpqlUtil;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
@@ -55,10 +55,6 @@ public class ConditionalQueryCommand extends AbstractCommand {
         this.fromDecl = fromDecl;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
-     *      java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
         System.out.println(statement.getQueryString());

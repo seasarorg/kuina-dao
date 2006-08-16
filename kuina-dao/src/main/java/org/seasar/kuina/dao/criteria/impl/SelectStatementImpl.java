@@ -22,6 +22,8 @@ import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.exception.SIllegalStateException;
 import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
@@ -99,8 +101,8 @@ public class SelectStatementImpl implements SelectStatement {
             } else if (selectExpression instanceof SelectExpression) {
                 select(SelectExpression.class.cast(selectExpression));
             } else {
-                // TODO
-                throw new IllegalArgumentException(selectExpression.toString());
+                throw new SIllegalArgumentException("EKuinaDao1002",
+                        new Object[] { selectExpression });
             }
         }
         return this;
@@ -198,7 +200,9 @@ public class SelectStatementImpl implements SelectStatement {
             final boolean fillParameter) {
         final CriteriaContext context = createContext();
         final String queryString = context.getQueryString();
-        logger.debug(queryString); // TODO
+        if (logger.isInfoEnabled()) {
+            logger.log("IKuinaDao0000", new Object[] { queryString });
+        }
         final Query query = em.createQuery(queryString);
         if (firstResult != null && firstResult >= 0) {
             query.setFirstResult(firstResult);
@@ -220,6 +224,9 @@ public class SelectStatementImpl implements SelectStatement {
 
     protected void evaluate(final CriteriaContext context) {
         assert !fromClause.isEmpty();
+        if (fromClause.isEmpty()) {
+            throw new SIllegalStateException("EKuinaDao1003", new Object[] {});
+        }
 
         if (selectClause.isEmpty()) {
             fromClause.accept(new IdentificationVarialbleVisitor() {

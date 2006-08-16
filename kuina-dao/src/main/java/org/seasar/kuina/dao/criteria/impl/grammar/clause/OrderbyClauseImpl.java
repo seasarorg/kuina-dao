@@ -34,9 +34,6 @@ public class OrderbyClauseImpl implements OrderbyClause {
         add(orderbyItems);
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.grammar.OrderbyClause#add(org.seasar.kuina.dao.criteria.grammar.OrderbyItem...)
-     */
     public OrderbyClause add(final OrderbyItem... orderbyItems) {
         for (final OrderbyItem item : orderbyItems) {
             this.orderbyItems.add(item);
@@ -44,9 +41,6 @@ public class OrderbyClauseImpl implements OrderbyClause {
         return this;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(CriteriaContext context) {
         if (orderbyItems.isEmpty()) {
             return;

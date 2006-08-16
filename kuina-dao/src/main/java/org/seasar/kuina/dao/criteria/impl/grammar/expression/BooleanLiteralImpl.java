@@ -32,9 +32,6 @@ public class BooleanLiteralImpl implements BooleanLiteral {
         this.literal = literal;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(literal);
     }

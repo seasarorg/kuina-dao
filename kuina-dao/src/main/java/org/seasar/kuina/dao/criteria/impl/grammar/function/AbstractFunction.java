@@ -17,6 +17,8 @@ package org.seasar.kuina.dao.criteria.impl.grammar.function;
 
 import java.util.List;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
@@ -34,6 +36,10 @@ public class AbstractFunction {
      * インスタンスを構築します。
      */
     public AbstractFunction(final String functor) {
+        if (StringUtil.isEmpty(functor)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "functor" });
+        }
         this.functor = functor;
     }
 
@@ -41,15 +47,16 @@ public class AbstractFunction {
      * インスタンスを構築します。
      */
     public AbstractFunction(final String functor, final Criterion... arguments) {
-        this.functor = functor;
+        this(functor);
+        if (StringUtil.isEmpty(functor)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "functor" });
+        }
         for (final Criterion argument : arguments) {
             this.arguments.add(argument);
         }
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(functor).append("(");
         for (final Criterion argument : arguments) {

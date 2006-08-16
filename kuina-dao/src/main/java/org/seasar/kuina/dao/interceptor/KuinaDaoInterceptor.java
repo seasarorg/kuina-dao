@@ -46,9 +46,6 @@ public class KuinaDaoInterceptor extends AbstractInterceptor {
         this.entityManager = entityManager;
     }
 
-    /**
-     * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
-     */
     public Object invoke(final MethodInvocation invocation) throws Throwable {
         final Method method = invocation.getMethod();
         if (MethodUtil.isAbstract(method)) {

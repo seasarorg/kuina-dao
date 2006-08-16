@@ -19,9 +19,10 @@ import javax.persistence.EntityManager;
 
 import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
-import org.seasar.kuina.dao.criteria.impl.JpqlUtil;
+import org.seasar.kuina.dao.internal.util.JpqlUtil;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
@@ -32,6 +33,9 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  * @author koichik
  */
 public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
+
+    protected static final Logger logger = Logger
+            .getLogger(AbstractDynamicQueryCommand.class);
 
     protected Class<?> entityClass;
 
@@ -52,7 +56,10 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
-        System.out.println(statement.getQueryString()); // TODO
+        if (logger.isInfoEnabled()) {
+            logger.log("IKuinaDao0000", new Object[] { statement
+                    .getQueryString() });
+        }
         return resultList ? statement.getResultList(em) : statement
                 .getSingleResult(em);
     }

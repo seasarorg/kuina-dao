@@ -46,9 +46,6 @@ public class WhereClauseImpl implements WhereClause {
         return this;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         if (conditionalExpression == null) {
             return;

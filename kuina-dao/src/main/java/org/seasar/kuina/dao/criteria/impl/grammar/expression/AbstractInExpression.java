@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
 import java.util.List;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.InExpression;
@@ -36,22 +37,32 @@ public abstract class AbstractInExpression implements InExpression {
     protected final List<InItem> inItems = CollectionsUtil.newArrayList();
 
     public AbstractInExpression(final String operator,
-            final PathExpression pathExpression, final InItem... inItems) {
+            final PathExpression pathExpression) {
+        if (pathExpression == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "pathExpression" });
+        }
         this.operator = operator;
         this.pathExpression = pathExpression;
+    }
+
+    public AbstractInExpression(final String operator,
+            final PathExpression pathExpression, final InItem... inItems) {
+        this(operator, pathExpression);
         add(inItems);
     }
 
     public InExpression add(final InItem... inItems) {
+        if (inItems == null || inItems.length == 0) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "inItems" });
+        }
         for (final InItem inItem : inItems) {
             this.inItems.add(inItem);
         }
         return this;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         pathExpression.evaluate(context);
         context.append(operator).append("(");

@@ -106,10 +106,6 @@ public class CriteriaContextImpl implements CriteriaContext {
         return this;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.CriteriaContext#setParameter(java.lang.String,
-     *      java.lang.Object)
-     */
     public void setParameter(final String name, final Object value) {
         binders.add(new ObjectParameterBinder(name, value));
     }

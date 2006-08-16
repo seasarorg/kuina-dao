@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.EnumLiteral;
 
@@ -29,12 +30,13 @@ public class EnumLiteralImpl implements EnumLiteral {
      * インスタンスを構築します。
      */
     public EnumLiteralImpl(final Enum literal) {
+        if (literal == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "literal" });
+        }
         this.literal = literal;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(literal);
     }

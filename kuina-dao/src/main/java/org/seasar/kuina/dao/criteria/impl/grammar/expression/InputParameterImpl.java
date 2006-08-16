@@ -20,6 +20,9 @@ import java.util.Date;
 
 import javax.persistence.TemporalType;
 
+import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.exception.SIllegalStateException;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.InputParameter;
 
@@ -39,6 +42,11 @@ public class InputParameterImpl implements InputParameter {
      */
     public InputParameterImpl(final String identificationVariable,
             final Object value) {
+        if (StringUtil.isEmpty(identificationVariable)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "identificationVariable" });
+        }
+
         this.identificationVariable = identificationVariable;
         this.value = value;
         this.temporalType = null;
@@ -46,7 +54,14 @@ public class InputParameterImpl implements InputParameter {
 
     public InputParameterImpl(final String identificationVariable,
             final Date value, final TemporalType temporalType) {
-        assert temporalType != null;
+        if (StringUtil.isEmpty(identificationVariable)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "identificationVariable" });
+        }
+        if (temporalType == null) {
+            throw new SIllegalStateException("EKuinaDao1006", new Object[] {});
+        }
+
         this.identificationVariable = identificationVariable;
         this.value = value;
         this.temporalType = temporalType;
@@ -54,26 +69,33 @@ public class InputParameterImpl implements InputParameter {
 
     public InputParameterImpl(final String identificationVariable,
             final Calendar value, final TemporalType temporalType) {
-        assert temporalType != null;
+        if (StringUtil.isEmpty(identificationVariable)) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "identificationVariable" });
+        }
+        if (temporalType == null) {
+            throw new SIllegalStateException("EKuinaDao1006", new Object[] {});
+        }
+
         this.identificationVariable = identificationVariable;
         this.value = value;
         this.temporalType = temporalType;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(':').append(identificationVariable);
 
-        if (temporalType == null) {
+        if (temporalType == null || value == null) {
             context.setParameter(identificationVariable, value);
-        } else if (value instanceof Date) {
+        } else if (Date.class.isInstance(value)) {
             context.setParameter(identificationVariable,
                     Date.class.cast(value), temporalType);
-        } else {
+        } else if (Calendar.class.isInstance(value)) {
             context.setParameter(identificationVariable, Calendar.class
                     .cast(value), temporalType);
+        } else {
+            throw new SIllegalStateException("EKuinaDao1007", new Object[] {
+                    identificationVariable, value });
         }
     }
 

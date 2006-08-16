@@ -25,6 +25,9 @@ import javax.persistence.EntityManager;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.Disposable;
+import org.seasar.framework.util.DisposableUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.CommandBuilder;
@@ -36,7 +39,12 @@ import org.seasar.kuina.dao.internal.DaoMetadataFactory;
  * @author koichik
  */
 @Component
-public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
+public class DaoMetadataFactoryImpl implements DaoMetadataFactory, Disposable {
+
+    protected static final Logger logger = Logger
+            .getLogger(DaoMetadataFactoryImpl.class);
+
+    protected boolean initialized;
 
     @Binding(bindingType = BindingType.MUST)
     protected EntityManager entityManager;
@@ -53,6 +61,18 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
     public DaoMetadataFactoryImpl() {
     }
 
+    public void initialize() {
+        if (!initialized) {
+            DisposableUtil.add(this);
+            initialized = true;
+        }
+    }
+
+    public void dispose() {
+        metadataCache.clear();
+        initialized = false;
+    }
+
     public void setCommandBuilders(final CommandBuilder[] builders) {
         this.builders.addAll(Arrays.asList(builders));
     }
@@ -62,6 +82,7 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
     }
 
     public DaoMetadata getMetadata(final Class<?> daoClass) {
+        initialize();
         final DaoMetadata metadata = metadataCache.get(daoClass);
         if (metadata != null) {
             return metadata;
@@ -84,9 +105,15 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory {
         for (final CommandBuilder builder : builders) {
             final Command command = builder.build(daoClass, method);
             if (command != null) {
+                if (logger.isDebugEnabled()) {
+                    logger.log("DKuinaDao2001", new Object[] { daoClass,
+                            method, command.getClass().getName() });
+                }
                 return command;
             }
         }
+        logger.log("WKuinaDao2001", new Object[] { daoClass, method });
         return null;
     }
+
 }
