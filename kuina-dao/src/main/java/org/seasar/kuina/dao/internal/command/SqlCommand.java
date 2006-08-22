@@ -17,7 +17,9 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.extension.jdbc.ResultSetFactory;
 import org.seasar.extension.jdbc.ResultSetHandler;
+import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.extension.jdbc.impl.BasicSelectHandler;
 import org.seasar.extension.jdbc.impl.BeanListResultSetHandler;
 import org.seasar.extension.jdbc.impl.BeanResultSetHandler;
@@ -47,9 +49,15 @@ public class SqlCommand extends AbstractCommand {
 
     protected final Dialect dialect;
 
+    protected final ResultSetFactory resultSetFactory;
+
+    protected final StatementFactory statementFactory;
+
     public SqlCommand(final boolean resultList, final Class beanClass,
             final String sql, final String[] parameterNames,
-            final Class[] parameterTypes, final Dialect dialect) {
+            final Class[] parameterTypes, final Dialect dialect,
+            final ResultSetFactory resultSetFactory,
+            final StatementFactory statementFactory) {
         this.resultList = resultList;
         this.beanClass = beanClass;
         this.sql = sql;
@@ -57,6 +65,8 @@ public class SqlCommand extends AbstractCommand {
         this.parameterNames = parameterNames;
         this.parameterTypes = parameterTypes;
         this.dialect = dialect;
+        this.resultSetFactory = resultSetFactory;
+        this.statementFactory = statementFactory;
     }
 
     public Object execute(EntityManager em, Object[] parameters) {
@@ -80,6 +90,12 @@ public class SqlCommand extends AbstractCommand {
                 beanClass) : new BeanResultSetHandler(beanClass);
         BasicSelectHandler handler = new BasicSelectHandler();
         handler.setResultSetHandler(rsHandler);
+        if (resultSetFactory != null) {
+            handler.setResultSetFactory(resultSetFactory);
+        }
+        if (statementFactory != null) {
+            handler.setStatementFactory(statementFactory);
+        }
         handler.setSql(query);
         return handler.execute(dialect.getConnection(em), args, argTypes);
     }

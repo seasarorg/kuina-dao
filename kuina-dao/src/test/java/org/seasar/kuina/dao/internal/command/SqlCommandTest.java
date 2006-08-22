@@ -41,7 +41,8 @@ public class SqlCommandTest extends S2TestCase {
 
     public void testExecute_resultListTx() throws Exception {
         SqlCommand command = new SqlCommand(true, EmpDto.class,
-                "select id, name from employee", null, null, dialect);
+                "select id, name from employee", null, null, dialect, null,
+                null);
         List<EmpDto> emps = (List<EmpDto>) command.execute(em, null);
         System.out.println(emps);
         assertEquals(30, emps.size());
@@ -50,7 +51,8 @@ public class SqlCommandTest extends S2TestCase {
     public void testExecute_singleResultTx() throws Exception {
         SqlCommand command = new SqlCommand(false, EmpDto.class,
                 "select name from employee where id = /*id*/0",
-                new String[] { "id" }, new Class[] { Integer.class }, dialect);
+                new String[] { "id" }, new Class[] { Integer.class }, dialect,
+                null, null);
         EmpDto emp = (EmpDto) command.execute(em,
                 new Object[] { new Integer(1) });
         System.out.println(emp);

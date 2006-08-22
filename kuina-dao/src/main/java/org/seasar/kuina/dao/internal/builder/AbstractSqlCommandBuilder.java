@@ -18,6 +18,8 @@ package org.seasar.kuina.dao.internal.builder;
 import java.lang.reflect.Method;
 
 import org.seasar.extension.dao.helper.DaoHelper;
+import org.seasar.extension.jdbc.ResultSetFactory;
+import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.jpa.Dialect;
@@ -37,6 +39,10 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
 
     protected DaoHelper daoHelper;
 
+    protected ResultSetFactory resultSetFactory;
+
+    protected StatementFactory statementFactory;
+
     public AbstractSqlCommandBuilder(final boolean resultList) {
         this.resultList = resultList;
     }
@@ -55,6 +61,36 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
      */
     public void setDialect(Dialect dialect) {
         this.dialect = dialect;
+    }
+
+    /**
+     * @return resultSetFactoryを返します。
+     */
+    public ResultSetFactory getResultSetFactory() {
+        return resultSetFactory;
+    }
+
+    /**
+     * @param resultSetFactory
+     *            resultSetFactoryを設定します。
+     */
+    public void setResultSetFactory(ResultSetFactory resultSetFactory) {
+        this.resultSetFactory = resultSetFactory;
+    }
+
+    /**
+     * @return statementFactoryを返します。
+     */
+    public StatementFactory getStatementFactory() {
+        return statementFactory;
+    }
+
+    /**
+     * @param statementFactory
+     *            statementFactoryを設定します。
+     */
+    public void setStatementFactory(StatementFactory statementFactory) {
+        this.statementFactory = statementFactory;
     }
 
     public Command build(final Class<?> daoClass, final Method method) {
@@ -80,6 +116,6 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
         return new SqlCommand(resultList, targetClass, sql, beanDesc
                 .getMethodParameterNames(method), method.getParameterTypes(),
-                dialect);
+                dialect, resultSetFactory, statementFactory);
     }
 }
