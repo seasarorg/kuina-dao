@@ -17,15 +17,14 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.persistence.TemporalType;
 
+import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.FirstResult;
 import org.seasar.kuina.dao.MaxResults;
@@ -234,32 +233,7 @@ public abstract class AbstractQueryCommandBuilder extends
     }
 
     protected Class<?> getElementTypeOfList(final Type parameterizedList) {
-        if (!(parameterizedList instanceof ParameterizedType)) {
-            return null;
-        }
-
-        final ParameterizedType parameterizedType = ParameterizedType.class
-                .cast(parameterizedList);
-        final Type rawType = parameterizedType.getRawType();
-        if (!(rawType instanceof Class)) {
-            return null;
-        }
-
-        final Class<?> rawClass = Class.class.cast(rawType);
-        if (!rawClass.isAssignableFrom(List.class)) {
-            return null;
-        }
-
-        final Type[] actualTypeArgument = parameterizedType
-                .getActualTypeArguments();
-        if (actualTypeArgument == null || actualTypeArgument.length != 1) {
-            return null;
-        }
-        if (!(actualTypeArgument[0] instanceof Class)) {
-            return null;
-        }
-
-        return Class.class.cast(actualTypeArgument[0]);
+        return ReflectionUtil.getElementTypeOfList(parameterizedList);
     }
 
     protected Class<?> getTargetClass(final Class<?> daoClass,

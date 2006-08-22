@@ -33,9 +33,9 @@ import org.seasar.framework.jpa.Dialect;
  */
 public class SqlCommand extends AbstractCommand {
 
-    protected final Class beanClass;
-
     protected final boolean resultList;
+
+    protected final Class beanClass;
 
     protected final String sql;
 
@@ -47,11 +47,11 @@ public class SqlCommand extends AbstractCommand {
 
     protected final Dialect dialect;
 
-    public SqlCommand(final Class beanClass, final boolean resultList,
+    public SqlCommand(final boolean resultList, final Class beanClass,
             final String sql, final String[] parameterNames,
             final Class[] parameterTypes, final Dialect dialect) {
-        this.beanClass = beanClass;
         this.resultList = resultList;
+        this.beanClass = beanClass;
         this.sql = sql;
         this.node = new SqlParserImpl(sql).parse();
         this.parameterNames = parameterNames;

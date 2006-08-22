@@ -6,8 +6,12 @@
 	<include path="s2hibernate-jpa.dicon"/>
 	<include path="convention.dicon"/>
 
+	<component class="org.seasar.extension.dao.helper.impl.DaoHelperImpl"/>
+	
 	<component class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"/>
 
+	<component class="org.seasar.kuina.dao.internal.builder.SqlResultListCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.SqlSingleResultCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
