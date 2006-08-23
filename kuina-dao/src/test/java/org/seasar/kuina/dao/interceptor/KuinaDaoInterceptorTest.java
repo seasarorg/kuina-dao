@@ -26,6 +26,8 @@ import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.BelongTo;
 import org.seasar.kuina.dao.Category;
 import org.seasar.kuina.dao.Department;
+import org.seasar.kuina.dao.EmpDao;
+import org.seasar.kuina.dao.EmpDto;
 import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.EmployeeDao;
 import org.seasar.kuina.dao.EmployeeDto;
@@ -47,6 +49,8 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     private EmployeeDao employeeDao;
 
     private ProductDao productDao;
+
+    private EmpDao empDao;
 
     public KuinaDaoInterceptorTest() {
     }
@@ -393,6 +397,18 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     public void testContainsTx() throws Exception {
         Employee emp = employeeDao.find(1);
         assertTrue(employeeDao.contains(emp));
+    }
+
+    public void testFindEmpsTx() throws Exception {
+        List<EmpDto> emps = empDao.findEmps();
+        assertEquals(30, emps.size());
+        assertEquals(new Integer(1), emps.get(0).getId());
+        assertEquals("シマゴロー", emps.get(0).getName());
+    }
+
+    public void testGetEmpTx() throws Exception {
+        EmpDto emp = empDao.getEmp(1);
+        assertEquals("シマゴロー", emp.getName());
     }
 
     public void testFindTx() throws Exception {

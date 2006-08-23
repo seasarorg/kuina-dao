@@ -12,4 +12,8 @@
 		<aspect>kuinaDao.interceptor</aspect>
 	</component>
 
+	<component class="org.seasar.kuina.dao.EmpDao">
+		<aspect>kuinaDao.interceptor</aspect>
+	</component>
+
 </components>
