@@ -2,5 +2,8 @@
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
-	<component class="org.seasar.framework.convention.impl.NamingConventionImpl"/>
+	<component class="org.seasar.framework.convention.impl.NamingConventionImpl">
+		<property name="daoPackage">""</property>
+		<property name="entityPackage">""</property>
+	</component>
 </components>
