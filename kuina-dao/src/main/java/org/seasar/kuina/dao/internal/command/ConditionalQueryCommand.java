@@ -20,6 +20,7 @@ import javax.persistence.Query;
 
 import org.seasar.framework.jpa.EntityDesc;
 import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
@@ -34,6 +35,9 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  * @author koichik
  */
 public class ConditionalQueryCommand extends AbstractCommand {
+
+    protected static final Logger logger = Logger
+            .getLogger(ConditionalQueryCommand.class);
 
     protected Class<?> entityClass;
 
@@ -57,7 +61,10 @@ public class ConditionalQueryCommand extends AbstractCommand {
 
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
-        System.out.println(statement.getQueryString());
+        if (logger.isInfoEnabled()) {
+            logger.log("IKuinaDao0000", new Object[] { statement
+                    .getQueryString() });
+        }
         final Query query = statement.getQuery(em);
         return resultList ? query.getResultList() : query.getSingleResult();
     }
