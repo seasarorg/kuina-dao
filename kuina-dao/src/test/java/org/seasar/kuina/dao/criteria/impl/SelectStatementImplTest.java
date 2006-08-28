@@ -20,13 +20,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.BelongTo;
-import org.seasar.kuina.dao.Customer;
-import org.seasar.kuina.dao.Department;
-import org.seasar.kuina.dao.Employee;
-import org.seasar.kuina.dao.Prefectural;
-import org.seasar.kuina.dao.Product;
 import org.seasar.kuina.dao.criteria.grammar.TrimSpecification;
+import org.seasar.kuina.dao.entity.BelongTo;
+import org.seasar.kuina.dao.entity.Customer;
+import org.seasar.kuina.dao.entity.Department;
+import org.seasar.kuina.dao.entity.Employee;
+import org.seasar.kuina.dao.entity.Prefectural;
+import org.seasar.kuina.dao.entity.Product;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.abs;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.alias;

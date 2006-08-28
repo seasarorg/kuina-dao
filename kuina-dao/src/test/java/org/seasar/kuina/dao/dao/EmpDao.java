@@ -13,22 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.dao;
+
+import java.util.List;
+
+import org.seasar.kuina.dao.dto.EmpDto;
 
 /**
  * 
- * @author koichik
+ * @author higa
  */
-public class Count {
+public interface EmpDao {
 
-    protected Integer count;
+    List<EmpDto> findEmps();
 
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
+    EmpDto getEmp(int id);
 }

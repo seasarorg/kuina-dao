@@ -3,7 +3,8 @@
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
 	<component class="org.seasar.framework.convention.impl.NamingConventionImpl">
-		<property name="daoPackage">""</property>
-		<property name="entityPackage">""</property>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao"</arg>
+		</initMethod>
 	</component>
 </components>

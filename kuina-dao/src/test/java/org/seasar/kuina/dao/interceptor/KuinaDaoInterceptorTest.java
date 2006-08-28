@@ -23,16 +23,16 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.BelongTo;
-import org.seasar.kuina.dao.Category;
-import org.seasar.kuina.dao.Department;
-import org.seasar.kuina.dao.EmpDao;
-import org.seasar.kuina.dao.EmpDto;
-import org.seasar.kuina.dao.Employee;
-import org.seasar.kuina.dao.EmployeeDao;
-import org.seasar.kuina.dao.EmployeeDto;
-import org.seasar.kuina.dao.Product;
-import org.seasar.kuina.dao.ProductDao;
+import org.seasar.kuina.dao.dao.EmpDao;
+import org.seasar.kuina.dao.dao.EmployeeDao;
+import org.seasar.kuina.dao.dao.ProductDao;
+import org.seasar.kuina.dao.dto.EmpDto;
+import org.seasar.kuina.dao.dto.EmployeeDto;
+import org.seasar.kuina.dao.entity.BelongTo;
+import org.seasar.kuina.dao.entity.Category;
+import org.seasar.kuina.dao.entity.Department;
+import org.seasar.kuina.dao.entity.Employee;
+import org.seasar.kuina.dao.entity.Product;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.between;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.gt;
@@ -63,7 +63,7 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         include("s2hibernate-jpa.dicon");
-        include("org/seasar/kuina/dao/dao.dicon");
+        include("org/seasar/kuina/dao/dao/dao.dicon");
     }
 
     public void testFindAllTx() throws Exception {

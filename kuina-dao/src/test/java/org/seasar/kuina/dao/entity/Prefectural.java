@@ -13,14 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.entity;
+
+import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -28,26 +29,19 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class Customer {
+public class Prefectural {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Customer_Id_Generator")
-    @SequenceGenerator(name = "Customer_Id_Generator", sequenceName = "Customer_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Prefectural_Id_Generator")
+    @SequenceGenerator(name = "Prefectural_Id_Generator", sequenceName = "Prefectural_Id_Sequence")
     private Integer id;
-
-    private String code;
 
     private String name;
 
-    private String address;
+    @OneToMany(mappedBy = "prefectural")
+    private Collection<Customer> customers;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Prefectural prefectural;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CustomerClass customerClass;
-
-    public Customer() {
+    public Prefectural() {
     }
 
     public Integer getId() {
@@ -58,14 +52,6 @@ public class Customer {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
     }
@@ -74,35 +60,19 @@ public class Customer {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public Collection<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public CustomerClass getCustomerClass() {
-        return customerClass;
-    }
-
-    public void setCustomerClass(CustomerClass customerClass) {
-        this.customerClass = customerClass;
-    }
-
-    public Prefectural getPrefectural() {
-        return prefectural;
-    }
-
-    public void setPrefectural(Prefectural prefectural) {
-        this.prefectural = prefectural;
+    public void setCustomers(Collection<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Customer))
+        if (!(other instanceof Prefectural))
             return false;
-        Customer castOther = (Customer) other;
+        Prefectural castOther = (Prefectural) other;
         return this.id == castOther.id;
     }
 

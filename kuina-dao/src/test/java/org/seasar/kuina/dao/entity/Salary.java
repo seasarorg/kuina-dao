@@ -13,16 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.entity;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -30,19 +30,19 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class Department {
+public class Salary {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Department_Id_Generator")
-    @SequenceGenerator(name = "Department_Id_Generator", sequenceName = "Department_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Salary_Id_Generator")
+    @SequenceGenerator(name = "Salary_Id_Generator", sequenceName = "Salary_Id_Sequence")
     private Integer id;
 
-    private String name;
+    private Date payDate;
 
-    @OneToMany(mappedBy = "department")
-    private Collection<BelongTo> belongTo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee employee;
 
-    public Department() {
+    public Salary() {
     }
 
     public Integer getId() {
@@ -53,40 +53,27 @@ public class Department {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Date getPayDate() {
+        return payDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPayDate(Date payDate) {
+        this.payDate = payDate;
     }
 
-    public Collection<BelongTo> getBelongTo() {
-        return belongTo;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setBelongTo(Collection<BelongTo> belongTo) {
-        this.belongTo = belongTo;
-    }
-
-    public void addBelongTo(BelongTo belongTo) {
-        if (belongTo == null) {
-            this.belongTo = new HashSet<BelongTo>();
-        }
-        this.belongTo.add(belongTo);
-    }
-
-    public void addEmployee(Employee employee) {
-        BelongTo belongTo = new BelongTo();
-        belongTo.setEmployee(employee);
-        addBelongTo(belongTo);
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Department))
+        if (!(other instanceof Salary))
             return false;
-        Department castOther = (Department) other;
+        Salary castOther = (Salary) other;
         return this.id == castOther.id;
     }
 

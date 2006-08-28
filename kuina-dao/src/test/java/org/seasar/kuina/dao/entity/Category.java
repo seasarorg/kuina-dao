@@ -13,16 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.entity;
 
-import java.util.Date;
+import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -30,19 +29,19 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class Salary {
+public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Salary_Id_Generator")
-    @SequenceGenerator(name = "Salary_Id_Generator", sequenceName = "Salary_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Category_Id_Generator")
+    @SequenceGenerator(name = "Category_Id_Generator", sequenceName = "Category_Id_Sequence")
     private Integer id;
 
-    private Date payDate;
+    private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Employee employee;
+    @OneToMany(mappedBy = "category")
+    private Collection<Product> products;
 
-    public Salary() {
+    public Category() {
     }
 
     public Integer getId() {
@@ -53,27 +52,27 @@ public class Salary {
         this.id = id;
     }
 
-    public Date getPayDate() {
-        return payDate;
+    public String getName() {
+        return name;
     }
 
-    public void setPayDate(Date payDate) {
-        this.payDate = payDate;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Collection<Product> getProducts() {
+        return products;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setProducts(Collection<Product> products) {
+        this.products = products;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Salary))
+        if (!(other instanceof Category))
             return false;
-        Salary castOther = (Salary) other;
+        Category castOther = (Category) other;
         return this.id == castOther.id;
     }
 

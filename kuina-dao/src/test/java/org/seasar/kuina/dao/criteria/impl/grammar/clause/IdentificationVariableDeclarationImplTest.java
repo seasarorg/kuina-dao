@@ -16,11 +16,11 @@
 package org.seasar.kuina.dao.criteria.impl.grammar.clause;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.Department;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.impl.CriteriaContextImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
+import org.seasar.kuina.dao.entity.Department;
 
 /**
  * 

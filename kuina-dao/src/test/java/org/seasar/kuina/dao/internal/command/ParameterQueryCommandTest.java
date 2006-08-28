@@ -20,8 +20,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
+import org.seasar.kuina.dao.entity.Employee;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
 

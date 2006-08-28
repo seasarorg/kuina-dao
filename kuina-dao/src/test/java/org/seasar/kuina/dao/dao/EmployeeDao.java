@@ -13,14 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.dao;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TemporalType;
 
+import org.seasar.kuina.dao.PositionalParameter;
+import org.seasar.kuina.dao.TargetEntity;
+import org.seasar.kuina.dao.TemporalSpec;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
+import org.seasar.kuina.dao.dto.EmployeeDto;
+import org.seasar.kuina.dao.entity.Employee;
 
 /**
  * 

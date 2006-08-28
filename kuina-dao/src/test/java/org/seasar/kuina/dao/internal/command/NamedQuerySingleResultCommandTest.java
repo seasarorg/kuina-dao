@@ -16,7 +16,7 @@
 package org.seasar.kuina.dao.internal.command;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.EmployeeDao;
+import org.seasar.kuina.dao.dao.EmployeeDao;
 
 /**
  * 

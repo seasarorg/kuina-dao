@@ -21,8 +21,8 @@ import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.framework.util.ClassUtil;
-import org.seasar.kuina.dao.EmpDao;
-import org.seasar.kuina.dao.EmpDto;
+import org.seasar.kuina.dao.dao.EmpDao;
+import org.seasar.kuina.dao.dto.EmpDto;
 import org.seasar.kuina.dao.internal.Command;
 
 /**

@@ -4,15 +4,15 @@
 <components>
 	<include path="kuina-dao.dicon"/>
 
-	<component class="org.seasar.kuina.dao.EmployeeDao">
+	<component class="org.seasar.kuina.dao.dao.EmployeeDao">
 		<aspect>kuinaDao.interceptor</aspect>
 	</component>
 
-	<component class="org.seasar.kuina.dao.ProductDao">
+	<component class="org.seasar.kuina.dao.dao.ProductDao">
 		<aspect>kuinaDao.interceptor</aspect>
 	</component>
 
-	<component class="org.seasar.kuina.dao.EmpDao">
+	<component class="org.seasar.kuina.dao.dao.EmpDao">
 		<aspect>kuinaDao.interceptor</aspect>
 	</component>
 

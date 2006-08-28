@@ -13,9 +13,9 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.entity;
 
-import java.util.Date;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,6 +23,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -30,27 +31,26 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class Sale {
+public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Sale_Id_Generator")
-    @SequenceGenerator(name = "Sale_Id_Generator", sequenceName = "Sale_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Product_Id_Generator")
+    @SequenceGenerator(name = "Product_Id_Generator", sequenceName = "Product_Id_Sequence")
     private Integer id;
 
-    private Integer quantity;
+    private String code;
+
+    private String name;
+
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Customer customer;
+    private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    @OneToMany(mappedBy = "product")
+    private Collection<Sale> sales;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Employee employee;
-
-    private Date saleDate;
-
-    public Sale() {
+    public Product() {
     }
 
     public Integer getId() {
@@ -61,51 +61,51 @@ public class Sale {
         this.id = id;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getCode() {
+        return code;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Product getProduct() {
-        return product;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public Date getSaleDate() {
-        return saleDate;
+    public Collection<Sale> getSales() {
+        return sales;
     }
 
-    public void setSaleDate(Date saleDate) {
-        this.saleDate = saleDate;
+    public void setSales(Collection<Sale> sales) {
+        this.sales = sales;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Sale))
+        if (!(other instanceof Product))
             return false;
-        Sale castOther = (Sale) other;
+        Product castOther = (Product) other;
         return this.id == castOther.id;
     }
 
@@ -113,5 +113,4 @@ public class Sale {
     public int hashCode() {
         return id == null ? 0 : id;
     }
-
 }

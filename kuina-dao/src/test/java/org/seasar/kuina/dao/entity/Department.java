@@ -13,9 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.entity;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,19 +30,19 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class Prefectural {
+public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Prefectural_Id_Generator")
-    @SequenceGenerator(name = "Prefectural_Id_Generator", sequenceName = "Prefectural_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Department_Id_Generator")
+    @SequenceGenerator(name = "Department_Id_Generator", sequenceName = "Department_Id_Sequence")
     private Integer id;
 
     private String name;
 
-    @OneToMany(mappedBy = "prefectural")
-    private Collection<Customer> customers;
+    @OneToMany(mappedBy = "department")
+    private Collection<BelongTo> belongTo;
 
-    public Prefectural() {
+    public Department() {
     }
 
     public Integer getId() {
@@ -60,19 +61,32 @@ public class Prefectural {
         this.name = name;
     }
 
-    public Collection<Customer> getCustomers() {
-        return customers;
+    public Collection<BelongTo> getBelongTo() {
+        return belongTo;
     }
 
-    public void setCustomers(Collection<Customer> customers) {
-        this.customers = customers;
+    public void setBelongTo(Collection<BelongTo> belongTo) {
+        this.belongTo = belongTo;
+    }
+
+    public void addBelongTo(BelongTo belongTo) {
+        if (belongTo == null) {
+            this.belongTo = new HashSet<BelongTo>();
+        }
+        this.belongTo.add(belongTo);
+    }
+
+    public void addEmployee(Employee employee) {
+        BelongTo belongTo = new BelongTo();
+        belongTo.setEmployee(employee);
+        addBelongTo(belongTo);
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Prefectural))
+        if (!(other instanceof Department))
             return false;
-        Prefectural castOther = (Prefectural) other;
+        Department castOther = (Department) other;
         return this.id == castOther.id;
     }
 

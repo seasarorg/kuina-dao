@@ -13,15 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
-
-import java.util.Collection;
+package org.seasar.kuina.dao.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -29,19 +28,26 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class CustomerClass {
+public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CustomerClass_Id_Generator")
-    @SequenceGenerator(name = "CustomerClass_Id_Generator", sequenceName = "CustomerClass_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Customer_Id_Generator")
+    @SequenceGenerator(name = "Customer_Id_Generator", sequenceName = "Customer_Id_Sequence")
     private Integer id;
+
+    private String code;
 
     private String name;
 
-    @OneToMany(mappedBy = "customerClass")
-    private Collection<Customer> customers;
+    private String address;
 
-    public CustomerClass() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Prefectural prefectural;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CustomerClass customerClass;
+
+    public Customer() {
     }
 
     public Integer getId() {
@@ -52,6 +58,14 @@ public class CustomerClass {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }
@@ -60,19 +74,35 @@ public class CustomerClass {
         this.name = name;
     }
 
-    public Collection<Customer> getCustomers() {
-        return customers;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCustomers(Collection<Customer> customers) {
-        this.customers = customers;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public CustomerClass getCustomerClass() {
+        return customerClass;
+    }
+
+    public void setCustomerClass(CustomerClass customerClass) {
+        this.customerClass = customerClass;
+    }
+
+    public Prefectural getPrefectural() {
+        return prefectural;
+    }
+
+    public void setPrefectural(Prefectural prefectural) {
+        this.prefectural = prefectural;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof CustomerClass))
+        if (!(other instanceof Customer))
             return false;
-        CustomerClass castOther = (CustomerClass) other;
+        Customer castOther = (Customer) other;
         return this.id == castOther.id;
     }
 

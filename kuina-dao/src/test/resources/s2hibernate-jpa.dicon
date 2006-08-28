@@ -22,10 +22,6 @@
 			@org.seasar.framework.jpa.EntityDescFactory@removeProvider(#self)
 		</destroyMethod>
 	</component>
-	
-	<component class="org.seasar.framework.container.cooldeploy.impl.CoolProjectImpl">
-		<property name="rootPackageName">"org.seasar.kuina.dao"</property>
-	</component>
 
 	<component class="org.seasar.framework.jpa.PersistenceClassAutoDetector"/>
 	<component class="org.seasar.framework.jpa.MappingFileAutoDetector"/>

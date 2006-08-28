@@ -13,16 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.entity;
 
-import java.util.Date;
+import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -30,24 +29,19 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class BelongTo {
+public class CustomerClass {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BelongTo_Id_Generator")
-    @SequenceGenerator(name = "BelongTo_Id_Generator", sequenceName = "BelongTo_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CustomerClass_Id_Generator")
+    @SequenceGenerator(name = "CustomerClass_Id_Generator", sequenceName = "CustomerClass_Id_Sequence")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Employee employee;
+    private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Department department;
+    @OneToMany(mappedBy = "customerClass")
+    private Collection<Customer> customers;
 
-    private Date startDate;
-
-    private Date endDate;
-
-    public BelongTo() {
+    public CustomerClass() {
     }
 
     public Integer getId() {
@@ -58,43 +52,27 @@ public class BelongTo {
         this.id = id;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public String getName() {
+        return name;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Collection<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setCustomers(Collection<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof BelongTo))
+        if (!(other instanceof CustomerClass))
             return false;
-        BelongTo castOther = (BelongTo) other;
+        CustomerClass castOther = (CustomerClass) other;
         return this.id == castOther.id;
     }
 
@@ -102,5 +80,4 @@ public class BelongTo {
     public int hashCode() {
         return id == null ? 0 : id;
     }
-
 }

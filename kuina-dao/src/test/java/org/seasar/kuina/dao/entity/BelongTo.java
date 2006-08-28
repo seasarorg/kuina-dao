@@ -13,9 +13,9 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.entity;
 
-import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +23,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -31,26 +30,24 @@ import javax.persistence.SequenceGenerator;
  * @author koichik
  */
 @Entity
-public class Product {
+public class BelongTo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Product_Id_Generator")
-    @SequenceGenerator(name = "Product_Id_Generator", sequenceName = "Product_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BelongTo_Id_Generator")
+    @SequenceGenerator(name = "BelongTo_Id_Generator", sequenceName = "BelongTo_Id_Sequence")
     private Integer id;
 
-    private String code;
-
-    private String name;
-
-    private Integer price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+    private Department department;
 
-    @OneToMany(mappedBy = "product")
-    private Collection<Sale> sales;
+    private Date startDate;
 
-    public Product() {
+    private Date endDate;
+
+    public BelongTo() {
     }
 
     public Integer getId() {
@@ -61,51 +58,43 @@ public class Product {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public String getName() {
-        return name;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
-    public Integer getPrice() {
-        return price;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Category getCategory() {
-        return category;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Collection<Sale> getSales() {
-        return sales;
-    }
-
-    public void setSales(Collection<Sale> sales) {
-        this.sales = sales;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Product))
+        if (!(other instanceof BelongTo))
             return false;
-        Product castOther = (Product) other;
+        BelongTo castOther = (BelongTo) other;
         return this.id == castOther.id;
     }
 
@@ -113,4 +102,5 @@ public class Product {
     public int hashCode() {
         return id == null ? 0 : id;
     }
+
 }

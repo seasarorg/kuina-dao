@@ -13,17 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao;
+package org.seasar.kuina.dao.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.entity.Product;
+
 /**
  * 
- * @author higa
+ * @author koichik
  */
-public interface EmpDao {
+public interface ProductDao {
 
-    List<EmpDto> findEmps();
+    List<Product> findByExample(Product product);
 
-    EmpDto getEmp(int id);
 }

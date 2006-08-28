@@ -20,9 +20,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.Employee;
 import org.seasar.kuina.dao.OrderbySpec;
 import org.seasar.kuina.dao.OrderingSpec;
+import org.seasar.kuina.dao.entity.Employee;
 
 /**
  * 
