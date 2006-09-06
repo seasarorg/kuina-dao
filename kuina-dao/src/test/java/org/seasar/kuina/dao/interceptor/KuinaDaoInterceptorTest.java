@@ -378,10 +378,10 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals(30, count);
     }
 
-    public void testGetCountByBloodTypeTx() throws Exception {
-        int count = employeeDao.getCountByBloodType("AB");
-        assertEquals(3, count);
-    }
+    // public void testGetCountByBloodTypeTx() throws Exception {
+    // int count = employeeDao.getCountByBloodType("AB");
+    // assertEquals(3, count);
+    //    }
 
     public void testGetEmployeeTx() throws Exception {
         Employee emp = employeeDao.getEmployee(1, "シマゴロー");

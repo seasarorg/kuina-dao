@@ -12,7 +12,7 @@
 			FROM
 				Employee e
 			WHERE
-				e.name = :name
+				e.name = :ename
 		]]></query>
 	</named-query>
 	<named-query name="Employee.findByBirthday">

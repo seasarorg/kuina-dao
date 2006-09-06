@@ -72,7 +72,7 @@ public abstract class AbstractNamedQueryCommandBuilder extends
             return queryName.value();
         }
 
-        final Class<?> targetClass = getTargetClass(daoClass, method);
+        final Class<?> targetClass = resolveEntityClass(daoClass, method);
         if (targetClass != null) {
             return getEntityName(targetClass, method);
         }

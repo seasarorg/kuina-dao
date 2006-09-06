@@ -31,7 +31,6 @@ import org.seasar.kuina.dao.entity.Employee;
  * 
  * @author koichik
  */
-@TargetEntity(Employee.class)
 public interface EmployeeDao {
 
     List<Employee> findAll();
@@ -43,7 +42,7 @@ public interface EmployeeDao {
     List<Employee> findByExample3(Employee employee, int firstResult,
             int maxResults);
 
-    List<Employee> findByName(String name);
+    List<Employee> findByName(String ename);
 
     List<Employee> findByBloodType(String... bloodType_IN);
 
@@ -64,9 +63,10 @@ public interface EmployeeDao {
     List<Employee> findByBirthday(@TemporalSpec(TemporalType.DATE)
     Date birthday);
 
-    @PositionalParameter
+    @TargetEntity(Employee.class)
     Integer getCount();
 
+    @TargetEntity(Employee.class)
     @PositionalParameter
     Integer getCountByBloodType(String bloodType);
 
@@ -74,6 +74,7 @@ public interface EmployeeDao {
 
     Employee getEmployee(Integer id, String name);
 
+    @TargetEntity(Employee.class)
     String getName(int id);
 
     Employee find(int id);
