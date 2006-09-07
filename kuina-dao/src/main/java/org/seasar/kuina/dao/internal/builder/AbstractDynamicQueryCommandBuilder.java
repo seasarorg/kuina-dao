@@ -35,7 +35,7 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
             return null;
         }
 
-        final Class<?> entityClass = resolveEntityClass(daoClass, method);
+        final Class<?> entityClass = getResultClass(method);
         if (entityClass == null) {
             return null;
         }
@@ -45,8 +45,5 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
 
     protected abstract Command build(final Class<?> daoClass,
             final Method method, final Class<?> entityClass);
-
-    protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,
-            final Method method);
 
 }

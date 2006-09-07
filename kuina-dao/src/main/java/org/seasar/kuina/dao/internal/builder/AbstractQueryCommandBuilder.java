@@ -17,7 +17,6 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -232,20 +231,27 @@ public abstract class AbstractQueryCommandBuilder extends
         return TemporalType.TIMESTAMP;
     }
 
-    protected Class<?> getElementTypeOfList(final Type parameterizedList) {
-        return ReflectionUtil.getElementTypeOfList(parameterizedList);
-    }
-
     protected Class<?> getTargetClass(final Class<?> daoClass,
             final Method method) {
-        TargetEntity targetEntity = method.getAnnotation(TargetEntity.class);
-        if (targetEntity != null) {
-            return targetEntity.value();
+        final TargetEntity methodAnnotatedTargetEntity = method
+                .getAnnotation(TargetEntity.class);
+        if (methodAnnotatedTargetEntity != null) {
+            return methodAnnotatedTargetEntity.value();
         }
 
-        targetEntity = daoClass.getAnnotation(TargetEntity.class);
-        if (targetEntity != null) {
-            return targetEntity.value();
+        final TargetEntity classAnnotatedTargetEntity = daoClass
+                .getAnnotation(TargetEntity.class);
+        if (classAnnotatedTargetEntity != null) {
+            return classAnnotatedTargetEntity.value();
+        }
+
+        return getResultClass(method);
+    }
+
+    protected Class<?> getResultClass(final Method method) {
+        if (resultList) {
+            return ReflectionUtil.getElementTypeOfList(method
+                    .getGenericReturnType());
         }
         return method.getReturnType();
     }

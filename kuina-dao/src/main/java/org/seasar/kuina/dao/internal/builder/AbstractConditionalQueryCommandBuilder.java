@@ -44,7 +44,7 @@ public abstract class AbstractConditionalQueryCommandBuilder extends
             return null;
         }
 
-        final Class<?> entityClass = resolveEntityClass(daoClass, method);
+        final Class<?> entityClass = getResultClass(method);
         if (entityClass == null) {
             return null;
         }
@@ -53,8 +53,5 @@ public abstract class AbstractConditionalQueryCommandBuilder extends
                 isDistinct(method), new IdentificationVariableDeclarationImpl(
                         entityClass));
     }
-
-    protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,
-            final Method method);
 
 }

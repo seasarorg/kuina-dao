@@ -55,7 +55,7 @@ public abstract class AbstractNamedQueryCommandBuilder extends
             return null;
         }
 
-        final String queryName = getQueryName(daoClass, method, isResultList());
+        final String queryName = getQueryName(daoClass, method);
         if (queryName == null || !isExists(queryName)) {
             return null;
         }
@@ -65,20 +65,18 @@ public abstract class AbstractNamedQueryCommandBuilder extends
                 method, beanDesc.getMethodParameterNames(method)));
     }
 
-    protected String getQueryName(final Class<?> daoClass, final Method method,
-            final boolean resultList) {
+    protected String getQueryName(final Class<?> daoClass, final Method method) {
         final QueryName queryName = method.getAnnotation(QueryName.class);
         if (queryName != null) {
             return queryName.value();
         }
 
-        final Class<?> targetClass = resolveEntityClass(daoClass, method);
+        final Class<?> targetClass = getTargetClass(daoClass, method);
         if (targetClass != null) {
             return getEntityName(targetClass, method);
         }
 
-        final Class<?> entityClass = resultList ? getElementTypeOfList(method
-                .getGenericReturnType()) : method.getReturnType();
+        final Class<?> entityClass = getTargetClass(daoClass, method);
         if (entityClass != null) {
             return getEntityName(entityClass, method);
         }
@@ -96,9 +94,6 @@ public abstract class AbstractNamedQueryCommandBuilder extends
 
         return entityDesc.getEntityName() + "." + method.getName();
     }
-
-    protected abstract Class<?> resolveEntityClass(final Class<?> daoClass,
-            final Method method);
 
     @Aspect("j2ee.requiresNewTx")
     public boolean isExists(final String queryName) {

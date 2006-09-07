@@ -15,10 +15,6 @@
  */
 package org.seasar.kuina.dao.internal.builder;
 
-import java.lang.reflect.Method;
-
-import org.seasar.kuina.dao.TargetEntity;
-
 /**
  * 
  * @author koichik
@@ -29,21 +25,6 @@ public class NamedQueryResultListCommandBuilder extends
     public NamedQueryResultListCommandBuilder() {
         super(true);
         setMethodNamePattern("find.+");
-    }
-
-    @Override
-    protected Class<?> resolveEntityClass(final Class<?> daoClass,
-            final Method method) {
-        TargetEntity targetEntity = method.getAnnotation(TargetEntity.class);
-        if (targetEntity != null) {
-            return targetEntity.value();
-        }
-
-        targetEntity = daoClass.getAnnotation(TargetEntity.class);
-        if (targetEntity != null) {
-            return targetEntity.value();
-        }
-        return getElementTypeOfList(method.getGenericReturnType());
     }
 
 }

@@ -15,8 +15,6 @@
  */
 package org.seasar.kuina.dao.internal.builder;
 
-import java.lang.reflect.Method;
-
 /**
  * 
  * @author koichik
@@ -27,12 +25,6 @@ public class DtoQuerySingleResultCommandBuilder extends
     public DtoQuerySingleResultCommandBuilder() {
         super(false);
         setMethodNamePattern("get.+");
-    }
-
-    @Override
-    protected Class<?> resolveEntityClass(final Class<?> daoClass,
-            final Method method) {
-        return getTargetClass(daoClass, method);
     }
 
 }

@@ -36,8 +36,7 @@ public class FindAllQueryCommandBuilder extends AbstractQueryCommandBuilder {
             return null;
         }
 
-        final Class<?> entityClass = getElementTypeOfList(method
-                .getGenericReturnType());
+        final Class<?> entityClass = getResultClass(method);
         if (entityClass == null) {
             return null;
         }

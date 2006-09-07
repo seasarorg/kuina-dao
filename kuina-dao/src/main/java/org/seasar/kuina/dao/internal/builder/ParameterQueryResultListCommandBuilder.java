@@ -15,8 +15,6 @@
  */
 package org.seasar.kuina.dao.internal.builder;
 
-import java.lang.reflect.Method;
-
 /**
  * 
  * @author koichik
@@ -27,12 +25,6 @@ public class ParameterQueryResultListCommandBuilder extends
     public ParameterQueryResultListCommandBuilder() {
         super(true);
         setMethodNamePattern("find.+");
-    }
-
-    @Override
-    protected Class<?> resolveEntityClass(final Class<?> daoClass,
-            final Method method) {
-        return getElementTypeOfList(method.getGenericReturnType());
     }
 
 }
