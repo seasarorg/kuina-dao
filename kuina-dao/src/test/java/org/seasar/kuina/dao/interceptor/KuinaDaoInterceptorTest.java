@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.dao.EmpDao;
@@ -381,17 +382,27 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     // public void testGetCountByBloodTypeTx() throws Exception {
     // int count = employeeDao.getCountByBloodType("AB");
     // assertEquals(3, count);
-    //    }
+    // }
 
     public void testGetEmployeeTx() throws Exception {
         Employee emp = employeeDao.getEmployee(1, "シマゴロー");
         assertNotNull(emp);
         assertEquals("シマゴロー", emp.getName());
+
+        try {
+            employeeDao.getEmployee(1, "ゴッチン");
+        } catch (NoResultException expected) {
+        }
     }
 
     public void testGetNameTx() throws Exception {
         String name = employeeDao.getName(1);
         assertEquals("シマゴロー", name);
+
+        try {
+            employeeDao.getName(1234567890);
+        } catch (NoResultException expected) {
+        }
     }
 
     public void testContainsTx() throws Exception {
