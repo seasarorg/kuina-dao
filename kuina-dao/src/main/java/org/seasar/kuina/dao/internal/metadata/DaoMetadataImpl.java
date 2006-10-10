@@ -21,53 +21,85 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
-import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.extension.dao.helper.DaoHelper;
+import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.framework.container.annotation.tiger.InstanceType;
+import org.seasar.framework.jpa.EntityManagerProvider;
+import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.internal.Command;
+import org.seasar.kuina.dao.internal.CommandBuilder;
 import org.seasar.kuina.dao.internal.DaoMetadata;
 
 /**
  * 
  * @author koichik
  */
+@Component(instance = InstanceType.PROTOTYPE)
 public class DaoMetadataImpl implements DaoMetadata {
 
-    protected EntityManager em;
+    protected static final Logger logger = Logger
+            .getLogger(DaoMetadataImpl.class);
 
-    protected Class<?> daoClass;
+    @Binding(bindingType = BindingType.MUST)
+    protected S2Container container;
 
-    protected BeanDesc beanDesc;
+    @Binding(bindingType = BindingType.MUST)
+    protected DaoHelper daoHelper;
 
-    protected Map<String, Command> commands = CollectionsUtil.newHashMap();
+    @Binding(bindingType = BindingType.MUST)
+    protected EntityManagerProvider entityManagerProvider;
 
-    /**
-     * インスタンスを構築します。
-     */
-    public DaoMetadataImpl(final DaoMetadataFactoryImpl factory,
-            final Class<?> daoClass) {
-        this.em = factory.getEntityManager();
-        this.daoClass = daoClass;
-        this.beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        setupCommands(factory);
+    @Binding(bindingType = BindingType.MUST)
+    protected CommandBuilder[] builders;
+
+    protected EntityManager entityManager;
+
+    protected Map<Method, Command> commands = CollectionsUtil.newHashMap();
+
+    public void initialize(final Class<?> daoClass) {
+        final String dsName = daoHelper.getDataSourceName(daoClass);
+        entityManager = entityManagerProvider.getEntityManger(dsName);
+
+        for (final Method method : daoClass.getMethods()) {
+            if (!Modifier.isAbstract(method.getModifiers())
+                    || method.isBridge()) {
+                continue;
+            }
+            final Command command = createCommand(daoClass, method);
+            commands.put(method, command);
+        }
     }
 
     public Command getCommand(final Method method) {
-        final String methodName = method.getName();
-        return commands.get(methodName);
+        return commands.get(method);
     }
 
-    protected void setupCommands(final DaoMetadataFactoryImpl factory) {
-        for (final String methodName : beanDesc.getMethodNames()) {
-            for (final Method method : beanDesc.getMethods(methodName)) {
-                if (!Modifier.isAbstract(method.getModifiers())
-                        || method.isBridge()) {
-                    continue;
+    public Object execute(Method method, Object[] arguments) {
+        final Command command = commands.get(method);
+        if (command == null) {
+            return NOT_INVOKED;
+        }
+
+        return command.execute(entityManager, arguments);
+    }
+
+    protected Command createCommand(final Class<?> daoClass, final Method method) {
+        for (final CommandBuilder builder : builders) {
+            final Command command = builder.build(daoClass, method);
+            if (command != null) {
+                if (logger.isDebugEnabled()) {
+                    logger.log("DKuinaDao2001", new Object[] { daoClass,
+                            method, command.getClass().getName() });
                 }
-                final Command command = factory.createCommand(daoClass, method);
-                commands.put(methodName, command);
+                return command;
             }
         }
+        logger.log("WKuinaDao2001", new Object[] { daoClass, method });
+        return null;
     }
 
 }

@@ -22,7 +22,7 @@ import org.seasar.extension.jdbc.ResultSetFactory;
 import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.jpa.Dialect;
+import org.seasar.framework.jpa.DialectManager;
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.SqlCommand;
@@ -35,7 +35,7 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
 
     protected final boolean resultList;
 
-    protected Dialect dialect;
+    protected DialectManager dialectManager;
 
     protected DaoHelper daoHelper;
 
@@ -56,11 +56,11 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
     }
 
     /**
-     * @param dialect
-     *            dialectを設定します。
+     * @param dialectManager
+     *            dialectManagerを設定します。
      */
-    public void setDialect(Dialect dialect) {
-        this.dialect = dialect;
+    public void setDialectManager(DialectManager dialectManager) {
+        this.dialectManager = dialectManager;
     }
 
     /**
@@ -116,6 +116,6 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
         return new SqlCommand(resultList, targetClass, sql, beanDesc
                 .getMethodParameterNames(method), method.getParameterTypes(),
-                dialect, resultSetFactory, statementFactory);
+                dialectManager, resultSetFactory, statementFactory);
     }
 }

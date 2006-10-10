@@ -16,8 +16,8 @@
 package org.seasar.kuina.dao.internal.util;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 
 /**
  * 

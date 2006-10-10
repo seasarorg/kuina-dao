@@ -19,14 +19,16 @@ import java.lang.reflect.Method;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.extension.dao.helper.DaoHelper;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.EntityManagerProvider;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.internal.Command;
@@ -48,7 +50,10 @@ public abstract class AbstractNamedQueryCommandBuilder extends
     }
 
     @Binding(bindingType = BindingType.MUST)
-    protected EntityManager em;
+    protected DaoHelper daoHelper;
+
+    @Binding(bindingType = BindingType.MUST)
+    protected EntityManagerProvider entityManagerProvider;
 
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
@@ -56,7 +61,7 @@ public abstract class AbstractNamedQueryCommandBuilder extends
         }
 
         final String queryName = getQueryName(daoClass, method);
-        if (queryName == null || !isExists(queryName)) {
+        if (queryName == null || !isExists(daoClass, queryName)) {
             return null;
         }
 
@@ -96,8 +101,11 @@ public abstract class AbstractNamedQueryCommandBuilder extends
     }
 
     @Aspect("j2ee.requiresNewTx")
-    public boolean isExists(final String queryName) {
+    public boolean isExists(final Class<?> daoClass, final String queryName) {
         try {
+            final String prefix = daoHelper.getDataSourceName(daoClass);
+            final EntityManager em = entityManagerProvider
+                    .getEntityManger(prefix);
             em.createNamedQuery(queryName);
             if (logger.isDebugEnabled()) {
                 logger.log("DKuinaDao2002", new Object[] { queryName });

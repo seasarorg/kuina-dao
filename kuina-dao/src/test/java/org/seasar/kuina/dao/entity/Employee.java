@@ -53,6 +53,7 @@ public class Employee {
 
     private String bloodType;
 
+    @SuppressWarnings("unused")
     @Version
     private Integer version;
 

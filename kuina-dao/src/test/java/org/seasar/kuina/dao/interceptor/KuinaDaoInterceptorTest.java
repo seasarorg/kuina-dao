@@ -63,7 +63,7 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include("s2hibernate-jpa.dicon");
+        include("entityManager.dicon");
         include("org/seasar/kuina/dao/dao/dao.dicon");
     }
 

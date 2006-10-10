@@ -21,9 +21,9 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 
-import org.seasar.framework.jpa.AttributeDesc;
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.metadata.AttributeDesc;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;

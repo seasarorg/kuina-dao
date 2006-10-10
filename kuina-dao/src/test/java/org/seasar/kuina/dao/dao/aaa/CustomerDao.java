@@ -13,26 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.util;
+package org.seasar.kuina.dao.dao.aaa;
 
-import org.seasar.framework.jpa.metadata.EntityDesc;
-import org.seasar.framework.util.StringUtil;
+import java.util.List;
+
+import org.seasar.kuina.dao.entity.Customer;
 
 /**
  * 
  * @author koichik
  */
-public class JpqlUtil {
+public interface CustomerDao {
 
-    public static String toAbstractSchemaName(final Class<?> clazz) {
-        final EntityDesc entityDesc = KuinaDaoUtil.getEntityDesc(clazz);
-        return entityDesc.getEntityName();
-    }
-
-    public static String toDefaultIdentificationVariable(
-            final String abstractSchemaName) {
-        return StringUtil.decapitalize(abstractSchemaName
-                .substring(abstractSchemaName.lastIndexOf('.') + 1));
-    }
+    List<Customer> findAll();
 
 }

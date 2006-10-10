@@ -22,5 +22,11 @@ import java.lang.reflect.Method;
  * @author koichik
  */
 public interface DaoMetadata {
-    Command getCommand(Method method);
+
+    Object NOT_INVOKED = new Object();
+
+    void initialize(Class<?> daoClass);
+
+    Object execute(Method method, Object[] arguments);
+
 }

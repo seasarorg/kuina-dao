@@ -39,7 +39,8 @@ public class SqlSingleResultCommandBuilderTest extends S2TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include("kuina-dao-builder.dicon");
+        include("entityManager.dicon");
+        include("kuina-dao.dicon");
     }
 
     public void testGetEmpTx() throws Exception {

@@ -17,8 +17,8 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ReadLockCommand;
 

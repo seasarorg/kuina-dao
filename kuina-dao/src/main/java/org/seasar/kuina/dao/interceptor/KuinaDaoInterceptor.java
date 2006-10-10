@@ -17,12 +17,9 @@ package org.seasar.kuina.dao.interceptor;
 
 import java.lang.reflect.Method;
 
-import javax.persistence.EntityManager;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.seasar.framework.aop.interceptors.AbstractInterceptor;
 import org.seasar.framework.util.MethodUtil;
-import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.DaoMetadata;
 import org.seasar.kuina.dao.internal.DaoMetadataFactory;
 
@@ -35,15 +32,11 @@ public class KuinaDaoInterceptor extends AbstractInterceptor {
 
     protected final DaoMetadataFactory metadataFactory;
 
-    protected final EntityManager entityManager;
-
     /**
      * インスタンスを構築します。
      */
-    public KuinaDaoInterceptor(final DaoMetadataFactory metadataFactory,
-            final EntityManager entityManager) {
+    public KuinaDaoInterceptor(final DaoMetadataFactory metadataFactory) {
         this.metadataFactory = metadataFactory;
-        this.entityManager = entityManager;
     }
 
     public Object invoke(final MethodInvocation invocation) throws Throwable {
@@ -52,10 +45,10 @@ public class KuinaDaoInterceptor extends AbstractInterceptor {
             final Class<?> targetClass = getTargetClass(invocation);
             final DaoMetadata metadata = metadataFactory
                     .getMetadata(targetClass);
-            final Command command = metadata.getCommand(method);
-            if (command != null) {
-                return command
-                        .execute(entityManager, invocation.getArguments());
+            final Object result = metadata.execute(method, invocation
+                    .getArguments());
+            if (result != DaoMetadata.NOT_INVOKED) {
+                return result;
             }
         }
         return invocation.proceed();

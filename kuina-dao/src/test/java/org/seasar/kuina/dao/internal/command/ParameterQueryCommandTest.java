@@ -39,7 +39,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include("s2hibernate-jpa.dicon");
+        include("entityManager.dicon");
     }
 
     public void testTx() throws Exception {

@@ -22,8 +22,8 @@ import java.util.Date;
 
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.ClassUtil;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.Command;
@@ -78,7 +78,7 @@ public abstract class AbstractParameterQueryCommandBuilder extends
                 return true;
             }
         }
-        final EntityDesc<?> entityDesc = EntityDescFactory.getEntityDesc(parameterType);
+        final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(parameterType);
         if (entityDesc != null) {
             return true;
         }

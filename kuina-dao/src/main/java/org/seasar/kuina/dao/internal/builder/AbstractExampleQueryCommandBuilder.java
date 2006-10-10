@@ -20,8 +20,8 @@ import java.lang.reflect.Method;
 
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ExampleQueryCommand;
 
@@ -46,7 +46,7 @@ public abstract class AbstractExampleQueryCommandBuilder extends
             return null;
         }
 
-        final EntityDesc<?> entityDesc = EntityDescFactory
+        final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
         if (entityDesc == null) {
             return null;

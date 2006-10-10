@@ -24,6 +24,7 @@ import org.seasar.kuina.dao.dao.EmployeeDao;
  */
 public abstract class NamedQuerySingleResultCommandTest extends S2TestCase {
 
+    @SuppressWarnings("unused")
     private EmployeeDao dao;
 
     @Override

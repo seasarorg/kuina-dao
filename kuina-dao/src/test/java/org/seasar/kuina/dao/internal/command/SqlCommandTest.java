@@ -20,7 +20,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.framework.jpa.Dialect;
+import org.seasar.framework.jpa.DialectManager;
 
 /**
  * 
@@ -31,18 +31,18 @@ public class SqlCommandTest extends S2TestCase {
 
     private EntityManager em;
 
-    private Dialect dialect;
+    private DialectManager dialectManager;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include("s2hibernate-jpa.dicon");
+        include("entityManager.dicon");
     }
 
     public void testExecute_resultListTx() throws Exception {
         SqlCommand command = new SqlCommand(true, EmpDto.class,
-                "select id, name from employee", null, null, dialect, null,
-                null);
+                "select id, name from employee", null, null, dialectManager,
+                null, null);
         List<EmpDto> emps = (List<EmpDto>) command.execute(em, null);
         System.out.println(emps);
         assertEquals(30, emps.size());
@@ -51,8 +51,8 @@ public class SqlCommandTest extends S2TestCase {
     public void testExecute_singleResultTx() throws Exception {
         SqlCommand command = new SqlCommand(false, EmpDto.class,
                 "select name from employee where id = /*id*/0",
-                new String[] { "id" }, new Class[] { Integer.class }, dialect,
-                null, null);
+                new String[] { "id" }, new Class[] { Integer.class },
+                dialectManager, null, null);
         EmpDto emp = (EmpDto) command.execute(em,
                 new Object[] { new Integer(1) });
         System.out.println(emp);

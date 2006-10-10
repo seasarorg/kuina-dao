@@ -28,6 +28,7 @@ import org.seasar.extension.sql.SqlContext;
 import org.seasar.extension.sql.context.SqlContextImpl;
 import org.seasar.extension.sql.parser.SqlParserImpl;
 import org.seasar.framework.jpa.Dialect;
+import org.seasar.framework.jpa.DialectManager;
 
 /**
  * 
@@ -47,7 +48,7 @@ public class SqlCommand extends AbstractCommand {
 
     protected final Class[] parameterTypes;
 
-    protected final Dialect dialect;
+    protected final DialectManager dialectManager;
 
     protected final ResultSetFactory resultSetFactory;
 
@@ -55,7 +56,7 @@ public class SqlCommand extends AbstractCommand {
 
     public SqlCommand(final boolean resultList, final Class beanClass,
             final String sql, final String[] parameterNames,
-            final Class[] parameterTypes, final Dialect dialect,
+            final Class[] parameterTypes, final DialectManager dialectManager,
             final ResultSetFactory resultSetFactory,
             final StatementFactory statementFactory) {
         this.resultList = resultList;
@@ -64,7 +65,7 @@ public class SqlCommand extends AbstractCommand {
         this.node = new SqlParserImpl(sql).parse();
         this.parameterNames = parameterNames;
         this.parameterTypes = parameterTypes;
-        this.dialect = dialect;
+        this.dialectManager = dialectManager;
         this.resultSetFactory = resultSetFactory;
         this.statementFactory = statementFactory;
     }
@@ -97,6 +98,7 @@ public class SqlCommand extends AbstractCommand {
             handler.setStatementFactory(statementFactory);
         }
         handler.setSql(query);
+        Dialect dialect = dialectManager.getDialect(em);
         return handler.execute(dialect.getConnection(em), args, argTypes);
     }
 }

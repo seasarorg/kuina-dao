@@ -21,8 +21,8 @@ import java.util.Date;
 
 import javax.persistence.TemporalType;
 
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.ClassUtil;
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.criteria.CriteriaOperations;
@@ -186,7 +186,7 @@ public class ConditionalExpressionBuilderFactory {
         if (Enum.class.isAssignableFrom(parameterType)) {
             return EnumExpression.class;
         }
-        final EntityDesc<?> entityDesc = EntityDescFactory
+        final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(parameterType);
         if (entityDesc != null) {
             return EntityExpression.class;
@@ -215,7 +215,7 @@ public class ConditionalExpressionBuilderFactory {
         if (Enum.class.isAssignableFrom(parameterType)) {
             return ENUM_PARAMETER_METHOD;
         }
-        final EntityDesc<?> entityDesc = EntityDescFactory
+        final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(parameterType);
         if (entityDesc != null) {
             return ARITHMETIC_PARAMETER_METHOD;

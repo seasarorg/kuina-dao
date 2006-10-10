@@ -17,8 +17,8 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
-import org.seasar.framework.jpa.EntityDesc;
-import org.seasar.framework.jpa.EntityDescFactory;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
