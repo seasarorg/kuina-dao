@@ -60,7 +60,7 @@ public abstract class AbstractExampleQueryCommandBuilder extends
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
         final String[] parameterNames = beanDesc
-                .getMethodParameterNames(method);
+                .getMethodParameterNamesNoException(method);
         final Annotation[][] annotations = method.getParameterAnnotations();
 
         return new ExampleQueryCommand(entityClass, isResultList(),

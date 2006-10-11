@@ -52,7 +52,7 @@ public abstract class AbstractParameterQueryCommandBuilder extends
             final Class<?> entityClass) {
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
         final String[] parameterNames = beanDesc
-                .getMethodParameterNames(method);
+                .getMethodParameterNamesNoException(method);
         if (parameterNames == null) {
             return null;
         }
