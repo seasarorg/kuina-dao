@@ -202,7 +202,7 @@ public class ConditionalExpressionBuilderFactory {
         if (String.class.isAssignableFrom(parameterType)) {
             return STRING_PARAMETER_METHOD;
         }
-        if (boolean.class.isAssignableFrom(ClassUtil
+        if (Boolean.class.isAssignableFrom(ClassUtil
                 .getWrapperClassIfPrimitive(parameterType))) {
             return BOOLEAN_PARAMETER_METHOD;
         }
