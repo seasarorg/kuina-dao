@@ -12,6 +12,7 @@
 	<component class="org.seasar.kuina.dao.internal.builder.SqlSingleResultCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryUpdateCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ExampleQueryResultListCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ExampleQuerySingleResultCommandBuilder"/>

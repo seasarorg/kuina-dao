@@ -17,26 +17,16 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.regex.Pattern;
-
-import javax.persistence.TemporalType;
 
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.FirstResult;
 import org.seasar.kuina.dao.MaxResults;
 import org.seasar.kuina.dao.NamedParameter;
-import org.seasar.kuina.dao.PositionalParameter;
-import org.seasar.kuina.dao.TargetEntity;
-import org.seasar.kuina.dao.TemporalSpec;
-import org.seasar.kuina.dao.internal.binder.CalendarParameterBinder;
-import org.seasar.kuina.dao.internal.binder.DateParameterBinder;
 import org.seasar.kuina.dao.internal.binder.FirstResultBinder;
 import org.seasar.kuina.dao.internal.binder.MaxResultsBinder;
 import org.seasar.kuina.dao.internal.binder.NullBinder;
-import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
@@ -78,74 +68,50 @@ public abstract class AbstractQueryCommandBuilder extends
         return method.getAnnotation(Distinct.class) != null;
     }
 
-    protected ParameterBinder[] getBinders(final Method method,
-            final String[] parameterNames) {
-        final PositionalParameter positional = method
-                .getAnnotation(PositionalParameter.class);
-        if (positional != null || parameterNames == null) {
-            return getBindersForPositionalParameter(method);
-        }
-        return getBindersForNamedParameter(method, parameterNames);
-    }
-
-    protected ParameterBinder[] getBindersForNamedParameter(
-            final Method method, final String[] parameterNames) {
-        final Class<?>[] parameterTypes = method.getParameterTypes();
-        final Annotation[][] parameterAnnotations = method
-                .getParameterAnnotations();
-        final ParameterBinder[] binders = new ParameterBinder[parameterTypes.length];
-        for (int i = 0; i < parameterTypes.length; ++i) {
-            final Class<?> type = parameterTypes[i];
-            final String name = parameterNames[i];
-            final Annotation[] annotations = parameterAnnotations[i];
-
-            if (isOrderby(name, annotations)) {
-                binders[i] = new NullBinder();
-            } else if (isFirstResult(name, annotations)) {
-                binders[i] = new FirstResultBinder();
-            } else if (isMaxResults(name, annotations)) {
-                binders[i] = new MaxResultsBinder();
-            } else if (Date.class.isAssignableFrom(type)) {
-                binders[i] = new DateParameterBinder(name,
-                        getTemporalType(annotations));
-            } else if (Calendar.class.isAssignableFrom(type)) {
-                binders[i] = new CalendarParameterBinder(name,
-                        getTemporalType(annotations));
-            } else {
-                binders[i] = new ObjectParameterBinder(name);
-            }
-        }
-        return binders;
-    }
-
-    protected ParameterBinder[] getBindersForPositionalParameter(
+    @Override
+    protected Class<?> getTargetClass(final Class<?> daoClass,
             final Method method) {
-        final Class<?>[] parameterTypes = method.getParameterTypes();
-        final Annotation[][] parameterAnnotations = method
-                .getParameterAnnotations();
-        final ParameterBinder[] binders = new ParameterBinder[parameterTypes.length];
-        int position = 0;
-        for (int i = 0; i < parameterTypes.length; ++i) {
-            final Class<?> type = parameterTypes[i];
-            final Annotation[] annotations = parameterAnnotations[i];
-
-            if (isOrderby(null, annotations)) {
-                binders[i] = new NullBinder();
-            } else if (isFirstResult(null, annotations)) {
-                binders[i] = new FirstResultBinder();
-            } else if (isMaxResults(null, annotations)) {
-                binders[i] = new MaxResultsBinder();
-            } else if (Date.class.isAssignableFrom(type)) {
-                binders[i] = new DateParameterBinder(++position,
-                        getTemporalType(annotations));
-            } else if (Calendar.class.isAssignableFrom(type)) {
-                binders[i] = new CalendarParameterBinder(++position,
-                        getTemporalType(annotations));
-            } else {
-                binders[i] = new ObjectParameterBinder(++position);
-            }
+        final Class<?> targetClass = super.getTargetClass(daoClass, method);
+        if (targetClass != null) {
+            return targetClass;
         }
-        return binders;
+        return getResultClass(method);
+    }
+
+    protected Class<?> getResultClass(final Method method) {
+        if (resultList) {
+            return ReflectionUtil.getElementTypeOfList(method
+                    .getGenericReturnType());
+        }
+        return method.getReturnType();
+    }
+
+    @Override
+    protected ParameterBinder getBinderForNamedParameter(final Class<?> type,
+            final String name, final Annotation[] annotations) {
+        if (isOrderby(name, annotations)) {
+            return new NullBinder();
+        } else if (isFirstResult(name, annotations)) {
+            return new FirstResultBinder();
+        } else if (isMaxResults(name, annotations)) {
+            return new MaxResultsBinder();
+        }
+        return super.getBinderForNamedParameter(type, name, annotations);
+    }
+
+    @Override
+    protected ParameterBinder getBinderForPositionalParameter(
+            final Class<?> type, final int position,
+            final Annotation[] annotations) {
+        if (isOrderby(null, annotations)) {
+            return new NullBinder();
+        } else if (isFirstResult(null, annotations)) {
+            return new FirstResultBinder();
+        } else if (isMaxResults(null, annotations)) {
+            return new MaxResultsBinder();
+        }
+        return super.getBinderForPositionalParameter(type, position,
+                annotations);
     }
 
     protected boolean isOrderby(final String name,
@@ -219,41 +185,6 @@ public abstract class AbstractQueryCommandBuilder extends
             }
         }
         return -1;
-    }
-
-    protected TemporalType getTemporalType(final Annotation[] annotations) {
-        for (final Annotation annotation : annotations) {
-            if (annotation instanceof TemporalSpec) {
-                final TemporalSpec spec = TemporalSpec.class.cast(annotation);
-                return spec.value();
-            }
-        }
-        return TemporalType.TIMESTAMP;
-    }
-
-    protected Class<?> getTargetClass(final Class<?> daoClass,
-            final Method method) {
-        final TargetEntity methodAnnotatedTargetEntity = method
-                .getAnnotation(TargetEntity.class);
-        if (methodAnnotatedTargetEntity != null) {
-            return methodAnnotatedTargetEntity.value();
-        }
-
-        final TargetEntity classAnnotatedTargetEntity = daoClass
-                .getAnnotation(TargetEntity.class);
-        if (classAnnotatedTargetEntity != null) {
-            return classAnnotatedTargetEntity.value();
-        }
-
-        return getResultClass(method);
-    }
-
-    protected Class<?> getResultClass(final Method method) {
-        if (resultList) {
-            return ReflectionUtil.getElementTypeOfList(method
-                    .getGenericReturnType());
-        }
-        return method.getReturnType();
     }
 
 }

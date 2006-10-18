@@ -85,6 +85,9 @@ public interface EmployeeDao {
 
     void remove(Employee employee);
 
+    @TargetEntity(Employee.class)
+    int removeById(int id);
+
     boolean contains(Employee employee);
 
     void refresh(Employee employee);

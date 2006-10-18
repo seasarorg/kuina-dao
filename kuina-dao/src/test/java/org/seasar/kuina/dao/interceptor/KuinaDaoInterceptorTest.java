@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
 import org.seasar.extension.unit.S2TestCase;
@@ -461,6 +462,21 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     public void testRemoveTx() throws Exception {
         Employee emp = employeeDao.find(1);
         employeeDao.remove(emp);
+    }
+
+    public void testRemoveByIdTx() throws Exception {
+        Employee emp = new Employee();
+        employeeDao.persist(emp);
+        em.flush();
+
+        employeeDao.removeById(emp.getId());
+        em.flush();
+
+        try {
+            employeeDao.find(1);
+        } catch (EntityNotFoundException expected) {
+            System.out.println(expected);
+        }
     }
 
     public void testWriteLockTx() throws Exception {

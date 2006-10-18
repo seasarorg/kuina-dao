@@ -47,6 +47,16 @@
 				e.id = :id
 		]]></query>
 	</named-query>
+	<named-query name="Employee.removeById">
+		<query><![CDATA[
+			DELETE
+			FROM
+				Employee e
+			WHERE
+				e.id = :id
+		]]></query>
+	</named-query>
+
 	<named-native-query name="Employee.getCount" result-set-mapping="getCount">
 		<query><![CDATA[
 			SELECT
@@ -65,6 +75,7 @@
 				e.bloodType = ?1
 		]]></query>
 	</named-native-query>
+
 	<sql-result-set-mapping name="getCount">
 		<column-result name="cnt"/>
 	</sql-result-set-mapping>

@@ -30,23 +30,24 @@ import org.seasar.framework.jpa.EntityManagerProvider;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.ClassUtil;
 import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
+import org.seasar.kuina.dao.internal.command.NamedQueryUpdateCommand;
 
 /**
  * 
  * @author koichik
  */
 @Component
-public abstract class AbstractNamedQueryCommandBuilder extends
-        AbstractQueryCommandBuilder {
+public abstract class NamedQueryUpdateCommandBuilder extends
+        AbstractCommandBuilder {
 
     protected static final Logger logger = Logger
-            .getLogger(AbstractNamedQueryCommandBuilder.class);
+            .getLogger(NamedQueryUpdateCommandBuilder.class);
 
-    public AbstractNamedQueryCommandBuilder(boolean resultList) {
-        super(resultList);
+    public NamedQueryUpdateCommandBuilder() {
+        setMethodNamePattern("(update|delete|remove).+");
     }
 
     @Binding(bindingType = BindingType.MUST)
@@ -59,6 +60,15 @@ public abstract class AbstractNamedQueryCommandBuilder extends
         if (!isMatched(method)) {
             return null;
         }
+        final Class<?>[] parameterTypes = method.getParameterTypes();
+        if (parameterTypes.length > 1) {
+            return null;
+        }
+        if (parameterTypes.length == 1
+                && !Integer.class.isAssignableFrom(ClassUtil
+                        .getWrapperClassIfPrimitive(parameterTypes[0]))) {
+            return null;
+        }
 
         final String queryName = getQueryName(daoClass, method);
         if (queryName == null || !isExists(daoClass, queryName)) {
@@ -66,8 +76,8 @@ public abstract class AbstractNamedQueryCommandBuilder extends
         }
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQueryCommand(isResultList(), queryName, getBinders(
-                method, beanDesc.getMethodParameterNamesNoException(method)));
+        return new NamedQueryUpdateCommand(queryName, getBinders(method,
+                beanDesc.getMethodParameterNamesNoException(method)));
     }
 
     protected String getQueryName(final Class<?> daoClass, final Method method) {
@@ -78,26 +88,14 @@ public abstract class AbstractNamedQueryCommandBuilder extends
 
         final Class<?> targetClass = getTargetClass(daoClass, method);
         if (targetClass != null) {
-            return getEntityName(targetClass, method);
-        }
-
-        final Class<?> entityClass = getTargetClass(daoClass, method);
-        if (entityClass != null) {
-            return getEntityName(entityClass, method);
+            final EntityDesc entityDesc = EntityDescFactory
+                    .getEntityDesc(targetClass);
+            if (entityDesc != null) {
+                return entityDesc.getEntityName() + "." + method.getName();
+            }
         }
 
         return null;
-    }
-
-    protected String getEntityName(final Class<?> entityClass,
-            final Method method) {
-        final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(entityClass);
-        if (entityDesc == null) {
-            return null;
-        }
-
-        return entityDesc.getEntityName() + "." + method.getName();
     }
 
     @RequiresNewTx
