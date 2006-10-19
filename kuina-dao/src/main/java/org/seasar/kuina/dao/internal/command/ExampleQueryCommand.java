@@ -24,6 +24,7 @@ import javax.persistence.EntityManager;
 import org.seasar.framework.jpa.metadata.AttributeDesc;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
+import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
@@ -42,6 +43,9 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  * @author koichik
  */
 public class ExampleQueryCommand extends AbstractQueryCommand {
+
+    private static final Logger logger = Logger
+            .getLogger(ExampleQueryCommand.class);
 
     protected Class<?> entityClass;
 
@@ -174,7 +178,8 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
                 fromDecl.inner(path, name);
                 addCondition(statement, fromDecl, entityDesc, value, name + ".");
             } else {
-                throw new RuntimeException(); // TODO
+                logger.log("EKuinaDao2003", new Object[] { entity.getClass(),
+                        attribute.getName() });
             }
         }
     }

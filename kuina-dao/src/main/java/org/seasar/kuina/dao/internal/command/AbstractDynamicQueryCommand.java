@@ -56,10 +56,6 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
-        if (logger.isInfoEnabled()) {
-            logger.log("IKuinaDao0000", new Object[] { statement
-                    .getQueryString() });
-        }
         return resultList ? statement.getResultList(em) : statement
                 .getSingleResult(em);
     }

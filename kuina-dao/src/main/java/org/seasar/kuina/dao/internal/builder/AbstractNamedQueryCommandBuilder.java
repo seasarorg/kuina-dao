@@ -78,26 +78,14 @@ public abstract class AbstractNamedQueryCommandBuilder extends
 
         final Class<?> targetClass = getTargetClass(daoClass, method);
         if (targetClass != null) {
-            return getEntityName(targetClass, method);
-        }
-
-        final Class<?> entityClass = getTargetClass(daoClass, method);
-        if (entityClass != null) {
-            return getEntityName(entityClass, method);
+            final EntityDesc entityDesc = EntityDescFactory
+                    .getEntityDesc(targetClass);
+            if (entityDesc != null) {
+                return entityDesc.getEntityName() + "." + method.getName();
+            }
         }
 
         return null;
-    }
-
-    protected String getEntityName(final Class<?> entityClass,
-            final Method method) {
-        final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(entityClass);
-        if (entityDesc == null) {
-            return null;
-        }
-
-        return entityDesc.getEntityName() + "." + method.getName();
     }
 
     @RequiresNewTx
@@ -108,7 +96,7 @@ public abstract class AbstractNamedQueryCommandBuilder extends
                     .getEntityManger(prefix);
             em.createNamedQuery(queryName);
             if (logger.isDebugEnabled()) {
-                logger.log("DKuinaDao2002", new Object[] { queryName });
+                logger.log("DKuinaDao3002", new Object[] { queryName });
             }
             return true;
         } catch (final Exception ignore) {

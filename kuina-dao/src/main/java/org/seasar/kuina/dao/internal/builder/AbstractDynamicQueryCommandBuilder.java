@@ -17,6 +17,8 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
 
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
 
 /**
@@ -37,6 +39,11 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
 
         final Class<?> entityClass = getResultClass(method);
         if (entityClass == null) {
+            return null;
+        }
+        final EntityDesc entityDesc = EntityDescFactory
+                .getEntityDesc(entityClass);
+        if (entityDesc == null) {
             return null;
         }
 

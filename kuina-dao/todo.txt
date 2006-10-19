@@ -1,0 +1,8 @@
+-Criteria
+--副問い合わせのサポート
+--Update，Deleteのサポート
+
+-Dao
+--Query by Map
+--結合の指定
+--バルクオペレーションのサポート

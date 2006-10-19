@@ -201,7 +201,7 @@ public class SelectStatementImpl implements SelectStatement {
         final CriteriaContext context = createContext();
         final String queryString = context.getQueryString();
         if (logger.isInfoEnabled()) {
-            logger.log("IKuinaDao0000", new Object[] { queryString });
+            logger.log("IKuinaDao1000", new Object[] { queryString });
         }
         final Query query = em.createQuery(queryString);
         if (firstResult != null && firstResult >= 0) {

@@ -92,13 +92,13 @@ public class DaoMetadataImpl implements DaoMetadata {
             final Command command = builder.build(daoClass, method);
             if (command != null) {
                 if (logger.isDebugEnabled()) {
-                    logger.log("DKuinaDao2001", new Object[] { daoClass,
+                    logger.log("DKuinaDao3001", new Object[] { daoClass,
                             method, command.getClass().getName() });
                 }
                 return command;
             }
         }
-        logger.log("WKuinaDao2001", new Object[] { daoClass, method });
+        logger.log("WKuinaDao3001", new Object[] { daoClass, method });
         return null;
     }
 
