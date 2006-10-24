@@ -8,7 +8,7 @@
   <artifactId>kuina-dao</artifactId>
   <packaging>jar</packaging>
   <name>Kuina-Dao Project</name>
-  <version>1.0.0-M1-SNAPSHOT</version>
+  <version>1.0.0-rc1-SNAPSHOT</version>
   <description></description>
   <url>http://kuina.seasar.org/</url>
   <issueManagement>
@@ -144,7 +144,7 @@
     <dependency>
       <groupId>org.seasar.hibernate</groupId>
       <artifactId>s2hibernate-jpa</artifactId>
-      <version>1.0.0-beta-2-SNAPSHOT</version>
+      <version>1.0.0-rc1-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
     <dependency>
