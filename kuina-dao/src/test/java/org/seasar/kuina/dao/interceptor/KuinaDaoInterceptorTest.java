@@ -65,7 +65,7 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         include("entityManager.dicon");
-        include("org/seasar/kuina/dao/dao/dao.dicon");
+        include("kuina-dao.dicon");
     }
 
     public void testFindAllTx() throws Exception {
