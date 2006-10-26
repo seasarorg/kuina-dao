@@ -63,7 +63,6 @@ public interface EmployeeDao {
     List<Employee> findByBirthday(@TemporalSpec(TemporalType.DATE)
     Date birthday);
 
-    @TargetEntity(Employee.class)
     Integer getCount();
 
     @TargetEntity(Employee.class)

@@ -23,6 +23,10 @@ import java.util.regex.Pattern;
 
 import javax.persistence.TemporalType;
 
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.framework.convention.NamingConvention;
+import org.seasar.framework.util.ClassUtil;
 import org.seasar.kuina.dao.PositionalParameter;
 import org.seasar.kuina.dao.TargetEntity;
 import org.seasar.kuina.dao.TemporalSpec;
@@ -37,6 +41,9 @@ import org.seasar.kuina.dao.internal.binder.ParameterBinder;
  * @author koichik
  */
 public abstract class AbstractCommandBuilder implements CommandBuilder {
+
+    @Binding(bindingType = BindingType.MUST)
+    protected NamingConvention convention;
 
     protected Pattern methodNamePattern;
 
@@ -62,6 +69,21 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
             return classAnnotatedTargetEntity.value();
         }
 
+        final String daoClassShortName = ClassUtil.getShortClassName(daoClass
+                .getName());
+        final String entityClassShortName = ClassUtil.concatName(convention
+                .getEntityPackageName(), daoClassShortName
+                .substring(0, daoClassShortName.length()
+                        - convention.getDaoSuffix().length()));
+        final String[] rootPackageNames = convention.getRootPackageNames();
+        for (int i = 0; i < rootPackageNames.length; ++i) {
+            final String entityClassName = ClassUtil.concatName(
+                    rootPackageNames[i], entityClassShortName);
+            try {
+                return ClassUtil.forName(entityClassName);
+            } catch (final Exception ignore) {
+            }
+        }
         return null;
     }
 

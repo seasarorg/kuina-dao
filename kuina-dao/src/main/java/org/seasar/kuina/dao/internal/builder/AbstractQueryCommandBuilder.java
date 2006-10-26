@@ -19,6 +19,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.FirstResult;
@@ -71,11 +73,13 @@ public abstract class AbstractQueryCommandBuilder extends
     @Override
     protected Class<?> getTargetClass(final Class<?> daoClass,
             final Method method) {
-        final Class<?> targetClass = super.getTargetClass(daoClass, method);
-        if (targetClass != null) {
-            return targetClass;
+        final Class<?> resultClass = getResultClass(method);
+        final EntityDesc entityDesc = EntityDescFactory
+                .getEntityDesc(resultClass);
+        if (entityDesc != null) {
+            return resultClass;
         }
-        return getResultClass(method);
+        return super.getTargetClass(daoClass, method);
     }
 
     protected Class<?> getResultClass(final Method method) {
