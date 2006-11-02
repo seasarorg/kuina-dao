@@ -6,7 +6,7 @@
 	<include path="javaee5.dicon"/>
 
 	<component class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"/>
-	<component class="org.seasar.kuina.dao.internal.metadata.DaoMetadataImpl"/>
+	<component instance="prototype" class="org.seasar.kuina.dao.internal.metadata.DaoMetadataImpl"/>
 
 	<component class="org.seasar.kuina.dao.internal.builder.SqlResultListCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.SqlSingleResultCommandBuilder"/>
