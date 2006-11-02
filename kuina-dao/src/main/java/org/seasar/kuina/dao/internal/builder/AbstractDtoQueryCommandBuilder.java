@@ -22,9 +22,6 @@ import java.util.List;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.container.annotation.tiger.Binding;
-import org.seasar.framework.container.annotation.tiger.BindingType;
-import org.seasar.framework.convention.NamingConvention;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.DtoQueryCommand;
@@ -37,9 +34,6 @@ import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFacto
  */
 public abstract class AbstractDtoQueryCommandBuilder extends
         AbstractDynamicQueryCommandBuilder {
-
-    @Binding(bindingType = BindingType.MUST)
-    protected NamingConvention convention;
 
     public AbstractDtoQueryCommandBuilder(final boolean resultList) {
         super(resultList);
