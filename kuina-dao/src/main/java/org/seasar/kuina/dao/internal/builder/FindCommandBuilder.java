@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
@@ -43,7 +44,8 @@ public class FindCommandBuilder extends AbstractCommandBuilder {
         }
 
         final Class<?> returnType = method.getReturnType();
-        if (returnType.isPrimitive()) {
+        if (returnType.isPrimitive() || returnType.isArray()
+                || Collection.class.isInstance(returnType)) {
             return null;
         }
 
