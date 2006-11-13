@@ -74,10 +74,12 @@ public abstract class AbstractQueryCommandBuilder extends
     protected Class<?> getTargetClass(final Class<?> daoClass,
             final Method method) {
         final Class<?> resultClass = getResultClass(method);
-        final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(resultClass);
-        if (entityDesc != null) {
-            return resultClass;
+        if (resultClass != null) {
+            final EntityDesc entityDesc = EntityDescFactory
+                    .getEntityDesc(resultClass);
+            if (entityDesc != null) {
+                return resultClass;
+            }
         }
         return super.getTargetClass(daoClass, method);
     }
