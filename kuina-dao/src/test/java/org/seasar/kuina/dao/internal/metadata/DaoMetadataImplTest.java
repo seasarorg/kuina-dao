@@ -35,7 +35,6 @@ public class DaoMetadataImplTest extends S2EasyMockTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include("entityManager.dicon");
         include("kuina-dao.dicon");
         register(createStrictMock(EntityManager.class), "aaaEntityManager");
     }

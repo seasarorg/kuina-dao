@@ -40,7 +40,6 @@ public class SqlResultListCommandBuilderTest extends S2TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include("entityManager.dicon");
         include("kuina-dao.dicon");
     }
 

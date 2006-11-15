@@ -36,7 +36,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        include("entityManager.dicon");
+        include("jpa.dicon");
     }
 
     public void testSimpleTx() throws Exception {
