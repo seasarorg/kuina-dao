@@ -1,0 +1,17 @@
+<project name="kuina-dao" default="dist" basedir=".">
+	<property name="ver" value="1.0.0-rc1-SNAPSHOT"/>
+
+	<target name="dist">
+		<zip zipfile="target/Kuina-Dao-${ver}.zip">
+			<zipfileset prefix="kuina-dao" dir=".">
+				<exclude name="**/build/**"/>
+				<exclude name="**/target/**"/>
+			</zipfileset>
+			<zipfileset prefix="kuina-dao/lib" dir="target">
+				<include name="kuina-dao-${ver}.jar"/>
+			</zipfileset>
+			<zipfileset prefix="kuina-dao/doc" dir="target/site">
+			</zipfileset>
+		</zip>
+	</target>
+</project>
