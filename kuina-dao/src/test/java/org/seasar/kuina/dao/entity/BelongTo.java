@@ -24,6 +24,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -43,8 +45,10 @@ public class BelongTo {
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
 
+    @Temporal(TemporalType.DATE)
     private Date startDate;
 
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     public BelongTo() {

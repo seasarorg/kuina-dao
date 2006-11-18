@@ -24,6 +24,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -37,6 +39,7 @@ public class Salary {
     @SequenceGenerator(name = "Salary_Id_Generator", sequenceName = "Salary_Id_Sequence")
     private Integer id;
 
+    @Temporal(TemporalType.DATE)
     private Date payDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

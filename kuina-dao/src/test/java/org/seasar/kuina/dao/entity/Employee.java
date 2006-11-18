@@ -25,6 +25,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 /**
@@ -49,6 +51,7 @@ public class Employee {
 
     private Integer hireFiscalYear;
 
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     private String bloodType;

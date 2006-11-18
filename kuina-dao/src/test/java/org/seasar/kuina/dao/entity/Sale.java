@@ -24,6 +24,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -48,6 +50,7 @@ public class Sale {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
+    @Temporal(TemporalType.DATE)
     private Date saleDate;
 
     public Sale() {
