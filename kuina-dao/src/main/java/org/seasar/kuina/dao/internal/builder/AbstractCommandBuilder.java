@@ -114,9 +114,19 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
 
     protected ParameterBinder getBinderForNamedParameter(final Class<?> type,
             final String name, final Annotation[] annotations) {
+        if (java.sql.Date.class.isAssignableFrom(type)) {
+            return new ObjectParameterBinder(name);
+        }
+        if (java.sql.Time.class.isAssignableFrom(type)) {
+            return new ObjectParameterBinder(name);
+        }
+        if (java.sql.Timestamp.class.isAssignableFrom(type)) {
+            return new ObjectParameterBinder(name);
+        }
         if (Date.class.isAssignableFrom(type)) {
             return new DateParameterBinder(name, getTemporalType(annotations));
-        } else if (Calendar.class.isAssignableFrom(type)) {
+        }
+        if (Calendar.class.isAssignableFrom(type)) {
             return new CalendarParameterBinder(name,
                     getTemporalType(annotations));
         }
@@ -142,15 +152,24 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
     protected ParameterBinder getBinderForPositionalParameter(
             final Class<?> type, final int position,
             final Annotation[] annotations) {
+        if (java.sql.Date.class.isAssignableFrom(type)) {
+            return new ObjectParameterBinder(position);
+        }
+        if (java.sql.Time.class.isAssignableFrom(type)) {
+            return new ObjectParameterBinder(position);
+        }
+        if (java.sql.Timestamp.class.isAssignableFrom(type)) {
+            return new ObjectParameterBinder(position);
+        }
         if (Date.class.isAssignableFrom(type)) {
             return new DateParameterBinder(position,
                     getTemporalType(annotations));
-        } else if (Calendar.class.isAssignableFrom(type)) {
+        }
+        if (Calendar.class.isAssignableFrom(type)) {
             return new CalendarParameterBinder(position,
                     getTemporalType(annotations));
-        } else {
-            return new ObjectParameterBinder(position);
         }
+        return new ObjectParameterBinder(position);
     }
 
     protected TemporalType getTemporalType(final Annotation[] annotations) {
@@ -160,7 +179,7 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
                 return spec.value();
             }
         }
-        return TemporalType.TIMESTAMP;
+        return TemporalType.DATE;
     }
 
 }
