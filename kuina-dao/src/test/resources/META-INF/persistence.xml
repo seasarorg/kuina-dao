@@ -9,7 +9,7 @@
 		-->
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<exclude-unlisted-classes/>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<!-- for test -->
 			<property name="hibernate.transaction.manager_lookup_class" value="org.seasar.hibernate.jpa.transaction.S2TransactionManagerLookupForTest"/>
