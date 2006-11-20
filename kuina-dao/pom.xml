@@ -112,21 +112,6 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>org.seasar.container</groupId>
-        <artifactId>diigu-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>testEnhance</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <verbose>true</verbose>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-source-plugin</artifactId>
         <executions>
           <execution>
@@ -169,35 +154,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.seasar.container</groupId>
-      <artifactId>diigu-core</artifactId>
-      <version>1.0.0</version>
-      <type>jar</type>
-      <optional>true</optional>
-      <exclusions>
-        <exclusion>
-          <groupId>com.sun</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.seasar.container</groupId>
-          <artifactId>s2-framework</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
       <version>2.2</version>
       <type>jar</type>
       <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>1.8.0.1</version>
-      <type>jar</type>
-      <scope>test</scope>
     </dependency>
   </dependencies>
   <distributionManagement>
