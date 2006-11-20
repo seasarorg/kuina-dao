@@ -8,7 +8,7 @@
 				Kuina ってなんですか？
 			</question>
 			<answer>
-				Kuina とは，JavaEE 5 の O/R マッピング標準，Java Persistence API (JPA) 関連プロダクトを開発する Seasar プロジェクトのサブプロジェクトです．
+				Kuina とは，JavaEE 5 の O/R マッピング標準である Java Persistence API (JPA) の関連プロダクトを開発する，Seasar プロジェクトのサブプロジェクトです．
 			</answer>
 		</faq>
 		<faq id="general-kuinadao">
@@ -39,7 +39,7 @@
 			</question>
 			<answer>
 				Kuina-Dao を利用することで，JPA で規定されている EntityManager のメソッドを呼び出す退屈なコードを繰り返し記述する必要がなくなります．
-				また，問い合わせ条件に応じて実行時に Java Persistence Query Language (JPQL) 文字列を動的に組み立てる手間を削減することも可能になります．
+				特に問い合わせ条件に応じて実行時に Java Persistence Query Language (JPQL) 文字列を動的に組み立てる手間を削減することが可能になります．
 				通常，Kuina-Dao を利用するには Dao の Java インタフェースと問い合わせを記述した orm.xml ファイルまたは .sql ファイルを用意するだけで，Java の実行文を記述する必要がないため，テストの手間を大きく削減することもできます．
 			</answer>
 		</faq>
@@ -97,7 +97,7 @@
 				Diigu を利用するための Eclipse plugin が用意されています．
 				以下の更新サイトからインストールすることができます．
 				<ul>
-					<li><a href="http://eclipse.seasar.org/updates/3.1beta/">http://eclipse.seasar.org/updates/3.1beta/</a></li>
+					<li><a href="http://eclipse.seasar.org/updates/3.1beta/">http://eclipse.seasar.org/updates/3.1/</a></li>
 				</ul>
 				インストール後，Kuina-Dao を利用するプロジェクトを右クリックして「プロパティ」を選択し，左のペインで「Diigu」を選択，右のペインにある「Use Diigu Builder」をチェックしてください．
 			</answer>
@@ -107,6 +107,7 @@
 				Diigu を Eclipse 以外の環境で使うことはできますか？
 			</question>
 			<answer>
+				はい．
 				Diigu を Ant から利用することもできます．
 				以下のサイトから Diigu-Core をダウンロードして解凍してください．
 				<ul>
@@ -126,8 +127,9 @@
 				Diigu を Maven から使うことはできますか？
 			</question>
 			<answer>
+				はい．
 				Diigu Maven plugin が用意されています．
-				Diigu Maven plugin の利用方法は，Kuina-Dao の pom.xml を参考にしてください．
+				Diigu Maven plugin の利用方法は，Seasar-Wikiの「<a href="http://www.seasar.org/wiki/index.php?Diigu%2Fdiigu-maven-plugin">Diigu/diigu-maven-plugin</a>」を参考にしてください．
 			</answer>
 		</faq>
 		<!--

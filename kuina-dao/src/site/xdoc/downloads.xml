@@ -4,15 +4,14 @@
 		<title>Downloads</title>
 	</properties>
 	<body>
-		<section name="downloading">
-			<p>
-			</p>
-		</section>
-		<section name="latest">
-			<p>
-			</p>
+		<section name="Latest Release">
 			<ul>
-				<li><a href=""></a></li>
+				<li><a href="">Kuina-Dao-1.0.0-rc1</a></li>
+			</ul>
+		</section>
+		<section name="All Releases">
+			<ul>
+				<li><a href="">Kuina-Dao-1.0.0-rc1</a></li>
 			</ul>
 		</section>
 	</body>
