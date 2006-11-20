@@ -55,6 +55,20 @@
       <url>http://d.hatena.ne.jp/koichik/</url>
       <timezone>+9</timezone>
     </developer>
+    <developer>
+      <id>taedium</id>
+      <name>NAKAMURA Toshihiro</name>
+      <email></email>
+      <url>http://d.hatena.ne.jp/taedium/</url>
+      <timezone>+9</timezone>
+    </developer>
+    <developer>
+      <id>da-yoshi</id>
+      <name>YOSHIDA Hidenoshin</name>
+      <email></email>
+      <url>http://d.hatena.ne.jp/da-yoshi/</url>
+      <timezone>+9</timezone>
+    </developer>
   </developers>
   <licenses>
     <license>
