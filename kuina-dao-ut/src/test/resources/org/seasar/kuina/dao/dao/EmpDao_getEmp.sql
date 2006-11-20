@@ -1,0 +1,1 @@
+select id, name from employee where id = /*id*/0
