@@ -29,12 +29,7 @@ import org.seasar.kuina.dao.internal.command.ExampleQueryCommand;
  * 
  * @author koichik
  */
-public abstract class AbstractExampleQueryCommandBuilder extends
-        AbstractQueryCommandBuilder {
-
-    public AbstractExampleQueryCommandBuilder(final boolean resultList) {
-        super(resultList);
-    }
+public class ExampleQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
@@ -63,7 +58,7 @@ public abstract class AbstractExampleQueryCommandBuilder extends
                 .getMethodParameterNamesNoException(method);
         final Annotation[][] annotations = method.getParameterAnnotations();
 
-        return new ExampleQueryCommand(entityClass, isResultList(),
+        return new ExampleQueryCommand(entityClass, isResultList(method),
                 isDistinct(method), getOrderbyParameter(parameterNames,
                         annotations), getFirstResultParameter(parameterNames,
                         annotations), getMaxResultsParameter(parameterNames,

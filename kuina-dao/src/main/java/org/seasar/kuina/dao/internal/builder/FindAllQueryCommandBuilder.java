@@ -27,7 +27,6 @@ import org.seasar.kuina.dao.internal.command.FindAllQueryCommand;
 public class FindAllQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
     public FindAllQueryCommandBuilder() {
-        super(true);
         setMethodNamePattern("findAll");
     }
 

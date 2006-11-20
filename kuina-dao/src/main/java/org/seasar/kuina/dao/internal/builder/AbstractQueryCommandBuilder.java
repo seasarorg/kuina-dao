@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.seasar.framework.jpa.metadata.EntityDesc;
@@ -38,16 +39,14 @@ import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 public abstract class AbstractQueryCommandBuilder extends
         AbstractCommandBuilder {
 
-    protected final boolean resultList;
-
     protected Pattern orderbyPattern = Pattern.compile("order[bB]y");
 
     protected Pattern firstResultPattern = Pattern.compile("firstResult");
 
     protected Pattern maxResultsPattern = Pattern.compile("maxResults");
 
-    public AbstractQueryCommandBuilder(final boolean resultList) {
-        this.resultList = resultList;
+    public AbstractQueryCommandBuilder() {
+        setMethodNamePattern("(get|find).+");
     }
 
     public void setOrderbyPattern(final String orderbyPattern) {
@@ -62,8 +61,8 @@ public abstract class AbstractQueryCommandBuilder extends
         this.maxResultsPattern = Pattern.compile(maxResultsPattern);
     }
 
-    protected boolean isResultList() {
-        return resultList;
+    protected boolean isResultList(final Method method) {
+        return List.class.isAssignableFrom(method.getReturnType());
     }
 
     protected boolean isDistinct(final Method method) {
@@ -85,7 +84,7 @@ public abstract class AbstractQueryCommandBuilder extends
     }
 
     protected Class<?> getResultClass(final Method method) {
-        if (resultList) {
+        if (isResultList(method)) {
             return ReflectionUtil.getElementTypeOfList(method
                     .getGenericReturnType());
         }

@@ -28,10 +28,6 @@ import org.seasar.kuina.dao.internal.Command;
 public abstract class AbstractDynamicQueryCommandBuilder extends
         AbstractQueryCommandBuilder {
 
-    public AbstractDynamicQueryCommandBuilder(final boolean resultList) {
-        super(resultList);
-    }
-
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
             return null;

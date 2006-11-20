@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -30,16 +31,25 @@ import org.seasar.kuina.dao.internal.Command;
  * @author higa
  */
 @SuppressWarnings("unchecked")
-public class SqlSingleResultCommandBuilderTest extends S2TestCase {
+public class SqlCommandBuilderTest extends S2TestCase {
 
     private EntityManager em;
 
-    private SqlSingleResultCommandBuilder builder;
+    private SqlCommandBuilder builder;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         include("kuina-dao.dicon");
+    }
+
+    public void testFindEmpsTx() throws Exception {
+        Method m = ClassUtil.getMethod(EmpDao.class, "findEmps", null);
+
+        Command command = builder.build(EmpDao.class, m);
+        List<EmpDto> emps = (List<EmpDto>) command.execute(em, null);
+        System.out.println(emps);
+        assertEquals(30, emps.size());
     }
 
     public void testGetEmpTx() throws Exception {

@@ -39,15 +39,10 @@ import org.seasar.kuina.dao.internal.command.NamedQueryCommand;
  * @author koichik
  */
 @Component
-public abstract class AbstractNamedQueryCommandBuilder extends
-        AbstractQueryCommandBuilder {
+public class NamedQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
-    protected static final Logger logger = Logger
-            .getLogger(AbstractNamedQueryCommandBuilder.class);
-
-    public AbstractNamedQueryCommandBuilder(boolean resultList) {
-        super(resultList);
-    }
+    private static final Logger logger = Logger
+            .getLogger(NamedQueryCommandBuilder.class);
 
     @Binding(bindingType = BindingType.MUST)
     protected DaoHelper daoHelper;
@@ -66,8 +61,9 @@ public abstract class AbstractNamedQueryCommandBuilder extends
         }
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQueryCommand(isResultList(), queryName, getBinders(
-                method, beanDesc.getMethodParameterNamesNoException(method)));
+        return new NamedQueryCommand(isResultList(method), queryName,
+                getBinders(method, beanDesc
+                        .getMethodParameterNamesNoException(method)));
     }
 
     protected String getQueryName(final Class<?> daoClass, final Method method) {

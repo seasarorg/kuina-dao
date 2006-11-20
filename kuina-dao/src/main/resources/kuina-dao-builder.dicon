@@ -8,20 +8,14 @@
 	<component class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"/>
 	<component instance="prototype" class="org.seasar.kuina.dao.internal.metadata.DaoMetadataImpl"/>
 
-	<component class="org.seasar.kuina.dao.internal.builder.SqlResultListCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.SqlSingleResultCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryResultListCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.NamedQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.SqlCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryUpdateCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.ExampleQueryResultListCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.ExampleQuerySingleResultCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.DtoQueryResultListCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.DtoQuerySingleResultCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.ParameterQueryResultListCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.ParameterQuerySingleResultCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryResultListCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQuerySingleResultCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ExampleQueryCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.DtoQueryCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ParameterQueryCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>

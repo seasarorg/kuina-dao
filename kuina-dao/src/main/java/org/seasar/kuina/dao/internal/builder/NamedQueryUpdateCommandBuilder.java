@@ -40,10 +40,9 @@ import org.seasar.kuina.dao.internal.command.NamedQueryUpdateCommand;
  * @author koichik
  */
 @Component
-public abstract class NamedQueryUpdateCommandBuilder extends
-        AbstractCommandBuilder {
+public class NamedQueryUpdateCommandBuilder extends AbstractCommandBuilder {
 
-    protected static final Logger logger = Logger
+    private static final Logger logger = Logger
             .getLogger(NamedQueryUpdateCommandBuilder.class);
 
     public NamedQueryUpdateCommandBuilder() {

@@ -32,12 +32,7 @@ import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFacto
  * 
  * @author koichik
  */
-public abstract class AbstractDtoQueryCommandBuilder extends
-        AbstractDynamicQueryCommandBuilder {
-
-    public AbstractDtoQueryCommandBuilder(final boolean resultList) {
-        super(resultList);
-    }
+public class DtoQueryCommandBuilder extends AbstractDynamicQueryCommandBuilder {
 
     @Override
     public Command build(final Class<?> daoClass, final Method method,
@@ -66,7 +61,7 @@ public abstract class AbstractDtoQueryCommandBuilder extends
             }
         }
 
-        return new DtoQueryCommand(entityClass, isResultList(),
+        return new DtoQueryCommand(entityClass, isResultList(method),
                 isDistinct(method), new IdentificationVariableDeclarationImpl(
                         entityClass), getterMethods
                         .toArray(new Method[getterMethods.size()]), builders

@@ -69,16 +69,20 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
             return classAnnotatedTargetEntity.value();
         }
 
-        final String daoClassShortName = ClassUtil.getShortClassName(daoClass
-                .getName());
-        final String entityClassShortName = ClassUtil.concatName(convention
+        return getTargetClassFromDaoName(daoClass);
+    }
+
+    protected Class getTargetClassFromDaoName(final Class<?> daoClass) {
+        final String daoClassShortName = ClassUtil.getShortClassName(convention
+                .toInterfaceClassName(daoClass.getName()));
+        final String partOfEntityClassName = ClassUtil.concatName(convention
                 .getEntityPackageName(), daoClassShortName
                 .substring(0, daoClassShortName.length()
                         - convention.getDaoSuffix().length()));
         final String[] rootPackageNames = convention.getRootPackageNames();
         for (int i = 0; i < rootPackageNames.length; ++i) {
             final String entityClassName = ClassUtil.concatName(
-                    rootPackageNames[i], entityClassShortName);
+                    rootPackageNames[i], partOfEntityClassName);
             try {
                 return ClassUtil.forName(entityClassName);
             } catch (final Exception ignore) {

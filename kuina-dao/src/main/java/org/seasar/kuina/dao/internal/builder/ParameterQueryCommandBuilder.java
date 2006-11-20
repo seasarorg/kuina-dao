@@ -37,15 +37,12 @@ import org.seasar.kuina.dao.internal.condition.OrderbyBuilder;
 /**
  * @author koichik
  */
-public abstract class AbstractParameterQueryCommandBuilder extends
+public class ParameterQueryCommandBuilder extends
         AbstractDynamicQueryCommandBuilder {
+
     protected Class<?>[] ACCEPTABLE_TYPES = new Class<?>[] {
             Number.class, String.class, Date.class, Calendar.class, boolean.class, Enum.class
     };
-
-    public AbstractParameterQueryCommandBuilder(final boolean resultList) {
-        super(resultList);
-    }
 
     @Override
     public Command build(final Class<?> daoClass, final Method method,
@@ -63,7 +60,7 @@ public abstract class AbstractParameterQueryCommandBuilder extends
             }
         }
 
-        return new ParameterQueryCommand(entityClass, isResultList(),
+        return new ParameterQueryCommand(entityClass, isResultList(method),
                 isDistinct(method), new IdentificationVariableDeclarationImpl(
                         entityClass), parameterNames, getBuilders(method,
                         parameterNames));
@@ -109,7 +106,6 @@ public abstract class AbstractParameterQueryCommandBuilder extends
             }
         }
         return builders;
-
     }
 
 }

@@ -26,12 +26,7 @@ import org.seasar.kuina.dao.internal.command.ConditionalQueryCommand;
  * 
  * @author koichik
  */
-public abstract class AbstractConditionalQueryCommandBuilder extends
-        AbstractQueryCommandBuilder {
-
-    public AbstractConditionalQueryCommandBuilder(boolean resultList) {
-        super(resultList);
-    }
+public class ConditionalQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {
@@ -49,7 +44,7 @@ public abstract class AbstractConditionalQueryCommandBuilder extends
             return null;
         }
 
-        return new ConditionalQueryCommand(entityClass, isResultList(),
+        return new ConditionalQueryCommand(entityClass, isResultList(method),
                 isDistinct(method), new IdentificationVariableDeclarationImpl(
                         entityClass));
     }

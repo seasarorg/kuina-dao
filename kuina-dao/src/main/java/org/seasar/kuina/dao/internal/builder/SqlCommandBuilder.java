@@ -23,7 +23,6 @@ import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.jpa.DialectManager;
-import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.SqlCommand;
 
@@ -31,9 +30,7 @@ import org.seasar.kuina.dao.internal.command.SqlCommand;
  * 
  * @author koichik
  */
-public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
-
-    protected final boolean resultList;
+public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
 
     protected DialectManager dialectManager;
 
@@ -42,10 +39,6 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
     protected ResultSetFactory resultSetFactory;
 
     protected StatementFactory statementFactory;
-
-    public AbstractSqlCommandBuilder(final boolean resultList) {
-        this.resultList = resultList;
-    }
 
     /**
      * @param daoHelper
@@ -102,19 +95,13 @@ public abstract class AbstractSqlCommandBuilder extends AbstractCommandBuilder {
         if (sql == null) {
             return null;
         }
-        final Class targetClass;
-        if (resultList) {
-            targetClass = ReflectionUtil.getElementTypeOfList(method
-                    .getGenericReturnType());
-        } else {
-            targetClass = method.getReturnType();
-        }
+        final Class targetClass = getResultClass(method);
         if (targetClass == null) {
             throw new IllegalStateException(daoClass.getName() + "#"
                     + method.getName() + "()");
         }
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new SqlCommand(resultList, targetClass, sql, beanDesc
+        return new SqlCommand(isResultList(method), targetClass, sql, beanDesc
                 .getMethodParameterNamesNoException(method), method
                 .getParameterTypes(), dialectManager, resultSetFactory,
                 statementFactory);
