@@ -44,44 +44,26 @@ public class OneToManyInverse {
     public OneToManyInverse() {
     }
 
-	/**
-	 * @return idを返します。
-	 */
 	public Integer getId() {
 		return id;
 	}
 
-	/**
-	 * @param id idを設定します。
-	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return manyToOneOwnerを返します。
-	 */
 	public Collection<ManyToOneOwner> getManyToOneOwner() {
 		return manyToOneOwner;
 	}
 
-	/**
-	 * @param manyToOneOwner manyToOneOwnerを設定します。
-	 */
 	public void setManyToOneOwner(Collection<ManyToOneOwner> manyToOneOwner) {
 		this.manyToOneOwner = manyToOneOwner;
 	}
 
-	/**
-	 * @return nameを返します。
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name nameを設定します。
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}

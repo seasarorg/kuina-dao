@@ -64,152 +64,82 @@ public class ManyToOneOwner {
 	public ManyToOneOwner() {
 	}
 
-	/**
-	 * @return birthdayを返します。
-	 */
 	public Date getBirthday() {
 		return birthday;
 	}
 
-	/**
-	 * @param birthday
-	 *            birthdayを設定します。
-	 */
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
-	/**
-	 * @return bloodTypeを返します。
-	 */
 	public String getBloodType() {
 		return bloodType;
 	}
 
-	/**
-	 * @param bloodType
-	 *            bloodTypeを設定します。
-	 */
 	public void setBloodType(String bloodType) {
 		this.bloodType = bloodType;
 	}
 
-	/**
-	 * @return emailを返します。
-	 */
 	public String getEmail() {
 		return email;
 	}
 
-	/**
-	 * @param email
-	 *            emailを設定します。
-	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/**
-	 * @return heightを返します。
-	 */
 	public Integer getHeight() {
 		return height;
 	}
 
-	/**
-	 * @param height
-	 *            heightを設定します。
-	 */
 	public void setHeight(Integer height) {
 		this.height = height;
 	}
 
-	/**
-	 * @return hireFiscalYearを返します。
-	 */
 	public Integer getHireFiscalYear() {
 		return hireFiscalYear;
 	}
 
-	/**
-	 * @param hireFiscalYear
-	 *            hireFiscalYearを設定します。
-	 */
 	public void setHireFiscalYear(Integer hireFiscalYear) {
 		this.hireFiscalYear = hireFiscalYear;
 	}
 
-	/**
-	 * @return idを返します。
-	 */
 	public Integer getId() {
 		return id;
 	}
 
-	/**
-	 * @param id
-	 *            idを設定します。
-	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return nameを返します。
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name
-	 *            nameを設定します。
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * @return versionを返します。
-	 */
 	public Integer getVersion() {
 		return version;
 	}
 
-	/**
-	 * @param version
-	 *            versionを設定します。
-	 */
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
 
-	/**
-	 * @return weightを返します。
-	 */
 	public Integer getWeight() {
 		return weight;
 	}
 
-	/**
-	 * @param weight
-	 *            weightを設定します。
-	 */
 	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
 
-	/**
-	 * @return oneToManyInverseを返します。
-	 */
 	public OneToManyInverse getOneToManyInverse() {
 		return oneToManyInverse;
 	}
 
-	/**
-	 * @param oneToManyInverse
-	 *            oneToManyInverseを設定します。
-	 */
 	public void setOneToManyInverse(OneToManyInverse oneToManyInverse) {
 		this.oneToManyInverse = oneToManyInverse;
 	}
