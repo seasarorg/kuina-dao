@@ -25,6 +25,7 @@ import org.seasar.kuina.dao.entity.ManyToOneOwner;
  */
 public interface ManyToOneOwnerDao {
 
+    // Basic
     ManyToOneOwner find(int id);
 
     ManyToOneOwner get(int id);
@@ -42,8 +43,25 @@ public interface ManyToOneOwnerDao {
     void readLock(ManyToOneOwner owner);
 
     void writeLock(ManyToOneOwner owner);
-    
-    
-	List<ManyToOneOwner> findAll();
-	
+
+    // Find All Query
+    List<ManyToOneOwner> findAll();
+
+    // Query by Example
+    List<ManyToOneOwner> findByExample(ManyToOneOwner owner);
+
+    List<ManyToOneOwner> findByExample2(ManyToOneOwner owner, String[] orderby);
+
+    List<ManyToOneOwner> findByExample3(ManyToOneOwner owner, int firstResult,
+            int maxResults);
+
+    // Query by DTO
+
+    // Query by Parameter
+
+    // Named Query
+
+    // SQL Query
+
+    // Conditional Query
 }

@@ -15,8 +15,6 @@
  */
 package org.seasar.kuina.dao.basic;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
@@ -46,13 +44,11 @@ public abstract class AbstractManyToOneBasicTest extends S2TestCase {
     public void testFindTx() throws Exception {
         ManyToOneOwner owner = ownerDao.find(1);
         assertEquals("simagoro", owner.getName());
-        assertNotNull(owner);
     }
-
+    
     public void testGetTx() throws Exception {
         ManyToOneOwner owner = ownerDao.get(1);
         assertEquals("simagoro", owner.getName());
-        assertNotNull(owner);
     }
 
     public void testPersistTx() throws Exception {
@@ -107,11 +103,5 @@ public abstract class AbstractManyToOneBasicTest extends S2TestCase {
         ManyToOneOwner owner = ownerDao.find(1);
         ownerDao.writeLock(owner);
     }
-
-    public void testFindAllTx() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findAll();
-        assertNotNull(list);
-        assertEquals(30, list.size());
-    }
-
+    
 }
