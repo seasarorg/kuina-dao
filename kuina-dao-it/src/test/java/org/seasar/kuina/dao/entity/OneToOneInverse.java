@@ -16,7 +16,12 @@
 package org.seasar.kuina.dao.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Version;
 
 /**
  * 
@@ -25,7 +30,51 @@ import javax.persistence.Id;
 @Entity
 public class OneToOneInverse {
 
-	@Id
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OneToOneInverse_Id_Generator")
+    @SequenceGenerator(name = "OneToOneInverse_Id_Generator", sequenceName = "OneToOneInverse_Id_Sequence")
+    private Integer id;
+
+    private String name;
+
+    @SuppressWarnings("unused")
+    @Version
+    private Integer version;
+    
+    @OneToOne(mappedBy = "oneToOneInverse")
+    private OneToOneOwner oneToOneOwner;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public OneToOneOwner getOneToOneOwner() {
+        return oneToOneOwner;
+    }
+
+    public void setOneToOneOwner(OneToOneOwner oneToOneOwner) {
+        this.oneToOneOwner = oneToOneOwner;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof OneToOneInverse))
+            return false;
+        OneToOneInverse castOther = (OneToOneInverse) other;
+        return this.id == castOther.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
+    }
 
 }

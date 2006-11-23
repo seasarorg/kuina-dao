@@ -17,9 +17,13 @@ package org.seasar.kuina.dao.basic;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.dao.ManyToOneOwnerDao;
+import org.seasar.kuina.dao.dao.OneToManyInverseDao;
 import org.seasar.kuina.dao.entity.ManyToOneOwner;
+import org.seasar.kuina.dao.entity.OneToManyInverse;
 
 /**
  * 
@@ -27,18 +31,87 @@ import org.seasar.kuina.dao.entity.ManyToOneOwner;
  */
 public abstract class AbstractManyToOneBasicTest extends S2TestCase {
 
-	private ManyToOneOwnerDao dao;
-	
+    private EntityManager em;
+
+    private ManyToOneOwnerDao ownerDao;
+
+    private OneToManyInverseDao inverseDao;
+
     @Override
     protected void setUp() throws Exception {
-    	super.setUp();
-    	include("kuina-dao.dicon");
+        super.setUp();
+        include("kuina-dao.dicon");
     }
-	
-	public void testFindAllTx() throws Exception {
-		List<ManyToOneOwner> list = dao.findAll();
+
+    public void testFindTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.find(1);
+        assertEquals("simagoro", owner.getName());
+        assertNotNull(owner);
+    }
+
+    public void testGetTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.get(1);
+        assertEquals("simagoro", owner.getName());
+        assertNotNull(owner);
+    }
+
+    public void testPersistTx() throws Exception {
+        OneToManyInverse inverse = inverseDao.find(1);
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setOneToManyInverse(inverse);
+        ownerDao.persist(owner);
+        assertTrue(em.contains(owner));
+        em.flush();
+    }
+
+    public void testRemoveTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.find(1);
+        ownerDao.remove(owner);
+        assertFalse(em.contains(owner));
+        em.flush();
+    }
+
+    public void testMergeTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.find(1);
+        assertEquals("simagoro", owner.getName());
+        em.clear();
+
+        owner.setName("hoge");
+        ManyToOneOwner owner2 = ownerDao.merge(owner);
+        assertEquals("hoge", owner2.getName());
+        em.flush();
+    }
+
+    public void testContainsTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.find(1);
+        assertTrue(ownerDao.contains(owner));
+        
+        ManyToOneOwner owner2 = new ManyToOneOwner();
+        assertFalse(ownerDao.contains(owner2));
+    }
+
+    public void testRefreshTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.find(1);
+        assertEquals("simagoro", owner.getName());
+        owner.setName("hoge");
+        ownerDao.refresh(owner);
+        assertEquals("simagoro", owner.getName());
+    }
+
+    public void testReadLockTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.find(1);
+        ownerDao.readLock(owner);
+    }
+
+    public void testWriteLockTx() throws Exception {
+        ManyToOneOwner owner = ownerDao.find(1);
+        ownerDao.writeLock(owner);
+    }
+
+    public void testFindAllTx() throws Exception {
+        List<ManyToOneOwner> list = ownerDao.findAll();
         assertNotNull(list);
         assertEquals(30, list.size());
-	}
-	
+    }
+
 }

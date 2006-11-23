@@ -23,6 +23,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Version;
 
 /**
  * 
@@ -38,8 +39,12 @@ public class OneToManyInverse {
 
     private String name;
 
+    @SuppressWarnings("unused")
+    @Version
+    private Integer version;
+    
     @OneToMany(mappedBy = "oneToManyInverse")
-    private Collection<ManyToOneOwner> manyToOneOwner;
+    private Collection<ManyToOneOwner> manyToOneOwners;
 
     public OneToManyInverse() {
     }
@@ -52,12 +57,12 @@ public class OneToManyInverse {
 		this.id = id;
 	}
 
-	public Collection<ManyToOneOwner> getManyToOneOwner() {
-		return manyToOneOwner;
+	public Collection<ManyToOneOwner> getManyToOneOwners() {
+		return manyToOneOwners;
 	}
 
-	public void setManyToOneOwner(Collection<ManyToOneOwner> manyToOneOwner) {
-		this.manyToOneOwner = manyToOneOwner;
+	public void setManyToOneOwners(Collection<ManyToOneOwner> manyToOneOwners) {
+		this.manyToOneOwners = manyToOneOwners;
 	}
 
 	public String getName() {

@@ -15,8 +15,15 @@
  */
 package org.seasar.kuina.dao.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Version;
 
 /**
  * 
@@ -26,6 +33,52 @@ import javax.persistence.Id;
 public class ManyToManyInverse {
 
 	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ManyToManyInverse_Id_Generator")
+    @SequenceGenerator(name = "ManyToManyInverse_Id_Generator", sequenceName = "ManyToManyInverse_Id_Sequence")
 	private Integer id;
 
+    private String name;
+
+    @SuppressWarnings("unused")
+    @Version
+    private Integer version;
+    
+    @ManyToMany(mappedBy = "manyToManyInverses")
+    private Collection<ManyToManyOwner> manyToManyOwners;
+
+    public ManyToManyInverse() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Collection<ManyToManyOwner> getManyToManyOwners() {
+        return manyToManyOwners;
+    }
+
+    public void setManyToManyOwners(Collection<ManyToManyOwner> manyToManyOwners) {
+        this.manyToManyOwners = manyToManyOwners;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ManyToManyInverse))
+            return false;
+        ManyToManyInverse castOther = (ManyToManyInverse) other;
+        return this.id == castOther.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
+    }
 }

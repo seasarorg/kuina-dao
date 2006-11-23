@@ -25,6 +25,25 @@ import org.seasar.kuina.dao.entity.ManyToOneOwner;
  */
 public interface ManyToOneOwnerDao {
 
+    ManyToOneOwner find(int id);
+
+    ManyToOneOwner get(int id);
+
+    void persist(ManyToOneOwner owner);
+
+    void remove(ManyToOneOwner owner);
+
+    boolean contains(ManyToOneOwner owner);
+
+    void refresh(ManyToOneOwner owner);
+
+    ManyToOneOwner merge(ManyToOneOwner owner);
+
+    void readLock(ManyToOneOwner owner);
+
+    void writeLock(ManyToOneOwner owner);
+    
+    
 	List<ManyToOneOwner> findAll();
 	
 }
