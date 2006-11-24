@@ -13,11 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.dao;
+package org.seasar.kuina.dao.it.dao;
 
 import java.util.List;
 
-import org.seasar.kuina.dao.entity.ManyToOneOwner;
+import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 /**
  * 

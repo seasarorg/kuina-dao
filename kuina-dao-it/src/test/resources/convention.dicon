@@ -4,7 +4,7 @@
 <components>
 	<component class="org.seasar.framework.convention.impl.NamingConventionImpl">
 		<initMethod name="addRootPackageName">
-			<arg>"org.seasar.kuina.dao"</arg>
+			<arg>"org.seasar.kuina.dao.it"</arg>
 		</initMethod>
 	</component>
 </components>

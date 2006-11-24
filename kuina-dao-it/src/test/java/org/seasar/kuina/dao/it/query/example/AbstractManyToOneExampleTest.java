@@ -13,15 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.query.example;
+package org.seasar.kuina.dao.it.query.example;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.dao.ManyToOneOwnerDao;
-import org.seasar.kuina.dao.entity.ManyToOneOwner;
-import org.seasar.kuina.dao.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.dao.ManyToOneOwnerDao;
+import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
+import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 /**
  * 

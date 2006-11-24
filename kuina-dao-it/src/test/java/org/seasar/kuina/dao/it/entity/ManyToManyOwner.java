@@ -13,15 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.entity;
+package org.seasar.kuina.dao.it.entity;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,11 +33,11 @@ import javax.persistence.Version;
  * @author nakamura
  */
 @Entity
-public class OneToOneOwner {
+public class ManyToManyOwner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OneToOneOwner_Id_Generator")
-    @SequenceGenerator(name = "OneToOneOwner_Id_Generator", sequenceName = "OneToOneOwner_Id_Sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ManyToManyOwner_Id_Generator")
+    @SequenceGenerator(name = "ManyToManyOwner_Id_Generator", sequenceName = "ManyToManyOwner_Id_Sequence")
     private Integer id;
 
     private String name;
@@ -58,8 +59,11 @@ public class OneToOneOwner {
     @Version
     private Integer version;
 
-    @OneToOne
-    private OneToOneInverse oneToOneInverse;
+    @ManyToMany
+    private Collection<OneToManyInverse> manyToManyInverses;
+
+    public ManyToManyOwner() {
+    }
 
     public Date getBirthday() {
         return birthday;
@@ -101,20 +105,21 @@ public class OneToOneOwner {
         this.hireFiscalYear = hireFiscalYear;
     }
 
+    public Collection<OneToManyInverse> getManyToManyInverses() {
+        return manyToManyInverses;
+    }
+
+    public void setManyToManyInverses(
+            Collection<OneToManyInverse> manyToManyInverses) {
+        this.manyToManyInverses = manyToManyInverses;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public OneToOneInverse getOneToOneInverse() {
-        return oneToOneInverse;
-    }
-
-    public void setOneToOneInverse(OneToOneInverse oneToOneInverse) {
-        this.oneToOneInverse = oneToOneInverse;
     }
 
     public Integer getWeight() {
@@ -131,9 +136,9 @@ public class OneToOneOwner {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof OneToOneOwner))
+        if (!(other instanceof ManyToManyOwner))
             return false;
-        OneToOneOwner castOther = (OneToOneOwner) other;
+        ManyToManyOwner castOther = (ManyToManyOwner) other;
         return this.id == castOther.id;
     }
 
@@ -141,5 +146,5 @@ public class OneToOneOwner {
     public int hashCode() {
         return id == null ? 0 : id;
     }
-
+    
 }

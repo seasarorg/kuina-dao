@@ -13,32 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.query.findall;
-
-import java.util.List;
-
-import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.dao.ManyToOneOwnerDao;
-import org.seasar.kuina.dao.entity.ManyToOneOwner;
+package org.seasar.kuina.dao.it.dao;
 
 /**
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneFindAllTest extends S2TestCase {
-
-    private ManyToOneOwnerDao ownerDao;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        include("kuina-dao.dicon");
-    }
-
-    public void testFindAllTx() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findAll();
-        assertNotNull(list);
-        assertEquals(30, list.size());
-    }
+public interface ManyToManyInverseDao {
 
 }
