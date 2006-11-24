@@ -25,7 +25,7 @@ import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneFindAllTest extends S2TestCase {
+public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
 
     private ManyToOneOwnerDao ownerDao;
 

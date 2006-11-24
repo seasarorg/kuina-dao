@@ -27,7 +27,7 @@ import org.seasar.kuina.dao.it.entity.OneToManyInverse;
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneBasicTest extends S2TestCase {
+public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
 
     private EntityManager em;
 
