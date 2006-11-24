@@ -13,14 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.hibernate.basic;
+package org.seasar.kuina.dao.it.query.example;
 
-import org.seasar.kuina.dao.basic.AbstractManyToOneBasicTest;
+import org.seasar.kuina.dao.it.query.example.AbstractManyToOneExampleTest;
 
 /**
  * 
  * @author nakamura
  */
-public class HibernateManyToOneBasicTest extends AbstractManyToOneBasicTest {
-	
+public class HibernateManyToOneExampleTest extends AbstractManyToOneExampleTest {
+
 }
