@@ -41,7 +41,7 @@ public class ParameterQueryCommandBuilder extends
         AbstractDynamicQueryCommandBuilder {
 
     protected Class<?>[] ACCEPTABLE_TYPES = new Class<?>[] {
-            Number.class, String.class, Date.class, Calendar.class, boolean.class, Enum.class
+            Number.class, String.class, Date.class, Calendar.class, Boolean.class, Enum.class
     };
 
     @Override
