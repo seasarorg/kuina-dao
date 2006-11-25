@@ -124,8 +124,8 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("usa", list.get(2).getName());
     }
 
-    public void todo_testFindByHireFiscalYearTx() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByHireFiscalYear(false);
+    public void testFindByHireFiscalYearTx() throws Exception {
+        List<ManyToOneOwner> list = ownerDao.findByHireFiscalYear(true);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("simagoro", list.get(0).getName());
