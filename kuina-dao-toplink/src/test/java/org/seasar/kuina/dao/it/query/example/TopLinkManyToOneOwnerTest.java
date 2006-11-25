@@ -19,7 +19,7 @@ import org.seasar.kuina.dao.it.query.example.AbstractManyToOneOwnerTest;
 
 /**
  * 
- * @author nakamura
+ * @author Hidenoshin Yoshida
  */
 public class TopLinkManyToOneOwnerTest extends AbstractManyToOneOwnerTest {
 
