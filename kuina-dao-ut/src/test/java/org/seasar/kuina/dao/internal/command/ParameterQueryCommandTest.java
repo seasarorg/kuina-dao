@@ -50,7 +50,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "name" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
-                        .createBuilder("name", String.class) });
+                        .createBuilder(Employee.class, "name", String.class) });
         List<Employee> list = (List) command.execute(em,
                 new Object[] { "シマゴロー" });
         assertNotNull(list);
@@ -66,7 +66,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "blootType_NE" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
-                        .createBuilder("bloodType_NE", String.class) });
+                        .createBuilder(Employee.class, "bloodType_NE", String.class) });
         List<Employee> list = (List) command.execute(em, new Object[] { "A" });
         assertNotNull(list);
         assertEquals(19, list.size());
@@ -81,7 +81,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "name_IN" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
-                        .createBuilder("name_IN", String[].class) });
+                        .createBuilder(Employee.class, "name_IN", String[].class) });
         List<Employee> list = (List) command.execute(em, new Object[] { new String[] {"ミチロー", "にゃん太郎"} });
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -95,9 +95,9 @@ public class ParameterQueryCommandTest extends S2TestCase {
                         Employee.class), new String[] { "name", "bloodType" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
-                                "name", String.class),
+                                Employee.class, "name", String.class),
                         ConditionalExpressionBuilderFactory.createBuilder(
-                                "bloodType", String.class) });
+                                Employee.class, "bloodType", String.class) });
         List<Employee> list = (List) command.execute(em, new Object[] { null,
                 "AB" });
         assertEquals(3, list.size());
@@ -116,7 +116,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
                                 path("belongTo.department")),
                 new String[] { "department$name" },
                 ConditionalExpressionBuilderFactory
-                        .createBuilders(new String[] {"department$name"}, new Class<?>[] {String.class}));
+                        .createBuilders(Employee.class, new String[] {"department$name"}, new Class<?>[] {String.class}));
         List<Employee> list = (List) command.execute(em, new Object[] { "営業" });
         assertNotNull(list);
         assertEquals(5, list.size());
@@ -133,7 +133,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
                         Employee.class),
                 new String[] { "bloodType", "orderby" },
                 ConditionalExpressionBuilderFactory
-                .createBuilders(new String[] {"bloodType", "orderby"}, new Class<?>[] {String.class, int.class}));
+                .createBuilders(Employee.class, new String[] {"bloodType", "orderby"}, new Class<?>[] {String.class, int.class}));
         List<Employee> list = (List) command.execute(em, new Object[] { "A",
                 new String[] { "height", "weight" } });
         assertNotNull(list);
@@ -157,7 +157,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
                         Employee.class), new String[] { "bloodType",
                         "firstResult", "maxResults" },
                         ConditionalExpressionBuilderFactory
-                        .createBuilders(new String[] {"bloodType", "firstResult", "maxResults"}, new Class<?>[] {String.class, int.class, int.class}));
+                        .createBuilders(Employee.class, new String[] {"bloodType", "firstResult", "maxResults"}, new Class<?>[] {String.class, int.class, int.class}));
         List<Employee> list = (List) command.execute(em, new Object[] { "A", 5,
                 5 });
         assertNotNull(list);
