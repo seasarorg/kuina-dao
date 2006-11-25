@@ -105,7 +105,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("monchi", list.get(2).getName());
     }
 
-    public void todo_testFindByBirthdayTx() throws Exception {
+    public void testFindByBirthdayTx() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findByBirthday(DateUtil.newDate(
                 1983, 1, 1));
         assertNotNull(list);
