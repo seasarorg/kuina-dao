@@ -15,8 +15,12 @@
  */
 package org.seasar.kuina.dao.it.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.TemporalType;
+
+import org.seasar.kuina.dao.TemporalSpec;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 /**
@@ -58,6 +62,24 @@ public interface ManyToOneOwnerDao {
     // Query by DTO
 
     // Query by Parameter
+    List<ManyToOneOwner> findByBloodType(String... bloodType_IN);
+
+    List<ManyToOneOwner> findByNameBloodType(String name, String bloodType);
+
+    List<ManyToOneOwner> findByBloodTypeOrderbyHeightWeight(String bloodType,
+            String[] orderby);
+
+    List<ManyToOneOwner> findByBloodTypePaging(String bloodType,
+            int firstResult, int maxResults);
+
+    List<ManyToOneOwner> findByInverseName(String oneToManyInverse$name);
+
+    List<ManyToOneOwner> findByBirthday(@TemporalSpec(TemporalType.DATE)
+    Date birthday_GE);
+
+    List<ManyToOneOwner> findByName(String name_CONTAINS);
+
+    List<ManyToOneOwner> findByHireFiscalYear(boolean hireFiscalYear_IS_NULL);
 
     // Named Query
 
