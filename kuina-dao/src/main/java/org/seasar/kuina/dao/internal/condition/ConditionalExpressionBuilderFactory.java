@@ -83,15 +83,18 @@ public class ConditionalExpressionBuilderFactory {
                     Object.class);
 
     public static ConditionalExpressionBuilder[] createBuilders(
-            final String[] names, final Class<?>[] parameterTypes) {
+            final Class<?> entityClass, final String[] names,
+            final Class<?>[] parameterTypes) {
         final ConditionalExpressionBuilder[] builders = new ConditionalExpressionBuilder[names.length];
         for (int i = 0; i < names.length; ++i) {
-            builders[i] = createBuilder(names[i], parameterTypes[i]);
+            builders[i] = createBuilder(entityClass, names[i],
+                    parameterTypes[i]);
         }
         return builders;
     }
 
-    public static ConditionalExpressionBuilder createBuilder(final String name,
+    public static ConditionalExpressionBuilder createBuilder(
+            final Class<?> entityClass, final String name,
             final Class<?> parameterType) {
         for (String[] basicOperation : BASIC_OPERATIONS) {
             final String suffix = basicOperation[0];
@@ -141,7 +144,7 @@ public class ConditionalExpressionBuilderFactory {
             }
         }
         if (name.equals("orderby")) {
-            return new OrderbyBuilder();
+            return new OrderbyBuilder(entityClass);
         }
         if (name.equals("firstResult")) {
             return new FirstResultBuilder();

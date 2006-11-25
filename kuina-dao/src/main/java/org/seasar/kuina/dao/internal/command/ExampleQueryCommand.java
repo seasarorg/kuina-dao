@@ -84,22 +84,24 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
 
     @SuppressWarnings("unchecked")
     protected SelectStatement createSelectStatement(final Object[] arguments) {
-        final String alias = JpqlUtil
+        final String identificationVariable = JpqlUtil
                 .toDefaultIdentificationVariable(entityDesc.getEntityName());
-        final SelectStatement statement = distinct ? selectDistinct(path(alias))
-                : select(path(alias));
+        final SelectStatement statement = distinct ? selectDistinct(path(identificationVariable))
+                : select(path(identificationVariable));
         final IdentificationVariableDeclaration fromDecl = new IdentificationVariableDeclarationImpl(
-                entityClass, new IdentificationVariableImpl(alias));
+                entityClass, new IdentificationVariableImpl(
+                        identificationVariable));
 
         final Object entity = arguments[0];
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
-        addCondition(statement, fromDecl, entityDesc, entity, alias + ".");
+        addCondition(statement, fromDecl, entityDesc, entity,
+                identificationVariable + ".");
 
         statement.from(fromDecl);
         if (orderby >= 0) {
-            SelectStatementUtil.appendOrderbyClause(statement,
-                    arguments[orderby]);
+            SelectStatementUtil.appendOrderbyClause(identificationVariable,
+                    statement, arguments[orderby]);
         }
         if (firstResult >= 0) {
             statement.setFirstResult(Number.class.cast(arguments[firstResult])

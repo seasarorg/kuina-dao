@@ -53,17 +53,18 @@ public class ParameterQueryCommandBuilder extends
         if (parameterNames == null) {
             return null;
         }
-        
+
         for (final Class<?> parameterType : method.getParameterTypes()) {
-            if (!isAcceptableType(ClassUtil.getWrapperClassIfPrimitive(parameterType))) {
+            if (!isAcceptableType(ClassUtil
+                    .getWrapperClassIfPrimitive(parameterType))) {
                 return null;
             }
         }
 
         return new ParameterQueryCommand(entityClass, isResultList(method),
                 isDistinct(method), new IdentificationVariableDeclarationImpl(
-                        entityClass), parameterNames, getBuilders(method,
-                        parameterNames));
+                        entityClass), parameterNames, getBuilders(
+                        entityClass, method, parameterNames));
     }
 
     protected boolean isAcceptableType(final Class<?> parameterType) {
@@ -71,11 +72,14 @@ public class ParameterQueryCommandBuilder extends
             if (acceptableType.isAssignableFrom(parameterType)) {
                 return true;
             }
-            if (parameterType.isArray() && acceptableType.isAssignableFrom(parameterType.getComponentType())) {
+            if (parameterType.isArray()
+                    && acceptableType.isAssignableFrom(parameterType
+                            .getComponentType())) {
                 return true;
             }
         }
-        final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(parameterType);
+        final EntityDesc entityDesc = EntityDescFactory
+                .getEntityDesc(parameterType);
         if (entityDesc != null) {
             return true;
         }
@@ -83,26 +87,28 @@ public class ParameterQueryCommandBuilder extends
         return false;
     }
 
-    protected ConditionalExpressionBuilder[] getBuilders(final Method method,
+    protected ConditionalExpressionBuilder[] getBuilders(
+            final Class<?> entityClass, final Method method,
             final String[] parameterNames) {
         final Class<?>[] parameterTypes = method.getParameterTypes();
         final Annotation[][] parameterAnnotations = method
                 .getParameterAnnotations();
-        final ConditionalExpressionBuilder[] builders = new ConditionalExpressionBuilder[parameterTypes.length];
+        final ConditionalExpressionBuilder[] builders = 
+            new ConditionalExpressionBuilder[parameterTypes.length];
         for (int i = 0; i < parameterTypes.length; ++i) {
             final Class<?> type = parameterTypes[i];
             final String name = parameterNames[i];
             final Annotation[] annotations = parameterAnnotations[i];
 
             if (isOrderby(name, annotations)) {
-                builders[i] = new OrderbyBuilder();
+                builders[i] = new OrderbyBuilder(entityClass);
             } else if (isFirstResult(name, annotations)) {
                 builders[i] = new FirstResultBuilder();
             } else if (isMaxResults(name, annotations)) {
                 builders[i] = new MaxResultsBuilder();
             } else {
                 builders[i] = ConditionalExpressionBuilderFactory
-                        .createBuilder(name, type);
+                        .createBuilder(entityClass, name, type);
             }
         }
         return builders;

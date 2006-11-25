@@ -26,46 +26,50 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
  */
 public class SelectStatementUtil {
 
-    public static void appendOrderbyClause(
+    public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final Object orderbySpec) {
         if (String.class.isInstance(orderbySpec)) {
-            appendOrderbyClause(selectStatement, String.class.cast(orderbySpec));
+            appendOrderbyClause(identificationVariable, selectStatement,
+                    String.class.cast(orderbySpec));
         } else if (String[].class.isInstance(orderbySpec)) {
-            appendOrderbyClause(selectStatement, String[].class
-                    .cast(orderbySpec));
+            appendOrderbyClause(identificationVariable, selectStatement,
+                    String[].class.cast(orderbySpec));
         } else if (OrderbySpec.class.isInstance(orderbySpec)) {
-            appendOrderbyClause(selectStatement, OrderbySpec.class
-                    .cast(orderbySpec));
+            appendOrderbyClause(identificationVariable, selectStatement,
+                    OrderbySpec.class.cast(orderbySpec));
         } else if (OrderbySpec[].class.isInstance(orderbySpec)) {
-            appendOrderbyClause(selectStatement, OrderbySpec[].class
-                    .cast(orderbySpec));
+            appendOrderbyClause(identificationVariable, selectStatement,
+                    OrderbySpec[].class.cast(orderbySpec));
         }
     }
 
-    public static void appendOrderbyClause(
+    public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final String orderbySpec) {
-        selectStatement.orderby(orderbySpec);
+        selectStatement.orderby(identificationVariable + "." + orderbySpec);
     }
 
-    public static void appendOrderbyClause(
+    public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final String[] orderbySpecs) {
         for (final String orderbySpec : orderbySpecs) {
-            appendOrderbyClause(selectStatement, orderbySpec);
+            appendOrderbyClause(identificationVariable, selectStatement,
+                    orderbySpec);
         }
     }
 
-    public static void appendOrderbyClause(
+    public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final OrderbySpec orderbySpec) {
-        selectStatement
-                .orderby(new OrderbyItemImpl(new PathExpressionImpl(orderbySpec
-                        .getPathExpression()), orderbySpec.getOrderingSpec()));
+        selectStatement.orderby(new OrderbyItemImpl(
+                new PathExpressionImpl(identificationVariable + "."
+                        + orderbySpec.getPathExpression()), orderbySpec
+                        .getOrderingSpec()));
     }
 
-    public static void appendOrderbyClause(
+    public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement,
             final OrderbySpec[] orderbySpecs) {
         for (final OrderbySpec orderbySpec : orderbySpecs) {
-            appendOrderbyClause(selectStatement, orderbySpec);
+            appendOrderbyClause(identificationVariable, selectStatement,
+                    orderbySpec);
         }
     }
 

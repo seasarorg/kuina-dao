@@ -56,8 +56,8 @@ public class DtoQueryCommandBuilder extends AbstractDynamicQueryCommandBuilder {
             if (propertyDesc.hasWriteMethod()) {
                 getterMethods.add(propertyDesc.getReadMethod());
                 builders.add(ConditionalExpressionBuilderFactory.createBuilder(
-                        propertyDesc.getPropertyName(), propertyDesc
-                                .getPropertyType()));
+                        entityClass, propertyDesc.getPropertyName(),
+                        propertyDesc.getPropertyType()));
             }
         }
 

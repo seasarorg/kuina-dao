@@ -15,7 +15,9 @@
  */
 package org.seasar.kuina.dao.internal.condition;
 
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.kuina.dao.criteria.SelectStatement;
+import org.seasar.kuina.dao.internal.util.JpqlUtil;
 import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 
 /**
@@ -24,13 +26,25 @@ import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
  */
 public class OrderbyBuilder implements ConditionalExpressionBuilder {
 
+    protected String identificationVariable;
+
+    public OrderbyBuilder(final Class<?> entityClass) {
+        this(JpqlUtil.toDefaultIdentificationVariable(EntityDescFactory
+                .getEntityDesc(entityClass).getEntityName()));
+    }
+
+    public OrderbyBuilder(final String identificationVariable) {
+        this.identificationVariable = identificationVariable;
+    }
+
     public void appendCondition(final SelectStatement statement,
             final Object value) {
         if (value == null) {
             return;
         }
 
-        SelectStatementUtil.appendOrderbyClause(statement, value);
+        SelectStatementUtil.appendOrderbyClause(identificationVariable,
+                statement, value);
     }
 
 }
