@@ -21,6 +21,7 @@ import java.util.Date;
 
 import javax.persistence.TemporalType;
 
+import org.seasar.framework.jpa.metadata.AttributeDesc;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.ClassUtil;
@@ -74,6 +75,18 @@ public class ConditionalExpressionBuilderFactory {
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Calendar.class, TemporalType.class);
 
+    protected static final Method SQL_DATE_PARAMETER_METHOD = ReflectionUtil
+            .getMethod(CriteriaOperations.class, "parameter", String.class,
+                    java.sql.Date.class);
+
+    protected static final Method SQL_TIME_PARAMETER_METHOD = ReflectionUtil
+            .getMethod(CriteriaOperations.class, "parameter", String.class,
+                    java.sql.Time.class);
+
+    protected static final Method SQL_TIMESTAMP_PARAMETER_METHOD = ReflectionUtil
+            .getMethod(CriteriaOperations.class, "parameter", String.class,
+                    java.sql.Timestamp.class);
+
     protected static final Method ENUM_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Enum.class);
@@ -102,9 +115,15 @@ public class ConditionalExpressionBuilderFactory {
                 final String propertyName = name.substring(0,
                         name.length() - suffix.length()).replace('$', '.');
                 final String operationName = basicOperation[1];
-                return new BasicBuilder(propertyName, name,
-                        getParameterMethod(parameterType), getOperationMethod(
-                                operationName, parameterType));
+                final Method parameterMethod = getParameterMethod(parameterType);
+                if (parameterMethod.getParameterTypes().length == 3) {
+                    return new TemporalBuilder(propertyName, name,
+                            parameterMethod, getOperationMethod(operationName,
+                                    parameterType), getTemporalType(
+                                    entityClass, propertyName));
+                }
+                return new BasicBuilder(propertyName, name, parameterMethod,
+                        getOperationMethod(operationName, parameterType));
             }
         }
         for (String[] inOperation : IN_OPERATIONS) {
@@ -209,6 +228,15 @@ public class ConditionalExpressionBuilderFactory {
                 .getWrapperClassIfPrimitive(parameterType))) {
             return BOOLEAN_PARAMETER_METHOD;
         }
+        if (java.sql.Date.class.isAssignableFrom(parameterType)) {
+            return SQL_DATE_PARAMETER_METHOD;
+        }
+        if (java.sql.Time.class.isAssignableFrom(parameterType)) {
+            return SQL_TIME_PARAMETER_METHOD;
+        }
+        if (java.sql.Timestamp.class.isAssignableFrom(parameterType)) {
+            return SQL_TIMESTAMP_PARAMETER_METHOD;
+        }
         if (Date.class.isAssignableFrom(parameterType)) {
             return DATE_PARAMETER_METHOD;
         }
@@ -224,6 +252,23 @@ public class ConditionalExpressionBuilderFactory {
             return ARITHMETIC_PARAMETER_METHOD;
         }
         throw new IllegalArgumentException();// ToDo
+    }
+
+    protected static TemporalType getTemporalType(final Class<?> entityClass,
+            final String propertyName) {
+        final EntityDesc entityDesc = EntityDescFactory
+                .getEntityDesc(entityClass);
+        final int pos = propertyName.indexOf('.');
+        if (pos >= 0) {
+            final AttributeDesc attributeDesc = entityDesc
+                    .getAttributeDesc(propertyName.substring(0, pos));
+            return getTemporalType(attributeDesc.getElementType(), propertyName
+                    .substring(pos + 1));
+        }
+        final AttributeDesc attributeDesc = entityDesc
+                .getAttributeDesc(propertyName);
+        final TemporalType temporalType = attributeDesc.getTemporalType();
+        return temporalType != null ? temporalType : TemporalType.DATE;
     }
 
 }
