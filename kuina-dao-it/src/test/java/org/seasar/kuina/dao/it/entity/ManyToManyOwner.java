@@ -60,7 +60,7 @@ public class ManyToManyOwner {
     private Integer version;
 
     @ManyToMany
-    private Collection<OneToManyInverse> manyToManyInverses;
+    private Collection<ManyToManyInverse> manyToManyInverses;
 
     public ManyToManyOwner() {
     }
@@ -105,12 +105,12 @@ public class ManyToManyOwner {
         this.hireFiscalYear = hireFiscalYear;
     }
 
-    public Collection<OneToManyInverse> getManyToManyInverses() {
+    public Collection<ManyToManyInverse> getManyToManyInverses() {
         return manyToManyInverses;
     }
 
     public void setManyToManyInverses(
-            Collection<OneToManyInverse> manyToManyInverses) {
+            Collection<ManyToManyInverse> manyToManyInverses) {
         this.manyToManyInverses = manyToManyInverses;
     }
 
