@@ -22,7 +22,7 @@
 	<component class="org.seasar.toplink.jpa.unit.TopLinkEntityReaderProvider"/>
 
 	<component name="entityManagerFactory" class="javax.persistence.EntityManagerFactory">
-		jpa.persistenceUnitManager.getEntityManagerFactory("persistenceUnit")
+		jpa.persistenceUnitManager.getEntityManagerFactory("toplink")
 	</component>
 
 	<component name="entityManager" class="org.seasar.framework.jpa.impl.TxScopedEntityManagerProxy">
