@@ -249,9 +249,9 @@ public class ConditionalExpressionBuilderFactory {
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(parameterType);
         if (entityDesc != null) {
-            return ARITHMETIC_PARAMETER_METHOD;
+            return ENTITY_PARAMETER_METHOD;
         }
-        throw new IllegalArgumentException();// ToDo
+        throw new IllegalArgumentException();// TODO
     }
 
     protected static TemporalType getTemporalType(final Class<?> entityClass,
