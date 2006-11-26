@@ -53,7 +53,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("miya", list.get(10).getName());
     }
 
-    public void testByNameBloodTypeTx() throws Exception {
+    public void testFindByNameBloodTypeTx() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findByNameBloodType("simagoro",
                 null);
         assertNotNull(list);
@@ -61,7 +61,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("simagoro", list.get(0).getName());
     }
 
-    public void testByNameBloodType2Tx() throws Exception {
+    public void testFindByNameBloodType2Tx() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findByNameBloodType(null, "AB");
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -70,7 +70,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("mikel", list.get(2).getName());
     }
 
-    public void testByNameBloodType3Tx() throws Exception {
+    public void testFindByNameBloodType3Tx() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findByNameBloodType("maru", "AB");
         assertNotNull(list);
         assertEquals(1, list.size());
