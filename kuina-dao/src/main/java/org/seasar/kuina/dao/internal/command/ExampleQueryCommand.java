@@ -164,6 +164,9 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
         } else if (Calendar.class.isAssignableFrom(type)) {
             statement.where(eq(path, parameter(parameterName, Calendar.class
                     .cast(value), attribute.getTemporalType())));
+        } else if (Enum.class.isAssignableFrom(type)) {
+            statement.where(eq(path, parameter(parameterName, Enum.class
+                    .cast(value))));
         } else if (attribute.isAssociation() && attribute.isCollection()) {
             final Collection collection = Collection.class.cast(value);
             if (collection != null && collection.size() == 1) {
