@@ -19,7 +19,6 @@ import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.it.dao.ManyToOneOwnerDao;
-import org.seasar.kuina.dao.it.dao.OneToManyInverseDao;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
@@ -33,8 +32,6 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
 
     private ManyToOneOwnerDao ownerDao;
 
-    private OneToManyInverseDao inverseDao;
-
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -45,14 +42,14 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         ManyToOneOwner owner = ownerDao.find(1);
         assertEquals("simagoro", owner.getName());
     }
-    
+
     public void testGetTx() throws Exception {
         ManyToOneOwner owner = ownerDao.get(1);
         assertEquals("simagoro", owner.getName());
     }
 
     public void testPersistTx() throws Exception {
-        OneToManyInverse inverse = inverseDao.find(1);
+        OneToManyInverse inverse = em.find(OneToManyInverse.class, 1);
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setOneToManyInverse(inverse);
         ownerDao.persist(owner);
@@ -81,7 +78,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
     public void testContainsTx() throws Exception {
         ManyToOneOwner owner = ownerDao.find(1);
         assertTrue(ownerDao.contains(owner));
-        
+
         ManyToOneOwner owner2 = new ManyToOneOwner();
         assertFalse(ownerDao.contains(owner2));
     }
@@ -103,5 +100,5 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         ManyToOneOwner owner = ownerDao.find(1);
         ownerDao.writeLock(owner);
     }
-    
+
 }

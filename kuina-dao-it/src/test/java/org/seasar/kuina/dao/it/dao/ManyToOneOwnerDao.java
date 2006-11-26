@@ -55,9 +55,9 @@ public interface ManyToOneOwnerDao {
     // Query by Example
     List<ManyToOneOwner> findByExample(ManyToOneOwner owner);
 
-    List<ManyToOneOwner> findByExample2(ManyToOneOwner owner, String[] orderby);
+    List<ManyToOneOwner> findByExampleOrderby(ManyToOneOwner owner, String[] orderby);
 
-    List<ManyToOneOwner> findByExample3(ManyToOneOwner owner, int firstResult,
+    List<ManyToOneOwner> findByExamplePaging(ManyToOneOwner owner, int firstResult,
             int maxResults);
 
     // Query by DTO
