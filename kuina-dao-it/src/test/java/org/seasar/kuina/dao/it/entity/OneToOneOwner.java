@@ -18,6 +18,8 @@ package org.seasar.kuina.dao.it.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,6 +55,11 @@ public class OneToOneOwner {
     private Date birthday;
 
     private String bloodType;
+
+    private EmployeeStatus employeeStatus;
+
+    @Enumerated(EnumType.STRING)
+    private SalaryRate salaryRate;
 
     @SuppressWarnings("unused")
     @Version
@@ -127,6 +134,22 @@ public class OneToOneOwner {
 
     public Integer getId() {
         return id;
+    }
+
+    public EmployeeStatus getEmployeeStatus() {
+        return employeeStatus;
+    }
+
+    public void setEmployeeStatus(EmployeeStatus employeeStatus) {
+        this.employeeStatus = employeeStatus;
+    }
+
+    public SalaryRate getSalaryRate() {
+        return salaryRate;
+    }
+
+    public void setSalaryRate(SalaryRate salaryRate) {
+        this.salaryRate = salaryRate;
     }
 
     @Override

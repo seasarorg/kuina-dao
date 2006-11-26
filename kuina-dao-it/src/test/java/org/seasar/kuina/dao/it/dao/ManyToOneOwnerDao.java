@@ -19,8 +19,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.entity.SalaryRate;
 
 /**
  * 
@@ -86,6 +88,10 @@ public interface ManyToOneOwnerDao {
     List<ManyToOneOwner> findByName(String name_CONTAINS);
 
     List<ManyToOneOwner> findByHireFiscalYear(boolean hireFiscalYear_IS_NULL);
+
+    List<ManyToOneOwner> findByEmployeeStatus(EmployeeStatus employeeStatus);
+
+    List<ManyToOneOwner> findBySalaryRate(SalaryRate salaryRate);
 
     List<ManyToOneOwner> findByOneToManyInverse(
             OneToManyInverse oneToManyInverse);

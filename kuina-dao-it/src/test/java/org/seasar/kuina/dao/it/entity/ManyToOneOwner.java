@@ -18,6 +18,8 @@ package org.seasar.kuina.dao.it.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,115 +37,136 @@ import javax.persistence.Version;
 @Entity
 public class ManyToOneOwner {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ManyToOneOwner_Id_Generator")
-	@SequenceGenerator(name = "ManyToOneOwner_Id_Generator", sequenceName = "ManyToOneOwner_Id_Sequence")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ManyToOneOwner_Id_Generator")
+    @SequenceGenerator(name = "ManyToOneOwner_Id_Generator", sequenceName = "ManyToOneOwner_Id_Sequence")
+    private Integer id;
 
-	private String name;
+    private String name;
 
-	private Integer height;
+    private Integer height;
 
-	private Integer weight;
+    private Integer weight;
 
-	private String email;
+    private String email;
 
-	private Integer hireFiscalYear;
+    private Integer hireFiscalYear;
 
-	@Temporal(TemporalType.DATE)
-	private Date birthday;
+    @Temporal(TemporalType.DATE)
+    private Date birthday;
 
-	private String bloodType;
+    private String bloodType;
 
-	@SuppressWarnings("unused")
-	@Version
-	private Integer version;
+    private EmployeeStatus employeeStatus;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private OneToManyInverse oneToManyInverse;
+    @Enumerated(EnumType.STRING)
+    private SalaryRate salaryRate;
 
-	public ManyToOneOwner() {
-	}
+    @SuppressWarnings("unused")
+    @Version
+    private Integer version;
 
-	public Date getBirthday() {
-		return birthday;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OneToManyInverse oneToManyInverse;
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public ManyToOneOwner() {
+    }
 
-	public String getBloodType() {
-		return bloodType;
-	}
+    public Date getBirthday() {
+        return birthday;
+    }
 
-	public void setBloodType(String bloodType) {
-		this.bloodType = bloodType;
-	}
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getBloodType() {
+        return bloodType;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
+    }
 
-	public Integer getHeight() {
-		return height;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setHeight(Integer height) {
-		this.height = height;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public Integer getHireFiscalYear() {
-		return hireFiscalYear;
-	}
+    public Integer getHeight() {
+        return height;
+    }
 
-	public void setHireFiscalYear(Integer hireFiscalYear) {
-		this.hireFiscalYear = hireFiscalYear;
-	}
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getHireFiscalYear() {
+        return hireFiscalYear;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setHireFiscalYear(Integer hireFiscalYear) {
+        this.hireFiscalYear = hireFiscalYear;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getWeight() {
-		return weight;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public OneToManyInverse getOneToManyInverse() {
-		return oneToManyInverse;
-	}
+    public Integer getWeight() {
+        return weight;
+    }
 
-	public void setOneToManyInverse(OneToManyInverse oneToManyInverse) {
-		this.oneToManyInverse = oneToManyInverse;
-	}
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof ManyToOneOwner))
-			return false;
-		ManyToOneOwner castOther = (ManyToOneOwner) other;
-		return this.id == castOther.id;
-	}
+    public OneToManyInverse getOneToManyInverse() {
+        return oneToManyInverse;
+    }
 
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id;
-	}
+    public void setOneToManyInverse(OneToManyInverse oneToManyInverse) {
+        this.oneToManyInverse = oneToManyInverse;
+    }
+
+    public EmployeeStatus getEmployeeStatus() {
+        return employeeStatus;
+    }
+
+    public void setEmployeeStatus(EmployeeStatus employeeStatus) {
+        this.employeeStatus = employeeStatus;
+    }
+
+    public SalaryRate getSalaryRate() {
+        return salaryRate;
+    }
+
+    public void setSalaryRate(SalaryRate salaryRate) {
+        this.salaryRate = salaryRate;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ManyToOneOwner))
+            return false;
+        ManyToOneOwner castOther = (ManyToOneOwner) other;
+        return this.id == castOther.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
+    }
 
 }

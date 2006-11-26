@@ -19,16 +19,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.seasar.extension.dxo.DateUtil;
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.it.dao.ManyToOneOwnerDao;
+import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
+import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.entity.SalaryRate;
 
 /**
  * 
  * @author nakamura
  */
 public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
+
+    private EntityManager em;
 
     private ManyToOneOwnerDao ownerDao;
 
@@ -178,4 +185,40 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("simagoro", list.get(0).getName());
     }
 
+    public void testFindByEmployeeStatusTx() throws Exception {
+        List<ManyToOneOwner> list = ownerDao
+                .findByEmployeeStatus(EmployeeStatus.CONTRACT);
+        assertNotNull(list);
+        assertEquals(10, list.size());
+        assertEquals("maki", list.get(0).getName());
+        assertEquals("coo", list.get(1).getName());
+        assertEquals("prin", list.get(2).getName());
+        assertEquals("panda", list.get(3).getName());
+        assertEquals("monchi", list.get(4).getName());
+        assertEquals("kuma", list.get(5).getName());
+        assertEquals("tasuke", list.get(6).getName());
+        assertEquals("sary", list.get(7).getName());
+        assertEquals("roly", list.get(8).getName());
+        assertEquals("miya", list.get(9).getName());
+    }
+
+    public void testFindBySalaryRateTx() throws Exception {
+        List<ManyToOneOwner> list = ownerDao
+                .findBySalaryRate(SalaryRate.MANAGER);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("maki", list.get(0).getName());
+        assertEquals("nekomaru", list.get(1).getName());
+        assertEquals("ma", list.get(2).getName());
+    }
+
+    public void testFindByOneToManyInverseTx() throws Exception {
+        OneToManyInverse inverse = em.find(OneToManyInverse.class, 3);
+        List<ManyToOneOwner> list = ownerDao.findByOneToManyInverse(inverse);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("nekomaru", list.get(0).getName());
+        assertEquals("nyantaro", list.get(1).getName());
+        assertEquals("monchi", list.get(2).getName());
+    }
 }
