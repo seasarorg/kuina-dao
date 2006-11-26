@@ -196,7 +196,8 @@ public class ConditionalExpressionBuilderFactory {
         if (String.class.isAssignableFrom(parameterType)) {
             return StringExpression.class;
         }
-        if (boolean.class.isAssignableFrom(parameterType)) {
+        if (Boolean.class.isAssignableFrom(ClassUtil
+                .getWrapperClassIfPrimitive(parameterType))) {
             return BooleanExpression.class;
         }
         if (Date.class.isAssignableFrom(parameterType)) {
