@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.it.query.parameter;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.seasar.extension.dxo.DateUtil;
@@ -106,8 +108,53 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
     }
 
     public void testFindByBirthdayTx() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByBirthday(DateUtil.newDate(
-                1983, 1, 1));
+        Date date = DateUtil.newDate(1983, 1, 1);
+        List<ManyToOneOwner> list = ownerDao.findByBirthday(date);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("mikel", list.get(0).getName());
+        assertEquals("su", list.get(1).getName());
+        assertEquals("miya", list.get(2).getName());
+    }
+
+    public void testFindByBirthday_CalendarTx() throws Exception {
+        Date date = DateUtil.newDate(1983, 1, 1);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        List<ManyToOneOwner> list = ownerDao.findByBirthday(calendar);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("mikel", list.get(0).getName());
+        assertEquals("su", list.get(1).getName());
+        assertEquals("miya", list.get(2).getName());
+    }
+
+    public void testFindByBirthday_SqlDateTx() throws Exception {
+        Date date = DateUtil.newDate(1983, 1, 1);
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        List<ManyToOneOwner> list = ownerDao.findByBirthday(sqlDate);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("mikel", list.get(0).getName());
+        assertEquals("su", list.get(1).getName());
+        assertEquals("miya", list.get(2).getName());
+    }
+
+    public void testFindByBirthday_SqlTimeTx() throws Exception {
+        Date date = DateUtil.newDate(1983, 1, 1);
+        java.sql.Time time = new java.sql.Time(date.getTime());
+        List<ManyToOneOwner> list = ownerDao.findByBirthday(time);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("mikel", list.get(0).getName());
+        assertEquals("su", list.get(1).getName());
+        assertEquals("miya", list.get(2).getName());
+    }
+
+    public void testFindByBirthday_SqlTimestampTx() throws Exception {
+        Date date = DateUtil.newDate(1983, 1, 1);
+        java.sql.Timestamp timestamp = new java.sql.Timestamp(date.getTime());
+        List<ManyToOneOwner> list = ownerDao.findByBirthday(timestamp);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("mikel", list.get(0).getName());

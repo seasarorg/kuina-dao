@@ -15,13 +15,12 @@
  */
 package org.seasar.kuina.dao.it.dao;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.TemporalType;
-
-import org.seasar.kuina.dao.TemporalSpec;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
+import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 /**
  * 
@@ -74,12 +73,22 @@ public interface ManyToOneOwnerDao {
 
     List<ManyToOneOwner> findByInverseName(String oneToManyInverse$name);
 
-    List<ManyToOneOwner> findByBirthday(@TemporalSpec(TemporalType.DATE)
-    Date birthday_GE);
+    List<ManyToOneOwner> findByBirthday(Date birthday_GE);
+
+    List<ManyToOneOwner> findByBirthday(Calendar birthday_GE);
+
+    List<ManyToOneOwner> findByBirthday(java.sql.Date birthday_GE);
+
+    List<ManyToOneOwner> findByBirthday(java.sql.Time birthday_GE);
+
+    List<ManyToOneOwner> findByBirthday(java.sql.Timestamp birthday_GE);
 
     List<ManyToOneOwner> findByName(String name_CONTAINS);
 
     List<ManyToOneOwner> findByHireFiscalYear(boolean hireFiscalYear_IS_NULL);
+
+    List<ManyToOneOwner> findByOneToManyInverse(
+            OneToManyInverse oneToManyInverse);
 
     // Named Query
 
