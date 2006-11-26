@@ -22,6 +22,7 @@ import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.it.dao.ManyToOneOwnerDao;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.entity.SalaryRate;
 
 /**
  * 
@@ -67,6 +68,36 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("nekomaru", list.get(0).getName());
         assertEquals("nyantaro", list.get(1).getName());
         assertEquals("monchi", list.get(2).getName());
+    }
+
+    public void todo_testFindByExample4Tx() throws Exception {
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setSalaryRate(SalaryRate.MANAGER);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("maki", list.get(0).getName());
+        assertEquals("nekomaru", list.get(1).getName());
+        assertEquals("ma", list.get(2).getName());
+    }
+
+    public void testFindByExample5Tx() throws Exception {
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setRetired(true);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("gochin", list.get(0).getName());
+    }
+
+    public void testFindByExample6Tx() throws Exception {
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setWeight(50);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("sara", list.get(0).getName());
+        assertEquals("tasuke", list.get(1).getName());
     }
 
     public void testFindByExampleOrderbyTx() throws Exception {
