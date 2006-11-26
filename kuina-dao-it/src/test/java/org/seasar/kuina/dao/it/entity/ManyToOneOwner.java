@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.it.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -54,6 +55,15 @@ public class ManyToOneOwner {
 
     @Temporal(TemporalType.DATE)
     private Date birthday;
+
+    private java.sql.Time birthTime;
+
+    private java.sql.Timestamp birthTimestamp;
+
+    private java.sql.Date employmentDate;
+
+    @Temporal(TemporalType.DATE)
+    private Calendar weddingDay;
 
     private String bloodType;
 
@@ -164,6 +174,38 @@ public class ManyToOneOwner {
 
     public void setRetired(Boolean retired) {
         this.retired = retired;
+    }
+
+    public java.sql.Time getBirthTime() {
+        return birthTime;
+    }
+
+    public void setBirthTime(java.sql.Time birthTime) {
+        this.birthTime = birthTime;
+    }
+
+    public java.sql.Timestamp getBirthTimestamp() {
+        return birthTimestamp;
+    }
+
+    public void setBirthTimestamp(java.sql.Timestamp birthTimestamp) {
+        this.birthTimestamp = birthTimestamp;
+    }
+
+    public java.sql.Date getEmploymentDate() {
+        return employmentDate;
+    }
+
+    public void setEmploymentDate(java.sql.Date employmentDate) {
+        this.employmentDate = employmentDate;
+    }
+
+    public Calendar getWeddingDay() {
+        return weddingDay;
+    }
+
+    public void setWeddingDay(Calendar weddingDay) {
+        this.weddingDay = weddingDay;
     }
 
     @Override

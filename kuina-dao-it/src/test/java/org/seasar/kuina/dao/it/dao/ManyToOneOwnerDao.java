@@ -55,10 +55,11 @@ public interface ManyToOneOwnerDao {
     // Query by Example
     List<ManyToOneOwner> findByExample(ManyToOneOwner owner);
 
-    List<ManyToOneOwner> findByExampleOrderby(ManyToOneOwner owner, String[] orderby);
+    List<ManyToOneOwner> findByExampleOrderby(ManyToOneOwner owner,
+            String[] orderby);
 
-    List<ManyToOneOwner> findByExamplePaging(ManyToOneOwner owner, int firstResult,
-            int maxResults);
+    List<ManyToOneOwner> findByExamplePaging(ManyToOneOwner owner,
+            int firstResult, int maxResults);
 
     // Query by DTO
 
@@ -77,13 +78,13 @@ public interface ManyToOneOwnerDao {
 
     List<ManyToOneOwner> findByBirthday(Date birthday_GE);
 
-    List<ManyToOneOwner> findByBirthday(Calendar birthday_GE);
+    List<ManyToOneOwner> findByWeddingDay(Calendar weddingDay);
 
-    List<ManyToOneOwner> findByBirthday(java.sql.Date birthday_GE);
+    List<ManyToOneOwner> findByEmploymentDate(java.sql.Date employmentDate);
 
-    List<ManyToOneOwner> findByBirthday(java.sql.Time birthday_GE);
+    List<ManyToOneOwner> findByBirthTime(java.sql.Time birthTime);
 
-    List<ManyToOneOwner> findByBirthday(java.sql.Timestamp birthday_GE);
+    List<ManyToOneOwner> findByBirthTimestamp(java.sql.Timestamp birthTimestamp);
 
     List<ManyToOneOwner> findByName(String name_CONTAINS);
 

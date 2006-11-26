@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.it.query.example;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.seasar.extension.unit.S2TestCase;
@@ -38,7 +39,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         include("kuina-dao.dicon");
     }
 
-    public void testFindByExampleTx() throws Exception {
+    public void testFindByExampleStringTx() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setName("simagoro");
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
@@ -47,7 +48,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("simagoro", list.get(0).getName());
     }
 
-    public void testFindByExample2Tx() throws Exception {
+    public void testFindByExampleDateTx() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBirthday(new SimpleDateFormat("yyyy-MM-dd")
                 .parse("1953-10-01"));
@@ -57,7 +58,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("simagoro", list.get(0).getName());
     }
 
-    public void testFindByExample3Tx() throws Exception {
+    public void testFindByExampleEntityTx() throws Exception {
         OneToManyInverse dept = new OneToManyInverse();
         dept.setName("Personnel");
         ManyToOneOwner owner = new ManyToOneOwner();
@@ -70,7 +71,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("monchi", list.get(2).getName());
     }
 
-    public void testFindByExample4Tx() throws Exception {
+    public void testFindByExampleEnumTx() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setSalaryRate(SalaryRate.MANAGER);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
@@ -81,7 +82,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("ma", list.get(2).getName());
     }
 
-    public void testFindByExample5Tx() throws Exception {
+    public void testFindByExampleBooleanTx() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setRetired(true);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
@@ -90,7 +91,57 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("gochin", list.get(0).getName());
     }
 
-    public void testFindByExample6Tx() throws Exception {
+    public void testFindByExampleCalendarTx() throws Exception {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, 1998);
+        date.set(Calendar.MONTH, 0);
+        date.set(Calendar.DAY_OF_MONTH, 15);
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setWeddingDay(date);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("maki", list.get(0).getName());
+    }
+
+    public void testFindByExampleSqlDateTx() throws Exception {
+        java.sql.Date date = java.sql.Date.valueOf("1984-04-01");
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setEmploymentDate(date);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(5, list.size());
+        assertEquals("gochin", list.get(0).getName());
+        assertEquals("maki", list.get(1).getName());
+        assertEquals("maru", list.get(2).getName());
+        assertEquals("michiro", list.get(3).getName());
+        assertEquals("coo", list.get(4).getName());
+    }
+
+    public void testFindByExampleSqlTimeTx() throws Exception {
+        java.sql.Time time = java.sql.Time.valueOf("08:00:00");
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setBirthTime(time);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("minami", list.get(0).getName());
+        assertEquals("kuma", list.get(1).getName());
+        assertEquals("mikel", list.get(2).getName());
+    }
+
+    public void testFindByExampleSqlTimestampTx() throws Exception {
+        java.sql.Timestamp timestamp = java.sql.Timestamp
+                .valueOf("1959-09-03 08:00:00");
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setBirthTimestamp(timestamp);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("minami", list.get(0).getName());
+    }
+
+    public void testFindByExampleNumberTx() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setWeight(50);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);

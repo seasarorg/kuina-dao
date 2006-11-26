@@ -124,49 +124,46 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("miya", list.get(2).getName());
     }
 
-    public void testFindByBirthday_CalendarTx() throws Exception {
-        Date date = DateUtil.newDate(1983, 1, 1);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        List<ManyToOneOwner> list = ownerDao.findByBirthday(calendar);
+    public void todo_testFindByWeddingDayTx() throws Exception {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, 1998);
+        date.set(Calendar.MONTH, 0);
+        date.set(Calendar.DAY_OF_MONTH, 15);
+        List<ManyToOneOwner> list = ownerDao.findByWeddingDay(date);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("mikel", list.get(0).getName());
-        assertEquals("su", list.get(1).getName());
-        assertEquals("miya", list.get(2).getName());
+        assertEquals(1, list.size());
+        assertEquals("maki", list.get(0).getName());
     }
 
-    public void testFindByBirthday_SqlDateTx() throws Exception {
-        Date date = DateUtil.newDate(1983, 1, 1);
-        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        List<ManyToOneOwner> list = ownerDao.findByBirthday(sqlDate);
+    public void testFindByEmployeeDateTx() throws Exception {
+        java.sql.Date date = java.sql.Date.valueOf("1984-04-01");
+        List<ManyToOneOwner> list = ownerDao.findByEmploymentDate(date);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("mikel", list.get(0).getName());
-        assertEquals("su", list.get(1).getName());
-        assertEquals("miya", list.get(2).getName());
+        assertEquals(5, list.size());
+        assertEquals("gochin", list.get(0).getName());
+        assertEquals("maki", list.get(1).getName());
+        assertEquals("maru", list.get(2).getName());
+        assertEquals("michiro", list.get(3).getName());
+        assertEquals("coo", list.get(4).getName());
     }
 
-    public void testFindByBirthday_SqlTimeTx() throws Exception {
-        Date date = DateUtil.newDate(1983, 1, 1);
-        java.sql.Time time = new java.sql.Time(date.getTime());
-        List<ManyToOneOwner> list = ownerDao.findByBirthday(time);
+    public void testFindByBirthTimeTx() throws Exception {
+        java.sql.Time time = java.sql.Time.valueOf("08:00:00");
+        List<ManyToOneOwner> list = ownerDao.findByBirthTime(time);
         assertNotNull(list);
         assertEquals(3, list.size());
-        assertEquals("mikel", list.get(0).getName());
-        assertEquals("su", list.get(1).getName());
-        assertEquals("miya", list.get(2).getName());
+        assertEquals("minami", list.get(0).getName());
+        assertEquals("kuma", list.get(1).getName());
+        assertEquals("mikel", list.get(2).getName());
     }
 
-    public void testFindByBirthday_SqlTimestampTx() throws Exception {
-        Date date = DateUtil.newDate(1983, 1, 1);
-        java.sql.Timestamp timestamp = new java.sql.Timestamp(date.getTime());
-        List<ManyToOneOwner> list = ownerDao.findByBirthday(timestamp);
+    public void testFindByBirthTimestampTx() throws Exception {
+        java.sql.Timestamp timestamp = java.sql.Timestamp
+                .valueOf("1959-09-03 08:00:00");
+        List<ManyToOneOwner> list = ownerDao.findByBirthTimestamp(timestamp);
         assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("mikel", list.get(0).getName());
-        assertEquals("su", list.get(1).getName());
-        assertEquals("miya", list.get(2).getName());
+        assertEquals(1, list.size());
+        assertEquals("minami", list.get(0).getName());
     }
 
     public void testFindByNameTx() throws Exception {
@@ -222,7 +219,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("monchi", list.get(2).getName());
     }
 
-     public void testFindByRetiredFlagTx() throws Exception {
+    public void testFindByRetiredFlagTx() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findByRetiredFlag(true);
         assertNotNull(list);
         assertEquals(1, list.size());
