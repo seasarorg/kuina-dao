@@ -70,7 +70,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("monchi", list.get(2).getName());
     }
 
-    public void todo_testFindByExample4Tx() throws Exception {
+    public void testFindByExample4Tx() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setSalaryRate(SalaryRate.MANAGER);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
