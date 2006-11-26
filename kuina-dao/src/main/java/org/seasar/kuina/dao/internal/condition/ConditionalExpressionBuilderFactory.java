@@ -112,42 +112,28 @@ public class ConditionalExpressionBuilderFactory {
         for (String[] basicOperation : BASIC_OPERATIONS) {
             final String suffix = basicOperation[0];
             if (name.endsWith(suffix)) {
-                final String propertyName = name.substring(0,
-                        name.length() - suffix.length()).replace('$', '.');
-                final String operationName = basicOperation[1];
-                final Method parameterMethod = getParameterMethod(parameterType);
-                if (parameterMethod.getParameterTypes().length == 3) {
-                    return new TemporalBuilder(propertyName, name,
-                            parameterMethod, getOperationMethod(operationName,
-                                    parameterType), getTemporalType(
-                                    entityClass, propertyName));
-                }
-                return new BasicBuilder(propertyName, name, parameterMethod,
-                        getOperationMethod(operationName, parameterType));
+                return createBasicBuilder(entityClass, name, parameterType,
+                        toPropertyName(name, suffix),
+                        getParameterMethod(parameterType), basicOperation[1]);
             }
         }
         for (String[] inOperation : IN_OPERATIONS) {
             final String suffix = inOperation[0];
             if (name.endsWith(suffix)) {
-                final String propertyName = name.substring(0,
-                        name.length() - suffix.length()).replace('$', '.');
-                final String operationName = inOperation[1];
-                final Class<?> componentType = parameterType.getComponentType();
-                return new InBuilder(propertyName, name,
-                        getParameterMethod(componentType), ReflectionUtil
-                                .getMethod(CriteriaOperations.class,
-                                        operationName, String.class,
-                                        InputParameter[].class));
+                final Method operationMethod = ReflectionUtil.getMethod(
+                        CriteriaOperations.class, inOperation[1], String.class,
+                        InputParameter[].class);
+                return new InBuilder(toPropertyName(name, suffix), name,
+                        getParameterMethod(parameterType.getComponentType()),
+                        operationMethod);
             }
         }
         for (String[] likeOperation : LIKE_OPERATIONS) {
             final String suffix = likeOperation[0];
-            final String starts = likeOperation[1];
-            final String ends = likeOperation[2];
             if (name.endsWith(suffix)) {
-                final String propertyName = name.substring(0,
-                        name.length() - suffix.length()).replace('$', '.');
-                return new LikeBuilder(propertyName, name,
+                final String starts = likeOperation[1];
+                final String ends = likeOperation[2];
+                return new LikeBuilder(toPropertyName(name, suffix), name,
                         getParameterMethod(parameterType), getOperationMethod(
                                 "like", parameterType), starts, ends);
             }
@@ -155,11 +141,8 @@ public class ConditionalExpressionBuilderFactory {
         for (String[] isNullOperation : IS_NULL_OPERATIONS) {
             final String suffix = isNullOperation[0];
             if (name.endsWith(suffix)) {
-                final String propertyName = name.substring(0,
-                        name.length() - suffix.length()).replace('$', '.');
-                final String operationName = isNullOperation[1];
-                return new IsNullBuilder(propertyName, name,
-                        getOperationMethod(operationName));
+                return new IsNullBuilder(toPropertyName(name, suffix), name,
+                        getOperationMethod(isNullOperation[1]));
             }
         }
         if (name.equals("orderby")) {
@@ -171,23 +154,42 @@ public class ConditionalExpressionBuilderFactory {
         if (name.equals("maxResults")) {
             return new MaxResultsBuilder();
         }
-        return new BasicBuilder(name.replace('$', '.'), name,
-                getParameterMethod(parameterType), getOperationMethod("eq",
-                        parameterType));
+        return createBasicBuilder(entityClass, name, parameterType, name
+                .replace('$', '.'), getParameterMethod(parameterType), "eq");
     }
 
-    public static Method getOperationMethod(final String name) {
+    protected static String toPropertyName(final String name,
+            final String suffix) {
+        return name.substring(0, name.length() - suffix.length()).replace('$',
+                '.');
+    }
+
+    protected static ConditionalExpressionBuilder createBasicBuilder(
+            final Class<?> entityClass, final String parameterName,
+            final Class<?> parameterType, final String propertyName,
+            final Method parameterMethod, final String operationName) {
+        if (parameterMethod.getParameterTypes().length == 3) {
+            return new TemporalBuilder(propertyName, parameterName,
+                    parameterMethod, getOperationMethod(operationName,
+                            parameterType), getTemporalType(entityClass,
+                            propertyName));
+        }
+        return new BasicBuilder(propertyName, parameterName, parameterMethod,
+                getOperationMethod(operationName, parameterType));
+    }
+
+    protected static Method getOperationMethod(final String name) {
         return ReflectionUtil.getMethod(CriteriaOperations.class, name,
                 String.class);
     }
 
-    public static Method getOperationMethod(final String name,
+    protected static Method getOperationMethod(final String name,
             final Class<?> parameterType) {
         return ReflectionUtil.getMethod(CriteriaOperations.class, name,
                 String.class, getOperationMethodParameterType(parameterType));
     }
 
-    public static Class<?> getOperationMethodParameterType(
+    protected static Class<?> getOperationMethodParameterType(
             final Class<?> parameterType) {
         if (Number.class.isAssignableFrom(ClassUtil
                 .getWrapperClassIfPrimitive(parameterType))) {
@@ -217,7 +219,7 @@ public class ConditionalExpressionBuilderFactory {
         throw new IllegalArgumentException();// ToDo
     }
 
-    public static Method getParameterMethod(final Class<?> parameterType) {
+    protected static Method getParameterMethod(final Class<?> parameterType) {
         if (Number.class.isAssignableFrom(ClassUtil
                 .getWrapperClassIfPrimitive(parameterType))) {
             return ARITHMETIC_PARAMETER_METHOD;
