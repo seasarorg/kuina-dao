@@ -62,6 +62,8 @@ public class ManyToManyOwner {
     @Enumerated(EnumType.STRING)
     private SalaryRate salaryRate;
 
+    private Boolean retired;
+
     @SuppressWarnings("unused")
     @Version
     private Integer version;
@@ -155,6 +157,14 @@ public class ManyToManyOwner {
 
     public void setSalaryRate(SalaryRate salaryRate) {
         this.salaryRate = salaryRate;
+    }
+
+    public Boolean isRetired() {
+        return retired;
+    }
+
+    public void setRetired(Boolean retired) {
+        this.retired = retired;
     }
 
     @Override

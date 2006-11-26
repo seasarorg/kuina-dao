@@ -96,6 +96,8 @@ public interface ManyToOneOwnerDao {
     List<ManyToOneOwner> findByOneToManyInverse(
             OneToManyInverse oneToManyInverse);
 
+    List<ManyToOneOwner> findByRetiredFlag(Boolean retired);
+
     // Named Query
 
     // SQL Query

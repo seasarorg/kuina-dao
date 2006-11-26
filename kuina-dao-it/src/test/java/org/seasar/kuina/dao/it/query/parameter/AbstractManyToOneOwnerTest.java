@@ -221,4 +221,11 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("nyantaro", list.get(1).getName());
         assertEquals("monchi", list.get(2).getName());
     }
+
+     public void testFindByRetiredFlagTx() throws Exception {
+        List<ManyToOneOwner> list = ownerDao.findByRetiredFlag(true);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("gochin", list.get(0).getName());
+    }
 }
