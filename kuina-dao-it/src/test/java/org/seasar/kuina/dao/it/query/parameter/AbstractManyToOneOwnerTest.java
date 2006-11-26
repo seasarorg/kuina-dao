@@ -124,7 +124,7 @@ public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
         assertEquals("miya", list.get(2).getName());
     }
 
-    public void todo_testFindByWeddingDayTx() throws Exception {
+    public void testFindByWeddingDayTx() throws Exception {
         Calendar date = Calendar.getInstance();
         date.set(Calendar.YEAR, 1998);
         date.set(Calendar.MONTH, 0);
