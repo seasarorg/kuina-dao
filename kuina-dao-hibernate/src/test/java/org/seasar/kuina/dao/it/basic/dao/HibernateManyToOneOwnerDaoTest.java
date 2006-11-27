@@ -15,12 +15,11 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
-import org.seasar.kuina.dao.it.basic.dao.AbstractManyToOneOwnerDaoTest;
-
 /**
  * 
  * @author nakamura
  */
-public class HibernateManyToOneOwnerDaoTest extends AbstractManyToOneOwnerDaoTest {
-	
+public class HibernateManyToOneOwnerDaoTest extends
+		AbstractManyToOneOwnerDaoTest {
+
 }
