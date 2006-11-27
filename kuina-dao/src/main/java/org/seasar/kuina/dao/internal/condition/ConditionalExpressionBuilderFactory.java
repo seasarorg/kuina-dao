@@ -123,9 +123,9 @@ public class ConditionalExpressionBuilderFactory {
                 final Method operationMethod = ReflectionUtil.getMethod(
                         CriteriaOperations.class, inOperation[1], String.class,
                         InputParameter[].class);
-                return new InBuilder(toPropertyName(name, suffix), name,
-                        getParameterMethod(parameterType.getComponentType()),
-                        operationMethod);
+                return new InBuilder(entityClass, toPropertyName(name, suffix),
+                        name, getParameterMethod(parameterType
+                                .getComponentType()), operationMethod);
             }
         }
         for (String[] likeOperation : LIKE_OPERATIONS) {
@@ -133,7 +133,8 @@ public class ConditionalExpressionBuilderFactory {
             if (name.endsWith(suffix)) {
                 final String starts = likeOperation[1];
                 final String ends = likeOperation[2];
-                return new LikeBuilder(toPropertyName(name, suffix), name,
+                return new LikeBuilder(entityClass,
+                        toPropertyName(name, suffix), name,
                         getParameterMethod(parameterType), getOperationMethod(
                                 "like", parameterType), starts, ends);
             }
@@ -141,8 +142,8 @@ public class ConditionalExpressionBuilderFactory {
         for (String[] isNullOperation : IS_NULL_OPERATIONS) {
             final String suffix = isNullOperation[0];
             if (name.endsWith(suffix)) {
-                return new IsNullBuilder(toPropertyName(name, suffix), name,
-                        getOperationMethod(isNullOperation[1]));
+                return new IsNullBuilder(entityClass, toPropertyName(name,
+                        suffix), name, getOperationMethod(isNullOperation[1]));
             }
         }
         if (name.equals("orderby")) {
@@ -169,13 +170,14 @@ public class ConditionalExpressionBuilderFactory {
             final Class<?> parameterType, final String propertyName,
             final Method parameterMethod, final String operationName) {
         if (parameterMethod.getParameterTypes().length == 3) {
-            return new TemporalBuilder(propertyName, parameterName,
-                    parameterMethod, getOperationMethod(operationName,
-                            parameterType), getTemporalType(entityClass,
-                            propertyName));
+            return new TemporalBuilder(entityClass, propertyName,
+                    parameterName, parameterMethod, getOperationMethod(
+                            operationName, parameterType), getTemporalType(
+                            entityClass, propertyName));
         }
-        return new BasicBuilder(propertyName, parameterName, parameterMethod,
-                getOperationMethod(operationName, parameterType));
+        return new BasicBuilder(entityClass, propertyName, parameterName,
+                parameterMethod, getOperationMethod(operationName,
+                        parameterType));
     }
 
     protected static Method getOperationMethod(final String name) {

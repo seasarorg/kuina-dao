@@ -17,12 +17,17 @@ package org.seasar.kuina.dao.internal.condition;
 
 import java.lang.reflect.Method;
 
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
+import org.seasar.kuina.dao.internal.util.JpqlUtil;
+
 /**
  * 
  * @author koichik
  */
 public abstract class AbstractConditionalExpressionBuilder implements
         ConditionalExpressionBuilder {
+
+    protected String identificationVariable;
 
     protected String propertyName;
 
@@ -32,9 +37,19 @@ public abstract class AbstractConditionalExpressionBuilder implements
 
     protected Method operationMethod;
 
-    public AbstractConditionalExpressionBuilder(final String propertyName,
+    public AbstractConditionalExpressionBuilder(final Class<?> entityClass,
+            final String propertyName, final String parameterName,
+            final Method parameterMethod, final Method operationMethod) {
+        this(JpqlUtil.toDefaultIdentificationVariable(EntityDescFactory
+                .getEntityDesc(entityClass).getEntityName()), propertyName,
+                parameterName, parameterMethod, operationMethod);
+    }
+
+    public AbstractConditionalExpressionBuilder(
+            final String identificationVariable, final String propertyName,
             final String parameterName, final Method parameterMethod,
             final Method operationMethod) {
+        this.identificationVariable = identificationVariable;
         this.propertyName = propertyName;
         this.parameterName = parameterName;
         this.parameterMethod = parameterMethod;
@@ -42,7 +57,10 @@ public abstract class AbstractConditionalExpressionBuilder implements
     }
 
     public String getPropertyName() {
-        return propertyName;
+        // if (propertyName.indexOf('.') >= 0) {
+        // return propertyName;
+        // }
+        return identificationVariable + "." + propertyName;
     }
 
     public String getParameterName() {

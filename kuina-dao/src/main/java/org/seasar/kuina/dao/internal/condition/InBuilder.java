@@ -30,9 +30,11 @@ import org.seasar.kuina.dao.criteria.grammar.InputParameter;
  */
 public class InBuilder extends AbstractConditionalExpressionBuilder {
 
-    public InBuilder(final String propertyName, final String parameterName,
-            final Method parameterMethod, final Method operationMethod) {
-        super(propertyName, parameterName, parameterMethod, operationMethod);
+    public InBuilder(final Class<?> entityClass, final String propertyName,
+            final String parameterName, final Method parameterMethod,
+            final Method operationMethod) {
+        super(entityClass, propertyName, parameterName, parameterMethod,
+                operationMethod);
     }
 
     public void appendCondition(final SelectStatement statement,

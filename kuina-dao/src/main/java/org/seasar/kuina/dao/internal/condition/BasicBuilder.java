@@ -27,9 +27,18 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
  */
 public class BasicBuilder extends AbstractConditionalExpressionBuilder {
 
-    public BasicBuilder(final String propertyName, final String parameterName,
+    public BasicBuilder(final Class<?> entityClass, final String propertyName,
+            final String parameterName, final Method parameterMethod,
+            final Method operationMethod) {
+        super(entityClass, propertyName, parameterName, parameterMethod,
+                operationMethod);
+    }
+
+    public BasicBuilder(final String identificationVariable,
+            final String propertyName, final String parameterName,
             final Method parameterMethod, final Method operationMethod) {
-        super(propertyName, parameterName, parameterMethod, operationMethod);
+        super(identificationVariable, propertyName, parameterName,
+                parameterMethod, operationMethod);
     }
 
     public void appendCondition(final SelectStatement statement,

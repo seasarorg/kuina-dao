@@ -31,10 +31,12 @@ public class LikeBuilder extends AbstractConditionalExpressionBuilder {
 
     protected String suffix;
 
-    public LikeBuilder(final String propertyName, final String parameterName,
-            final Method parameterMethod, final Method operationMethod,
-            final String prefix, final String suffix) {
-        super(propertyName, parameterName, parameterMethod, operationMethod);
+    public LikeBuilder(final Class<?> entityClass, final String propertyName,
+            final String parameterName, final Method parameterMethod,
+            final Method operationMethod, final String prefix,
+            final String suffix) {
+        super(entityClass, propertyName, parameterName, parameterMethod,
+                operationMethod);
         this.prefix = prefix;
         this.suffix = suffix;
     }

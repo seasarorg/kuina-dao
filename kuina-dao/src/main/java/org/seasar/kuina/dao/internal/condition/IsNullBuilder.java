@@ -27,9 +27,9 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
  */
 public class IsNullBuilder extends AbstractConditionalExpressionBuilder {
 
-    public IsNullBuilder(final String propertyName, final String parameterName,
-            final Method operationMethod) {
-        super(propertyName, parameterName, null, operationMethod);
+    public IsNullBuilder(final Class<?> entityClass, final String propertyName,
+            final String parameterName, final Method operationMethod) {
+        super(entityClass, propertyName, parameterName, null, operationMethod);
     }
 
     public void appendCondition(final SelectStatement statement,

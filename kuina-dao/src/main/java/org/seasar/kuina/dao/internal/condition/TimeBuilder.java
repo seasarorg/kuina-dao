@@ -31,10 +31,11 @@ public class TimeBuilder extends AbstractConditionalExpressionBuilder {
 
     protected TemporalType temporalType;
 
-    public TimeBuilder(final String propertyName, final String parameterName,
-            final Method parameterMethod, final Method operationMethod,
-            final TemporalType temporalType) {
-        super(propertyName, parameterName, parameterMethod, operationMethod);
+    public TimeBuilder(final Class<?> entityClass, final String propertyName,
+            final String parameterName, final Method parameterMethod,
+            final Method operationMethod, final TemporalType temporalType) {
+        super(entityClass, propertyName, parameterName, parameterMethod,
+                operationMethod);
         this.temporalType = temporalType;
     }
 
