@@ -15,8 +15,6 @@
  */
 package org.seasar.kuina.dao.it.parameter.dao;
 
-import org.seasar.kuina.dao.it.parameter.dao.AbstractManyToOneOwnerDaoTest;
-
 /**
  * 
  * @author Hidenoshin Yoshida

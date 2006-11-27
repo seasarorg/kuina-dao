@@ -15,8 +15,6 @@
  */
 package org.seasar.kuina.dao.it.example.dao;
 
-import org.seasar.kuina.dao.it.example.dao.AbstractManyToOneOwnerDaoTest;
-
 /**
  * 
  * @author Hidenoshin Yoshida

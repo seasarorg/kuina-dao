@@ -15,12 +15,10 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
-import org.seasar.kuina.dao.it.basic.dao.AbstractManyToOneOwnerDaoTest;
-
 /**
  * 
  * @author Hidenoshin Yoshida
  */
 public class TopLinkManyToOneOwnerDaoTest extends AbstractManyToOneOwnerDaoTest {
-	
+
 }
