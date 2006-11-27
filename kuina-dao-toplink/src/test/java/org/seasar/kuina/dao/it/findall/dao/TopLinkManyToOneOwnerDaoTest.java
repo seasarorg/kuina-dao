@@ -13,14 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.query.example;
+package org.seasar.kuina.dao.it.findall.dao;
 
-import org.seasar.kuina.dao.it.query.example.AbstractManyToOneOwnerTest;
+import org.seasar.kuina.dao.it.findall.dao.AbstractManyToOneOwnerDaoTest;
 
 /**
  * 
  * @author Hidenoshin Yoshida
  */
-public class TopLinkManyToOneOwnerTest extends AbstractManyToOneOwnerTest {
+public class TopLinkManyToOneOwnerDaoTest extends AbstractManyToOneOwnerDaoTest {
 
 }
