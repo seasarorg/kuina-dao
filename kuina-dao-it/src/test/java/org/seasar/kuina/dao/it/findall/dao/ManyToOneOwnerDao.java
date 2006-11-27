@@ -13,12 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.dao;
+package org.seasar.kuina.dao.it.findall.dao;
+
+import java.util.List;
+
+import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 /**
  * 
  * @author nakamura
  */
-public interface OneToOneInverseDao {
+public interface ManyToOneOwnerDao {
+
+    List<ManyToOneOwner> findAll();
 
 }

@@ -13,12 +13,32 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.dao;
+package org.seasar.kuina.dao.it.basic.dao;
+
+import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 /**
  * 
  * @author nakamura
  */
-public interface ManyToManyOwnerDao {
+public interface OneToManyInverseDao {
+
+    OneToManyInverse find(int id);
+
+    OneToManyInverse get(int id);
+
+    void persist(OneToManyInverse inverse);
+
+    void remove(OneToManyInverse inverse);
+
+    boolean contains(OneToManyInverse inverse);
+
+    void refresh(OneToManyInverse inverse);
+
+    OneToManyInverse merge(OneToManyInverse inverse);
+
+    void readLock(OneToManyInverse inverse);
+
+    void writeLock(OneToManyInverse inverse);
 
 }

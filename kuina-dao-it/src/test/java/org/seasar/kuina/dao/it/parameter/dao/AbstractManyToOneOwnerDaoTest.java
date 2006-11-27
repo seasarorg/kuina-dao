@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.query.parameter;
+package org.seasar.kuina.dao.it.parameter.dao;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,7 +23,6 @@ import javax.persistence.EntityManager;
 
 import org.seasar.extension.dxo.DateUtil;
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.it.dao.ManyToOneOwnerDao;
 import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
@@ -33,7 +32,7 @@ import org.seasar.kuina.dao.it.entity.SalaryRate;
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
+public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
 
     private EntityManager em;
 

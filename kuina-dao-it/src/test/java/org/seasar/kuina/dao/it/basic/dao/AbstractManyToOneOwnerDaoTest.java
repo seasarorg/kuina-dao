@@ -13,12 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.basic;
+package org.seasar.kuina.dao.it.basic.dao;
 
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.it.dao.ManyToOneOwnerDao;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
@@ -26,7 +25,7 @@ import org.seasar.kuina.dao.it.entity.OneToManyInverse;
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneOwnerTest extends S2TestCase {
+public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
 
     private EntityManager em;
 

@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.dao;
+package org.seasar.kuina.dao.it.parameter.dao;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -30,40 +30,6 @@ import org.seasar.kuina.dao.it.entity.SalaryRate;
  */
 public interface ManyToOneOwnerDao {
 
-    // Basic
-    ManyToOneOwner find(int id);
-
-    ManyToOneOwner get(int id);
-
-    void persist(ManyToOneOwner owner);
-
-    void remove(ManyToOneOwner owner);
-
-    boolean contains(ManyToOneOwner owner);
-
-    void refresh(ManyToOneOwner owner);
-
-    ManyToOneOwner merge(ManyToOneOwner owner);
-
-    void readLock(ManyToOneOwner owner);
-
-    void writeLock(ManyToOneOwner owner);
-
-    // Find All Query
-    List<ManyToOneOwner> findAll();
-
-    // Query by Example
-    List<ManyToOneOwner> findByExample(ManyToOneOwner owner);
-
-    List<ManyToOneOwner> findByExampleOrderby(ManyToOneOwner owner,
-            String[] orderby);
-
-    List<ManyToOneOwner> findByExamplePaging(ManyToOneOwner owner,
-            int firstResult, int maxResults);
-
-    // Query by DTO
-
-    // Query by Parameter
     List<ManyToOneOwner> findByBloodType(String... bloodType_IN);
 
     List<ManyToOneOwner> findByNameBloodType(String name, String bloodType);
@@ -99,9 +65,4 @@ public interface ManyToOneOwnerDao {
 
     List<ManyToOneOwner> findByRetiredFlag(Boolean retired);
 
-    // Named Query
-
-    // SQL Query
-
-    // Conditional Query
 }

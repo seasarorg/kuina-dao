@@ -13,12 +13,24 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.dao;
+package org.seasar.kuina.dao.it.example.dao;
+
+import java.util.List;
+
+import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 /**
  * 
  * @author nakamura
  */
-public interface ManyToManyInverseDao {
+public interface ManyToOneOwnerDao {
+
+    List<ManyToOneOwner> findByExample(ManyToOneOwner owner);
+
+    List<ManyToOneOwner> findByExampleOrderby(ManyToOneOwner owner,
+            String[] orderby);
+
+    List<ManyToOneOwner> findByExamplePaging(ManyToOneOwner owner,
+            int firstResult, int maxResults);
 
 }
