@@ -15,10 +15,14 @@
  */
 package org.seasar.kuina.dao.it.findall.dao;
 
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
+
 /**
  * 
  * @author nakamura
  */
+@RunWith(Seasar2.class)
 public class HibernateManyToOneOwnerDaoTest extends
 		AbstractManyToOneOwnerDaoTest {
 
