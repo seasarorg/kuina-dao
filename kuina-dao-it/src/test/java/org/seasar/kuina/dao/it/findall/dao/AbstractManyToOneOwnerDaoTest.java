@@ -17,24 +17,20 @@ package org.seasar.kuina.dao.it.findall.dao;
 
 import java.util.List;
 
-import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
+public abstract class AbstractManyToOneOwnerDaoTest {
 
     private ManyToOneOwnerDao ownerDao;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        include("kuina-dao.dicon");
-    }
-
-    public void testFindAllTx() throws Exception {
+    public void findAll() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findAll();
         assertNotNull(list);
         assertEquals(30, list.size());

@@ -19,26 +19,22 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import org.seasar.extension.unit.S2TestCase;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 import org.seasar.kuina.dao.it.entity.SalaryRate;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
+public abstract class AbstractManyToOneOwnerDaoTest {
 
     private ManyToOneOwnerDao ownerDao;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        include("kuina-dao.dicon");
-    }
-
-    public void testFindByExampleStringTx() throws Exception {
+    public void findByExampleString() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setName("simagoro");
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
@@ -47,7 +43,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("simagoro", list.get(0).getName());
     }
 
-    public void testFindByExampleDateTx() throws Exception {
+    public void findByExampleDate() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBirthday(new SimpleDateFormat("yyyy-MM-dd")
                 .parse("1953-10-01"));
@@ -57,7 +53,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("simagoro", list.get(0).getName());
     }
 
-    public void testFindByExampleEntityTx() throws Exception {
+    public void findByExampleEntity() throws Exception {
         OneToManyInverse dept = new OneToManyInverse();
         dept.setName("Personnel");
         ManyToOneOwner owner = new ManyToOneOwner();
@@ -70,7 +66,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("monchi", list.get(2).getName());
     }
 
-    public void testFindByExampleEnumTx() throws Exception {
+    public void findByExampleEnum() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setSalaryRate(SalaryRate.MANAGER);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
@@ -81,7 +77,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("ma", list.get(2).getName());
     }
 
-    public void testFindByExampleBooleanTx() throws Exception {
+    public void findByExampleBoolean() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setRetired(true);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
@@ -90,7 +86,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("gochin", list.get(0).getName());
     }
 
-    public void testFindByExampleCalendarTx() throws Exception {
+    public void findByExampleCalendar() throws Exception {
         Calendar date = Calendar.getInstance();
         date.set(Calendar.YEAR, 1998);
         date.set(Calendar.MONTH, 0);
@@ -103,7 +99,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("maki", list.get(0).getName());
     }
 
-    public void testFindByExampleSqlDateTx() throws Exception {
+    public void findByExampleSqlDate() throws Exception {
         java.sql.Date date = java.sql.Date.valueOf("1984-04-01");
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setEmploymentDate(date);
@@ -117,7 +113,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("coo", list.get(4).getName());
     }
 
-    public void testFindByExampleSqlTimeTx() throws Exception {
+    public void findByExampleSqlTime() throws Exception {
         java.sql.Time time = java.sql.Time.valueOf("08:00:00");
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBirthTime(time);
@@ -129,7 +125,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("mikel", list.get(2).getName());
     }
 
-    public void testFindByExampleSqlTimestampTx() throws Exception {
+    public void findByExampleSqlTimestamp() throws Exception {
         java.sql.Timestamp timestamp = java.sql.Timestamp
                 .valueOf("1959-09-03 08:00:00");
         ManyToOneOwner owner = new ManyToOneOwner();
@@ -140,7 +136,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("minami", list.get(0).getName());
     }
 
-    public void testFindByExampleNumberTx() throws Exception {
+    public void findByExampleNumber() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setWeight(50);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
@@ -150,7 +146,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("tasuke", list.get(1).getName());
     }
 
-    public void testFindByExampleOrderbyTx() throws Exception {
+    public void findByExampleOrderby() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBloodType("AB");
         List<ManyToOneOwner> list = ownerDao.findByExampleOrderby(owner,
@@ -162,7 +158,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("mikel", list.get(2).getName());
     }
 
-    public void testFindByExampleOrderby2Tx() throws Exception {
+    public void findByExampleOrderby2() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBloodType("A");
         List<ManyToOneOwner> list = ownerDao.findByExampleOrderby(owner,
@@ -182,7 +178,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("coo", list.get(10).getName());
     }
 
-    public void testFindByExamplePagingTx() throws Exception {
+    public void findByExamplePaging() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBloodType("A");
         List<ManyToOneOwner> list = ownerDao.findByExamplePaging(owner, -1, -1);
@@ -191,7 +187,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("simagoro", list.get(0).getName());
     }
 
-    public void testFindByExamplePaging2Tx() throws Exception {
+    public void findByExamplePaging2() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBloodType("A");
         List<ManyToOneOwner> list = ownerDao.findByExamplePaging(owner, 1, -1);
@@ -200,7 +196,7 @@ public abstract class AbstractManyToOneOwnerDaoTest extends S2TestCase {
         assertEquals("michiro", list.get(0).getName());
     }
 
-    public void testFindByExamplePaging3Tx() throws Exception {
+    public void findByExamplePaging3() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBloodType("A");
         List<ManyToOneOwner> list = ownerDao.findByExamplePaging(owner, 5, 5);
