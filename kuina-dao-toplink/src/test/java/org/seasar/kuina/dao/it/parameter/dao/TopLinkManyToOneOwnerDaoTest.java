@@ -15,10 +15,14 @@
  */
 package org.seasar.kuina.dao.it.parameter.dao;
 
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
+
 /**
  * 
  * @author Hidenoshin Yoshida
  */
+@RunWith(Seasar2.class)
 public class TopLinkManyToOneOwnerDaoTest extends AbstractManyToOneOwnerDaoTest {
 
 }
