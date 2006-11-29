@@ -40,8 +40,6 @@ public interface ManyToOneOwnerDao {
     List<ManyToOneOwner> findByBloodTypePaging(String bloodType,
             int firstResult, int maxResults);
 
-    List<ManyToOneOwner> findByInverseName(String oneToManyInverse$name);
-
     List<ManyToOneOwner> findByBirthday(Date birthday_GE);
 
     List<ManyToOneOwner> findByWeddingDay(Calendar weddingDay);

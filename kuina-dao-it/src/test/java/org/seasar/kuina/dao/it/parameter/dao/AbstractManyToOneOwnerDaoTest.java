@@ -100,15 +100,6 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertEquals("coo", list.get(10).getName());
     }
 
-    public void findByInverseName() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByInverseName("Personnel");
-        assertNotNull(list);
-        assertEquals(3, list.size());
-        assertEquals("nekomaru", list.get(0).getName());
-        assertEquals("nyantaro", list.get(1).getName());
-        assertEquals("monchi", list.get(2).getName());
-    }
-
     public void findByBirthday() throws Exception {
         Date date = DateUtil.newDate(1983, 1, 1);
         List<ManyToOneOwner> list = ownerDao.findByBirthday(date);
