@@ -42,36 +42,48 @@ public class OneToManyInverse {
     @SuppressWarnings("unused")
     @Version
     private Integer version;
-    
+
     @OneToMany(mappedBy = "oneToManyInverse")
     private Collection<ManyToOneOwner> manyToOneOwners;
+
+    @OneToMany(mappedBy = "subOneToManyInverse")
+    private Collection<ManyToOneOwner> subManyToOneOwners;
 
     public OneToManyInverse() {
     }
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Collection<ManyToOneOwner> getManyToOneOwners() {
-		return manyToOneOwners;
-	}
+    public Collection<ManyToOneOwner> getManyToOneOwners() {
+        return manyToOneOwners;
+    }
 
-	public void setManyToOneOwners(Collection<ManyToOneOwner> manyToOneOwners) {
-		this.manyToOneOwners = manyToOneOwners;
-	}
+    public void setManyToOneOwners(Collection<ManyToOneOwner> manyToOneOwners) {
+        this.manyToOneOwners = manyToOneOwners;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Collection<ManyToOneOwner> getSubManyToOneOwners() {
+        return subManyToOneOwners;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setSubManyToOneOwners(
+            Collection<ManyToOneOwner> subManyToOneOwners) {
+        this.subManyToOneOwners = subManyToOneOwners;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object other) {

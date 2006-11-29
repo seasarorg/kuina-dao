@@ -60,9 +60,14 @@ public interface ManyToOneOwnerDao {
 
     List<ManyToOneOwner> findBySalaryRate(SalaryRate salaryRate);
 
+    List<ManyToOneOwner> findByRetiredFlag(Boolean retired);
+
     List<ManyToOneOwner> findByOneToManyInverse(
             OneToManyInverse oneToManyInverse);
 
-    List<ManyToOneOwner> findByRetiredFlag(Boolean retired);
+    List<ManyToOneOwner> findByOneToManyInverseName(String oneToManyInverse$name);
+
+    List<ManyToOneOwner> findByRelationship(
+            String oneToManyInverse$subManyToOneOwners$name);
 
 }

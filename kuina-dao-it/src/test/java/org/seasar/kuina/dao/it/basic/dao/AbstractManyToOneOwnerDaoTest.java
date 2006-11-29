@@ -48,6 +48,7 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         OneToManyInverse inverse = em.find(OneToManyInverse.class, 1);
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setOneToManyInverse(inverse);
+        owner.setSubOneToManyInverse(inverse);
         ownerDao.persist(owner);
         assertTrue(em.contains(owner));
         em.flush();

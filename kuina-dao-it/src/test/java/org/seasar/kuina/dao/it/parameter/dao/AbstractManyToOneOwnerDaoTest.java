@@ -204,6 +204,13 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertEquals("ma", list.get(2).getName());
     }
 
+    public void findByRetiredFlag() throws Exception {
+        List<ManyToOneOwner> list = ownerDao.findByRetiredFlag(true);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("gochin", list.get(0).getName());
+    }
+
     public void findByOneToManyInverse() throws Exception {
         OneToManyInverse inverse = em.find(OneToManyInverse.class, 3);
         List<ManyToOneOwner> list = ownerDao.findByOneToManyInverse(inverse);
@@ -214,10 +221,21 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertEquals("monchi", list.get(2).getName());
     }
 
-    public void findByRetiredFlag() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByRetiredFlag(true);
+    public void findByOneToManyInverseName() throws Exception {
+        List<ManyToOneOwner> list = ownerDao
+                .findByOneToManyInverseName("Personnel");
         assertNotNull(list);
-        assertEquals(1, list.size());
-        assertEquals("gochin", list.get(0).getName());
+        assertEquals(3, list.size());
+        assertEquals("nekomaru", list.get(0).getName());
+        assertEquals("nyantaro", list.get(1).getName());
+        assertEquals("monchi", list.get(2).getName());
+    }
+
+    public void findByRelationship() throws Exception {
+        List<ManyToOneOwner> list = ownerDao.findByRelationship("simagoro");
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("goma", list.get(0).getName());
+        assertEquals("panda", list.get(1).getName());
     }
 }

@@ -81,6 +81,9 @@ public class ManyToOneOwner {
     @ManyToOne(fetch = FetchType.LAZY)
     private OneToManyInverse oneToManyInverse;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OneToManyInverse subOneToManyInverse;
+
     public ManyToOneOwner() {
     }
 
@@ -150,6 +153,14 @@ public class ManyToOneOwner {
 
     public void setOneToManyInverse(OneToManyInverse oneToManyInverse) {
         this.oneToManyInverse = oneToManyInverse;
+    }
+
+    public OneToManyInverse getSubOneToManyInverse() {
+        return subOneToManyInverse;
+    }
+
+    public void setSubOneToManyInverse(OneToManyInverse subOneToManyInverse) {
+        this.subOneToManyInverse = subOneToManyInverse;
     }
 
     public EmployeeStatus getEmployeeStatus() {
