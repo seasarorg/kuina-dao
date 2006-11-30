@@ -15,19 +15,25 @@
  */
 package org.seasar.kuina.dao.it.parameter.dao;
 
-import java.util.List;
-
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * 
  * @author nakamura
  */
-public interface OneToManyInverseDao {
+public abstract class AbstractOneToManyOwnerDaoTest {
 
-    OneToManyInverse findByManyToOneOwnerName(String manyToOneOwners$name);
+    protected OneToManyInverseDao dao;
 
-    List<OneToManyInverse> findByRelationship(
-            String manyToOneOwners$subOneToManyInverse$name);
+    public void findByManyToOneOwnerName() throws Exception {
+        OneToManyInverse inverse = dao.findByManyToOneOwnerName("simagoro");
+        assertNotNull(inverse);
+        assertEquals("Business", inverse.getName());
+    }
+
+    public abstract void findByRelationship() throws Exception;
 
 }
