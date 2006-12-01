@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd"
+	version="1.0"
+>
+	<named-query name="named.dao_ManyToOneOwner.updateRetiredFlagById">
+		<query>
+			UPDATE
+				ManyToOneOwner owner
+			SET
+				owner.retired = true
+			WHERE
+				owner.id = :id
+		</query>
+	</named-query>
+	<named-query name="named.dao_ManyToOneOwner.removeById">
+		<query>
+			DELETE
+			FROM
+				ManyToOneOwner owner
+			WHERE
+				owner.id = :id
+		</query>
+	</named-query>
+	
+	<named-query name="named.dao_ManyToOneOwner.findByName">
+		<query>
+			SELECT
+				owner
+			FROM
+				ManyToOneOwner owner
+			WHERE
+				owner.name = :ownerName
+		</query>
+	</named-query>
+	<named-query name="named.dao_ManyToOneOwner.findByBirthday">
+		<query>
+			SELECT
+				owner
+			FROM
+				ManyToOneOwner owner
+			WHERE
+				owner.birthday = ?1
+		</query>
+	</named-query>
+	<named-query name="named.dao_ManyToOneOwner.findByOneToManyInverseName">
+		<query>
+			SELECT
+				owner 
+			FROM
+				ManyToOneOwner owner
+					INNER JOIN owner.oneToManyInverse inverse
+			WHERE
+				inverse.name = :name
+		</query>
+	</named-query>
+	<named-query name="named.dao_ManyToOneOwner.getName">
+		<query>
+			SELECT
+				owner.name
+			FROM
+				ManyToOneOwner owner
+			WHERE
+				owner.id = :id
+		</query>
+	</named-query>
+
+	<named-native-query name="named.dao_ManyToOneOwner.getCount" result-set-mapping="getCount">
+		<query>
+			SELECT
+				COUNT(*) AS cnt
+			FROM
+				ManyToOneOwner owner
+		</query>
+	</named-native-query>
+	<named-native-query name="named.dao_ManyToOneOwner.getCountByBloodType" result-set-mapping="getCount">
+		<query>
+			SELECT
+				COUNT(*) AS cnt
+			FROM
+				ManyToOneOwner owner
+			WHERE
+				owner.bloodType = ?1
+		</query>
+	</named-native-query>
+
+	<sql-result-set-mapping name="getCount">
+		<column-result name="cnt"/>
+	</sql-result-set-mapping>
+</entity-mappings>
