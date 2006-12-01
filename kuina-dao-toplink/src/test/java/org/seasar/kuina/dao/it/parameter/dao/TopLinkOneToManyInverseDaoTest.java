@@ -15,15 +15,8 @@
  */
 package org.seasar.kuina.dao.it.parameter.dao;
 
-import java.util.List;
-
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
-import org.seasar.kuina.dao.it.entity.OneToManyInverse;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * 
@@ -32,14 +25,5 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(Seasar2.class)
 public class TopLinkOneToManyInverseDaoTest extends
 		AbstractOneToManyOwnerDaoTest {
-
-	@Override
-	@Ignore("JPQLに明示的なJOINがないため例外が発生する")
-	public void findByRelationship() throws Exception {
-		List<OneToManyInverse> list = dao.findByRelationship("Personnel");
-		assertNotNull(list);
-		assertEquals(1, list.size());
-		assertEquals("General Administration", list.get(0).getName());
-	}
 
 }
