@@ -21,13 +21,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import javax.persistence.EntityManager;
 import javax.persistence.TemporalType;
 
+import org.seasar.extension.dao.helper.DaoHelper;
+import org.seasar.extension.tx.annotation.RequiresNewTx;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.convention.NamingConvention;
+import org.seasar.framework.jpa.EntityManagerProvider;
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
+import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.ClassUtil;
 import org.seasar.kuina.dao.PositionalParameter;
+import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.TargetEntity;
 import org.seasar.kuina.dao.TemporalSpec;
 import org.seasar.kuina.dao.internal.CommandBuilder;
@@ -42,8 +50,17 @@ import org.seasar.kuina.dao.internal.binder.ParameterBinder;
  */
 public abstract class AbstractCommandBuilder implements CommandBuilder {
 
+    private static final Logger logger = Logger
+            .getLogger(AbstractCommandBuilder.class);
+
     @Binding(bindingType = BindingType.MUST)
     protected NamingConvention convention;
+
+    @Binding(bindingType = BindingType.MUST)
+    protected DaoHelper daoHelper;
+
+    @Binding(bindingType = BindingType.MUST)
+    protected EntityManagerProvider entityManagerProvider;
 
     protected Pattern methodNamePattern;
 
@@ -184,6 +201,40 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
             }
         }
         return TemporalType.DATE;
+    }
+
+    protected String getQueryName(final Class<?> daoClass, final Method method) {
+        final QueryName queryName = method.getAnnotation(QueryName.class);
+        if (queryName != null) {
+            return queryName.value();
+        }
+
+        final Class<?> targetClass = getTargetClass(daoClass, method);
+        if (targetClass != null) {
+            final EntityDesc entityDesc = EntityDescFactory
+                    .getEntityDesc(targetClass);
+            if (entityDesc != null) {
+                return entityDesc.getEntityName() + "." + method.getName();
+            }
+        }
+
+        return null;
+    }
+
+    @RequiresNewTx
+    public boolean isExists(final Class<?> daoClass, final String queryName) {
+        try {
+            final String prefix = daoHelper.getDataSourceName(daoClass);
+            final EntityManager em = entityManagerProvider
+                    .getEntityManger(prefix);
+            em.createNamedQuery(queryName);
+            if (logger.isDebugEnabled()) {
+                logger.log("DKuinaDao3002", new Object[] { queryName });
+            }
+            return true;
+        } catch (final Exception ignore) {
+        }
+        return false;
     }
 
 }

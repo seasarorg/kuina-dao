@@ -34,8 +34,6 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
 
     protected DialectManager dialectManager;
 
-    protected DaoHelper daoHelper;
-
     protected ResultSetFactory resultSetFactory;
 
     protected StatementFactory statementFactory;
