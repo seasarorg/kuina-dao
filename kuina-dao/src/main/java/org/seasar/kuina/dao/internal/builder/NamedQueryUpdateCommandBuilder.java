@@ -105,7 +105,7 @@ public class NamedQueryUpdateCommandBuilder extends AbstractCommandBuilder {
                     .getEntityManger(prefix);
             em.createNamedQuery(queryName);
             if (logger.isDebugEnabled()) {
-                logger.log("DKuinaDao2002", new Object[] { queryName });
+                logger.log("DKuinaDao3002", new Object[] { queryName });
             }
             return true;
         } catch (final Exception ignore) {
