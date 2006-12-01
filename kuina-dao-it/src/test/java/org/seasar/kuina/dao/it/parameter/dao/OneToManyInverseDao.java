@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.parameter.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 /**
@@ -27,6 +28,7 @@ public interface OneToManyInverseDao {
 
     OneToManyInverse findByManyToOneOwnerName(String manyToOneOwners$name);
 
+    @Distinct
     List<OneToManyInverse> findByRelationship(
             String manyToOneOwners$subOneToManyInverse$name);
 
