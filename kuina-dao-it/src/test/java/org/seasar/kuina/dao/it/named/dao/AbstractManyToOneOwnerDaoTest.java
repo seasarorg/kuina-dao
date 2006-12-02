@@ -39,7 +39,7 @@ public abstract class AbstractManyToOneOwnerDaoTest {
     private ManyToOneOwnerDao ownerDao;
 
     public void updateRtiredFlagById() throws Exception {
-        ownerDao.updateRetiredFlagById(1);
+        ownerDao.updateRetiredFlagById(1, true);
         ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
         assertTrue(owner.isRetired());
     }

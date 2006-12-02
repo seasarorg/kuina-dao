@@ -10,7 +10,7 @@
 			UPDATE
 				ManyToOneOwner owner
 			SET
-				owner.retired = true
+				owner.retired = :retired
 			WHERE
 				owner.id = :id
 		</query>

@@ -29,7 +29,7 @@ import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 public interface ManyToOneOwnerDao {
 
     @QueryName("named.dao_ManyToOneOwner.updateRetiredFlagById")
-    void updateRetiredFlagById(Integer id);
+    void updateRetiredFlagById(Integer id, boolean retired);
 
     @QueryName("named.dao_ManyToOneOwner.removeById")
     void removeById(Integer id);
