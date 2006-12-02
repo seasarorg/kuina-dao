@@ -2,7 +2,7 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
 	"http://www.seasar.org/dtd/components24.dtd">
 <components namespace="kuinaDao">
-	<include path="jpa-support.dicon"/>
+	<include path="jpa.dicon"/>
 	<include path="kuina-dao-builder.dicon"/>
 
 	<component name="interceptor"
