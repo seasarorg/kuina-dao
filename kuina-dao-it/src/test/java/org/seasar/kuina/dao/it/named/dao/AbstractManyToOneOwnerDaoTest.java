@@ -20,7 +20,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.dxo.DateUtil;
-import org.seasar.kuina.dao.PositionalParameter;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 import static org.junit.Assert.assertEquals;
@@ -84,7 +83,6 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertEquals(30, count);
     }
 
-    @PositionalParameter
     public void getCountByBloodType() throws Exception {
         int count = ownerDao.getCountByBloodType("AB");
         assertEquals(3, count);
