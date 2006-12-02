@@ -88,7 +88,8 @@ public abstract class AbstractQueryCommandBuilder extends
             return ReflectionUtil.getElementTypeOfList(method
                     .getGenericReturnType());
         }
-        return method.getReturnType();
+        final Class<?> returnType = method.getReturnType();
+        return returnType == void.class ? null : returnType;
     }
 
     @Override

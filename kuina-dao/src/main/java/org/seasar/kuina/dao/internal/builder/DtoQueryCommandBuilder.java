@@ -53,7 +53,7 @@ public class DtoQueryCommandBuilder extends AbstractDynamicQueryCommandBuilder {
                 beanDesc.getPropertyDescSize());
         for (int i = 0; i < beanDesc.getPropertyDescSize(); ++i) {
             final PropertyDesc propertyDesc = beanDesc.getPropertyDesc(i);
-            if (propertyDesc.hasWriteMethod()) {
+            if (propertyDesc.hasReadMethod()) {
                 getterMethods.add(propertyDesc.getReadMethod());
                 builders.add(ConditionalExpressionBuilderFactory.createBuilder(
                         entityClass, propertyDesc.getPropertyName(),

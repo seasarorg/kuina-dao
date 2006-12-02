@@ -148,7 +148,7 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
                     .cast(value))));
         } else if (Boolean.class.isAssignableFrom(type)) {
             statement.where(eq(path, parameter(parameterName, Boolean.class
-                    .cast(value))));
+                    .cast(value).booleanValue())));
         } else if (java.sql.Date.class.isAssignableFrom(type)) {
             statement.where(eq(path, parameter(parameterName,
                     java.sql.Date.class.cast(value))));
