@@ -21,7 +21,6 @@ import org.seasar.kuina.dao.criteria.Criterion;
  * 
  * @author koichik
  */
-public interface FunctionReturningStrings extends Criterion, ArithmeticPrimary,
-        StringPrimary, DatetimePrimary {
+public interface FunctionReturningStrings extends Criterion, StringPrimary {
 
 }

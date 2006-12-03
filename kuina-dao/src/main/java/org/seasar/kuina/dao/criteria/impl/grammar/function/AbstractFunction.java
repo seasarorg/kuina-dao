@@ -63,7 +63,9 @@ public class AbstractFunction {
             argument.evaluate(context);
             context.append(", ");
         }
-        context.cutBack(2);
+        if (!arguments.isEmpty()) {
+            context.cutBack(2);
+        }
         context.append(")");
     }
 }
