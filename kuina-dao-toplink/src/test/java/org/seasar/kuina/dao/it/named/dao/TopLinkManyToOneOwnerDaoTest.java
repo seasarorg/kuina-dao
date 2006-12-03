@@ -17,14 +17,12 @@ package org.seasar.kuina.dao.it.named.dao;
 
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
-import org.seasar.framework.unit.annotation.Prerequisite;
 
 /**
  * 
  * @author nakamura
  */
 @RunWith(Seasar2.class)
-@Prerequisite("'DAOメソッドの戻り値がEntity以外のものを含むとうまく動かないのでスキップ', false")
 public class TopLinkManyToOneOwnerDaoTest extends AbstractManyToOneOwnerDaoTest {
 
 }
