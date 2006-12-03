@@ -87,6 +87,6 @@
 	</named-native-query>
 
 	<sql-result-set-mapping name="getCount">
-		<column-result name="cnt"/>
+		<column-result name="CNT"/>
 	</sql-result-set-mapping>
 </entity-mappings>
