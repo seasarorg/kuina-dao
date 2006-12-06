@@ -49,7 +49,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.lower;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.lt;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.minus;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.mod;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.mutiply;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.multiply;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.ne;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.not;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.or;
@@ -105,19 +105,17 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertEquals(30, list.size());
     }
 
-    // スペルミス mutiply -> multiply
     public void _multiply() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByCondition(eq(mutiply(
+        List<ManyToOneOwner> list = ownerDao.findByCondition(eq(multiply(
                 "manyToOneOwner.weight", "manyToOneOwner.height"), 12096));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
     }
 
-    // スペルミス mutiply -> multiply
     public void _multiply2() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByCondition(eq(mutiply(50, 3),
-                150));
+        List<ManyToOneOwner> list = ownerDao.findByCondition(eq(
+                multiply(50, 3), 150));
         assertNotNull(list);
         assertEquals(30, list.size());
     }
