@@ -25,8 +25,6 @@ import org.seasar.kuina.dao.entity.Employee;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
 
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
-
 /**
  * 
  * @author koichik
@@ -111,12 +109,10 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 Employee.class,
                 true,
                 false,
-                new IdentificationVariableDeclarationImpl(Employee.class)
-                        .inner(path("employee.belongTo")).inner(
-                                path("belongTo.department")),
-                new String[] { "department$name" },
+                new IdentificationVariableDeclarationImpl(Employee.class),
+                new String[] { "belongTo$department$name" },
                 ConditionalExpressionBuilderFactory
-                        .createBuilders(Employee.class, new String[] {"department$name"}, new Class<?>[] {String.class}));
+                        .createBuilders(Employee.class, new String[] {"belongTo$department$name"}, new Class<?>[] {String.class}));
         List<Employee> list = (List) command.execute(em, new Object[] { "営業" });
         assertNotNull(list);
         assertEquals(5, list.size());
