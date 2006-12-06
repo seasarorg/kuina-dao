@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.EnumType;
 import javax.persistence.TemporalType;
 
 import org.seasar.kuina.dao.OrderingSpec;
@@ -155,6 +156,11 @@ public abstract class CriteriaOperations {
 
     public static EnumLiteral literal(final Enum literal) {
         return new EnumLiteralImpl(literal);
+    }
+
+    public static EnumLiteral literal(final Enum literal,
+            final EnumType enumType) {
+        return new EnumLiteralImpl(literal, enumType);
     }
 
     public static StringLiteral[] literal(final String... literal) {
@@ -1219,22 +1225,22 @@ public abstract class CriteriaOperations {
         return new Subtraction(lhs, rhs);
     }
 
-    public static SimpleArithmeticExpression mutiply(final String lhs,
+    public static SimpleArithmeticExpression multiply(final String lhs,
             final String rhs) {
         return multiply(path(lhs), path(rhs));
     }
 
-    public static SimpleArithmeticExpression mutiply(final String lhs,
+    public static SimpleArithmeticExpression multiply(final String lhs,
             final Number rhs) {
         return multiply(path(lhs), literal(rhs));
     }
 
-    public static SimpleArithmeticExpression mutiply(final Number lhs,
+    public static SimpleArithmeticExpression multiply(final Number lhs,
             final String rhs) {
         return multiply(literal(lhs), path(rhs));
     }
 
-    public static SimpleArithmeticExpression mutiply(final Number lhs,
+    public static SimpleArithmeticExpression multiply(final Number lhs,
             final Number rhs) {
         return multiply(literal(lhs), literal(rhs));
     }

@@ -58,14 +58,15 @@ public class AbstractFunction {
     }
 
     public void evaluate(final CriteriaContext context) {
-        context.append(functor).append("(");
-        for (final Criterion argument : arguments) {
-            argument.evaluate(context);
-            context.append(", ");
-        }
+        context.append(functor);
         if (!arguments.isEmpty()) {
+            context.append("(");
+            for (final Criterion argument : arguments) {
+                argument.evaluate(context);
+                context.append(", ");
+            }
             context.cutBack(2);
+            context.append(")");
         }
-        context.append(")");
     }
 }

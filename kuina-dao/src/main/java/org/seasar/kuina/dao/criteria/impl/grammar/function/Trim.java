@@ -28,8 +28,6 @@ import org.seasar.kuina.dao.criteria.grammar.TrimSpecification;
 public class Trim implements FunctionReturningStrings {
     public static final char DEFAULT_TRIM_CHARACTER = ' ';
 
-    public static final TrimSpecification DEFAULT_TRIM_SPECIFICATION = TrimSpecification.BOTH;
-
     protected final TrimSpecification trimSpecificatin;
 
     protected final char trimCharacter;
@@ -40,7 +38,7 @@ public class Trim implements FunctionReturningStrings {
      * インスタンスを構築します。
      */
     public Trim(final StringPrimary trimSource) {
-        this(DEFAULT_TRIM_SPECIFICATION, DEFAULT_TRIM_CHARACTER, trimSource);
+        this(null, DEFAULT_TRIM_CHARACTER, trimSource);
     }
 
     public Trim(final TrimSpecification trimSpecification,
@@ -49,15 +47,11 @@ public class Trim implements FunctionReturningStrings {
     }
 
     public Trim(final char trimCharacter, final StringPrimary trimSource) {
-        this(DEFAULT_TRIM_SPECIFICATION, trimCharacter, trimSource);
+        this(null, trimCharacter, trimSource);
     }
 
     public Trim(final TrimSpecification trimSpecification,
             final char trimCharacter, final StringPrimary trimSource) {
-        if (trimSpecification == null) {
-            throw new SIllegalArgumentException("EKuinaDao0001",
-                    new Object[] { "trimSpecification" });
-        }
         if (trimSource == null) {
             throw new SIllegalArgumentException("EKuinaDao0001",
                     new Object[] { "trimSource" });
@@ -69,14 +63,13 @@ public class Trim implements FunctionReturningStrings {
 
     public void evaluate(final CriteriaContext context) {
         context.append("TRIM(");
-        if (DEFAULT_TRIM_SPECIFICATION != trimSpecificatin) {
-            context.append(trimSpecificatin).append(" ");
+        if (trimSpecificatin != null) {
+            context.append(trimSpecificatin.name()).append(" ");
         }
         if (DEFAULT_TRIM_CHARACTER != trimCharacter) {
-            context.append(trimCharacter).append(" ");
+            context.append("'").append(trimCharacter).append("'").append(" ");
         }
-        if (DEFAULT_TRIM_SPECIFICATION != trimSpecificatin
-                || DEFAULT_TRIM_CHARACTER != trimCharacter) {
+        if (trimSpecificatin != null || DEFAULT_TRIM_CHARACTER != trimCharacter) {
             context.append("FROM ");
         }
         trimSource.evaluate(context);

@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.EnumType;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
@@ -92,7 +93,15 @@ public class CriteriaContextImpl implements CriteriaContext {
     }
 
     public CriteriaContext append(final Enum e) {
-        stringBuilder.append(e.name());
+        return append(e, EnumType.ORDINAL);
+    }
+
+    public CriteriaContext append(final Enum e, EnumType enumType) {
+        if (enumType == EnumType.ORDINAL) {
+            stringBuilder.append(e.ordinal());
+        } else {
+            stringBuilder.append("'").append(e.name()).append("'");
+        }
         return this;
     }
 
