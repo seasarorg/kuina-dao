@@ -18,7 +18,6 @@ package org.seasar.kuina.dao.criteria;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.persistence.EnumType;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
@@ -47,8 +46,6 @@ public interface CriteriaContext {
     CriteriaContext append(String s);
 
     CriteriaContext append(Enum e);
-
-    CriteriaContext append(Enum e, EnumType enumType);
 
     CriteriaContext append(Object o);
 
