@@ -17,8 +17,6 @@ package org.seasar.kuina.dao.it.conditional.dao;
 
 import java.util.List;
 
-import javax.persistence.EnumType;
-
 import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.SalaryRate;
@@ -191,8 +189,7 @@ public abstract class AbstractManyToOneOwnerDaoTest {
 
     public void _eq_enum_string() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findByCondition(eq(
-                "manyToOneOwner.salaryRate", literal(SalaryRate.MANAGER,
-                        EnumType.STRING)));
+                "manyToOneOwner.salaryRate", literal(SalaryRate.MANAGER)));
         assertNotNull(list);
         assertEquals(3, list.size());
         assertNotNull("maki", list.get(0).getName());
