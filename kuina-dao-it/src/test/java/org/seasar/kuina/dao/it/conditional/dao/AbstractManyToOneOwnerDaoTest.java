@@ -17,8 +17,11 @@ package org.seasar.kuina.dao.it.conditional.dao;
 
 import java.util.List;
 
+import javax.persistence.EnumType;
+
 import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
+import org.seasar.kuina.dao.it.entity.SalaryRate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -168,7 +171,7 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertNotNull("gochin", list.get(0).getName());
     }
 
-    public void _eq_enum() throws Exception {
+    public void _eq_enum_ordinal() throws Exception {
         List<ManyToOneOwner> list = ownerDao.findByCondition(eq(
                 "manyToOneOwner.employeeStatus",
                 literal(EmployeeStatus.FULL_TIME)));
@@ -184,6 +187,17 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertNotNull("tonton", list.get(7).getName());
         assertNotNull("usa", list.get(8).getName());
         assertNotNull("mikel", list.get(9).getName());
+    }
+
+    public void _eq_enum_string() throws Exception {
+        List<ManyToOneOwner> list = ownerDao.findByCondition(eq(
+                "manyToOneOwner.salaryRate", literal(SalaryRate.MANAGER,
+                        EnumType.STRING)));
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertNotNull("maki", list.get(0).getName());
+        assertNotNull("nekomaru", list.get(1).getName());
+        assertNotNull("ma", list.get(2).getName());
     }
 
     public void _eq_entity() throws Exception {

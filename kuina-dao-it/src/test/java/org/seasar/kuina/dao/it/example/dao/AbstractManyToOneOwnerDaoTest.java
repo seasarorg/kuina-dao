@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 import org.seasar.kuina.dao.it.entity.SalaryRate;
@@ -66,7 +67,25 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         assertEquals("monchi", list.get(2).getName());
     }
 
-    public void findByExampleEnum() throws Exception {
+    public void findByExampleEnumOrdinal() throws Exception {
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setEmployeeStatus(EmployeeStatus.FULL_TIME);
+        List<ManyToOneOwner> list = ownerDao.findByExample(owner);
+        assertNotNull(list);
+        assertEquals(10, list.size());
+        assertNotNull("simagoro", list.get(0).getName());
+        assertNotNull("maru", list.get(1).getName());
+        assertNotNull("sara", list.get(2).getName());
+        assertNotNull("pko", list.get(3).getName());
+        assertNotNull("nekomaru", list.get(4).getName());
+        assertNotNull("piyo", list.get(5).getName());
+        assertNotNull("gon", list.get(6).getName());
+        assertNotNull("tonton", list.get(7).getName());
+        assertNotNull("usa", list.get(8).getName());
+        assertNotNull("mikel", list.get(9).getName());
+    }
+
+    public void findByExampleEnumString() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setSalaryRate(SalaryRate.MANAGER);
         List<ManyToOneOwner> list = ownerDao.findByExample(owner);
