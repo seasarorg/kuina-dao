@@ -66,6 +66,7 @@ import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Avg;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Count;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Max;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Min;
+import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Sum;
 import org.seasar.kuina.dao.criteria.impl.grammar.conditional.And;
 import org.seasar.kuina.dao.criteria.impl.grammar.conditional.Or;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
@@ -233,12 +234,28 @@ public abstract class CriteriaOperations {
         return new Count(path);
     }
 
+    public static AggregateExpression countDistinct(final String path) {
+        return countDistinct(path(path));
+    }
+
+    public static AggregateExpression countDistinct(final PathExpression path) {
+        return new Count(true, path);
+    }
+
     public static AggregateExpression avg(final String path) {
         return avg(path(path));
     }
 
     public static AggregateExpression avg(final PathExpression path) {
         return new Avg(path);
+    }
+
+    public static AggregateExpression avgDistinct(final String path) {
+        return avgDistinct(path(path));
+    }
+
+    public static AggregateExpression avgDistinct(final PathExpression path) {
+        return new Avg(true, path);
     }
 
     public static AggregateExpression max(final String path) {
@@ -249,12 +266,44 @@ public abstract class CriteriaOperations {
         return new Max(path);
     }
 
+    public static AggregateExpression maxDistinct(final String path) {
+        return maxDistinct(path(path));
+    }
+
+    public static AggregateExpression maxDistinct(final PathExpression path) {
+        return new Max(true, path);
+    }
+
     public static AggregateExpression min(final String path) {
         return min(path(path));
     }
 
     public static AggregateExpression min(final PathExpression path) {
         return new Min(path);
+    }
+
+    public static AggregateExpression minDistinct(final String path) {
+        return minDistinct(path(path));
+    }
+
+    public static AggregateExpression minDistinct(final PathExpression path) {
+        return new Min(true, path);
+    }
+
+    public static AggregateExpression sum(final String path) {
+        return sum(path(path));
+    }
+
+    public static AggregateExpression sum(final PathExpression path) {
+        return new Sum(path);
+    }
+
+    public static AggregateExpression sumDistinct(final String path) {
+        return sumDistinct(path(path));
+    }
+
+    public static AggregateExpression sumDistinct(final PathExpression path) {
+        return new Sum(true, path);
     }
 
     public static IdentificationVariableDeclaration alias(
