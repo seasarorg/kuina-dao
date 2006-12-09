@@ -26,6 +26,9 @@ import org.seasar.kuina.dao.criteria.grammar.TrimSpecification;
  * @author koichik
  */
 public class Trim implements FunctionReturningStrings {
+
+    public static final TrimSpecification DEFAULT_TRIM_SPECIFICATION = TrimSpecification.BOTH;
+
     public static final char DEFAULT_TRIM_CHARACTER = ' ';
 
     protected final TrimSpecification trimSpecificatin;
@@ -38,7 +41,7 @@ public class Trim implements FunctionReturningStrings {
      * インスタンスを構築します。
      */
     public Trim(final StringPrimary trimSource) {
-        this(null, DEFAULT_TRIM_CHARACTER, trimSource);
+        this(DEFAULT_TRIM_SPECIFICATION, DEFAULT_TRIM_CHARACTER, trimSource);
     }
 
     public Trim(final TrimSpecification trimSpecification,
@@ -47,11 +50,15 @@ public class Trim implements FunctionReturningStrings {
     }
 
     public Trim(final char trimCharacter, final StringPrimary trimSource) {
-        this(null, trimCharacter, trimSource);
+        this(DEFAULT_TRIM_SPECIFICATION, trimCharacter, trimSource);
     }
 
     public Trim(final TrimSpecification trimSpecification,
             final char trimCharacter, final StringPrimary trimSource) {
+        if (trimSpecification == null) {
+            throw new SIllegalArgumentException("EKuinaDao0001",
+                    new Object[] { "trimSpecification" });
+        }
         if (trimSource == null) {
             throw new SIllegalArgumentException("EKuinaDao0001",
                     new Object[] { "trimSource" });
@@ -63,15 +70,9 @@ public class Trim implements FunctionReturningStrings {
 
     public void evaluate(final CriteriaContext context) {
         context.append("TRIM(");
-        if (trimSpecificatin != null) {
-            context.append(trimSpecificatin.name()).append(" ");
-        }
-        if (DEFAULT_TRIM_CHARACTER != trimCharacter) {
-            context.append("'").append(trimCharacter).append("'").append(" ");
-        }
-        if (trimSpecificatin != null || DEFAULT_TRIM_CHARACTER != trimCharacter) {
-            context.append("FROM ");
-        }
+        context.append(trimSpecificatin.name()).append(" ");
+        context.append("'").append(trimCharacter).append("'").append(" ");
+        context.append("FROM ");
         trimSource.evaluate(context);
         context.append(")");
     }
