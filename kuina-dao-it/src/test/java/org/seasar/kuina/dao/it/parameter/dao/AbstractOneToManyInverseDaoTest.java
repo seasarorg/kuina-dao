@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
  * 
  * @author nakamura
  */
-public abstract class AbstractOneToManyOwnerDaoTest {
+public abstract class AbstractOneToManyInverseDaoTest {
 
     protected OneToManyInverseDao dao;
 
