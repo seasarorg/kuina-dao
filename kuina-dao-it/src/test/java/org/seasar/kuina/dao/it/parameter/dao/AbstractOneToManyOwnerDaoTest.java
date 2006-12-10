@@ -17,7 +17,6 @@ package org.seasar.kuina.dao.it.parameter.dao;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 import static org.junit.Assert.assertEquals;
@@ -31,14 +30,12 @@ public abstract class AbstractOneToManyOwnerDaoTest {
 
     protected OneToManyInverseDao dao;
 
-    @Ignore("JPQLに明示的なJOINがないため例外が発生する")
     public void findByManyToOneOwnerName() throws Exception {
         OneToManyInverse inverse = dao.findByManyToOneOwnerName("simagoro");
         assertNotNull(inverse);
         assertEquals("Business", inverse.getName());
     }
 
-    @Ignore("JPQLに明示的なJOINがないため例外が発生する")
     public void findByRelationship() throws Exception {
         List<OneToManyInverse> list = dao.findByRelationship("Personnel");
         assertNotNull(list);
