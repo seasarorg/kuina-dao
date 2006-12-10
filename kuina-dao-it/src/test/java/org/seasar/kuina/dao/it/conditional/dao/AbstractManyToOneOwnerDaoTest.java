@@ -59,6 +59,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.plus;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.size;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.sqrt;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.substring;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.subtract;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.trim;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.upper;
@@ -409,6 +410,14 @@ public abstract class AbstractManyToOneOwnerDaoTest {
         List<ManyToOneOwner> list = ownerDao.findByCondition(eq(concat(
                 "manyToOneOwner.name", "manyToOneOwner.oneToManyInverse.name"),
                 literal("simagoroBusiness")));
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertNotNull("simagoro", list.get(0).getName());
+    }
+
+    public void _substring() throws Exception {
+        List<ManyToOneOwner> list = ownerDao.findByCondition(eq(substring(
+                "manyToOneOwner.name", 3, 5), literal("magor")));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
