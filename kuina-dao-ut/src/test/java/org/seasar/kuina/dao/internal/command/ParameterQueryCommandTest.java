@@ -20,10 +20,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.entity.Employee;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
+import org.seasar.kuina.dao.internal.condition.FirstResultBuilder;
+import org.seasar.kuina.dao.internal.condition.MaxResultsBuilder;
+import org.seasar.kuina.dao.internal.condition.OrderbyBuilder;
 
 /**
  * 
@@ -45,7 +47,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 Employee.class,
                 true,
                 false,
-                new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "name" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
                         .createBuilder(Employee.class, "name", String.class) });
@@ -61,7 +62,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 Employee.class,
                 true,
                 false,
-                new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "blootType_NE" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
                         .createBuilder(Employee.class, "bloodType_NE", String.class) });
@@ -76,7 +76,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 Employee.class,
                 true,
                 false,
-                new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "name_IN" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
                         .createBuilder(Employee.class, "name_IN", String[].class) });
@@ -89,8 +88,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testMultiParameterTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
-                true, false, new IdentificationVariableDeclarationImpl(
-                        Employee.class), new String[] { "name", "bloodType" },
+                true, false, new String[] { "name", "bloodType" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
                                 Employee.class, "name", String.class),
@@ -109,7 +107,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
                 Employee.class,
                 true,
                 false,
-                new IdentificationVariableDeclarationImpl(Employee.class),
                 new String[] { "belongTo$department$name" },
                 ConditionalExpressionBuilderFactory
                         .createBuilders(Employee.class, new String[] {"belongTo$department$name"}, new Class<?>[] {String.class}));
@@ -124,12 +121,13 @@ public class ParameterQueryCommandTest extends S2TestCase {
     }
 
     public void testOrderbyTx() throws Exception {
-        ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
-                true, false, new IdentificationVariableDeclarationImpl(
-                        Employee.class),
+        ParameterQueryCommand command = new ParameterQueryCommand(
+                Employee.class, true, false,
                 new String[] { "bloodType", "orderby" },
-                ConditionalExpressionBuilderFactory
-                .createBuilders(Employee.class, new String[] {"bloodType", "orderby"}, new Class<?>[] {String.class, int.class}));
+                new ConditionalExpressionBuilder[] {
+                        ConditionalExpressionBuilderFactory.createBuilder(
+                                Employee.class, "bloodType", String.class),
+                        new OrderbyBuilder(Employee.class) });
         List<Employee> list = (List) command.execute(em, new Object[] { "A",
                 new String[] { "height", "weight" } });
         assertNotNull(list);
@@ -148,12 +146,13 @@ public class ParameterQueryCommandTest extends S2TestCase {
     }
 
     public void testPagingTx() throws Exception {
-        ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
-                true, false, new IdentificationVariableDeclarationImpl(
-                        Employee.class), new String[] { "bloodType",
-                        "firstResult", "maxResults" },
-                        ConditionalExpressionBuilderFactory
-                        .createBuilders(Employee.class, new String[] {"bloodType", "firstResult", "maxResults"}, new Class<?>[] {String.class, int.class, int.class}));
+        ParameterQueryCommand command = new ParameterQueryCommand(
+                Employee.class, true, false,
+                new String[] { "bloodType", "firstResult", "maxResults" },
+                new ConditionalExpressionBuilder[] {
+                        ConditionalExpressionBuilderFactory.createBuilder(
+                                Employee.class, "bloodType", String.class),
+                        new FirstResultBuilder(), new MaxResultsBuilder() });
         List<Employee> list = (List) command.execute(em, new Object[] { "A", 5,
                 5 });
         assertNotNull(list);
