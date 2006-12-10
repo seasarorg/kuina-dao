@@ -31,8 +31,6 @@ import javax.persistence.Version;
 public class OneToOneInverse {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.TABLE, generator = "OneToOneInverse_Id_Generator")
-//    @TableGenerator(name = "OneToOneInverse_Id_Generator", pkColumnValue = "OneToOneInverse_Id_Sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OneToOneInverse_Id_Generator")
     @SequenceGenerator(name = "OneToOneInverse_Id_Generator", sequenceName = "OneToOneInverse_Id_Sequence")
     private Integer id;
