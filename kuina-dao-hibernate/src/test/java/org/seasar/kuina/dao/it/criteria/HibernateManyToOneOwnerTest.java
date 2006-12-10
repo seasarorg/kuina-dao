@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.it.criteria;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 
@@ -25,4 +26,27 @@ import org.seasar.framework.unit.Seasar2;
 @RunWith(Seasar2.class)
 public class HibernateManyToOneOwnerTest extends AbstractManyToOneOwnerTest {
 
+	@Override
+	@Ignore("Hibernateがサポートしていないため")
+	public void _maxDistinct() throws Exception {
+		super._maxDistinct();
+	}
+
+	@Override
+	@Ignore("Hibernateがサポートしていないため")
+	public void _minDistinct() throws Exception {
+		super._minDistinct();
+	}
+
+	@Override
+	@Ignore("Hibernateがサポートしていないため")
+	public void _avgDistinct() throws Exception {
+		super._avgDistinct();
+	}
+
+	@Override
+	@Ignore("Hibernateがサポートしていないため")
+	public void _sumDistinct() throws Exception {
+		super._sumDistinct();
+	}
 }

@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.it.conditional.dao;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 
@@ -23,6 +24,12 @@ import org.seasar.framework.unit.Seasar2;
  * @author nakamura
  */
 @RunWith(Seasar2.class)
-public class HibernateManyToOneOwnerDaoTest extends AbstractManyToOneOwnerDaoTest {
+public class HibernateManyToOneOwnerDaoTest extends
+		AbstractManyToOneOwnerDaoTest {
 
+	@Override
+	@Ignore("Hibernateがサポートしていないため")
+	public void _plus() throws Exception {
+		super._plus();
+	}
 }
