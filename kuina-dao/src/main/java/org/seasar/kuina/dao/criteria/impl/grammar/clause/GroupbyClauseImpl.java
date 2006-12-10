@@ -41,7 +41,7 @@ public class GroupbyClauseImpl implements GroupbyClause {
         return this;
     }
 
-    public void evaluate(CriteriaContext context) {
+    public void evaluate(final CriteriaContext context) {
         if (groupbyItems.isEmpty()) {
             return;
         }

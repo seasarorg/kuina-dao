@@ -66,7 +66,7 @@ public class FromClauseImpl implements FromClause {
                 .get(index));
     }
 
-    public IdentificationVariable getIdentificationVariable(int index) {
+    public IdentificationVariable getIdentificationVariable(final int index) {
         return getIdentificationVariableDeclaration(index)
                 .getIdentificationVariable();
     }

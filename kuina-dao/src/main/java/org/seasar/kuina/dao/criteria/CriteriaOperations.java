@@ -338,7 +338,7 @@ public abstract class CriteriaOperations {
     }
 
     public static ConditionalPrimary parenthesis(
-            ConditionalExpression expression) {
+            final ConditionalExpression expression) {
         return new Parenthesis(expression);
     }
 
@@ -427,7 +427,7 @@ public abstract class CriteriaOperations {
     }
 
     public static InExpression in(final String path, final boolean... inItems) {
-        InExpression inExpression = new InExpressionImpl(path(path));
+        final InExpression inExpression = new InExpressionImpl(path(path));
         for (final boolean inItem : inItems) {
             inExpression.add(literal(inItem));
         }
@@ -435,7 +435,7 @@ public abstract class CriteriaOperations {
     }
 
     public static InExpression in(final String path, final Number... inItems) {
-        InExpression inExpression = new InExpressionImpl(path(path));
+        final InExpression inExpression = new InExpressionImpl(path(path));
         for (final Number inItem : inItems) {
             inExpression.add(literal(inItem));
         }
@@ -443,7 +443,7 @@ public abstract class CriteriaOperations {
     }
 
     public static InExpression in(final String path, final String... inItems) {
-        InExpression inExpression = new InExpressionImpl(path(path));
+        final InExpression inExpression = new InExpressionImpl(path(path));
         for (final String inItem : inItems) {
             inExpression.add(literal(inItem));
         }
@@ -451,7 +451,7 @@ public abstract class CriteriaOperations {
     }
 
     public static InExpression in(final String path, final Enum... inItems) {
-        InExpression inExpression = new InExpressionImpl(path(path));
+        final InExpression inExpression = new InExpressionImpl(path(path));
         for (final Enum inItem : inItems) {
             inExpression.add(literal(inItem));
         }
@@ -459,7 +459,7 @@ public abstract class CriteriaOperations {
     }
 
     public static InExpression in(final String path, final Literal... inItems) {
-        InExpression inExpression = new InExpressionImpl(path(path));
+        final InExpression inExpression = new InExpressionImpl(path(path));
         for (final Literal inItem : inItems) {
             inExpression.add(inItem);
         }
@@ -468,7 +468,7 @@ public abstract class CriteriaOperations {
 
     public static InExpression in(final String path,
             final InputParameter... inItems) {
-        InExpression inExpression = new InExpressionImpl(path(path));
+        final InExpression inExpression = new InExpressionImpl(path(path));
         for (final InputParameter inItem : inItems) {
             inExpression.add(inItem);
         }
@@ -1493,18 +1493,18 @@ public abstract class CriteriaOperations {
     }
 
     public static FunctionReturningStrings substring(final String string,
-            final Number start, Number length) {
+            final Number start, final Number length) {
         return new Substring(path(string), literal(start), literal(length));
     }
 
     public static FunctionReturningStrings substring(final String string,
             final SimpleArithmeticExpression start,
-            SimpleArithmeticExpression length) {
+            final SimpleArithmeticExpression length) {
         return new Substring(path(string), start, length);
     }
 
     public static FunctionReturningStrings substring(
-            final StringPrimary string, final Number start, Number length) {
+            final StringPrimary string, final Number start, final Number length) {
         return new Substring(string, literal(start), literal(length));
     }
 

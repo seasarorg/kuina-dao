@@ -33,7 +33,7 @@ public class LeftOuterJoin extends AbstractJoin implements Join {
     }
 
     public LeftOuterJoin(final PathExpression associationPathSpec,
-            IdentificationVariable identificationVariable) {
+            final IdentificationVariable identificationVariable) {
         super(" LEFT OUTER JOIN ", associationPathSpec, identificationVariable);
         if (identificationVariable == null) {
             throw new SIllegalArgumentException("EKuinaDao0001",

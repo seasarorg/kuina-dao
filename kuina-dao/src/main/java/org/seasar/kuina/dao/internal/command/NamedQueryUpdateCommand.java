@@ -36,7 +36,7 @@ public class NamedQueryUpdateCommand extends AbstractCommand {
         this.binders = binders;
     }
 
-    public Object execute(EntityManager em, Object[] parameters) {
+    public Object execute(final EntityManager em, final Object[] parameters) {
         final Query query = createQuery(em, parameters);
         return query.executeUpdate();
     }

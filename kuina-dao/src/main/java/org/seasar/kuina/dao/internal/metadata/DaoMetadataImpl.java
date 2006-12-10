@@ -78,7 +78,7 @@ public class DaoMetadataImpl implements DaoMetadata {
         return commands.get(method);
     }
 
-    public Object execute(Method method, Object[] arguments) {
+    public Object execute(final Method method, final Object[] arguments) {
         final Command command = commands.get(method);
         if (command == null) {
             return NOT_INVOKED;

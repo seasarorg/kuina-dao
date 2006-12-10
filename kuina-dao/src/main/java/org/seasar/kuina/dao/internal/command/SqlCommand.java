@@ -70,16 +70,16 @@ public class SqlCommand extends AbstractCommand {
         this.statementFactory = statementFactory;
     }
 
-    public Object execute(EntityManager em, Object[] parameters) {
+    public Object execute(final EntityManager em, final Object[] parameters) {
         String query = sql;
         Object[] args = parameters;
         Class[] argTypes = null;
         if (parameterNames != null) {
-            SqlContext sqlContext = new SqlContextImpl();
+            final SqlContext sqlContext = new SqlContextImpl();
             for (int i = 0; i < parameterNames.length; ++i) {
-                String name = parameterNames[i];
-                Class type = parameterTypes[i];
-                Object value = parameters[i];
+                final String name = parameterNames[i];
+                final Class type = parameterTypes[i];
+                final Object value = parameters[i];
                 sqlContext.addArg(name, value, type);
             }
             node.accept(sqlContext);
@@ -87,9 +87,10 @@ public class SqlCommand extends AbstractCommand {
             args = sqlContext.getBindVariables();
             argTypes = sqlContext.getBindVariableTypes();
         }
-        ResultSetHandler rsHandler = resultList ? new BeanListResultSetHandler(
-                beanClass) : new BeanResultSetHandler(beanClass);
-        BasicSelectHandler handler = new BasicSelectHandler();
+        final ResultSetHandler rsHandler = resultList ? new BeanListResultSetHandler(
+                beanClass)
+                : new BeanResultSetHandler(beanClass);
+        final BasicSelectHandler handler = new BasicSelectHandler();
         handler.setResultSetHandler(rsHandler);
         if (resultSetFactory != null) {
             handler.setResultSetFactory(resultSetFactory);
@@ -98,7 +99,7 @@ public class SqlCommand extends AbstractCommand {
             handler.setStatementFactory(statementFactory);
         }
         handler.setSql(query);
-        Dialect dialect = dialectManager.getDialect(em);
+        final Dialect dialect = dialectManager.getDialect(em);
         return handler.execute(dialect.getConnection(em), args, argTypes);
     }
 }

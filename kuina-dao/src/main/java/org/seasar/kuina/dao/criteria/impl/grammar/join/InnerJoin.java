@@ -33,7 +33,7 @@ public class InnerJoin extends AbstractJoin implements Join {
     }
 
     public InnerJoin(final PathExpression associationPathSpec,
-            IdentificationVariable identificationVariable) {
+            final IdentificationVariable identificationVariable) {
         super(" INNER JOIN ", associationPathSpec, identificationVariable);
         if (identificationVariable == null) {
             throw new SIllegalArgumentException("EKuinaDao0001",

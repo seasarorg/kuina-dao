@@ -46,37 +46,37 @@ public class CriteriaContextImpl implements CriteriaContext {
     public CriteriaContextImpl() {
     }
 
-    public CriteriaContext append(boolean b) {
+    public CriteriaContext append(final boolean b) {
         stringBuilder.append(b);
         return this;
     }
 
-    public CriteriaContext append(byte b) {
+    public CriteriaContext append(final byte b) {
         stringBuilder.append(b);
         return this;
     }
 
-    public CriteriaContext append(short s) {
+    public CriteriaContext append(final short s) {
         stringBuilder.append(s);
         return this;
     }
 
-    public CriteriaContext append(int i) {
+    public CriteriaContext append(final int i) {
         stringBuilder.append(i);
         return this;
     }
 
-    public CriteriaContext append(long l) {
+    public CriteriaContext append(final long l) {
         stringBuilder.append(l);
         return this;
     }
 
-    public CriteriaContext append(float f) {
+    public CriteriaContext append(final float f) {
         stringBuilder.append(f);
         return this;
     }
 
-    public CriteriaContext append(double d) {
+    public CriteriaContext append(final double d) {
         stringBuilder.append(d);
         return this;
     }
@@ -97,7 +97,7 @@ public class CriteriaContextImpl implements CriteriaContext {
         return this;
     }
 
-    public CriteriaContext append(Object o) {
+    public CriteriaContext append(final Object o) {
         stringBuilder.append(o);
         return this;
     }
@@ -112,12 +112,12 @@ public class CriteriaContextImpl implements CriteriaContext {
     }
 
     public void setParameter(final String name, final Date value,
-            TemporalType temporalType) {
+            final TemporalType temporalType) {
         binders.add(new DateParameterBinder(name, value, temporalType));
     }
 
     public void setParameter(final String name, final Calendar value,
-            TemporalType temporalType) {
+            final TemporalType temporalType) {
         binders.add(new CalendarParameterBinder(name, value, temporalType));
     }
 

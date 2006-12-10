@@ -129,7 +129,7 @@ public class SelectStatementImpl implements SelectStatement {
     }
 
     public SelectStatement where(
-            ConditionalExpression... conditionalExpressions) {
+            final ConditionalExpression... conditionalExpressions) {
         for (final ConditionalExpression expression : conditionalExpressions) {
             whereClause.and(expression);
         }
@@ -149,7 +149,7 @@ public class SelectStatementImpl implements SelectStatement {
     }
 
     public SelectStatement having(
-            ConditionalExpression... conditionalExpressions) {
+            final ConditionalExpression... conditionalExpressions) {
         for (final ConditionalExpression expression : conditionalExpressions) {
             havingClause.and(expression);
         }

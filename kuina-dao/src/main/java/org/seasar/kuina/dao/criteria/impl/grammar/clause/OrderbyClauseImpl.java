@@ -41,7 +41,7 @@ public class OrderbyClauseImpl implements OrderbyClause {
         return this;
     }
 
-    public void evaluate(CriteriaContext context) {
+    public void evaluate(final CriteriaContext context) {
         if (orderbyItems.isEmpty()) {
             return;
         }

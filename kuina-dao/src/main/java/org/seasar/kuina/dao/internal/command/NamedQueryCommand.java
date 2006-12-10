@@ -43,7 +43,7 @@ public class NamedQueryCommand extends AbstractCommand {
      * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
      *      java.lang.Object[])
      */
-    public Object execute(EntityManager em, Object[] parameters) {
+    public Object execute(final EntityManager em, final Object[] parameters) {
         final Query query = createQuery(em, parameters);
         return resultList ? query.getResultList() : query.getSingleResult();
     }
