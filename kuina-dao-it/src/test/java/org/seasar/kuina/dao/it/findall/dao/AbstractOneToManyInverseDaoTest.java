@@ -19,12 +19,21 @@ import java.util.List;
 
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * 
  * @author nakamura
  */
-public interface OneToManyInverseDao {
+public class AbstractOneToManyInverseDaoTest {
 
-    List<OneToManyInverse> findAll();
+    private OneToManyInverseDao dao;
+
+    public void findAll() throws Exception {
+        List<OneToManyInverse> list = dao.findAll();
+        assertNotNull(list);
+        assertEquals(6, list.size());
+    }
 
 }
