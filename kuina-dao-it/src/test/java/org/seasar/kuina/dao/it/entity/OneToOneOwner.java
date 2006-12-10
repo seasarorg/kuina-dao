@@ -38,6 +38,8 @@ import javax.persistence.Version;
 public class OneToOneOwner {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.TABLE, generator = "OneToOneOwner_Id_Generator")
+//    @TableGenerator(name = "OneToOneOwner_Id_Generator", pkColumnValue = "OneToOneOwner_Id_Sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OneToOneOwner_Id_Generator")
     @SequenceGenerator(name = "OneToOneOwner_Id_Generator", sequenceName = "OneToOneOwner_Id_Sequence")
     private Integer id;

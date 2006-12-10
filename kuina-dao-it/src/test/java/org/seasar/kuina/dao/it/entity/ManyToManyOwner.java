@@ -39,6 +39,8 @@ import javax.persistence.Version;
 public class ManyToManyOwner {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.TABLE, generator = "ManyToManyOwner_Id_Generator")
+//    @TableGenerator(name = "ManyToManyOwner_Id_Generator", pkColumnValue = "ManyToManyOwner_Id_Sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ManyToManyOwner_Id_Generator")
     @SequenceGenerator(name = "ManyToManyOwner_Id_Generator", sequenceName = "ManyToManyOwner_Id_Sequence")
     private Integer id;

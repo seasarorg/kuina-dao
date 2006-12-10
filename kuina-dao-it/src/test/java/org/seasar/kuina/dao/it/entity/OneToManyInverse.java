@@ -33,6 +33,8 @@ import javax.persistence.Version;
 public class OneToManyInverse {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.TABLE, generator = "OneToManyInverse_Id_Generator")
+//    @TableGenerator(name = "OneToManyInverse_Id_Generator", pkColumnValue = "OneToManyInverse_Id_Sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OneToManyInverse_Id_Generator")
     @SequenceGenerator(name = "OneToManyInverse_Id_Generator", sequenceName = "OneToManyInverse_Id_Sequence")
     private Integer id;
