@@ -18,8 +18,6 @@ package org.seasar.kuina.dao.internal.command;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.seasar.framework.jpa.metadata.EntityDesc;
-import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.log.Logger;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
@@ -70,7 +68,7 @@ public class ConditionalQueryCommand extends AbstractCommand {
     }
 
     protected SelectStatement createSelectStatement(final Object[] arguments) {
-        SelectStatement statement = createSelectStatement();
+        final SelectStatement statement = createSelectStatement();
         for (final ConditionalExpression condition : ConditionalExpression[].class
                 .cast(arguments[0])) {
             statement.where(condition);
@@ -79,13 +77,11 @@ public class ConditionalQueryCommand extends AbstractCommand {
     }
 
     protected SelectStatement createSelectStatement() {
-        final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(entityClass);
-        assert entityDesc != null;
-        final String alias = JpqlUtil
-                .toDefaultIdentificationVariable(entityDesc.getEntityName());
-        final SelectStatement statement = distinct ? selectDistinct(path(alias))
-                : select(path(alias));
+        final String identificationVariable = JpqlUtil
+                .toDefaultIdentificationVariable(entityClass);
+        final SelectStatement statement = distinct ? selectDistinct(path(identificationVariable))
+                : select(path(identificationVariable));
         return statement.from(fromDecl);
     }
+
 }

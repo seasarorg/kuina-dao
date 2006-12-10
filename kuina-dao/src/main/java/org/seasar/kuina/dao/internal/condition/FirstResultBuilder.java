@@ -23,17 +23,18 @@ import org.seasar.kuina.dao.criteria.SelectStatement;
  */
 public class FirstResultBuilder implements ConditionalExpressionBuilder {
 
-    public void appendCondition(final SelectStatement statement,
+    public String appendCondition(final SelectStatement statement,
             final Object value) {
         if (value == null) {
-            return;
+            return null;
         }
         final int firstResult = Integer.class.cast(value).intValue();
         if (firstResult < 0) {
-            return;
+            return null;
         }
 
         statement.setFirstResult(firstResult);
+        return null;
     }
 
 }

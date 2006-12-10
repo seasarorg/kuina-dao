@@ -17,7 +17,6 @@ package org.seasar.kuina.dao.internal.condition;
 
 import java.lang.reflect.Method;
 
-import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
 
 /**
@@ -28,6 +27,8 @@ public abstract class AbstractConditionalExpressionBuilder implements
         ConditionalExpressionBuilder {
 
     protected String identificationVariable;
+
+    protected String propertyPath;
 
     protected String propertyName;
 
@@ -40,27 +41,39 @@ public abstract class AbstractConditionalExpressionBuilder implements
     public AbstractConditionalExpressionBuilder(final Class<?> entityClass,
             final String propertyName, final String parameterName,
             final Method parameterMethod, final Method operationMethod) {
-        this(JpqlUtil.toDefaultIdentificationVariable(EntityDescFactory
-                .getEntityDesc(entityClass).getEntityName()), propertyName,
-                parameterName, parameterMethod, operationMethod);
+        this(JpqlUtil.toDefaultIdentificationVariable(entityClass),
+                propertyName, parameterName, parameterMethod, operationMethod);
     }
 
     public AbstractConditionalExpressionBuilder(
-            final String identificationVariable, final String propertyName,
+            final String identificationVariable, final String propertyPath,
             final String parameterName, final Method parameterMethod,
             final Method operationMethod) {
         this.identificationVariable = identificationVariable;
-        this.propertyName = propertyName;
+        this.propertyPath = propertyPath;
         this.parameterName = parameterName;
         this.parameterMethod = parameterMethod;
         this.operationMethod = operationMethod;
+
+        final int pos1 = propertyPath.lastIndexOf('.');
+        if (pos1 == -1) {
+            this.propertyName = identificationVariable + "." + propertyPath;
+        } else {
+            final int pos2 = propertyPath.lastIndexOf('.', pos1 - 1);
+            if (pos2 == -1) {
+                this.propertyName = propertyPath;
+            } else {
+                this.propertyName = propertyPath.substring(pos2 + 1);
+            }
+        }
+    }
+
+    public String getPropertyPath() {
+        return propertyPath;
     }
 
     public String getPropertyName() {
-        // if (propertyName.indexOf('.') >= 0) {
-        // return propertyName;
-        // }
-        return identificationVariable + "." + propertyName;
+        return propertyName;
     }
 
     public String getParameterName() {

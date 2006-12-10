@@ -16,10 +16,11 @@
 package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
-import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 
 /**
@@ -34,22 +35,27 @@ public class DtoQueryCommand extends AbstractDynamicQueryCommand {
 
     public DtoQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
-            final IdentificationVariableDeclaration fromDecl,
             final Method[] getterMethods,
             final ConditionalExpressionBuilder[] builders) {
-        super(entityClass, resultList, distinct, fromDecl);
+        super(entityClass, resultList, distinct);
         this.getterMethods = getterMethods;
         this.builders = builders;
     }
 
     @Override
-    protected void bindParameter(final SelectStatement statement,
+    protected List<String> bindParameter(final SelectStatement statement,
             final Object[] arguments) {
+        final List<String> boundProperties = CollectionsUtil.newArrayList();
         final Object dto = arguments[0];
         for (int i = 0; i < getterMethods.length; ++i) {
             final Object value = ReflectionUtil.invoke(getterMethods[i], dto);
-            builders[i].appendCondition(statement, value);
+            final String boundProperty = builders[i].appendCondition(statement,
+                    value);
+            if (boundProperty != null) {
+                boundProperties.add(boundProperty);
+            }
         }
+        return boundProperties;
     }
 
 }

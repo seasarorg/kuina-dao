@@ -19,20 +19,15 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.ClassUtil;
-import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ParameterQueryCommand;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
-import org.seasar.kuina.dao.internal.condition.FirstResultBuilder;
-import org.seasar.kuina.dao.internal.condition.MaxResultsBuilder;
-import org.seasar.kuina.dao.internal.condition.OrderbyBuilder;
 
 /**
  * @author koichik
@@ -40,16 +35,14 @@ import org.seasar.kuina.dao.internal.condition.OrderbyBuilder;
 public class ParameterQueryCommandBuilder extends
         AbstractDynamicQueryCommandBuilder {
 
-    protected Class<?>[] ACCEPTABLE_TYPES = new Class<?>[] {
-            Number.class, String.class, Date.class, Calendar.class, Boolean.class, Enum.class
+    protected static final Class<?>[] ACCEPTABLE_TYPES = new Class<?>[] {
+        Number.class, String.class, Boolean.class, Date.class, Calendar.class, Enum.class,
     };
 
     @Override
     public Command build(final Class<?> daoClass, final Method method,
             final Class<?> entityClass) {
-        final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        final String[] parameterNames = beanDesc
-                .getMethodParameterNamesNoException(method);
+        final String[] parameterNames = getParameterNames(daoClass, method);
         if (parameterNames == null) {
             return null;
         }
@@ -61,57 +54,40 @@ public class ParameterQueryCommandBuilder extends
             }
         }
 
+        final ConditionalExpressionBuilder[] builders = createBuilders(
+                entityClass, method, parameterNames);
         return new ParameterQueryCommand(entityClass, isResultList(method),
-                isDistinct(method), new IdentificationVariableDeclarationImpl(
-                        entityClass), parameterNames, getBuilders(
-                        entityClass, method, parameterNames));
+                isDistinct(method), parameterNames, builders);
     }
 
     protected boolean isAcceptableType(final Class<?> parameterType) {
+        if (parameterType.isArray()) {
+            return isAcceptableType(parameterType.getComponentType());
+        }
         for (final Class<?> acceptableType : ACCEPTABLE_TYPES) {
             if (acceptableType.isAssignableFrom(parameterType)) {
-                return true;
-            }
-            if (parameterType.isArray()
-                    && acceptableType.isAssignableFrom(parameterType
-                            .getComponentType())) {
                 return true;
             }
         }
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(parameterType);
-        if (entityDesc != null) {
-            return true;
-        }
-
-        return false;
+        return entityDesc != null;
     }
 
-    protected ConditionalExpressionBuilder[] getBuilders(
+    protected ConditionalExpressionBuilder[] createBuilders(
             final Class<?> entityClass, final Method method,
             final String[] parameterNames) {
         final Class<?>[] parameterTypes = method.getParameterTypes();
         final Annotation[][] parameterAnnotations = method
                 .getParameterAnnotations();
-        final ConditionalExpressionBuilder[] builders = 
-            new ConditionalExpressionBuilder[parameterTypes.length];
+        final List<ConditionalExpressionBuilder> builders = CollectionsUtil
+                .newArrayList();
         for (int i = 0; i < parameterTypes.length; ++i) {
-            final Class<?> type = parameterTypes[i];
-            final String name = parameterNames[i];
-            final Annotation[] annotations = parameterAnnotations[i];
-
-            if (isOrderby(name, annotations)) {
-                builders[i] = new OrderbyBuilder(entityClass);
-            } else if (isFirstResult(name, annotations)) {
-                builders[i] = new FirstResultBuilder();
-            } else if (isMaxResults(name, annotations)) {
-                builders[i] = new MaxResultsBuilder();
-            } else {
-                builders[i] = ConditionalExpressionBuilderFactory
-                        .createBuilder(entityClass, name, type);
-            }
+            builders.add(createBuilder(entityClass, parameterNames[i],
+                    parameterTypes[i], parameterAnnotations[i]));
         }
-        return builders;
+        return builders.toArray(new ConditionalExpressionBuilder[builders
+                .size()]);
     }
 
 }

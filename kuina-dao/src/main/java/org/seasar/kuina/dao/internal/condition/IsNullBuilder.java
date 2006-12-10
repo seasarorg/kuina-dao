@@ -32,18 +32,19 @@ public class IsNullBuilder extends AbstractConditionalExpressionBuilder {
         super(entityClass, propertyName, parameterName, null, operationMethod);
     }
 
-    public void appendCondition(final SelectStatement statement,
+    public String appendCondition(final SelectStatement statement,
             final Object value) {
         if (value == null) {
-            return;
+            return null;
         }
         if (!Boolean.class.cast(value).booleanValue()) {
-            return;
+            return null;
         }
 
         final Object expression = ReflectionUtil.invokeStatic(
                 getOperationMethod(), getPropertyName());
         statement.where(ConditionalExpression.class.cast(expression));
+        return getPropertyPath();
     }
 
 }

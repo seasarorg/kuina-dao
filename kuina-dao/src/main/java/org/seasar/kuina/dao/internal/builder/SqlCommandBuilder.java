@@ -42,7 +42,7 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
      * @param daoHelper
      *            daoHelperを設定します。
      */
-    public void setDaoHelper(DaoHelper daoHelper) {
+    public void setDaoHelper(final DaoHelper daoHelper) {
         this.daoHelper = daoHelper;
     }
 
@@ -50,7 +50,7 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
      * @param dialectManager
      *            dialectManagerを設定します。
      */
-    public void setDialectManager(DialectManager dialectManager) {
+    public void setDialectManager(final DialectManager dialectManager) {
         this.dialectManager = dialectManager;
     }
 
@@ -65,7 +65,7 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
      * @param resultSetFactory
      *            resultSetFactoryを設定します。
      */
-    public void setResultSetFactory(ResultSetFactory resultSetFactory) {
+    public void setResultSetFactory(final ResultSetFactory resultSetFactory) {
         this.resultSetFactory = resultSetFactory;
     }
 
@@ -80,7 +80,7 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
      * @param statementFactory
      *            statementFactoryを設定します。
      */
-    public void setStatementFactory(StatementFactory statementFactory) {
+    public void setStatementFactory(final StatementFactory statementFactory) {
         this.statementFactory = statementFactory;
     }
 

@@ -23,8 +23,9 @@ import org.seasar.kuina.dao.criteria.SelectStatement;
  */
 public class NullBuilder implements ConditionalExpressionBuilder {
 
-    public void appendCondition(final SelectStatement statement,
+    public String appendCondition(final SelectStatement statement,
             final Object value) {
+        return null;
     }
 
 }

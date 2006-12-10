@@ -23,17 +23,18 @@ import org.seasar.kuina.dao.criteria.SelectStatement;
  */
 public class MaxResultsBuilder implements ConditionalExpressionBuilder {
 
-    public void appendCondition(final SelectStatement statement,
+    public String appendCondition(final SelectStatement statement,
             final Object value) {
         if (value == null) {
-            return;
+            return null;
         }
         final int maxResults = Integer.class.cast(value).intValue();
         if (maxResults < 0) {
-            return;
+            return null;
         }
 
         statement.setMaxResults(maxResults);
+        return null;
     }
 
 }

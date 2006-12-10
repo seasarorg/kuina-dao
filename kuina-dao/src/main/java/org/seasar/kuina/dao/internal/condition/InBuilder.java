@@ -37,16 +37,17 @@ public class InBuilder extends AbstractConditionalExpressionBuilder {
                 operationMethod);
     }
 
-    public void appendCondition(final SelectStatement statement,
+    public String appendCondition(final SelectStatement statement,
             final Object value) {
         if (value == null) {
-            return;
+            return null;
         }
 
         final Object parameter = createParameters(value);
         final Object expression = ReflectionUtil.invokeStatic(
                 getOperationMethod(), getPropertyName(), parameter);
         statement.where(ConditionalExpression.class.cast(expression));
+        return getPropertyPath();
     }
 
     protected Object createParameters(final Object values) {

@@ -15,8 +15,10 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.util.List;
+
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
-import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 
 /**
@@ -31,20 +33,25 @@ public class ParameterQueryCommand extends AbstractDynamicQueryCommand {
 
     public ParameterQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
-            final IdentificationVariableDeclaration fromDecl,
             final String[] parameterNames,
             final ConditionalExpressionBuilder[] builders) {
-        super(entityClass, resultList, distinct, fromDecl);
+        super(entityClass, resultList, distinct);
         this.parameterNames = parameterNames;
         this.builders = builders;
     }
 
     @Override
-    protected void bindParameter(final SelectStatement statement,
+    protected List<String> bindParameter(final SelectStatement statement,
             final Object[] arguments) {
+        final List<String> boundProperties = CollectionsUtil.newArrayList();
         for (int i = 0; i < arguments.length; ++i) {
-            builders[i].appendCondition(statement, arguments[i]);
+            final String boundProperty = builders[i].appendCondition(statement,
+                    arguments[i]);
+            if (boundProperty != null) {
+                boundProperties.add(boundProperty);
+            }
         }
+        return boundProperties;
     }
 
 }

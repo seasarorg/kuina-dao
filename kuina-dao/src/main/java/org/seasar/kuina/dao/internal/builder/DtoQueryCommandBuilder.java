@@ -15,18 +15,17 @@
  */
 package org.seasar.kuina.dao.internal.builder;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.DtoQueryCommand;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
 
 /**
  * 
@@ -41,32 +40,36 @@ public class DtoQueryCommandBuilder extends AbstractDynamicQueryCommandBuilder {
         if (parameterTypes.length != 1) {
             return null;
         }
+
         final Class<?> parameterType = parameterTypes[0];
         if (!parameterType.getName().endsWith(convention.getDtoSuffix())) {
             return null;
         }
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(parameterType);
-        final List<Method> getterMethods = new ArrayList<Method>(beanDesc
-                .getPropertyDescSize());
-        final List<ConditionalExpressionBuilder> builders = new ArrayList<ConditionalExpressionBuilder>(
-                beanDesc.getPropertyDescSize());
+        final Method[] getterMethods = getGetterMethods(beanDesc);
+        final ConditionalExpressionBuilder[] builders = createBuilders(
+                entityClass, beanDesc);
+        return new DtoQueryCommand(entityClass, isResultList(method),
+                isDistinct(method), getterMethods, builders);
+    }
+
+    protected ConditionalExpressionBuilder[] createBuilders(
+            final Class<?> entityClass, final BeanDesc beanDesc) {
+        final List<ConditionalExpressionBuilder> builders = CollectionsUtil
+                .newArrayList();
         for (int i = 0; i < beanDesc.getPropertyDescSize(); ++i) {
             final PropertyDesc propertyDesc = beanDesc.getPropertyDesc(i);
             if (propertyDesc.hasReadMethod()) {
-                getterMethods.add(propertyDesc.getReadMethod());
-                builders.add(ConditionalExpressionBuilderFactory.createBuilder(
-                        entityClass, propertyDesc.getPropertyName(),
-                        propertyDesc.getPropertyType()));
+                final Annotation[] annotations = propertyDesc.getReadMethod()
+                        .getAnnotations();
+                builders.add(createBuilder(entityClass, propertyDesc
+                        .getPropertyName(), propertyDesc.getPropertyType(),
+                        annotations));
             }
         }
-
-        return new DtoQueryCommand(entityClass, isResultList(method),
-                isDistinct(method), new IdentificationVariableDeclarationImpl(
-                        entityClass), getterMethods
-                        .toArray(new Method[getterMethods.size()]), builders
-                        .toArray(new ConditionalExpressionBuilder[builders
-                                .size()]));
+        return builders.toArray(new ConditionalExpressionBuilder[builders
+                .size()]);
     }
 
 }

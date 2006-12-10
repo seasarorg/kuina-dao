@@ -55,6 +55,10 @@ public class ConditionalExpressionBuilderFactory {
     protected static final String[][] IS_NULL_OPERATIONS = new String[][] {
             { "_IS_NULL", "isNull" }, { "_IS_NOT_NULL", "isNotNull" } };
 
+    protected static final String[][][] OPERATIONS = new String[][][] {
+            BASIC_OPERATIONS, IN_OPERATIONS, LIKE_OPERATIONS,
+            IS_NULL_OPERATIONS };
+
     protected static final Method ARITHMETIC_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Number.class);
@@ -109,7 +113,7 @@ public class ConditionalExpressionBuilderFactory {
     public static ConditionalExpressionBuilder createBuilder(
             final Class<?> entityClass, final String name,
             final Class<?> parameterType) {
-        for (String[] basicOperation : BASIC_OPERATIONS) {
+        for (final String[] basicOperation : BASIC_OPERATIONS) {
             final String suffix = basicOperation[0];
             if (name.endsWith(suffix)) {
                 return createBasicBuilder(entityClass, name, parameterType,
@@ -117,7 +121,7 @@ public class ConditionalExpressionBuilderFactory {
                         getParameterMethod(parameterType), basicOperation[1]);
             }
         }
-        for (String[] inOperation : IN_OPERATIONS) {
+        for (final String[] inOperation : IN_OPERATIONS) {
             final String suffix = inOperation[0];
             if (name.endsWith(suffix)) {
                 final Method operationMethod = ReflectionUtil.getMethod(
@@ -128,7 +132,7 @@ public class ConditionalExpressionBuilderFactory {
                                 .getComponentType()), operationMethod);
             }
         }
-        for (String[] likeOperation : LIKE_OPERATIONS) {
+        for (final String[] likeOperation : LIKE_OPERATIONS) {
             final String suffix = likeOperation[0];
             if (name.endsWith(suffix)) {
                 final String starts = likeOperation[1];
@@ -139,24 +143,27 @@ public class ConditionalExpressionBuilderFactory {
                                 "like", parameterType), starts, ends);
             }
         }
-        for (String[] isNullOperation : IS_NULL_OPERATIONS) {
+        for (final String[] isNullOperation : IS_NULL_OPERATIONS) {
             final String suffix = isNullOperation[0];
             if (name.endsWith(suffix)) {
                 return new IsNullBuilder(entityClass, toPropertyName(name,
                         suffix), name, getOperationMethod(isNullOperation[1]));
             }
         }
-        if (name.equals("orderby")) {
-            return new OrderbyBuilder(entityClass);
-        }
-        if (name.equals("firstResult")) {
-            return new FirstResultBuilder();
-        }
-        if (name.equals("maxResults")) {
-            return new MaxResultsBuilder();
-        }
         return createBasicBuilder(entityClass, name, parameterType, name
                 .replace('$', '.'), getParameterMethod(parameterType), "eq");
+    }
+
+    public static String toPropertyName(final String name) {
+        for (final String[][] operations : OPERATIONS) {
+            for (final String[] operation : operations) {
+                final String suffix = operation[0];
+                if (name.endsWith(suffix)) {
+                    return toPropertyName(name, suffix);
+                }
+            }
+        }
+        return name.replace('$', '.');
     }
 
     protected static String toPropertyName(final String name,

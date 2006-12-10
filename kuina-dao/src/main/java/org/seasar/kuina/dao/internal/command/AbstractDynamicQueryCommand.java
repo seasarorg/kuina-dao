@@ -15,13 +15,17 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
-import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
+import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
@@ -34,24 +38,21 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
  */
 public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
-    protected static final Logger logger = Logger
-            .getLogger(AbstractDynamicQueryCommand.class);
-
     protected Class<?> entityClass;
 
     protected boolean resultList;
 
     protected boolean distinct;
 
-    protected IdentificationVariableDeclaration fromDecl;
+    protected String identificationVariable;
 
     public AbstractDynamicQueryCommand(final Class<?> entityClass,
-            final boolean resultList, final boolean distinct,
-            final IdentificationVariableDeclaration fromDecl) {
+            final boolean resultList, final boolean distinct) {
         this.entityClass = entityClass;
         this.resultList = resultList;
         this.distinct = distinct;
-        this.fromDecl = fromDecl;
+        this.identificationVariable = JpqlUtil
+                .toDefaultIdentificationVariable(entityClass);
     }
 
     public Object execute(final EntityManager em, final Object[] arguments) {
@@ -68,12 +69,49 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
                 .toDefaultIdentificationVariable(entityDesc.getEntityName());
         final SelectStatement statement = distinct ? selectDistinct(path(alias))
                 : select(path(alias));
-        statement.from(fromDecl);
-        bindParameter(statement, arguments);
+        final List<String> boundProperties = bindParameter(statement, arguments);
+        statement
+                .from(createIdentificationVariableDeclaration(boundProperties));
         return statement;
     }
 
-    protected abstract void bindParameter(SelectStatement statement,
+    protected abstract List<String> bindParameter(SelectStatement statement,
             Object[] arguments);
+
+    protected IdentificationVariableDeclaration createIdentificationVariableDeclaration(
+            final List<String> boundProperties) {
+        final IdentificationVariableDeclaration fromDecl = new IdentificationVariableDeclarationImpl(
+                entityClass);
+        final Set<String> associations = createAssociations(boundProperties);
+        for (final String association : associations) {
+            final int pos1 = association.lastIndexOf('.');
+            if (pos1 == -1) {
+                fromDecl.inner(identificationVariable + "." + association,
+                        association);
+                continue;
+            }
+            final int pos2 = association.lastIndexOf('.', pos1 - 1);
+            if (pos2 == -1) {
+                fromDecl.inner(association, association.substring(pos1 + 1));
+                continue;
+            }
+            fromDecl.inner(association.substring(pos2 + 1), association
+                    .substring(pos1 + 1));
+        }
+        return fromDecl;
+    }
+
+    protected Set<String> createAssociations(final List<String> boundProperties) {
+        final Set<String> associations = CollectionsUtil.newTreeSet();
+        for (int i = 0; i < boundProperties.size(); ++i) {
+            final String propertyName = boundProperties.get(i);
+            int pos = propertyName.length();
+            while ((pos = propertyName.lastIndexOf('.', pos - 1)) > -1) {
+                final String path = propertyName.substring(0, pos);
+                associations.add(path);
+            }
+        }
+        return associations;
+    }
 
 }

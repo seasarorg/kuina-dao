@@ -41,10 +41,10 @@ public class BasicBuilder extends AbstractConditionalExpressionBuilder {
                 parameterMethod, operationMethod);
     }
 
-    public void appendCondition(final SelectStatement statement,
+    public String appendCondition(final SelectStatement statement,
             final Object value) {
         if (value == null) {
-            return;
+            return null;
         }
 
         final Object parameter = ReflectionUtil.invokeStatic(
@@ -52,6 +52,7 @@ public class BasicBuilder extends AbstractConditionalExpressionBuilder {
         final Object expression = ReflectionUtil.invokeStatic(
                 getOperationMethod(), getPropertyName(), parameter);
         statement.where(ConditionalExpression.class.cast(expression));
+        return getPropertyPath();
     }
 
 }

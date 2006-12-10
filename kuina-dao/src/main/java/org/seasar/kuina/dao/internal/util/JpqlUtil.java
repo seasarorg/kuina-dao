@@ -30,6 +30,11 @@ public class JpqlUtil {
     }
 
     public static String toDefaultIdentificationVariable(
+            final Class<?> entityClass) {
+        return toDefaultIdentificationVariable(toAbstractSchemaName(entityClass));
+    }
+
+    public static String toDefaultIdentificationVariable(
             final String abstractSchemaName) {
         return StringUtil.decapitalize(abstractSchemaName
                 .substring(abstractSchemaName.lastIndexOf('.') + 1));

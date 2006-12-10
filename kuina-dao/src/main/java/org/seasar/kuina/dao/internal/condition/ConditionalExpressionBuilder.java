@@ -23,6 +23,6 @@ import org.seasar.kuina.dao.criteria.SelectStatement;
  */
 public interface ConditionalExpressionBuilder {
 
-    void appendCondition(SelectStatement statement, Object value);
+    String appendCondition(SelectStatement statement, Object value);
 
 }

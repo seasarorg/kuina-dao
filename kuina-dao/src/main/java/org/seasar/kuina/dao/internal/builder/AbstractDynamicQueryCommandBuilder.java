@@ -15,11 +15,22 @@
  */
 package org.seasar.kuina.dao.internal.builder;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.kuina.dao.internal.Command;
+import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
+import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
+import org.seasar.kuina.dao.internal.condition.FirstResultBuilder;
+import org.seasar.kuina.dao.internal.condition.MaxResultsBuilder;
+import org.seasar.kuina.dao.internal.condition.OrderbyBuilder;
 
 /**
  * 
@@ -37,6 +48,7 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
         if (entityClass == null) {
             return null;
         }
+
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
         if (entityDesc == null) {
@@ -48,5 +60,39 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
 
     protected abstract Command build(final Class<?> daoClass,
             final Method method, final Class<?> entityClass);
+
+    protected String[] getParameterNames(final Class<?> daoClass,
+            final Method method) {
+        final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
+        return beanDesc.getMethodParameterNamesNoException(method);
+    }
+
+    protected Method[] getGetterMethods(final BeanDesc beanDesc) {
+        final List<Method> getterMethods = new ArrayList<Method>(beanDesc
+                .getPropertyDescSize());
+        for (int i = 0; i < beanDesc.getPropertyDescSize(); ++i) {
+            final PropertyDesc propertyDesc = beanDesc.getPropertyDesc(i);
+            if (propertyDesc.hasReadMethod()) {
+                getterMethods.add(propertyDesc.getReadMethod());
+            }
+        }
+        return getterMethods.toArray(new Method[getterMethods.size()]);
+    }
+
+    protected ConditionalExpressionBuilder createBuilder(
+            final Class<?> entityClass, final String propertyName,
+            final Class<?> propertyType, final Annotation[] annotations) {
+        if (isOrderby(propertyName, annotations)) {
+            return new OrderbyBuilder(entityClass);
+        }
+        if (isFirstResult(propertyName, annotations)) {
+            return new FirstResultBuilder();
+        }
+        if (isMaxResults(propertyName, annotations)) {
+            return new MaxResultsBuilder();
+        }
+        return ConditionalExpressionBuilderFactory.createBuilder(entityClass,
+                propertyName, propertyType);
+    }
 
 }
