@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.it.parameter.dao;
 import java.util.List;
 
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.entity.SalaryRate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -30,10 +31,35 @@ public abstract class AbstractOneToManyInverseDaoTest {
 
     protected OneToManyInverseDao dao;
 
+    public void findByName() throws Exception {
+        List<OneToManyInverse> list = dao.findByName("Personnel");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("Personnel", list.get(0).getName());
+    }
+
     public void findByManyToOneOwnerName() throws Exception {
         OneToManyInverse inverse = dao.findByManyToOneOwnerName("simagoro");
         assertNotNull(inverse);
         assertEquals("Business", inverse.getName());
+    }
+
+    public void findByOwnerSalaryRateOwnerWeight() throws Exception {
+        List<OneToManyInverse> list = dao.findByOwnerSalaryRateOwnerWeight(
+                SalaryRate.SENIOR, 60);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("Business", list.get(0).getName());
+    }
+
+    public void findByOwnerSalaryRateSubOwnerWeight() throws Exception {
+        List<OneToManyInverse> list = dao.findByOwnerSalaryRateSubOwnerWeight(
+                SalaryRate.SENIOR, 60);
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("Business", list.get(0).getName());
+        assertEquals("Personnel", list.get(1).getName());
+        assertEquals("Sales", list.get(2).getName());
     }
 
     public void findByRelationship() throws Exception {
@@ -42,4 +68,5 @@ public abstract class AbstractOneToManyInverseDaoTest {
         assertEquals(1, list.size());
         assertEquals("General Administration", list.get(0).getName());
     }
+
 }

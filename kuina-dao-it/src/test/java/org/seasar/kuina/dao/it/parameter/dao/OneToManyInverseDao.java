@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.entity.SalaryRate;
 
 /**
  * 
@@ -26,7 +27,18 @@ import org.seasar.kuina.dao.it.entity.OneToManyInverse;
  */
 public interface OneToManyInverseDao {
 
+    List<OneToManyInverse> findByName(String name);
+
     OneToManyInverse findByManyToOneOwnerName(String manyToOneOwners$name);
+
+    @Distinct
+    List<OneToManyInverse> findByOwnerSalaryRateOwnerWeight(
+            SalaryRate manyToOneOwners$salaryRate, int manyToOneOwners$weight_GT);
+
+    @Distinct
+    List<OneToManyInverse> findByOwnerSalaryRateSubOwnerWeight(
+            SalaryRate manyToOneOwners$salaryRate,
+            int subManyToOneOwners$weight_GT);
 
     @Distinct
     List<OneToManyInverse> findByRelationship(
