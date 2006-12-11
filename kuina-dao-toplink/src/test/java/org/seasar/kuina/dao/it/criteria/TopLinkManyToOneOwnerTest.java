@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.it.criteria;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 
@@ -25,4 +26,9 @@ import org.seasar.framework.unit.Seasar2;
 @RunWith(Seasar2.class)
 public class TopLinkManyToOneOwnerTest extends AbstractManyToOneOwnerTest {
 
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void selectDistinctAndCrossJoinWithAlias() throws Exception {
+		super.selectDistinctAndCrossJoinWithAlias();
+	}
 }

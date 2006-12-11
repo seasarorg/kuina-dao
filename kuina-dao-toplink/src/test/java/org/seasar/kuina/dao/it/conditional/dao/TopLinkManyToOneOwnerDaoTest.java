@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.it.conditional.dao;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 
@@ -25,4 +26,111 @@ import org.seasar.framework.unit.Seasar2;
 @RunWith(Seasar2.class)
 public class TopLinkManyToOneOwnerDaoTest extends AbstractManyToOneOwnerDaoTest {
 
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _add2() throws Exception {
+		super._add2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _subtract() throws Exception {
+		super._subtract();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _subtract2() throws Exception {
+		super._subtract2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _multiply2() throws Exception {
+		super._multiply2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _divide2() throws Exception {
+		super._divide2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _like2() throws Exception {
+		super._like2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _isEmpty() throws Exception {
+		super._isEmpty();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim() throws Exception {
+		super._trim();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim2() throws Exception {
+		super._trim2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim_leading() throws Exception {
+		super._trim_leading();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim_leading2() throws Exception {
+		super._trim_leading2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim_trailing() throws Exception {
+		super._trim_trailing();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim_trailing2() throws Exception {
+		super._trim_leading2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim_both() throws Exception {
+		super._trim_both();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _trim_both2() throws Exception {
+		super._trim_both2();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _currentDate() throws Exception {
+		super._currentDate();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _currentTime() throws Exception {
+		super._currentTime();
+	}
+
+	@Override
+	@Ignore("TopLinkが対応していないため")
+	public void _currentTimestamp() throws Exception {
+		super._currentTimestamp();
+	}
 }
