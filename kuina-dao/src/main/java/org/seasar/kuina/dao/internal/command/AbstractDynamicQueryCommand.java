@@ -20,8 +20,6 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import org.seasar.framework.jpa.metadata.EntityDesc;
-import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
@@ -62,13 +60,8 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
     }
 
     protected SelectStatement createSelectStatement(final Object[] arguments) {
-        final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(entityClass);
-        assert entityDesc != null;
-        final String alias = JpqlUtil
-                .toDefaultIdentificationVariable(entityDesc.getEntityName());
-        final SelectStatement statement = distinct ? selectDistinct(path(alias))
-                : select(path(alias));
+        final SelectStatement statement = distinct ? selectDistinct(path(identificationVariable))
+                : select(path(identificationVariable));
         final List<String> boundProperties = bindParameter(statement, arguments);
         statement
                 .from(createIdentificationVariableDeclaration(boundProperties));

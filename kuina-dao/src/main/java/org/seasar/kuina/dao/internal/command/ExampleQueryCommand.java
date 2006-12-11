@@ -15,47 +15,25 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Map;
 
 import org.seasar.framework.jpa.metadata.AttributeDesc;
 import org.seasar.framework.jpa.metadata.EntityDesc;
-import org.seasar.framework.jpa.metadata.EntityDescFactory;
-import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.ClassUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
-import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
-import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
-import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
-import org.seasar.kuina.dao.internal.util.JpqlUtil;
+import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
+import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
+import org.seasar.kuina.dao.internal.util.KuinaDaoUtil;
 import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
-
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.parameter;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
 
 /**
  * 
  * @author koichik
  */
-public class ExampleQueryCommand extends AbstractQueryCommand {
-
-    private static final Logger logger = Logger
-            .getLogger(ExampleQueryCommand.class);
-
-    protected Class<?> entityClass;
-
-    protected EntityDesc entityDesc;
-
-    protected boolean resultList;
-
-    protected boolean distinct;
+public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
 
     protected int orderby;
 
@@ -69,39 +47,15 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
     public ExampleQueryCommand(final Class<?> entityClass,
             final boolean resultList, final boolean distinct,
             final int orderby, final int firstResult, final int maxResults) {
-        this.entityClass = entityClass;
-        this.entityDesc = EntityDescFactory.getEntityDesc(entityClass);
-        this.resultList = resultList;
-        this.distinct = distinct;
+        super(entityClass, resultList, distinct);
         this.orderby = orderby;
         this.firstResult = firstResult;
         this.maxResults = maxResults;
     }
 
-    public Object execute(final EntityManager em, final Object[] arguments) {
-        final SelectStatement statement = createSelectStatement(arguments);
-        return resultList ? statement.getResultList(em) : statement
-                .getSingleResult(em);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected SelectStatement createSelectStatement(final Object[] arguments) {
-        final String identificationVariable = JpqlUtil
-                .toDefaultIdentificationVariable(entityDesc.getEntityName());
-        final SelectStatement statement = distinct ? selectDistinct(path(identificationVariable))
-                : select(path(identificationVariable));
-        final IdentificationVariableDeclaration fromDecl = new IdentificationVariableDeclarationImpl(
-                entityClass, new IdentificationVariableImpl(
-                        identificationVariable));
-
-        final Object entity = arguments[0];
-        final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(entityClass);
-        final Set<Object> resolvedEntities = CollectionsUtil.newHashSet();
-        addCondition(statement, fromDecl, entityDesc, entity,
-                identificationVariable + ".", resolvedEntities);
-
-        statement.from(fromDecl);
+    @Override
+    protected List<String> bindParameter(SelectStatement statement,
+            Object[] arguments) {
         if (orderby >= 0) {
             SelectStatementUtil.appendOrderbyClause(identificationVariable,
                     statement, arguments[orderby]);
@@ -115,89 +69,82 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
                     .intValue());
         }
 
-        return statement;
+        final Context context = new Context();
+        addCondition(statement, entityClass, arguments[0], null, context);
+        return context.getBindParameters();
     }
 
     @SuppressWarnings("unchecked")
     protected void addCondition(final SelectStatement statement,
-            final IdentificationVariableDeclaration fromDecl,
-            final EntityDesc entityDesc, final Object entity,
-            final String identificationVariable,
-            final Set<Object> resolvedEntities) {
-        if (resolvedEntities.contains(entity)) {
+            final Class<?> entityClass, final Object entity,
+            final String pathExpression, final Context context) {
+        if (context.isResolvedEntity(entity)) {
             return;
         }
-        resolvedEntities.add(entity);
+        context.addResolvedEntity(entity);
 
+        final EntityDesc entityDesc = KuinaDaoUtil.getEntityDesc(entityClass);
         final AttributeDesc[] attributes = entityDesc.getAttributeDescs();
         for (final AttributeDesc attribute : attributes) {
-            addCondition(statement, fromDecl, entity, attribute,
-                    identificationVariable, resolvedEntities);
+            addCondition(statement, entityClass, entity, attribute,
+                    pathExpression, context);
         }
     }
 
     @SuppressWarnings("unchecked")
     protected void addCondition(final SelectStatement statement,
-            final IdentificationVariableDeclaration fromDecl,
-            final Object entity, final AttributeDesc attribute,
-            final String identificationVariable,
-            final Set<Object> resolvedEntities) {
+            final Class<?> entityClass, final Object entity,
+            final AttributeDesc attribute, final String pathExpression,
+            final Context context) {
         final Object value = attribute.getValue(entity);
         if (value == null) {
             return;
         }
 
         final String name = attribute.getName();
-        final String associationPath = identificationVariable + name;
-        final String parameterName = associationPath.replace('.', '$');
         final Class<?> type = attribute.getType();
-        if (String.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    String.class.cast(value))));
-        } else if (Number.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    Number.class.cast(value))));
-        } else if (Boolean.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    Boolean.class.cast(value).booleanValue())));
-        } else if (java.sql.Date.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    java.sql.Date.class.cast(value))));
-        } else if (java.sql.Time.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    java.sql.Time.class.cast(value))));
-        } else if (java.sql.Timestamp.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    java.sql.Timestamp.class.cast(value))));
-        } else if (Date.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    Date.class.cast(value), attribute.getTemporalType())));
-        } else if (Calendar.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    Calendar.class.cast(value), attribute.getTemporalType())));
-        } else if (Enum.class.isAssignableFrom(type)) {
-            statement.where(eq(associationPath, parameter(parameterName,
-                    Enum.class.cast(value))));
-        } else if (attribute.isAssociation() && attribute.isCollection()) {
-            final Collection collection = Collection.class.cast(value);
-            if (collection != null && collection.size() == 1) {
-                final Class<?> elementType = attribute.getElementType();
-                final EntityDesc elementDesc = EntityDescFactory
-                        .getEntityDesc(elementType);
-                fromDecl.inner(associationPath, name);
-                addCondition(statement, fromDecl, elementDesc, collection
-                        .iterator().next(), name + ".", resolvedEntities);
+        final String associationPath = ClassUtil.concatName(pathExpression,
+                name);
+        if (attribute.isAssociation()) {
+            if (attribute.isCollection()) {
+                final Collection collection = Collection.class.cast(value);
+                if (collection != null && collection.size() == 1) {
+                    final Class<?> elementType = attribute.getElementType();
+                    addCondition(statement, elementType, collection.iterator()
+                            .next(), associationPath, context);
+                }
+            } else {
+                addCondition(statement, type, value, associationPath, context);
             }
         } else {
-            final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(type);
-            if (entityDesc != null) {
-                fromDecl.inner(associationPath, name);
-                addCondition(statement, fromDecl, entityDesc, value,
-                        name + ".", resolvedEntities);
-            } else {
-                logger.log("EKuinaDao2003", new Object[] { entity.getClass(),
-                        attribute.getName() });
-            }
+            final String parameterName = associationPath.replace('.', '$');
+            final ConditionalExpressionBuilder builder = ConditionalExpressionBuilderFactory
+                    .createBuilder(entityClass, parameterName, type);
+            builder.appendCondition(statement, value);
+            context.addBindParamter(associationPath);
+        }
+    }
+
+    public static class Context {
+        protected Map<Object, Object> resolvedEntities = CollectionsUtil
+                .newIdentityHashMap();
+
+        protected List<String> bindParameters = CollectionsUtil.newArrayList();
+
+        public boolean isResolvedEntity(final Object entity) {
+            return resolvedEntities.containsKey(entity);
+        }
+
+        public void addResolvedEntity(final Object entity) {
+            resolvedEntities.put(entity, null);
+        }
+
+        public void addBindParamter(final String parameterName) {
+            bindParameters.add(parameterName);
+        }
+
+        public List<String> getBindParameters() {
+            return bindParameters;
         }
     }
 
