@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.internal.command;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -25,6 +26,7 @@ import org.seasar.framework.jpa.metadata.AttributeDesc;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
@@ -95,8 +97,9 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
         final Object entity = arguments[0];
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
+        final Set<Object> resolvedEntities = CollectionsUtil.newHashSet();
         addCondition(statement, fromDecl, entityDesc, entity,
-                identificationVariable + ".");
+                identificationVariable + ".", resolvedEntities);
 
         statement.from(fromDecl);
         if (orderby >= 0) {
@@ -118,11 +121,18 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
     @SuppressWarnings("unchecked")
     protected void addCondition(final SelectStatement statement,
             final IdentificationVariableDeclaration fromDecl,
-            final EntityDesc entityDesc, final Object entity, final String alias) {
+            final EntityDesc entityDesc, final Object entity,
+            final String identificationVariable,
+            final Set<Object> resolvedEntities) {
+        if (resolvedEntities.contains(entity)) {
+            return;
+        }
+        resolvedEntities.add(entity);
 
         final AttributeDesc[] attributes = entityDesc.getAttributeDescs();
         for (final AttributeDesc attribute : attributes) {
-            addCondition(statement, fromDecl, entity, attribute, alias);
+            addCondition(statement, fromDecl, entity, attribute,
+                    identificationVariable, resolvedEntities);
         }
     }
 
@@ -130,58 +140,60 @@ public class ExampleQueryCommand extends AbstractQueryCommand {
     protected void addCondition(final SelectStatement statement,
             final IdentificationVariableDeclaration fromDecl,
             final Object entity, final AttributeDesc attribute,
-            final String alias) {
+            final String identificationVariable,
+            final Set<Object> resolvedEntities) {
         final Object value = attribute.getValue(entity);
         if (value == null) {
             return;
         }
 
         final String name = attribute.getName();
-        final String path = alias + name;
-        final String parameterName = path.replace('.', '$');
+        final String associationPath = identificationVariable + name;
+        final String parameterName = associationPath.replace('.', '$');
         final Class<?> type = attribute.getType();
         if (String.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName, String.class
-                    .cast(value))));
+            statement.where(eq(associationPath, parameter(parameterName,
+                    String.class.cast(value))));
         } else if (Number.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName, Number.class
-                    .cast(value))));
+            statement.where(eq(associationPath, parameter(parameterName,
+                    Number.class.cast(value))));
         } else if (Boolean.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName, Boolean.class
-                    .cast(value).booleanValue())));
+            statement.where(eq(associationPath, parameter(parameterName,
+                    Boolean.class.cast(value).booleanValue())));
         } else if (java.sql.Date.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName,
+            statement.where(eq(associationPath, parameter(parameterName,
                     java.sql.Date.class.cast(value))));
         } else if (java.sql.Time.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName,
+            statement.where(eq(associationPath, parameter(parameterName,
                     java.sql.Time.class.cast(value))));
         } else if (java.sql.Timestamp.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName,
+            statement.where(eq(associationPath, parameter(parameterName,
                     java.sql.Timestamp.class.cast(value))));
         } else if (Date.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName, Date.class
-                    .cast(value), attribute.getTemporalType())));
+            statement.where(eq(associationPath, parameter(parameterName,
+                    Date.class.cast(value), attribute.getTemporalType())));
         } else if (Calendar.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName, Calendar.class
-                    .cast(value), attribute.getTemporalType())));
+            statement.where(eq(associationPath, parameter(parameterName,
+                    Calendar.class.cast(value), attribute.getTemporalType())));
         } else if (Enum.class.isAssignableFrom(type)) {
-            statement.where(eq(path, parameter(parameterName, Enum.class
-                    .cast(value))));
+            statement.where(eq(associationPath, parameter(parameterName,
+                    Enum.class.cast(value))));
         } else if (attribute.isAssociation() && attribute.isCollection()) {
             final Collection collection = Collection.class.cast(value);
             if (collection != null && collection.size() == 1) {
                 final Class<?> elementType = attribute.getElementType();
                 final EntityDesc elementDesc = EntityDescFactory
                         .getEntityDesc(elementType);
-                fromDecl.inner(path, name);
+                fromDecl.inner(associationPath, name);
                 addCondition(statement, fromDecl, elementDesc, collection
-                        .iterator().next(), name + ".");
+                        .iterator().next(), name + ".", resolvedEntities);
             }
         } else {
             final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(type);
             if (entityDesc != null) {
-                fromDecl.inner(path, name);
-                addCondition(statement, fromDecl, entityDesc, value, name + ".");
+                fromDecl.inner(associationPath, name);
+                addCondition(statement, fromDecl, entityDesc, value,
+                        name + ".", resolvedEntities);
             } else {
                 logger.log("EKuinaDao2003", new Object[] { entity.getClass(),
                         attribute.getName() });
