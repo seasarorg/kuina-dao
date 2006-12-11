@@ -64,7 +64,6 @@ public abstract class AbstractOneToManyInverseDaoTest {
         assertEquals("Purchase", list.get(5).getName());
     }
 
-    // StackOverflowErrorが起きる
     public void findByExampleCrossReference() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setName("simagoro");
