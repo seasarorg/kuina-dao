@@ -211,10 +211,14 @@ public class ManyToManyOwner {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof ManyToManyOwner))
+        if (!(other instanceof ManyToManyOwner)) {
             return false;
+        }
         ManyToManyOwner castOther = (ManyToManyOwner) other;
-        return this.id == castOther.id;
+        if (this.id == null) {
+            return castOther.id == null;
+        }
+        return this.id.equals(castOther.id);
     }
 
     @Override

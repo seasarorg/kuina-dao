@@ -32,17 +32,17 @@ import javax.persistence.Version;
 @Entity
 public class ManyToManyInverse {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ManyToManyInverse_Id_Generator")
     @SequenceGenerator(name = "ManyToManyInverse_Id_Generator", sequenceName = "ManyToManyInverse_Id_Sequence")
-	private Integer id;
+    private Integer id;
 
     private String name;
 
     @SuppressWarnings("unused")
     @Version
     private Integer version;
-    
+
     @ManyToMany(mappedBy = "manyToManyInverses")
     private Collection<ManyToManyOwner> manyToManyOwners;
 
@@ -74,7 +74,10 @@ public class ManyToManyInverse {
         if (!(other instanceof ManyToManyInverse))
             return false;
         ManyToManyInverse castOther = (ManyToManyInverse) other;
-        return this.id == castOther.id;
+        if (this.id == null) {
+            return castOther.id == null;
+        }
+        return this.id.equals(castOther.id);
     }
 
     @Override

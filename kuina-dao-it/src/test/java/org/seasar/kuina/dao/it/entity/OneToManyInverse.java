@@ -104,10 +104,14 @@ public class OneToManyInverse {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof OneToManyInverse))
+        if (!(other instanceof OneToManyInverse)) {
             return false;
+        }
         OneToManyInverse castOther = (OneToManyInverse) other;
-        return this.id == castOther.id;
+        if (this.id == null) {
+            return castOther.id == null;
+        }
+        return this.id.equals(castOther.id);
     }
 
     @Override

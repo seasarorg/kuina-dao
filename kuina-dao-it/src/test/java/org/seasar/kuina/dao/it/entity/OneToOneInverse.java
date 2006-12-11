@@ -40,7 +40,7 @@ public class OneToOneInverse {
     @SuppressWarnings("unused")
     @Version
     private Integer version;
-    
+
     @OneToOne(mappedBy = "oneToOneInverse")
     private OneToOneOwner oneToOneOwner;
 
@@ -66,10 +66,14 @@ public class OneToOneInverse {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof OneToOneInverse))
+        if (!(other instanceof OneToOneInverse)) {
             return false;
+        }
         OneToOneInverse castOther = (OneToOneInverse) other;
-        return this.id == castOther.id;
+        if (this.id == null) {
+            return castOther.id == null;
+        }
+        return this.id.equals(castOther.id);
     }
 
     @Override

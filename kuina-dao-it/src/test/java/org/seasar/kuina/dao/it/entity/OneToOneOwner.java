@@ -206,10 +206,14 @@ public class OneToOneOwner {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof OneToOneOwner))
+        if (!(other instanceof OneToOneOwner)) {
             return false;
+        }
         OneToOneOwner castOther = (OneToOneOwner) other;
-        return this.id == castOther.id;
+        if (this.id == null) {
+            return castOther.id == null;
+        }
+        return this.id.equals(castOther.id);
     }
 
     @Override
