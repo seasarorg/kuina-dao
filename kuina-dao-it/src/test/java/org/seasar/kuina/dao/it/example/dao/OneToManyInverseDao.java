@@ -15,6 +15,9 @@
  */
 package org.seasar.kuina.dao.it.example.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 /**
@@ -23,22 +26,13 @@ import org.seasar.kuina.dao.it.entity.OneToManyInverse;
  */
 public interface OneToManyInverseDao {
 
-    OneToManyInverse find(int id);
+    @Distinct
+    List<OneToManyInverse> findByExample(OneToManyInverse inverse);
 
-    OneToManyInverse get(int id);
+    List<OneToManyInverse> findByExampleOrderby(OneToManyInverse inverse,
+            String... orderby);
 
-    void persist(OneToManyInverse inverse);
-
-    void remove(OneToManyInverse inverse);
-
-    boolean contains(OneToManyInverse inverse);
-
-    void refresh(OneToManyInverse inverse);
-
-    OneToManyInverse merge(OneToManyInverse inverse);
-
-    void readLock(OneToManyInverse inverse);
-
-    void writeLock(OneToManyInverse inverse);
+    List<OneToManyInverse> findByExamplePaging(OneToManyInverse inverse,
+            int firstResult, int maxResults);
 
 }
