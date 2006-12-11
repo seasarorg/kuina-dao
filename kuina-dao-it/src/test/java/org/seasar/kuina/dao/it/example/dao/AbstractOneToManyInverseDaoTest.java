@@ -75,6 +75,35 @@ public abstract class AbstractOneToManyInverseDaoTest {
         assertEquals("Business", list.get(0).getName());
     }
 
+    public void findByExampleCrossReference2() throws Exception {
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setBloodType("A");
+        ManyToOneOwner subOwner = new ManyToOneOwner();
+        subOwner.setBloodType("AB");
+        OneToManyInverse example = new OneToManyInverse();
+        example.addManyToOneOwner(owner);
+        example.addSubManyToOneOwner(subOwner);
+        List<OneToManyInverse> list = dao.findByExample(example);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("Business", list.get(0).getName());
+        assertEquals("Sales", list.get(1).getName());
+    }
+
+    public void findByExampleCrossReference3() throws Exception {
+        ManyToOneOwner owner = new ManyToOneOwner();
+        owner.setBloodType("A");;
+        OneToManyInverse subInverse = new OneToManyInverse();
+        subInverse.setName("Sales");
+        subInverse.addSubManyToOneOwner(owner);
+        OneToManyInverse example = new OneToManyInverse();
+        example.addManyToOneOwner(owner);
+        List<OneToManyInverse> list = dao.findByExample(example);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("Account", list.get(0).getName());
+    }
+
     public void findByExampleEntities() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setName("simagoro");
