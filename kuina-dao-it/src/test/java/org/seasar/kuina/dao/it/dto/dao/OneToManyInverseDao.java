@@ -15,10 +15,19 @@
  */
 package org.seasar.kuina.dao.it.dto.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.Distinct;
+import org.seasar.kuina.dao.it.dto.OneToManyInverseDto;
+import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+
 /**
  * 
  * @author nakamura
  */
 public interface OneToManyInverseDao {
+
+    @Distinct
+    List<OneToManyInverse> findByDto(OneToManyInverseDto dto);
 
 }
