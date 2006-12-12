@@ -69,19 +69,4 @@ public class ManyToManyInverse {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof ManyToManyInverse))
-            return false;
-        ManyToManyInverse castOther = (ManyToManyInverse) other;
-        if (this.id == null) {
-            return castOther.id == null;
-        }
-        return this.id.equals(castOther.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id == null ? 0 : id;
-    }
 }

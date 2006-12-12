@@ -64,21 +64,4 @@ public class OneToOneInverse {
         return id;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof OneToOneInverse)) {
-            return false;
-        }
-        OneToOneInverse castOther = (OneToOneInverse) other;
-        if (this.id == null) {
-            return castOther.id == null;
-        }
-        return this.id.equals(castOther.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id == null ? 0 : id;
-    }
-
 }

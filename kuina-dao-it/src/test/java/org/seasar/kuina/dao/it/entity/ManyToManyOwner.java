@@ -209,21 +209,4 @@ public class ManyToManyOwner {
         this.weddingDay = weddingDay;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof ManyToManyOwner)) {
-            return false;
-        }
-        ManyToManyOwner castOther = (ManyToManyOwner) other;
-        if (this.id == null) {
-            return castOther.id == null;
-        }
-        return this.id.equals(castOther.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id == null ? 0 : id;
-    }
-
 }

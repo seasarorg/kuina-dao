@@ -102,20 +102,4 @@ public class OneToManyInverse {
         subOwner.setSubOneToManyInverse(this);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof OneToManyInverse)) {
-            return false;
-        }
-        OneToManyInverse castOther = (OneToManyInverse) other;
-        if (this.id == null) {
-            return castOther.id == null;
-        }
-        return this.id.equals(castOther.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id == null ? 0 : id;
-    }
 }
