@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<include path="env.dicon"/>
+	<include path="warmdeploy.dicon"/>
+
+	<component class="org.seasar.kuina.dao.it.KuinaDaoItClassLoader">
+		<arg>beforeClasspath</arg>
+		<arg>afterClasspath</arg>
+	</component>
+</components>

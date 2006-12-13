@@ -17,6 +17,8 @@ package org.seasar.kuina.dao.it.basic.dao;
 
 import javax.persistence.EntityManager;
 
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
@@ -28,7 +30,8 @@ import static org.junit.Assert.assertTrue;
  * 
  * @author nakamura
  */
-public class AbstractOneToManyInverseDaoTest {
+@RunWith(Seasar2.class)
+public class OneToManyInverseDaoTest {
 
     private EntityManager em;
 

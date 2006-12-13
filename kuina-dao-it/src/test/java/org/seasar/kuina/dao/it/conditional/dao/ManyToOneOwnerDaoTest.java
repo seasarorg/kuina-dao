@@ -17,6 +17,8 @@ package org.seasar.kuina.dao.it.conditional.dao;
 
 import java.util.List;
 
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
 import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.SalaryRate;
@@ -72,7 +74,8 @@ import static org.seasar.kuina.dao.criteria.grammar.TrimSpecification.TRAILING;
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneOwnerDaoTest {
+@RunWith(Seasar2.class)
+public class ManyToOneOwnerDaoTest {
 
     private ManyToOneOwnerDao ownerDao;
 

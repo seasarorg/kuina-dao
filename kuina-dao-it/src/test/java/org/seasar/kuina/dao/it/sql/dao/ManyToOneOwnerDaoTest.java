@@ -13,13 +13,13 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.named.dao;
+package org.seasar.kuina.dao.it.sql.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
+import org.seasar.kuina.dao.it.dto.EmpDto;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,24 +28,22 @@ import static org.junit.Assert.assertNotNull;
  * 
  * @author nakamura
  */
-public class AbstractOneToManyInverseDaoTest {
+@RunWith(Seasar2.class)
+public class ManyToOneOwnerDaoTest {
 
-    private EntityManager em;
+    private ManyToOneOwnerDao ownerDao;
 
-    private OneToManyInverseDao dao;
-
-    public void updateNameById() throws Exception {
-        dao.updateNameById(1, "Marketing");
-        OneToManyInverse inverse = em.find(OneToManyInverse.class, 1);
-        assertEquals("Marketing", inverse.getName());
+    public void findById() throws Exception {
+        EmpDto dto = ownerDao.findById(1);
+        assertNotNull(dto);
+        assertEquals("simagoro", dto.getName());
     }
 
-    public void findByName() throws Exception {
-        List<OneToManyInverse> list = dao.findByName("%c%");
+    public void findAll() throws Exception {
+        List<EmpDto> list = ownerDao.findAll();
         assertNotNull(list);
-        assertEquals(2, list.size());
-        assertEquals("Account", list.get(0).getName());
-        assertEquals("Purchase", list.get(1).getName());
+        assertEquals(30, list.size());
+        assertEquals("simagoro", list.get(0).getName());
     }
 
 }

@@ -17,6 +17,8 @@ package org.seasar.kuina.dao.it.conditional.dao;
 
 import java.util.List;
 
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +34,8 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.size;
  * 
  * @author nakamura
  */
-public abstract class AbstractOneToManyInverseDaoTest {
+@RunWith(Seasar2.class)
+public class OneToManyInverseDaoTest {
 
     private OneToManyInverseDao dao;
 

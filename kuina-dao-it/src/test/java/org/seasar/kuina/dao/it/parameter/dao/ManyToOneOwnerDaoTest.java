@@ -21,7 +21,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.junit.runner.RunWith;
 import org.seasar.extension.dxo.DateUtil;
+import org.seasar.framework.unit.Seasar2;
 import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
@@ -34,7 +36,8 @@ import static org.junit.Assert.assertNotNull;
  * 
  * @author nakamura
  */
-public abstract class AbstractManyToOneOwnerDaoTest {
+@RunWith(Seasar2.class)
+public class ManyToOneOwnerDaoTest {
 
     private EntityManager em;
 

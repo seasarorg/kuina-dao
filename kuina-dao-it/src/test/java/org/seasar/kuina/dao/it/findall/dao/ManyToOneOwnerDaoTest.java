@@ -13,11 +13,13 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.sql.dao;
+package org.seasar.kuina.dao.it.findall.dao;
 
 import java.util.List;
 
-import org.seasar.kuina.dao.it.dto.EmpDto;
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
+import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,21 +28,15 @@ import static org.junit.Assert.assertNotNull;
  * 
  * @author nakamura
  */
-public abstract class AbstractOneToManyInverseDaoTest {
+@RunWith(Seasar2.class)
+public class ManyToOneOwnerDaoTest {
 
-    private OneToManyInverseDao dao;
-
-    public void findById() throws Exception {
-        EmpDto dto = dao.findById(1);
-        assertNotNull(dto);
-        assertEquals("Business", dto.getName());
-    }
+    private ManyToOneOwnerDao ownerDao;
 
     public void findAll() throws Exception {
-        List<EmpDto> list = dao.findAll();
+        List<ManyToOneOwner> list = ownerDao.findAll();
         assertNotNull(list);
-        assertEquals(6, list.size());
-        assertEquals("Business", list.get(0).getName());
+        assertEquals(30, list.size());
     }
 
 }

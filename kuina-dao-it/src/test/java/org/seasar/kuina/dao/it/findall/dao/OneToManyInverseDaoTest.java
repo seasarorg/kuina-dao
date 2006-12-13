@@ -17,6 +17,8 @@ package org.seasar.kuina.dao.it.findall.dao;
 
 import java.util.List;
 
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +28,8 @@ import static org.junit.Assert.assertNotNull;
  * 
  * @author nakamura
  */
-public class AbstractOneToManyInverseDaoTest {
+@RunWith(Seasar2.class)
+public class OneToManyInverseDaoTest {
 
     private OneToManyInverseDao dao;
 

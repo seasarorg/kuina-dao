@@ -30,9 +30,7 @@
 			<!--
 			"jdbc:hsqldb:hsql://localhost:9001"
 			-->
-			"jdbc:hsqldb:file:"
-				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.kuina.dao.it.entity.ManyToOneOwner@class).getCanonicalPath()
-				+ "/data/demo"
+			"jdbc:hsqldb:file:src/test-hsqldb/resources/data/demo"
 		</property>
 		<property name="user">"sa"</property>
 		<property name="password">""</property>

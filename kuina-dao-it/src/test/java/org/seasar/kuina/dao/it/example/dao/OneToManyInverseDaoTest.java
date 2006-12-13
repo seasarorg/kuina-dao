@@ -20,6 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
@@ -30,7 +32,8 @@ import static org.junit.Assert.assertNotNull;
  * 
  * @author nakamura
  */
-public abstract class AbstractOneToManyInverseDaoTest {
+@RunWith(Seasar2.class)
+public class OneToManyInverseDaoTest {
 
     private OneToManyInverseDao dao;
 
@@ -92,7 +95,8 @@ public abstract class AbstractOneToManyInverseDaoTest {
 
     public void findByExampleCrossReference3() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
-        owner.setBloodType("A");;
+        owner.setBloodType("A");
+        ;
         OneToManyInverse subInverse = new OneToManyInverse();
         subInverse.setName("Sales");
         subInverse.addSubManyToOneOwner(owner);
