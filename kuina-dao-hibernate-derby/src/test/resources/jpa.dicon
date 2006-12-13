@@ -7,8 +7,11 @@
 
 	<component class="org.seasar.hibernate.jpa.impl.S2HibernateConfigurationImpl"/>
 	<component class="org.seasar.framework.jpa.autodetector.PersistenceClassAutoDetector"/>
-	<component class="org.seasar.framework.jpa.autodetector.MappingFileAutoDetector"/>
-
+	<component class="org.seasar.framework.jpa.autodetector.MappingFileAutoDetector">
+		<initMethod name="addIgnoreResourceNamePattern">
+			<arg>"META-INF/orm.xml"</arg>
+		</initMethod>
+	</component>
 	<component class="org.seasar.hibernate.jpa.impl.S2HibernatePersistenceUnitProvider"/>
 	<component class="org.seasar.hibernate.jpa.impl.S2HibernateDialect"/>
 	<component class="org.seasar.hibernate.jpa.metadata.HibernateEntityDescProvider"/>
