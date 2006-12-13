@@ -5,132 +5,53 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
 	version="1.0"
 >	
-<!-- 
-	<entity class="org.seasar.kuina.dao.it.entity.ManyToManyInverse" metadata-complete="true">
+	<entity class="org.seasar.kuina.dao.it.entity.ManyToManyInverse">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="ManyToManyInverse_Id_Generator2"/>
-				<table-generator name="ManyToManyInverse_Id_Generator2" pk-column-value="ManyToManyInverse_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="ManyToManyInverse_Id_Generator2" table="SEQUENCE" pk-column-value="ManyToManyInverse_Id_Sequence2" allocation-size="1"/>
 			</id>
-			<basic name="name"/>
-			<version name="version"/>
-			<many-to-many name="manyToManyOwners" mapped-by="manyToManyInverses"/>
 		</attributes>
 	</entity>
-	<entity class="org.seasar.kuina.dao.it.entity.ManyToManyOwner" metadata-complete="true">
+	<entity class="org.seasar.kuina.dao.it.entity.ManyToManyOwner">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="ManyToManyOwner_Id_Generator2"/>
-				<table-generator name="ManyToManyOwner_Id_Generator2" pk-column-value="ManyToManyOwner_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="ManyToManyOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="ManyToManyOwner_Id_Sequence2" allocation-size="1"/>
 			</id>
-			<basic name="name"/>
-			<basic name="height"/>
-			<basic name="weight"/>
-			<basic name="email"/>
-			<basic name="hireFiscalYear"/>
-			<basic name="birthday">
-				<temporal>DATE</temporal>
-			</basic>
-			<basic name="birthTime"/>
-			<basic name="birthTimestamp"/>
-			<basic name="employmentDate"/>
-			<basic name="weddingDay">
-				<temporal>DATE</temporal>
-			</basic>
-			<basic name="bloodType"/>
-			<basic name="employeeStatus"/>
-			<basic name="salaryRate">
-				<enumerated>STRING</enumerated>
-			</basic>
-			<basic name="retired"/>
-			<version name="version"/>
-			<many-to-many name="manyToManyInverses"/>
 		</attributes>
 	</entity>
-	<entity class="org.seasar.kuina.dao.it.entity.ManyToOneOwner" metadata-complete="true">
+	<entity class="org.seasar.kuina.dao.it.entity.ManyToOneOwner">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="ManyToOneOwner_Id_Generator2"/>
-				<table-generator name="ManyToOneOwner_Id_Generator2" pk-column-value="ManyToOneOwner_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="ManyToOneOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="ManyToOneOwner_Id_Sequence2" allocation-size="1"/>
 			</id>
-			<basic name="name"/>
-			<basic name="height"/>
-			<basic name="weight"/>
-			<basic name="email"/>
-			<basic name="hireFiscalYear"/>
-			<basic name="birthday">
-				<temporal>DATE</temporal>
-			</basic>
-			<basic name="birthTime"/>
-			<basic name="birthTimestamp"/>
-			<basic name="employmentDate"/>
-			<basic name="weddingDay">
-				<temporal>DATE</temporal>
-			</basic>
-			<basic name="bloodType"/>
-			<basic name="employeeStatus"/>
-			<basic name="salaryRate">
-				<enumerated>STRING</enumerated>
-			</basic>
-			<basic name="retired"/>
-			<version name="version"/>
-			<many-to-one name="oneToManyInverse" fetch="LAZY"/>
-			<many-to-one name="subOneToManyInverse" fetch="LAZY"/>
 		</attributes>
 	</entity>
-	<entity class="org.seasar.kuina.dao.it.entity.OneToManyInverse" metadata-complete="true">
+	<entity class="org.seasar.kuina.dao.it.entity.OneToManyInverse">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="OneToManyInverse_Id_Generator2"/>
-				<table-generator name="OneToManyInverse_Id_Generator2" pk-column-value="OneToManyInverse_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="OneToManyInverse_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToManyInverse_Id_Sequence2" allocation-size="1"/>
 			</id>
-			<basic name="name"/>
-			<version name="version"/>
-			<one-to-many name="manyToOneOwners" mapped-by="oneToManyInverse"/>
-			<one-to-many name="subManyToOneOwners" mapped-by="subOneToManyInverse"/>
 		</attributes>
 	</entity>
-	<entity class="org.seasar.kuina.dao.it.entity.OneToOneInverse" metadata-complete="true">
+	<entity class="org.seasar.kuina.dao.it.entity.OneToOneInverse">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="OneToOneInverse_Id_Generator2"/>
-				<table-generator name="OneToOneInverse_Id_Generator2" pk-column-value="OneToOneInverse_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="OneToOneInverse_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToOneInverse_Id_Sequence2" allocation-size="1"/>
 			</id>
-			<basic name="name"/>
-			<version name="version"/>
-			<one-to-one name="oneToOneOwner" mapped-by="oneToOneInverse"/>
 		</attributes>
 	</entity>
-	<entity class="org.seasar.kuina.dao.it.entity.OneToOneOwner" metadata-complete="true">
+	<entity class="org.seasar.kuina.dao.it.entity.OneToOneOwner">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="OneToOneOwner_Id_Generator2"/>
-				<table-generator name="OneToOneOwner_Id_Generator2" pk-column-value="OneToOneOwner_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="OneToOneOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToOneOwner_Id_Sequence2" allocation-size="1"/>
 			</id>
-			<basic name="name"/>
-			<basic name="height"/>
-			<basic name="weight"/>
-			<basic name="email"/>
-			<basic name="hireFiscalYear"/>
-			<basic name="birthday">
-				<temporal>DATE</temporal>
-			</basic>
-			<basic name="birthTime"/>
-			<basic name="birthTimestamp"/>
-			<basic name="employmentDate"/>
-			<basic name="weddingDay">
-				<temporal>DATE</temporal>
-			</basic>
-			<basic name="bloodType"/>
-			<basic name="employeeStatus"/>
-			<basic name="salaryRate">
-				<enumerated>STRING</enumerated>
-			</basic>
-			<basic name="retired"/>
-			<version name="version"/>
-			<one-to-one name="oneToOneInverse"/>
 		</attributes>
 	</entity>
- -->
 	
 </entity-mappings>
