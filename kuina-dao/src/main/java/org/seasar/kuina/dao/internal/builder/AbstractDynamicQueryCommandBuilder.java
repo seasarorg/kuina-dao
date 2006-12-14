@@ -64,7 +64,7 @@ public abstract class AbstractDynamicQueryCommandBuilder extends
     protected String[] getParameterNames(final Class<?> daoClass,
             final Method method) {
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return beanDesc.getMethodParameterNamesNoException(method);
+        return beanDesc.getMethodParameterNames(method);
     }
 
     protected Method[] getGetterMethods(final BeanDesc beanDesc) {

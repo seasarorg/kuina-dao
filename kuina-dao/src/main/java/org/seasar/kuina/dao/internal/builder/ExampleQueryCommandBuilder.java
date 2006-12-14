@@ -55,7 +55,7 @@ public class ExampleQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
         final String[] parameterNames = beanDesc
-                .getMethodParameterNamesNoException(method);
+                .getMethodParameterNames(method);
         final Annotation[][] annotations = method.getParameterAnnotations();
 
         return new ExampleQueryCommand(entityClass, isResultList(method),
