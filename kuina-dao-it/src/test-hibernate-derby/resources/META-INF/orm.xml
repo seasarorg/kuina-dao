@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+	version="1.0"
+>	
+	<entity class="org.seasar.kuina.dao.it.entity.ManyToManyInverse">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="TABLE" generator="ManyToManyInverse_Id_Generator2"/>
+				<table-generator name="ManyToManyInverse_Id_Generator2" table="SEQUENCE" pk-column-value="ManyToManyInverse_Id_Sequence2" allocation-size="1"/>
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.seasar.kuina.dao.it.entity.ManyToManyOwner">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="TABLE" generator="ManyToManyOwner_Id_Generator2"/>
+				<table-generator name="ManyToManyOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="ManyToManyOwner_Id_Sequence2" allocation-size="1"/>
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.seasar.kuina.dao.it.entity.ManyToOneOwner">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="TABLE" generator="ManyToOneOwner_Id_Generator2"/>
+				<table-generator name="ManyToOneOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="ManyToOneOwner_Id_Sequence2" allocation-size="1"/>
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.seasar.kuina.dao.it.entity.OneToManyInverse">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="TABLE" generator="OneToManyInverse_Id_Generator2"/>
+				<table-generator name="OneToManyInverse_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToManyInverse_Id_Sequence2" allocation-size="1"/>
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.seasar.kuina.dao.it.entity.OneToOneInverse">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="TABLE" generator="OneToOneInverse_Id_Generator2"/>
+				<table-generator name="OneToOneInverse_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToOneInverse_Id_Sequence2" allocation-size="1"/>
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.seasar.kuina.dao.it.entity.OneToOneOwner">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="TABLE" generator="OneToOneOwner_Id_Generator2"/>
+				<table-generator name="OneToOneOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToOneOwner_Id_Sequence2" allocation-size="1"/>
+			</id>
+		</attributes>
+	</entity>
+	
+</entity-mappings>

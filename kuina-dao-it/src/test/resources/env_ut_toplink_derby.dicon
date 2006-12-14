@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<component name="beforeClasspath">
+		new String[] {
+			"src/test-derby/resources",
+			"src/test-toplink-derby/resources"
+		}
+	</component>
+	<component name="afterClasspath">
+		new String[] {
+			"../s2toplink-jpa/build/classes",
+			"../s2toplink-jpa/lib/toplink-essentials.jar",
+			"../s2toplink-jpa/lib/toplink-essentials-agent.jar"
+		}
+	</component>
+</components>
