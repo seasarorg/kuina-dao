@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
+import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 import static org.junit.Assert.assertEquals;
@@ -35,6 +36,7 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.size;
  * @author nakamura
  */
 @RunWith(Seasar2.class)
+@Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
 public class OneToManyInverseDaoTest {
 
     private OneToManyInverseDao dao;

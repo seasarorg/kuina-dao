@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
+import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.dto.EmpDto;
 
 import static org.junit.Assert.assertEquals;
@@ -29,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
  * @author nakamura
  */
 @RunWith(Seasar2.class)
+@Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
 public class ManyToOneOwnerDaoTest {
 
     private ManyToOneOwnerDao ownerDao;
