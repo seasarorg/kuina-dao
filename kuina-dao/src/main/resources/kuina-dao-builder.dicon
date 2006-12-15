@@ -9,6 +9,7 @@
 	<component instance="prototype" class="org.seasar.kuina.dao.internal.metadata.DaoMetadataImpl"/>
 
 	<component class="org.seasar.kuina.dao.internal.builder.SqlCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.SqlUpdateCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryUpdateCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>

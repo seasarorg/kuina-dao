@@ -17,50 +17,28 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
-import org.seasar.extension.jdbc.ResultSetFactory;
-import org.seasar.extension.jdbc.ResultSetHandler;
 import org.seasar.extension.jdbc.StatementFactory;
-import org.seasar.extension.jdbc.impl.BasicSelectHandler;
-import org.seasar.extension.jdbc.impl.BeanListResultSetHandler;
-import org.seasar.extension.jdbc.impl.BeanResultSetHandler;
+import org.seasar.extension.jdbc.impl.BasicUpdateHandler;
 import org.seasar.framework.jpa.Dialect;
 import org.seasar.framework.jpa.DialectManager;
 
 /**
  * 
- * @author higa
+ * @author koichik
  */
-public class SqlCommand extends AbstractSqlCommand {
+public class SqlUpdateCommand extends AbstractSqlCommand {
 
-    protected final boolean resultList;
-
-    protected final Class beanClass;
-
-    protected final ResultSetFactory resultSetFactory;
-
-    public SqlCommand(final boolean resultList, final Class beanClass,
-            final String sql, final String[] parameterNames,
+    public SqlUpdateCommand(final String sql, final String[] parameterNames,
             final Class[] parameterTypes, final DialectManager dialectManager,
-            final ResultSetFactory resultSetFactory,
             final StatementFactory statementFactory) {
         super(sql, parameterNames, parameterTypes, dialectManager,
                 statementFactory);
-        this.resultList = resultList;
-        this.beanClass = beanClass;
-        this.resultSetFactory = resultSetFactory;
     }
 
     @Override
     protected Object execute(final EntityManager em, final String query,
             final Object[] args, final Class<?>[] argTypes) {
-        final ResultSetHandler rsHandler = resultList ? new BeanListResultSetHandler(
-                beanClass)
-                : new BeanResultSetHandler(beanClass);
-        final BasicSelectHandler handler = new BasicSelectHandler();
-        handler.setResultSetHandler(rsHandler);
-        if (resultSetFactory != null) {
-            handler.setResultSetFactory(resultSetFactory);
-        }
+        final BasicUpdateHandler handler = new BasicUpdateHandler();
         if (statementFactory != null) {
             handler.setStatementFactory(statementFactory);
         }

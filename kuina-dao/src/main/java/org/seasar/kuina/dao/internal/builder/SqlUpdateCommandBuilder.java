@@ -18,25 +18,26 @@ package org.seasar.kuina.dao.internal.builder;
 import java.lang.reflect.Method;
 
 import org.seasar.extension.dao.helper.DaoHelper;
-import org.seasar.extension.jdbc.ResultSetFactory;
 import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.jpa.DialectManager;
 import org.seasar.kuina.dao.internal.Command;
-import org.seasar.kuina.dao.internal.command.SqlCommand;
+import org.seasar.kuina.dao.internal.command.SqlUpdateCommand;
 
 /**
  * 
  * @author koichik
  */
-public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
+public class SqlUpdateCommandBuilder extends AbstractCommandBuilder {
 
     protected DialectManager dialectManager;
 
-    protected ResultSetFactory resultSetFactory;
-
     protected StatementFactory statementFactory;
+
+    public SqlUpdateCommandBuilder() {
+        setMethodNamePattern("(insert|update|delete|remove).+");
+    }
 
     public void setDaoHelper(final DaoHelper daoHelper) {
         this.daoHelper = daoHelper;
@@ -44,10 +45,6 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
 
     public void setDialectManager(final DialectManager dialectManager) {
         this.dialectManager = dialectManager;
-    }
-
-    public void setResultSetFactory(final ResultSetFactory resultSetFactory) {
-        this.resultSetFactory = resultSetFactory;
     }
 
     public void setStatementFactory(final StatementFactory statementFactory) {
@@ -63,14 +60,10 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
         if (sql == null) {
             return null;
         }
-        final Class targetClass = getResultClass(method);
-        if (targetClass == null) {
-            throw new IllegalStateException(daoClass.getName() + "#"
-                    + method.getName() + "()");
-        }
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new SqlCommand(isResultList(method), targetClass, sql, beanDesc
+        return new SqlUpdateCommand(sql, beanDesc
                 .getMethodParameterNames(method), method.getParameterTypes(),
-                dialectManager, resultSetFactory, statementFactory);
+                dialectManager, statementFactory);
     }
+
 }
