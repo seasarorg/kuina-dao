@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
-	"http://www.seasar.org/dtd/components21.dtd">
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
 <components namespace="jdbc">
 	<include path="jta.dicon"/>
 	<include path="jdbc-extension.dicon"/>
@@ -16,19 +16,18 @@
 		-->
 	</component>
 
-	<!-- for HSQLDB -->
+	<!-- for Derby -->
 	<component name="xaDataSource"
 		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
 		<property name="driverClassName">
-			"org.hsqldb.jdbcDriver"
+			"org.apache.derby.jdbc.EmbeddedDriver"
 		</property>
 		<property name="URL">
-			<!--
-			"jdbc:hsqldb:hsql://localhost:9001"
-			-->
-			"jdbc:hsqldb:file:src/test-hsqldb/resources/data/demo"
+			"jdbc:derby:"
+				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.kuina.dao.it.KuinaDaoItUtil@class).getCanonicalPath()
+				+ "/derby"
 		</property>
-		<property name="user">"sa"</property>
+		<property name="user">""</property>
 		<property name="password">""</property>
 	</component>
 

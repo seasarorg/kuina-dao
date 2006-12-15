@@ -23,7 +23,9 @@
 			"org.apache.derby.jdbc.EmbeddedDriver"
 		</property>
 		<property name="URL">
-			"jdbc:derby:src/test-derby/db;restoreFrom=src/test-derby/backup"
+			"jdbc:derby:"
+				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.kuina.dao.it.KuinaDaoItUtil@class).getCanonicalPath()
+				+ "/derby"
 		</property>
 		<property name="user">""</property>
 		<property name="password">""</property>
