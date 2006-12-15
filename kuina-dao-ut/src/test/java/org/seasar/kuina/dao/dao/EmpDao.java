@@ -28,4 +28,9 @@ public interface EmpDao {
     List<EmpDto> findEmps();
 
     EmpDto getEmp(int id);
+
+    int updateEmps();
+
+    int updateEmp(int id);
+
 }
