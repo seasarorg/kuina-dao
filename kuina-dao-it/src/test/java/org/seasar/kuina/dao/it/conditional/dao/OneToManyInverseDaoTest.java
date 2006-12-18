@@ -22,14 +22,9 @@ import org.seasar.framework.unit.Seasar2;
 import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.isEmpty;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.isNotEmpty;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.literal;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.size;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
 /**
  * 

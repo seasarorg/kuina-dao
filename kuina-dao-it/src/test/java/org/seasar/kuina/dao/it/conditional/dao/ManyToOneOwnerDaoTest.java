@@ -24,52 +24,11 @@ import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.SalaryRate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.abs;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.add;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.and;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.between;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.concat;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.currentDate;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.currentTime;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.currentTimestamp;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.divide;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.ge;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.gt;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.in;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.isEmpty;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.isNotEmpty;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.isNotNull;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.isNull;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.le;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.length;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.like;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.literal;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.locate;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.lower;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.lt;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.minus;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.mod;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.multiply;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.ne;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.not;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.or;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.parenthesis;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.plus;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.size;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.sqrt;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.substring;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.subtract;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.trim;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.upper;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
-import static org.seasar.kuina.dao.criteria.grammar.TrimSpecification.BOTH;
-import static org.seasar.kuina.dao.criteria.grammar.TrimSpecification.LEADING;
-import static org.seasar.kuina.dao.criteria.grammar.TrimSpecification.TRAILING;
+import static org.seasar.kuina.dao.criteria.grammar.TrimSpecification.*;
 
 /**
  * 

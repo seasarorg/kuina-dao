@@ -21,8 +21,7 @@ import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * 
