@@ -25,32 +25,9 @@ import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.alias;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.and;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.avg;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.avgDistinct;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.between;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.count;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.countDistinct;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.eq;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.gt;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.join;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.literal;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.lt;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.max;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.maxDistinct;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.memberOf;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.min;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.minDistinct;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.notMemberOf;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.or;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.sum;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.sumDistinct;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
 /**
  * 
@@ -89,7 +66,8 @@ public class ManyToOneOwnerTest {
 
     public void crossJoin() throws Exception {
         List<Object[]> list = select().from(ManyToOneOwner.class,
-                OneToManyInverse.class).getResultList(em);
+                OneToManyInverse.class).orderby("manyToOneOwner.id",
+                "oneToManyInverse.id").getResultList(em);
         assertNotNull(list);
         assertEquals(180, list.size());
         assertEquals("simagoro", ManyToOneOwner.class.cast(list.get(0)[0])
