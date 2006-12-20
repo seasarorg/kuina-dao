@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.it.entity;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -207,6 +208,14 @@ public class ManyToManyOwner {
 
     public void setWeddingDay(Calendar weddingDay) {
         this.weddingDay = weddingDay;
+    }
+
+    public void addManyToManyInverse(ManyToManyInverse inverse) {
+        if (manyToManyInverses == null) {
+            manyToManyInverses = new HashSet<ManyToManyInverse>();
+        }
+        manyToManyInverses.add(inverse);
+        inverse.addManyToManyOwner(this);
     }
 
 }

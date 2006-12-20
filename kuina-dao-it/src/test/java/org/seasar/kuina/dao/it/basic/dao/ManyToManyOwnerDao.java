@@ -15,10 +15,29 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
+import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
+
 /**
  * 
  * @author nakamura
  */
 public interface ManyToManyOwnerDao {
 
+    ManyToManyOwner find(int id);
+
+    ManyToManyOwner get(int id);
+
+    void persist(ManyToManyOwner owner);
+
+    void remove(ManyToManyOwner owner);
+
+    boolean contains(ManyToManyOwner owner);
+
+    void refresh(ManyToManyOwner owner);
+
+    ManyToManyOwner merge(ManyToManyOwner owner);
+
+    void readLock(ManyToManyOwner owner);
+
+    void writeLock(ManyToManyOwner owner);
 }

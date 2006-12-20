@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.it.entity;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -67,6 +68,13 @@ public class ManyToManyInverse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addManyToManyOwner(ManyToManyOwner owner) {
+        if (manyToManyOwners == null) {
+            manyToManyOwners = new HashSet<ManyToManyOwner>();
+        }
+        manyToManyOwners.add(owner);
     }
 
 }
