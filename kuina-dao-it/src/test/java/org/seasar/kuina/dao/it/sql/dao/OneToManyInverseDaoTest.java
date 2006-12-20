@@ -17,10 +17,13 @@ package org.seasar.kuina.dao.it.sql.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.dto.EmpDto;
+import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 import static org.junit.Assert.*;
 
@@ -31,6 +34,8 @@ import static org.junit.Assert.*;
 @RunWith(Seasar2.class)
 @Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
 public class OneToManyInverseDaoTest {
+
+    private EntityManager em;
 
     private OneToManyInverseDao dao;
 
@@ -47,4 +52,9 @@ public class OneToManyInverseDaoTest {
         assertEquals("Business", list.get(0).getName());
     }
 
+    public void updateNameById() throws Exception {
+        int affected = dao.updateNameById("Marketing", 1);
+        assertEquals(1, affected);
+        assertEquals("Marketing", em.find(OneToManyInverse.class, 1).getName());
+    }
 }

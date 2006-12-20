@@ -17,10 +17,13 @@ package org.seasar.kuina.dao.it.sql.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.dto.EmpDto;
+import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 import static org.junit.Assert.*;
 
@@ -31,6 +34,8 @@ import static org.junit.Assert.*;
 @RunWith(Seasar2.class)
 @Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
 public class ManyToOneOwnerDaoTest {
+
+    private EntityManager em;
 
     private ManyToOneOwnerDao ownerDao;
 
@@ -45,6 +50,12 @@ public class ManyToOneOwnerDaoTest {
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
+    }
+
+    public void deleteAll() throws Exception {
+        int affected = ownerDao.deleteAll();
+        assertEquals(30, affected);
+        assertNull(em.find(ManyToOneOwner.class, 1));
     }
 
 }

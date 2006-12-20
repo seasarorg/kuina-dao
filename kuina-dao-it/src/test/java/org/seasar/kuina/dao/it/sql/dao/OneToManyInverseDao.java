@@ -29,4 +29,5 @@ public interface OneToManyInverseDao {
 
     List<EmpDto> findAll();
 
+    int updateNameById(String name, Integer id);
 }

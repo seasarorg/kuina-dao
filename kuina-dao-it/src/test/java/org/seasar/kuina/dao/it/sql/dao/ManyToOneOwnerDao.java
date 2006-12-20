@@ -29,4 +29,5 @@ public interface ManyToOneOwnerDao {
 
     List<EmpDto> findAll();
 
+    int deleteAll();
 }
