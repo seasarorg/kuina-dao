@@ -13,21 +13,25 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.sql.dao;
+package org.seasar.kuina.dao.it.named.dao;
 
 import java.util.List;
 
-import org.seasar.kuina.dao.it.dto.EmpDto;
+import org.seasar.kuina.dao.PositionalParameter;
+import org.seasar.kuina.dao.QueryName;
+import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
 
 /**
  * 
  * @author nakamura
  */
-public interface OneToManyInverseDao {
+public interface ManyToManyOwnerDao {
 
-    EmpDto findById(Integer id);
+    @PositionalParameter
+    @QueryName("named.dao_ManyToManyOwner.updateNameById")
+    void updateNameById(Integer id, String name);
 
-    List<EmpDto> findAll();
+    @QueryName("named.dao_ManyToManyOwner.findByName")
+    List<ManyToManyOwner> findByName(String name);
 
-    int updateNameById(Integer id, String name);
 }

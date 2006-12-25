@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.sql.dao;
+package org.seasar.kuina.dao.it.named.dao;
 
 import java.util.List;
 
@@ -22,8 +22,7 @@ import javax.persistence.EntityManager;
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 import org.seasar.framework.unit.annotation.Prerequisite;
-import org.seasar.kuina.dao.it.dto.EmpDto;
-import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
 
 import static org.junit.Assert.*;
 
@@ -33,28 +32,24 @@ import static org.junit.Assert.*;
  */
 @RunWith(Seasar2.class)
 @Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
-public class OneToManyInverseDaoTest {
+public class ManyToManyOwnerDaoTest {
 
     private EntityManager em;
 
-    private OneToManyInverseDao dao;
-
-    public void findById() throws Exception {
-        EmpDto dto = dao.findById(1);
-        assertNotNull(dto);
-        assertEquals("Business", dto.getName());
-    }
-
-    public void findAll() throws Exception {
-        List<EmpDto> list = dao.findAll();
-        assertNotNull(list);
-        assertEquals(6, list.size());
-        assertEquals("Business", list.get(0).getName());
-    }
+    private ManyToManyOwnerDao dao;
 
     public void updateNameById() throws Exception {
-        int affected = dao.updateNameById(1, "Marketing");
-        assertEquals(1, affected);
-        assertEquals("Marketing", em.find(OneToManyInverse.class, 1).getName());
+        dao.updateNameById(1, "aaa");
+        ManyToManyOwner owner = em.find(ManyToManyOwner.class, 1);
+        assertEquals("aaa", owner.getName());
     }
+
+    public void findByName() throws Exception {
+        List<ManyToManyOwner> list = dao.findByName("%hi%");
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("gochin", list.get(0).getName());
+        assertEquals("michiro", list.get(1).getName());
+    }
+
 }

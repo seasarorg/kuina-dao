@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.dto.EmpDto;
-import org.seasar.kuina.dao.it.entity.OneToManyInverse;
+import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
 
 import static org.junit.Assert.*;
 
@@ -33,28 +33,29 @@ import static org.junit.Assert.*;
  */
 @RunWith(Seasar2.class)
 @Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
-public class OneToManyInverseDaoTest {
+public class ManyToManyOwnerDaoTest {
 
     private EntityManager em;
 
-    private OneToManyInverseDao dao;
+    private ManyToManyOwnerDao dao;
 
     public void findById() throws Exception {
         EmpDto dto = dao.findById(1);
         assertNotNull(dto);
-        assertEquals("Business", dto.getName());
+        assertEquals("simagoro", dto.getName());
     }
 
     public void findAll() throws Exception {
         List<EmpDto> list = dao.findAll();
         assertNotNull(list);
         assertEquals(6, list.size());
-        assertEquals("Business", list.get(0).getName());
+        assertEquals("simagoro", list.get(0).getName());
     }
 
     public void updateNameById() throws Exception {
-        int affected = dao.updateNameById(1, "Marketing");
+        int affected = dao.updateNameById(1, "aaa");
         assertEquals(1, affected);
-        assertEquals("Marketing", em.find(OneToManyInverse.class, 1).getName());
+        assertEquals("aaa", em.find(ManyToManyOwner.class, 1).getName());
     }
+
 }

@@ -23,7 +23,7 @@ import org.seasar.kuina.dao.it.dto.EmpDto;
  * 
  * @author nakamura
  */
-public interface OneToManyInverseDao {
+public interface ManyToManyOwnerDao {
 
     EmpDto findById(Integer id);
 
