@@ -15,10 +15,21 @@
  */
 package org.seasar.kuina.dao.it.example.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
+
 /**
  * 
  * @author nakamura
  */
 public interface ManyToManyOwnerDao {
 
+    List<ManyToManyOwner> findByExample(ManyToManyOwner owner);
+
+    List<ManyToManyOwner> findByExampleOrderby(ManyToManyOwner owner,
+            String[] orderby);
+
+    List<ManyToManyOwner> findByExamplePaging(ManyToManyOwner owner,
+            int firstResult, int maxResults);
 }
