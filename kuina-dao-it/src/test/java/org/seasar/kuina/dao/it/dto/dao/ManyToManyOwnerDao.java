@@ -15,10 +15,17 @@
  */
 package org.seasar.kuina.dao.it.dto.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.it.dto.ManyToManyOwnerDto;
+import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
+
 /**
  * 
  * @author nakamura
  */
 public interface ManyToManyOwnerDao {
+
+    List<ManyToManyOwner> findByDto(ManyToManyOwnerDto dto);
 
 }
