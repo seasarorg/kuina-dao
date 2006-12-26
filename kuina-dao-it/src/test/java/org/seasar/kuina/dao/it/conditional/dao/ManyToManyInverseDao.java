@@ -13,8 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.basic.dao;
+package org.seasar.kuina.dao.it.conditional.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
 
 /**
@@ -23,22 +26,7 @@ import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
  */
 public interface ManyToManyInverseDao {
 
-    ManyToManyInverse find(int id);
-
-    ManyToManyInverse get(int id);
-
-    void persist(ManyToManyInverse inverse);
-
-    void remove(ManyToManyInverse inverse);
-
-    boolean contains(ManyToManyInverse inverse);
-
-    void refresh(ManyToManyInverse inverse);
-
-    ManyToManyInverse merge(ManyToManyInverse inverse);
-
-    void readLock(ManyToManyInverse inverse);
-
-    void writeLock(ManyToManyInverse inverse);
+    List<ManyToManyInverse> findByCondition(
+            ConditionalExpression... expressions);
 
 }

@@ -13,9 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.basic.dao;
+package org.seasar.kuina.dao.it.sql.dao;
 
-import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
+import java.util.List;
+
+import org.seasar.kuina.dao.it.dto.EmpDto;
 
 /**
  * 
@@ -23,22 +25,9 @@ import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
  */
 public interface ManyToManyInverseDao {
 
-    ManyToManyInverse find(int id);
+    EmpDto findById(Integer id);
 
-    ManyToManyInverse get(int id);
+    List<EmpDto> findAll();
 
-    void persist(ManyToManyInverse inverse);
-
-    void remove(ManyToManyInverse inverse);
-
-    boolean contains(ManyToManyInverse inverse);
-
-    void refresh(ManyToManyInverse inverse);
-
-    ManyToManyInverse merge(ManyToManyInverse inverse);
-
-    void readLock(ManyToManyInverse inverse);
-
-    void writeLock(ManyToManyInverse inverse);
-
+    int updateNameById(Integer id, String name);
 }

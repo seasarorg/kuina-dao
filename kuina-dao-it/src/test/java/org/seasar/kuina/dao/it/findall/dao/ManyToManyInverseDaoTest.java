@@ -13,32 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.basic.dao;
+package org.seasar.kuina.dao.it.findall.dao;
 
+import java.util.List;
+
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
+import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
+
+import static org.junit.Assert.*;
 
 /**
  * 
  * @author nakamura
  */
-public interface ManyToManyInverseDao {
+@RunWith(Seasar2.class)
+@Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
+public class ManyToManyInverseDaoTest {
 
-    ManyToManyInverse find(int id);
+    private ManyToManyInverseDao dao;
 
-    ManyToManyInverse get(int id);
-
-    void persist(ManyToManyInverse inverse);
-
-    void remove(ManyToManyInverse inverse);
-
-    boolean contains(ManyToManyInverse inverse);
-
-    void refresh(ManyToManyInverse inverse);
-
-    ManyToManyInverse merge(ManyToManyInverse inverse);
-
-    void readLock(ManyToManyInverse inverse);
-
-    void writeLock(ManyToManyInverse inverse);
+    public void findAll() throws Exception {
+        List<ManyToManyInverse> list = dao.findAll();
+        assertNotNull(list);
+        assertEquals(6, list.size());
+    }
 
 }

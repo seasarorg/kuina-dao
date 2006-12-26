@@ -15,10 +15,16 @@
  */
 package org.seasar.kuina.dao.it.example.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
+
 /**
  * 
  * @author nakamura
  */
 public interface ManyToManyInverseDao {
+
+    List<ManyToManyInverse> findByExample(ManyToManyInverse inverse);
 
 }

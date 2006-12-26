@@ -15,10 +15,19 @@
  */
 package org.seasar.kuina.dao.it.parameter.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
+
 /**
  * 
  * @author nakamura
  */
 public interface ManyToManyInverseDao {
+
+    List<ManyToManyInverse> findByName(String name);
+
+    List<ManyToManyInverse> findByManyToManyOwnerName(
+            String manyToManyOwners$name);
 
 }

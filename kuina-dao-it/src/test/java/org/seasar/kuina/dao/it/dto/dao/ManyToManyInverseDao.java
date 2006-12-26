@@ -15,10 +15,17 @@
  */
 package org.seasar.kuina.dao.it.dto.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.it.dto.ManyToManyInverseDto;
+import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
+
 /**
  * 
  * @author nakamura
  */
 public interface ManyToManyInverseDao {
+
+    List<ManyToManyInverse> findByDto(ManyToManyInverseDto dto);
 
 }
