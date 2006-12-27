@@ -17,7 +17,7 @@ package org.seasar.kuina.dao.internal.metadata;
 
 import javax.persistence.EntityManager;
 
-import org.seasar.framework.unit.S2EasyMockTestCase;
+import org.seasar.framework.unit.S2TigerTestCase;
 import org.seasar.kuina.dao.dao.EmployeeDao;
 import org.seasar.kuina.dao.dao.aaa.CustomerDao;
 import org.seasar.kuina.dao.internal.DaoMetadata;
@@ -26,7 +26,7 @@ import org.seasar.kuina.dao.internal.DaoMetadata;
  * 
  * @author koichik
  */
-public class DaoMetadataImplTest extends S2EasyMockTestCase {
+public class DaoMetadataImplTest extends S2TigerTestCase {
 
     EntityManager entityManager;
 

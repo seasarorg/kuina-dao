@@ -15,11 +15,16 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
+import org.seasar.framework.util.ClassUtil;
+import org.seasar.kuina.dao.Distinct;
+import org.seasar.kuina.dao.FetchJoin;
+import org.seasar.kuina.dao.JoinSpec;
 import org.seasar.kuina.dao.entity.Employee;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
@@ -36,6 +41,9 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     private EntityManager em;
 
+    private Method method = ClassUtil.getMethod(DummyDao.class, "findEmployee",
+            null);
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -44,7 +52,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class,
+                Employee.class, method,
                 true,
                 false,
                 new String[] { "name" },
@@ -59,9 +67,9 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testNeTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class,
+                Employee.class,method,
                 true,
-                false,
+                true,
                 new String[] { "blootType_NE" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
                         .createBuilder(Employee.class, "bloodType_NE", String.class) });
@@ -73,7 +81,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testInTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class,
+                Employee.class,method,
                 true,
                 false,
                 new String[] { "name_IN" },
@@ -87,7 +95,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
     }
 
     public void testMultiParameterTx() throws Exception {
-        ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,
+        ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,method,
                 true, false, new String[] { "name", "bloodType" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
@@ -104,9 +112,9 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testRelationshipTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class,
+                Employee.class,method,
                 true,
-                false,
+                true,
                 new String[] { "belongTo$department$name" },
                 ConditionalExpressionBuilderFactory
                         .createBuilders(Employee.class, new String[] {"belongTo$department$name"}, new Class<?>[] {String.class}));
@@ -122,7 +130,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testOrderbyTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class, true, false,
+                Employee.class, method,true, false,
                 new String[] { "bloodType", "orderby" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
@@ -147,7 +155,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testPagingTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class, true, false,
+                Employee.class, method,true, false,
                 new String[] { "bloodType", "firstResult", "maxResults" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
@@ -162,6 +170,12 @@ public class ParameterQueryCommandTest extends S2TestCase {
         assertEquals("サリー", list.get(2).getName());
         assertEquals("うさぎ", list.get(3).getName());
         assertEquals("うー太", list.get(4).getName());
+    }
+
+    public interface DummyDao {
+        @Distinct
+        @FetchJoin(association = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
+        List<Employee> findEmployee();
     }
 
 }

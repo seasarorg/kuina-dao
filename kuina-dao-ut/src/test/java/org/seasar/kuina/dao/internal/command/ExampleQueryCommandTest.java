@@ -15,11 +15,15 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
+import org.seasar.framework.util.ClassUtil;
+import org.seasar.kuina.dao.FetchJoin;
+import org.seasar.kuina.dao.JoinSpec;
 import org.seasar.kuina.dao.OrderbySpec;
 import org.seasar.kuina.dao.OrderingSpec;
 import org.seasar.kuina.dao.entity.Employee;
@@ -33,6 +37,9 @@ public class ExampleQueryCommandTest extends S2TestCase {
 
     private EntityManager em;
 
+    private Method method = ClassUtil.getMethod(DummyDao.class, "findEmployee",
+            null);
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -41,7 +48,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
 
     public void testSimpleTx() throws Exception {
         AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
-                true, false, -1, -1, -1);
+                method, true, false, -1, -1, -1);
         Employee emp = new Employee();
         emp.setName("シマゴロー");
         List<Employee> list = (List) command.execute(em, new Object[] { emp });
@@ -52,7 +59,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
 
     public void testOrderbyTx() throws Exception {
         AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
-                true, false, 1, -1, -1);
+                method, true, false, 1, -1, -1);
         Employee emp = new Employee();
         emp.setBloodType("AB");
         List<Employee> list = (List) command.execute(em, new Object[] { emp,
@@ -110,7 +117,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
 
     public void testPagingTx() throws Exception {
         AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
-                true, false, -1, 1, 2);
+                method, true, false, -1, 1, 2);
         Employee emp = new Employee();
         emp.setBloodType("A");
         List<Employee> list = (List) command.execute(em, new Object[] { emp, 5,
@@ -122,6 +129,11 @@ public class ExampleQueryCommandTest extends S2TestCase {
         assertEquals("サリー", list.get(2).getName());
         assertEquals("うさぎ", list.get(3).getName());
         assertEquals("うー太", list.get(4).getName());
+    }
+
+    public interface DummyDao {
+        @FetchJoin(association = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
+        List<Employee> findEmployee();
     }
 
 }

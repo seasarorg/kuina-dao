@@ -36,10 +36,7 @@ import org.seasar.kuina.dao.entity.Department;
 import org.seasar.kuina.dao.entity.Employee;
 import org.seasar.kuina.dao.entity.Product;
 
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.between;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.gt;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.lt;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.or;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
 /**
  * @author koichik
