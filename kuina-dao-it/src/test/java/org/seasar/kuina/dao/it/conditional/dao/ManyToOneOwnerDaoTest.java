@@ -26,9 +26,10 @@ import org.seasar.kuina.dao.it.entity.SalaryRate;
 
 import static org.junit.Assert.*;
 
+import static org.seasar.kuina.dao.TrimSpecification.*;
+
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
-import static org.seasar.kuina.dao.criteria.grammar.TrimSpecification.*;
 
 /**
  * 
