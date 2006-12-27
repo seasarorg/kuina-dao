@@ -42,4 +42,9 @@ public class IdentificationVariableImpl implements IdentificationVariable {
         context.append(identificationVariable);
     }
 
+    @Override
+    public String toString() {
+        return identificationVariable;
+    }
+
 }

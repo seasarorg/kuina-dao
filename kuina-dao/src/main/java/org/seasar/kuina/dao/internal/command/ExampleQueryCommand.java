@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -44,10 +45,10 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
     /**
      * インスタンスを構築します。
      */
-    public ExampleQueryCommand(final Class<?> entityClass,
+    public ExampleQueryCommand(final Class<?> entityClass, final Method method,
             final boolean resultList, final boolean distinct,
             final int orderby, final int firstResult, final int maxResults) {
-        super(entityClass, resultList, distinct);
+        super(entityClass, method, resultList, distinct);
         this.orderby = orderby;
         this.firstResult = firstResult;
         this.maxResults = maxResults;

@@ -15,73 +15,37 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import java.lang.reflect.Method;
+import java.util.List;
 
 import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
-import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
-import org.seasar.kuina.dao.internal.util.JpqlUtil;
-
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
 
 /**
  * 
  * @author koichik
  */
-public class ConditionalQueryCommand extends AbstractCommand {
+public class ConditionalQueryCommand extends AbstractDynamicQueryCommand {
 
     protected static final Logger logger = Logger
             .getLogger(ConditionalQueryCommand.class);
 
-    protected Class<?> entityClass;
-
-    protected boolean resultList;
-
-    protected boolean distinct;
-
-    protected IdentificationVariableDeclaration fromDecl;
-
-    /**
-     * インスタンスを構築します。
-     */
     public ConditionalQueryCommand(final Class<?> entityClass,
-            final boolean resultList, final boolean distinct,
-            final IdentificationVariableDeclaration fromDecl) {
-        this.entityClass = entityClass;
-        this.resultList = resultList;
-        this.distinct = distinct;
-        this.fromDecl = fromDecl;
+            final Method method, final boolean resultList,
+            final boolean distinct) {
+        super(entityClass, method, resultList, distinct);
     }
 
-    public Object execute(final EntityManager em, final Object[] arguments) {
-        final SelectStatement statement = createSelectStatement(arguments);
-        if (logger.isInfoEnabled()) {
-            logger.log("IKuinaDao0000", new Object[] { statement
-                    .getQueryString() });
-        }
-        final Query query = statement.getQuery(em);
-        return resultList ? query.getResultList() : query.getSingleResult();
-    }
-
-    protected SelectStatement createSelectStatement(final Object[] arguments) {
-        final SelectStatement statement = createSelectStatement();
+    @Override
+    protected List<String> bindParameter(final SelectStatement statement,
+            final Object[] arguments) {
         for (final ConditionalExpression condition : ConditionalExpression[].class
                 .cast(arguments[0])) {
             statement.where(condition);
         }
-        return statement;
-    }
-
-    protected SelectStatement createSelectStatement() {
-        final String identificationVariable = JpqlUtil
-                .toDefaultIdentificationVariable(entityClass);
-        final SelectStatement statement = distinct ? selectDistinct(path(identificationVariable))
-                : select(path(identificationVariable));
-        return statement.from(fromDecl);
+        return CollectionsUtil.newArrayList();
     }
 
 }

@@ -56,7 +56,7 @@ public class ParameterQueryCommandBuilder extends
 
         final ConditionalExpressionBuilder[] builders = createBuilders(
                 entityClass, method, parameterNames);
-        return new ParameterQueryCommand(entityClass, isResultList(method),
+        return new ParameterQueryCommand(entityClass, method, isResultList(method),
                 isDistinct(method), parameterNames, builders);
     }
 

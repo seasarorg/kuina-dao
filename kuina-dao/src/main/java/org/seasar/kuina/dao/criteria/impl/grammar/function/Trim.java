@@ -16,10 +16,10 @@
 package org.seasar.kuina.dao.criteria.impl.grammar.function;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.kuina.dao.TrimSpecification;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningStrings;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
-import org.seasar.kuina.dao.criteria.grammar.TrimSpecification;
 
 /**
  * 

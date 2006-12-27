@@ -21,6 +21,7 @@ import java.util.Date;
 import javax.persistence.TemporalType;
 
 import org.seasar.kuina.dao.OrderingSpec;
+import org.seasar.kuina.dao.TrimSpecification;
 import org.seasar.kuina.dao.criteria.grammar.AggregateExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticFactor;
@@ -60,7 +61,6 @@ import org.seasar.kuina.dao.criteria.grammar.SimpleEntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringLiteral;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
-import org.seasar.kuina.dao.criteria.grammar.TrimSpecification;
 import org.seasar.kuina.dao.criteria.impl.SelectStatementImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Avg;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Count;

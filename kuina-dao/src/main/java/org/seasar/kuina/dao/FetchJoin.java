@@ -13,12 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.grammar;
+package org.seasar.kuina.dao;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * 
  * @author koichik
  */
-public enum JoinSpec {
-    JOIN, INNER_JOIN, LEFT_OUTER_JOIN
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface FetchJoin {
+    JoinSpec joinSpec();
+
+    String association();
 }

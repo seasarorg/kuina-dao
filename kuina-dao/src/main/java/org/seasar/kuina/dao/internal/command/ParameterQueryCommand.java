@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
@@ -32,10 +33,10 @@ public class ParameterQueryCommand extends AbstractDynamicQueryCommand {
     protected ConditionalExpressionBuilder[] builders;
 
     public ParameterQueryCommand(final Class<?> entityClass,
-            final boolean resultList, final boolean distinct,
-            final String[] parameterNames,
+            final Method method, final boolean resultList,
+            final boolean distinct, final String[] parameterNames,
             final ConditionalExpressionBuilder[] builders) {
-        super(entityClass, resultList, distinct);
+        super(entityClass, method, resultList, distinct);
         this.parameterNames = parameterNames;
         this.builders = builders;
     }

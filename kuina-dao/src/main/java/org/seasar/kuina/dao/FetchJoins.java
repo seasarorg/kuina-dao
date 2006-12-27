@@ -13,35 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.binder;
+package org.seasar.kuina.dao;
 
-import javax.persistence.Query;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * 
  * @author koichik
  */
-public class MaxResultsBinder implements ParameterBinder {
-
-    protected final Number value;
-
-    public MaxResultsBinder() {
-        this(null);
-    }
-
-    public MaxResultsBinder(final Number value) {
-        this.value = value;
-    }
-
-    public void bind(final Query query) {
-        bind(query, value);
-    }
-
-    public void bind(final Query query, final Object value) {
-        final int maxResults = Number.class.cast(value).intValue();
-        if (maxResults >= 0) {
-            query.setMaxResults(maxResults);
-        }
-    }
-
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface FetchJoins {
+    FetchJoin[] value();
 }

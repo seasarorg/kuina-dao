@@ -13,35 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.internal.binder;
-
-import javax.persistence.Query;
+package org.seasar.kuina.dao;
 
 /**
  * 
  * @author koichik
  */
-public class MaxResultsBinder implements ParameterBinder {
-
-    protected final Number value;
-
-    public MaxResultsBinder() {
-        this(null);
-    }
-
-    public MaxResultsBinder(final Number value) {
-        this.value = value;
-    }
-
-    public void bind(final Query query) {
-        bind(query, value);
-    }
-
-    public void bind(final Query query, final Object value) {
-        final int maxResults = Number.class.cast(value).intValue();
-        if (maxResults >= 0) {
-            query.setMaxResults(maxResults);
-        }
-    }
-
+public enum JoinSpec {
+    INNER_JOIN, LEFT_OUTER_JOIN
 }

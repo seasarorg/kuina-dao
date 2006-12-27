@@ -60,9 +60,6 @@ public class CalendarParameterBinder implements ParameterBinder {
         this.temporalType = temporalType;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.binder.ParameterBinder#bind(javax.persistence.Query)
-     */
     public void bind(final Query query) {
         bind(query, value);
     }

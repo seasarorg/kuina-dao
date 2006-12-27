@@ -15,20 +15,24 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
+import org.seasar.kuina.dao.FetchJoin;
+import org.seasar.kuina.dao.FetchJoins;
+import org.seasar.kuina.dao.JoinSpec;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
 
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.path;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.select;
-import static org.seasar.kuina.dao.criteria.CriteriaOperations.selectDistinct;
+import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
 /**
  * 
@@ -38,6 +42,8 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
     protected Class<?> entityClass;
 
+    protected Method method;
+
     protected boolean resultList;
 
     protected boolean distinct;
@@ -45,8 +51,10 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
     protected String identificationVariable;
 
     public AbstractDynamicQueryCommand(final Class<?> entityClass,
-            final boolean resultList, final boolean distinct) {
+            final Method method, final boolean resultList,
+            final boolean distinct) {
         this.entityClass = entityClass;
+        this.method = method;
         this.resultList = resultList;
         this.distinct = distinct;
         this.identificationVariable = JpqlUtil
@@ -75,8 +83,15 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
             final List<String> boundProperties) {
         final IdentificationVariableDeclaration fromDecl = new IdentificationVariableDeclarationImpl(
                 entityClass);
-        final Set<String> associations = createAssociations(boundProperties);
-        for (final String association : associations) {
+        for (final Entry<String, JoinSpec> entry : createFetchJoinAssociations(
+                fromDecl.getIdentificationVariable().toString()).entrySet()) {
+            if (entry.getValue() == JoinSpec.INNER_JOIN) {
+                fromDecl.innerFetch(entry.getKey());
+            } else {
+                fromDecl.leftFetch(entry.getKey());
+            }
+        }
+        for (final String association : createJoinAssociations(boundProperties)) {
             final int pos1 = association.lastIndexOf('.');
             if (pos1 == -1) {
                 fromDecl.inner(identificationVariable + "." + association,
@@ -94,7 +109,27 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         return fromDecl;
     }
 
-    protected Set<String> createAssociations(final List<String> boundProperties) {
+    protected Map<String, JoinSpec> createFetchJoinAssociations(
+            final String abstractSchemaName) {
+        final Map<String, JoinSpec> associations = CollectionsUtil.newTreeMap();
+        final FetchJoins joins = method.getAnnotation(FetchJoins.class);
+        if (joins != null) {
+            for (final FetchJoin join : joins.value()) {
+                associations.put(abstractSchemaName + "." + join.association(),
+                        join.joinSpec());
+            }
+        } else {
+            final FetchJoin join = method.getAnnotation(FetchJoin.class);
+            if (join != null) {
+                associations.put(abstractSchemaName + "." + join.association(),
+                        join.joinSpec());
+            }
+        }
+        return associations;
+    }
+
+    protected Set<String> createJoinAssociations(
+            final List<String> boundProperties) {
         final Set<String> associations = CollectionsUtil.newTreeSet();
         for (int i = 0; i < boundProperties.size(); ++i) {
             final String propertyName = boundProperties.get(i);

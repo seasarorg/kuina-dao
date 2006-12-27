@@ -33,11 +33,11 @@ public class DtoQueryCommand extends AbstractDynamicQueryCommand {
 
     protected ConditionalExpressionBuilder[] builders;
 
-    public DtoQueryCommand(final Class<?> entityClass,
+    public DtoQueryCommand(final Class<?> entityClass, final Method method,
             final boolean resultList, final boolean distinct,
             final Method[] getterMethods,
             final ConditionalExpressionBuilder[] builders) {
-        super(entityClass, resultList, distinct);
+        super(entityClass, method, resultList, distinct);
         this.getterMethods = getterMethods;
         this.builders = builders;
     }

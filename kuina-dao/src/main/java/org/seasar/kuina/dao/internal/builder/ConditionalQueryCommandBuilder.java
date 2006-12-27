@@ -18,7 +18,6 @@ package org.seasar.kuina.dao.internal.builder;
 import java.lang.reflect.Method;
 
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
-import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ConditionalQueryCommand;
 
@@ -44,9 +43,8 @@ public class ConditionalQueryCommandBuilder extends AbstractQueryCommandBuilder 
             return null;
         }
 
-        return new ConditionalQueryCommand(entityClass, isResultList(method),
-                isDistinct(method), new IdentificationVariableDeclarationImpl(
-                        entityClass));
+        return new ConditionalQueryCommand(entityClass, method,
+                isResultList(method), isDistinct(method));
     }
 
 }
