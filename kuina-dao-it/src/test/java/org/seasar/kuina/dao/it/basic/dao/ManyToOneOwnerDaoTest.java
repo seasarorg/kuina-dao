@@ -43,7 +43,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void get() throws Exception {
-        ManyToOneOwner owner = ownerDao.get(1);
+        ManyToOneOwner owner = ownerDao.getReference(1);
         assertEquals("simagoro", owner.getName());
     }
 

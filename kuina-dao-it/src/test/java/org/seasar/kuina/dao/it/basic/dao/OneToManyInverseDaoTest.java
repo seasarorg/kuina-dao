@@ -43,7 +43,7 @@ public class OneToManyInverseDaoTest {
     }
 
     public void get() throws Exception {
-        OneToManyInverse inverse = dao.get(1);
+        OneToManyInverse inverse = dao.getReference(1);
         assertEquals("Business", inverse.getName());
     }
 

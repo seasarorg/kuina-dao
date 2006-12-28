@@ -25,7 +25,7 @@ public interface OneToManyInverseDao {
 
     OneToManyInverse find(int id);
 
-    OneToManyInverse get(int id);
+    OneToManyInverse getReference(int id);
 
     void persist(OneToManyInverse inverse);
 
