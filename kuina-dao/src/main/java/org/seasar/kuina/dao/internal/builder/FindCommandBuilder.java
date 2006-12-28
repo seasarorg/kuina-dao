@@ -30,7 +30,7 @@ import org.seasar.kuina.dao.internal.command.FindCommand;
 public class FindCommandBuilder extends AbstractCommandBuilder {
 
     public FindCommandBuilder() {
-        setMethodNamePattern("find");
+        setMethodNamePattern("get|find");
     }
 
     public Command build(final Class<?> daoClass, final Method method) {

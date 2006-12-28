@@ -29,7 +29,7 @@ import org.seasar.kuina.dao.internal.command.GetReferenceCommand;
 public class GetReferenceCommandBuilder extends AbstractCommandBuilder {
 
     public GetReferenceCommandBuilder() {
-        setMethodNamePattern(("get(Reference)?"));
+        setMethodNamePattern(("(get|find)Reference"));
     }
 
     public Command build(final Class<?> daoClass, final Method method) {
