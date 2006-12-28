@@ -132,7 +132,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
     }
 
     public interface DummyDao {
-        @FetchJoin(association = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
+        @FetchJoin(value = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
         List<Employee> findEmployee();
     }
 

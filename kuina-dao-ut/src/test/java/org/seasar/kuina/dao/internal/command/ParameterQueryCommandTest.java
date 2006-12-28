@@ -174,7 +174,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public interface DummyDao {
         @Distinct
-        @FetchJoin(association = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
+        @FetchJoin(value = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
         List<Employee> findEmployee();
     }
 
