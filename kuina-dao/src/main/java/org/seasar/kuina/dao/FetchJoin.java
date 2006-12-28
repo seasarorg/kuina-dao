@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FetchJoin {
-    JoinSpec joinSpec();
+    JoinSpec joinSpec() default JoinSpec.INNER_JOIN;
 
-    String association();
+    String value();
 }

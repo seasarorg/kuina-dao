@@ -115,14 +115,14 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         final FetchJoins joins = method.getAnnotation(FetchJoins.class);
         if (joins != null) {
             for (final FetchJoin join : joins.value()) {
-                associations.put(abstractSchemaName + "." + join.association(),
-                        join.joinSpec());
+                associations.put(abstractSchemaName + "." + join.value(), join
+                        .joinSpec());
             }
         } else {
             final FetchJoin join = method.getAnnotation(FetchJoin.class);
             if (join != null) {
-                associations.put(abstractSchemaName + "." + join.association(),
-                        join.joinSpec());
+                associations.put(abstractSchemaName + "." + join.value(), join
+                        .joinSpec());
             }
         }
         return associations;
