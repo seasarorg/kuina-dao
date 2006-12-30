@@ -58,7 +58,7 @@ public class ManyToManyInverseTest {
     public void _left() throws Exception {
         List<ManyToManyInverse> list = selectDistinct("mi").from(
                 join(ManyToManyInverse.class, "mi").left("mi.manyToManyOwners",
-                        "mi")).getResultList(em);
+                        "mo")).getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
