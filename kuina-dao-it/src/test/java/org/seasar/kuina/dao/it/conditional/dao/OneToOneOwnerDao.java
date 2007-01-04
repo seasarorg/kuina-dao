@@ -13,11 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.dto.dao;
+package org.seasar.kuina.dao.it.conditional.dao;
 
 import java.util.List;
 
-import org.seasar.kuina.dao.it.dto.OneToOneOwnerDto;
+import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.it.entity.OneToOneOwner;
 
 /**
@@ -26,6 +26,6 @@ import org.seasar.kuina.dao.it.entity.OneToOneOwner;
  */
 public interface OneToOneOwnerDao {
 
-    List<OneToOneOwner> findByDto(OneToOneOwnerDto dto);
+    List<OneToOneOwner> findByCondition(ConditionalExpression... expressions);
 
 }

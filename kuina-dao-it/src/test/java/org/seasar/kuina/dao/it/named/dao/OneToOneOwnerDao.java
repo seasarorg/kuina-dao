@@ -13,11 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.dto.dao;
+package org.seasar.kuina.dao.it.named.dao;
 
 import java.util.List;
 
-import org.seasar.kuina.dao.it.dto.OneToOneOwnerDto;
+import org.seasar.kuina.dao.PositionalParameter;
+import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.it.entity.OneToOneOwner;
 
 /**
@@ -26,6 +27,11 @@ import org.seasar.kuina.dao.it.entity.OneToOneOwner;
  */
 public interface OneToOneOwnerDao {
 
-    List<OneToOneOwner> findByDto(OneToOneOwnerDto dto);
+    @PositionalParameter
+    @QueryName("named.dao_OneToOneOwner.updateNameById")
+    void updateNameById(Integer id, String name);
+
+    @QueryName("named.dao_OneToOneOwner.findByName")
+    List<OneToOneOwner> findByName(String name);
 
 }

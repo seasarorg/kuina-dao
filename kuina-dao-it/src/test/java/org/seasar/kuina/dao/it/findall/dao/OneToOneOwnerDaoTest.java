@@ -13,19 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.dto.dao;
+package org.seasar.kuina.dao.it.findall.dao;
 
 import java.util.List;
 
-import org.seasar.kuina.dao.it.dto.OneToOneOwnerDto;
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
+import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.entity.OneToOneOwner;
+
+import static org.junit.Assert.*;
 
 /**
  * 
  * @author nakamura
  */
-public interface OneToOneOwnerDao {
+@RunWith(Seasar2.class)
+@Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
+public class OneToOneOwnerDaoTest {
 
-    List<OneToOneOwner> findByDto(OneToOneOwnerDto dto);
+    private OneToOneOwnerDao dao;
+
+    public void findAll() throws Exception {
+        List<OneToOneOwner> list = dao.findAll();
+        assertNotNull(list);
+        assertEquals(6, list.size());
+    }
 
 }

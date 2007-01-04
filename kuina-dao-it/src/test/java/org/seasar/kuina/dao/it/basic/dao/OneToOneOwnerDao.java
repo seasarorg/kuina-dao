@@ -15,10 +15,30 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
+import org.seasar.kuina.dao.it.entity.OneToOneOwner;
+
 /**
  * 
  * @author nakamura
  */
 public interface OneToOneOwnerDao {
+
+    OneToOneOwner find(int id);
+
+    OneToOneOwner getReference(int id);
+
+    void persist(OneToOneOwner owner);
+
+    void remove(OneToOneOwner owner);
+
+    boolean contains(OneToOneOwner owner);
+
+    void refresh(OneToOneOwner owner);
+
+    OneToOneOwner merge(OneToOneOwner owner);
+
+    void readLock(OneToOneOwner owner);
+
+    void writeLock(OneToOneOwner owner);
 
 }

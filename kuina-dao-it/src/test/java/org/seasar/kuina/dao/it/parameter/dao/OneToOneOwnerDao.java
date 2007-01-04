@@ -15,10 +15,18 @@
  */
 package org.seasar.kuina.dao.it.parameter.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.it.entity.OneToOneOwner;
+
 /**
  * 
  * @author nakamura
  */
 public interface OneToOneOwnerDao {
+
+    List<OneToOneOwner> findByName(String name);
+
+    List<OneToOneOwner> findByOneToOneInverseName(String oneToOneInverse$name);
 
 }
