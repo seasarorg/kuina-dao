@@ -42,10 +42,10 @@ public class ManyToOneOwnerDaoTest {
 
     private EntityManager em;
 
-    private ManyToOneOwnerDao ownerDao;
+    private ManyToOneOwnerDao dao;
 
     public void findByBloodType() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByBloodType("B", "AB");
+        List<ManyToOneOwner> list = dao.findByBloodType("B", "AB");
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("gochin", list.get(0).getName());
@@ -62,7 +62,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByNameBloodType() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByNameBloodType("simagoro",
+        List<ManyToOneOwner> list = dao.findByNameBloodType("simagoro",
                 null);
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -70,7 +70,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByNameBloodType2() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByNameBloodType(null, "AB");
+        List<ManyToOneOwner> list = dao.findByNameBloodType(null, "AB");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("maru", list.get(0).getName());
@@ -79,14 +79,14 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByNameBloodType3() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByNameBloodType("maru", "AB");
+        List<ManyToOneOwner> list = dao.findByNameBloodType("maru", "AB");
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("maru", list.get(0).getName());
     }
 
     public void findByBloodTypeOrderbyHeightWeight() throws Exception {
-        List<ManyToOneOwner> list = ownerDao
+        List<ManyToOneOwner> list = dao
                 .findByBloodTypeOrderbyHeightWeight("A", new String[] {
                         "height", "weight" });
         assertNotNull(list);
@@ -106,7 +106,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void findByBirthday() throws Exception {
         Date date = DateUtil.newDate(1983, 1, 1);
-        List<ManyToOneOwner> list = ownerDao.findByBirthday(date);
+        List<ManyToOneOwner> list = dao.findByBirthday(date);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("mikel", list.get(0).getName());
@@ -119,7 +119,7 @@ public class ManyToOneOwnerDaoTest {
         date.set(Calendar.YEAR, 1998);
         date.set(Calendar.MONTH, 0);
         date.set(Calendar.DAY_OF_MONTH, 15);
-        List<ManyToOneOwner> list = ownerDao.findByWeddingDay(date);
+        List<ManyToOneOwner> list = dao.findByWeddingDay(date);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("maki", list.get(0).getName());
@@ -127,7 +127,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void findByEmployeeDate() throws Exception {
         java.sql.Date date = java.sql.Date.valueOf("1984-04-01");
-        List<ManyToOneOwner> list = ownerDao.findByEmploymentDate(date);
+        List<ManyToOneOwner> list = dao.findByEmploymentDate(date);
         assertNotNull(list);
         assertEquals(5, list.size());
         assertEquals("gochin", list.get(0).getName());
@@ -139,7 +139,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void findByBirthTime() throws Exception {
         java.sql.Time time = java.sql.Time.valueOf("08:00:00");
-        List<ManyToOneOwner> list = ownerDao.findByBirthTime(time);
+        List<ManyToOneOwner> list = dao.findByBirthTime(time);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("minami", list.get(0).getName());
@@ -150,14 +150,14 @@ public class ManyToOneOwnerDaoTest {
     public void findByBirthTimestamp() throws Exception {
         java.sql.Timestamp timestamp = java.sql.Timestamp
                 .valueOf("1959-09-03 08:00:00");
-        List<ManyToOneOwner> list = ownerDao.findByBirthTimestamp(timestamp);
+        List<ManyToOneOwner> list = dao.findByBirthTimestamp(timestamp);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("minami", list.get(0).getName());
     }
 
     public void findByName() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByName("sa");
+        List<ManyToOneOwner> list = dao.findByName("sa");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("sara", list.get(0).getName());
@@ -166,14 +166,14 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByHireFiscalYear() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByHireFiscalYear(true);
+        List<ManyToOneOwner> list = dao.findByHireFiscalYear(true);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("simagoro", list.get(0).getName());
     }
 
     public void findByEmployeeStatus() throws Exception {
-        List<ManyToOneOwner> list = ownerDao
+        List<ManyToOneOwner> list = dao
                 .findByEmployeeStatus(EmployeeStatus.CONTRACT);
         assertNotNull(list);
         assertEquals(10, list.size());
@@ -190,7 +190,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findBySalaryRate() throws Exception {
-        List<ManyToOneOwner> list = ownerDao
+        List<ManyToOneOwner> list = dao
                 .findBySalaryRate(SalaryRate.MANAGER);
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -200,7 +200,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByRetiredFlag() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByRetiredFlag(true);
+        List<ManyToOneOwner> list = dao.findByRetiredFlag(true);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("gochin", list.get(0).getName());
@@ -208,7 +208,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void findByOneToManyInverse() throws Exception {
         OneToManyInverse inverse = em.find(OneToManyInverse.class, 3);
-        List<ManyToOneOwner> list = ownerDao.findByOneToManyInverse(inverse);
+        List<ManyToOneOwner> list = dao.findByOneToManyInverse(inverse);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("nekomaru", list.get(0).getName());
@@ -217,7 +217,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByOneToManyInverseName() throws Exception {
-        List<ManyToOneOwner> list = ownerDao
+        List<ManyToOneOwner> list = dao
                 .findByOneToManyInverseName("Personnel");
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -227,7 +227,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByRelationship() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByRelationship("simagoro");
+        List<ManyToOneOwner> list = dao.findByRelationship("simagoro");
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals("goma", list.get(0).getName());

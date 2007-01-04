@@ -32,10 +32,10 @@ import static org.junit.Assert.*;
 @Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
 public class ManyToOneOwnerDaoTest {
 
-    private ManyToOneOwnerDao ownerDao;
+    private ManyToOneOwnerDao dao;
 
     public void findAll() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findAll();
+        List<ManyToOneOwner> list = dao.findAll();
         assertNotNull(list);
         assertEquals(30, list.size());
     }

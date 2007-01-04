@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd"
 	version="1.0"
 >
-	<named-query name="named.dao_OneToOneOwner.updateNameById">
+	<named-query name="named.dao.OneToOneOwner.updateNameById">
 		<query>
 			UPDATE
 				OneToOneOwner owner
@@ -15,7 +15,7 @@
 				owner.id = ?1
 		</query>
 	</named-query>
-	<named-query name="named.dao_OneToOneOwner.findByName">
+	<named-query name="named.dao.OneToOneOwner.findByName">
 		<query>
 			SELECT
 			    owner

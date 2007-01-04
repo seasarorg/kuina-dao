@@ -28,10 +28,10 @@ import org.seasar.kuina.dao.it.entity.OneToOneInverse;
 public interface OneToOneInverseDao {
 
     @PositionalParameter
-    @QueryName("named.dao_OneToOneInverse.updateNameById")
+    @QueryName("named.dao.OneToOneInverse.updateNameById")
     void updateNameById(Integer id, String name);
 
-    @QueryName("named.dao_OneToOneInverse.findByName")
+    @QueryName("named.dao.OneToOneInverse.findByName")
     List<OneToOneInverse> findByName(String name);
 
 }

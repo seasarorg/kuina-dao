@@ -35,15 +35,15 @@ public class ManyToOneOwnerDaoTest {
 
     private EntityManager em;
 
-    private ManyToOneOwnerDao ownerDao;
+    private ManyToOneOwnerDao dao;
 
     public void find() throws Exception {
-        ManyToOneOwner owner = ownerDao.find(1);
+        ManyToOneOwner owner = dao.find(1);
         assertEquals("simagoro", owner.getName());
     }
 
     public void get() throws Exception {
-        ManyToOneOwner owner = ownerDao.getReference(1);
+        ManyToOneOwner owner = dao.getReference(1);
         assertEquals("simagoro", owner.getName());
     }
 
@@ -52,53 +52,53 @@ public class ManyToOneOwnerDaoTest {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setOneToManyInverse(inverse);
         owner.setSubOneToManyInverse(inverse);
-        ownerDao.persist(owner);
+        dao.persist(owner);
         assertTrue(em.contains(owner));
         em.flush();
     }
 
     public void remove() throws Exception {
-        ManyToOneOwner owner = ownerDao.find(1);
-        ownerDao.remove(owner);
+        ManyToOneOwner owner = dao.find(1);
+        dao.remove(owner);
         assertFalse(em.contains(owner));
         em.flush();
     }
 
     public void merge() throws Exception {
-        ManyToOneOwner owner = ownerDao.find(1);
+        ManyToOneOwner owner = dao.find(1);
         assertEquals("simagoro", owner.getName());
         em.clear();
 
         owner.setName("hoge");
-        ManyToOneOwner owner2 = ownerDao.merge(owner);
+        ManyToOneOwner owner2 = dao.merge(owner);
         assertEquals("hoge", owner2.getName());
         em.flush();
     }
 
     public void contains() throws Exception {
-        ManyToOneOwner owner = ownerDao.find(1);
-        assertTrue(ownerDao.contains(owner));
+        ManyToOneOwner owner = dao.find(1);
+        assertTrue(dao.contains(owner));
 
         ManyToOneOwner owner2 = new ManyToOneOwner();
-        assertFalse(ownerDao.contains(owner2));
+        assertFalse(dao.contains(owner2));
     }
 
     public void refresh() throws Exception {
-        ManyToOneOwner owner = ownerDao.find(1);
+        ManyToOneOwner owner = dao.find(1);
         assertEquals("simagoro", owner.getName());
         owner.setName("hoge");
-        ownerDao.refresh(owner);
+        dao.refresh(owner);
         assertEquals("simagoro", owner.getName());
     }
 
     public void readLock() throws Exception {
-        ManyToOneOwner owner = ownerDao.find(1);
-        ownerDao.readLock(owner);
+        ManyToOneOwner owner = dao.find(1);
+        dao.readLock(owner);
     }
 
     public void writeLock() throws Exception {
-        ManyToOneOwner owner = ownerDao.find(1);
-        ownerDao.writeLock(owner);
+        ManyToOneOwner owner = dao.find(1);
+        dao.writeLock(owner);
     }
 
 }

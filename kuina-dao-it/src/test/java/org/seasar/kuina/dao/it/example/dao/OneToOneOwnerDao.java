@@ -27,9 +27,4 @@ public interface OneToOneOwnerDao {
 
     List<OneToOneOwner> findByExample(OneToOneOwner owner);
 
-    List<OneToOneOwner> findByExampleOrderby(OneToOneOwner owner,
-            String[] orderby);
-
-    List<OneToOneOwner> findByExamplePaging(OneToOneOwner owner,
-            int firstResult, int maxResults);
 }

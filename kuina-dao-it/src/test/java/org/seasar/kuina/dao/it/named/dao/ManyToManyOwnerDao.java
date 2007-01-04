@@ -28,10 +28,10 @@ import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
 public interface ManyToManyOwnerDao {
 
     @PositionalParameter
-    @QueryName("named.dao_ManyToManyOwner.updateNameById")
+    @QueryName("named.dao.ManyToManyOwner.updateNameById")
     void updateNameById(Integer id, String name);
 
-    @QueryName("named.dao_ManyToManyOwner.findByName")
+    @QueryName("named.dao.ManyToManyOwner.findByName")
     List<ManyToManyOwner> findByName(String name);
 
 }

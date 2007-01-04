@@ -37,23 +37,23 @@ public class ManyToOneOwnerDaoTest {
 
     private EntityManager em;
 
-    private ManyToOneOwnerDao ownerDao;
+    private ManyToOneOwnerDao dao;
 
     public void findById() throws Exception {
-        EmpDto dto = ownerDao.findById(1);
+        EmpDto dto = dao.findById(1);
         assertNotNull(dto);
         assertEquals("simagoro", dto.getName());
     }
 
     public void findAll() throws Exception {
-        List<EmpDto> list = ownerDao.findAll();
+        List<EmpDto> list = dao.findAll();
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
     }
 
     public void deleteAll() throws Exception {
-        int affected = ownerDao.deleteAll();
+        int affected = dao.deleteAll();
         assertEquals(30, affected);
         assertNull(em.find(ManyToOneOwner.class, 1));
     }

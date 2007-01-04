@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd"
 	version="1.0"
 >
-	<named-query name="named.dao_ManyToOneOwner.updateRetiredFlagById">
+	<named-query name="named.dao.ManyToOneOwner.updateRetiredFlagById">
 		<query>
 			UPDATE
 				ManyToOneOwner owner
@@ -15,7 +15,7 @@
 				owner.id = :id
 		</query>
 	</named-query>
-	<named-query name="named.dao_ManyToOneOwner.removeById">
+	<named-query name="named.dao.ManyToOneOwner.removeById">
 		<query>
 			DELETE
 			FROM
@@ -25,7 +25,7 @@
 		</query>
 	</named-query>
 	
-	<named-query name="named.dao_ManyToOneOwner.findByName">
+	<named-query name="named.dao.ManyToOneOwner.findByName">
 		<query>
 			SELECT
 				owner
@@ -35,7 +35,7 @@
 				owner.name = :ownerName
 		</query>
 	</named-query>
-	<named-query name="named.dao_ManyToOneOwner.findByBirthday">
+	<named-query name="named.dao.ManyToOneOwner.findByBirthday">
 		<query>
 			SELECT
 				owner
@@ -45,7 +45,7 @@
 				owner.birthday = ?1
 		</query>
 	</named-query>
-	<named-query name="named.dao_ManyToOneOwner.findByOneToManyInverseName">
+	<named-query name="named.dao.ManyToOneOwner.findByOneToManyInverseName">
 		<query>
 			SELECT
 				owner 
@@ -56,7 +56,7 @@
 				inverse.name = :name
 		</query>
 	</named-query>
-	<named-query name="named.dao_ManyToOneOwner.getName">
+	<named-query name="named.dao.ManyToOneOwner.getName">
 		<query>
 			SELECT
 				owner.name
@@ -67,7 +67,7 @@
 		</query>
 	</named-query>
 
-	<named-native-query name="named.dao_ManyToOneOwner.getCount" result-set-mapping="getCount">
+	<named-native-query name="named.dao.ManyToOneOwner.getCount" result-set-mapping="getCount">
 		<query>
 			SELECT
 				COUNT(*) AS cnt
@@ -75,7 +75,7 @@
 				ManyToOneOwner owner
 		</query>
 	</named-native-query>
-	<named-native-query name="named.dao_ManyToOneOwner.getCountByBloodType" result-set-mapping="getCount">
+	<named-native-query name="named.dao.ManyToOneOwner.getCountByBloodType" result-set-mapping="getCount">
 		<query>
 			SELECT
 				COUNT(*) AS cnt

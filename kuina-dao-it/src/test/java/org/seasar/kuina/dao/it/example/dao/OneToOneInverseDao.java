@@ -27,9 +27,4 @@ public interface OneToOneInverseDao {
 
     List<OneToOneInverse> findByExample(OneToOneInverse inverse);
 
-    List<OneToOneInverse> findByExampleOrderby(OneToOneInverse inverse,
-            String[] orderby);
-
-    List<OneToOneInverse> findByExamplePaging(OneToOneInverse inverse,
-            int firstResult, int maxResults);
 }

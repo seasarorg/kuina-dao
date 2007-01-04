@@ -37,28 +37,28 @@ public class ManyToOneOwnerDaoTest {
 
     private EntityManager em;
 
-    private ManyToOneOwnerDao ownerDao;
+    private ManyToOneOwnerDao dao;
 
     public void updateRtiredFlagById() throws Exception {
-        ownerDao.updateRetiredFlagById(1, true);
+        dao.updateRetiredFlagById(1, true);
         ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
         assertTrue(owner.isRetired());
     }
 
     public void removeById() throws Exception {
-        ownerDao.removeById(1);
+        dao.removeById(1);
         assertNull(em.find(ManyToOneOwner.class, 1));
     }
 
     public void findByName() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByName("simagoro");
+        List<ManyToOneOwner> list = dao.findByName("simagoro");
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("simagoro", list.get(0).getName());
     }
 
     public void findByBirthday() throws Exception {
-        List<ManyToOneOwner> list = ownerDao.findByBirthday(DateUtil.newDate(
+        List<ManyToOneOwner> list = dao.findByBirthday(DateUtil.newDate(
                 1953, 10, 1));
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -66,7 +66,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByOneToManayInverseName() throws Exception {
-        List<ManyToOneOwner> list = ownerDao
+        List<ManyToOneOwner> list = dao
                 .findByOneToManyInverseName("Personnel");
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -76,17 +76,17 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void getName() throws Exception {
-        String name = ownerDao.getName(1);
+        String name = dao.getName(1);
         assertEquals("simagoro", name);
     }
 
     public void getCount() throws Exception {
-        int count = ownerDao.getCount();
+        int count = dao.getCount();
         assertEquals(30, count);
     }
 
     public void getCountByBloodType() throws Exception {
-        int count = ownerDao.getCountByBloodType("AB");
+        int count = dao.getCountByBloodType("AB");
         assertEquals(3, count);
     }
 }

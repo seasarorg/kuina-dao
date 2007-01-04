@@ -28,10 +28,10 @@ import org.seasar.kuina.dao.it.entity.OneToOneOwner;
 public interface OneToOneOwnerDao {
 
     @PositionalParameter
-    @QueryName("named.dao_OneToOneOwner.updateNameById")
+    @QueryName("named.dao.OneToOneOwner.updateNameById")
     void updateNameById(Integer id, String name);
 
-    @QueryName("named.dao_OneToOneOwner.findByName")
+    @QueryName("named.dao.OneToOneOwner.findByName")
     List<OneToOneOwner> findByName(String name);
 
 }

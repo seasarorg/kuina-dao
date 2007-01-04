@@ -28,10 +28,10 @@ import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
 public interface ManyToManyInverseDao {
 
     @PositionalParameter
-    @QueryName("named.dao_ManyToManyInverse.updateNameById")
+    @QueryName("named.dao.ManyToManyInverse.updateNameById")
     void updateNameById(Integer id, String name);
 
-    @QueryName("named.dao_ManyToManyInverse.findByName")
+    @QueryName("named.dao.ManyToManyInverse.findByName")
     List<ManyToManyInverse> findByName(String name);
 
 }

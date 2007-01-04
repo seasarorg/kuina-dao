@@ -28,30 +28,30 @@ import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
  */
 public interface ManyToOneOwnerDao {
 
-    @QueryName("named.dao_ManyToOneOwner.updateRetiredFlagById")
+    @QueryName("named.dao.ManyToOneOwner.updateRetiredFlagById")
     void updateRetiredFlagById(Integer id, boolean retired);
 
-    @QueryName("named.dao_ManyToOneOwner.removeById")
+    @QueryName("named.dao.ManyToOneOwner.removeById")
     void removeById(Integer id);
 
-    @QueryName("named.dao_ManyToOneOwner.findByName")
+    @QueryName("named.dao.ManyToOneOwner.findByName")
     List<ManyToOneOwner> findByName(String ownerName);
 
     @PositionalParameter
-    @QueryName("named.dao_ManyToOneOwner.findByBirthday")
+    @QueryName("named.dao.ManyToOneOwner.findByBirthday")
     List<ManyToOneOwner> findByBirthday(Date date);
 
-    @QueryName("named.dao_ManyToOneOwner.findByOneToManyInverseName")
+    @QueryName("named.dao.ManyToOneOwner.findByOneToManyInverseName")
     List<ManyToOneOwner> findByOneToManyInverseName(String name);
 
-    @QueryName("named.dao_ManyToOneOwner.getName")
+    @QueryName("named.dao.ManyToOneOwner.getName")
     String getName(Integer id);
 
-    @QueryName("named.dao_ManyToOneOwner.getCount")
+    @QueryName("named.dao.ManyToOneOwner.getCount")
     Integer getCount();
 
     @PositionalParameter
-    @QueryName("named.dao_ManyToOneOwner.getCountByBloodType")
+    @QueryName("named.dao.ManyToOneOwner.getCountByBloodType")
     Integer getCountByBloodType(String bloodType);
 
 }
