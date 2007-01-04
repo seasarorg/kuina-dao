@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.it.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +42,7 @@ public class OneToOneInverse {
     @Version
     private Integer version;
 
-    @OneToOne(mappedBy = "oneToOneInverse")
+    @OneToOne(mappedBy = "oneToOneInverse", fetch = FetchType.LAZY)
     private OneToOneOwner oneToOneOwner;
 
     public String getName() {

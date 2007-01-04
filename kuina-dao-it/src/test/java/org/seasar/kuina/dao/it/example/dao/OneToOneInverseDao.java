@@ -15,10 +15,21 @@
  */
 package org.seasar.kuina.dao.it.example.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.it.entity.OneToOneInverse;
+
 /**
  * 
  * @author nakamura
  */
 public interface OneToOneInverseDao {
 
+    List<OneToOneInverse> findByExample(OneToOneInverse inverse);
+
+    List<OneToOneInverse> findByExampleOrderby(OneToOneInverse inverse,
+            String[] orderby);
+
+    List<OneToOneInverse> findByExamplePaging(OneToOneInverse inverse,
+            int firstResult, int maxResults);
 }

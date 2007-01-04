@@ -13,32 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.basic.dao;
+package org.seasar.kuina.dao.it.findall.dao;
 
+import java.util.List;
+
+import org.junit.runner.RunWith;
+import org.seasar.framework.unit.Seasar2;
+import org.seasar.framework.unit.annotation.Prerequisite;
 import org.seasar.kuina.dao.it.entity.OneToOneInverse;
+
+import static org.junit.Assert.*;
 
 /**
  * 
  * @author nakamura
  */
-public interface OneToOneInverseDao {
+@RunWith(Seasar2.class)
+@Prerequisite("@org.seasar.kuina.dao.it.KuinaDaoItUtil@shouldRun(#method)")
+public class OneToOneInverseDaoTest {
 
-    OneToOneInverse find(int id);
+    private OneToOneInverseDao dao;
 
-    OneToOneInverse getReference(int id);
-
-    void persist(OneToOneInverse owner);
-
-    void remove(OneToOneInverse owner);
-
-    boolean contains(OneToOneInverse owner);
-
-    void refresh(OneToOneInverse owner);
-
-    OneToOneInverse merge(OneToOneInverse owner);
-
-    void readLock(OneToOneInverse owner);
-
-    void writeLock(OneToOneInverse owner);
+    public void findAll() throws Exception {
+        List<OneToOneInverse> list = dao.findAll();
+        assertNotNull(list);
+        assertEquals(6, list.size());
+    }
 
 }

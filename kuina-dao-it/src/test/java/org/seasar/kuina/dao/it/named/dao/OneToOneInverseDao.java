@@ -13,8 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.basic.dao;
+package org.seasar.kuina.dao.it.named.dao;
 
+import java.util.List;
+
+import org.seasar.kuina.dao.PositionalParameter;
+import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.it.entity.OneToOneInverse;
 
 /**
@@ -23,22 +27,11 @@ import org.seasar.kuina.dao.it.entity.OneToOneInverse;
  */
 public interface OneToOneInverseDao {
 
-    OneToOneInverse find(int id);
+    @PositionalParameter
+    @QueryName("named.dao_OneToOneInverse.updateNameById")
+    void updateNameById(Integer id, String name);
 
-    OneToOneInverse getReference(int id);
-
-    void persist(OneToOneInverse owner);
-
-    void remove(OneToOneInverse owner);
-
-    boolean contains(OneToOneInverse owner);
-
-    void refresh(OneToOneInverse owner);
-
-    OneToOneInverse merge(OneToOneInverse owner);
-
-    void readLock(OneToOneInverse owner);
-
-    void writeLock(OneToOneInverse owner);
+    @QueryName("named.dao_OneToOneInverse.findByName")
+    List<OneToOneInverse> findByName(String name);
 
 }

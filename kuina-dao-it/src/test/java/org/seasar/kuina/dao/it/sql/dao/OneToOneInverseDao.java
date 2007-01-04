@@ -13,9 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.it.basic.dao;
+package org.seasar.kuina.dao.it.sql.dao;
 
-import org.seasar.kuina.dao.it.entity.OneToOneInverse;
+import java.util.List;
+
+import org.seasar.kuina.dao.it.dto.EmpDto;
 
 /**
  * 
@@ -23,22 +25,9 @@ import org.seasar.kuina.dao.it.entity.OneToOneInverse;
  */
 public interface OneToOneInverseDao {
 
-    OneToOneInverse find(int id);
+    EmpDto findById(Integer id);
 
-    OneToOneInverse getReference(int id);
+    List<EmpDto> findAll();
 
-    void persist(OneToOneInverse owner);
-
-    void remove(OneToOneInverse owner);
-
-    boolean contains(OneToOneInverse owner);
-
-    void refresh(OneToOneInverse owner);
-
-    OneToOneInverse merge(OneToOneInverse owner);
-
-    void readLock(OneToOneInverse owner);
-
-    void writeLock(OneToOneInverse owner);
-
+    int updateNameById(Integer id, String name);
 }
