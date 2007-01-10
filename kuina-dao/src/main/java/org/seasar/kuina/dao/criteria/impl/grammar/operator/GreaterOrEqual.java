@@ -36,6 +36,10 @@ public class GreaterOrEqual extends AbstractBinaryOperator implements
         super(" >= ", lhs, rhs);
     }
 
+    public GreaterOrEqual(final PathExpression lhs, final AllOrAnyExpression rhs) {
+        super(" >= ", lhs, rhs);
+    }
+
     public GreaterOrEqual(final StringExpression lhs, final StringExpression rhs) {
         super(" >= ", lhs, rhs);
     }

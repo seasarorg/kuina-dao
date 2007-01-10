@@ -16,15 +16,13 @@
 package org.seasar.kuina.dao.criteria.grammar;
 
 import org.seasar.kuina.dao.criteria.Criterion;
-import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
  * 
  * @author koichik
  */
-public interface CollectionMemberDeclaration extends Criterion,
-        SubselectIdentificationVariableDeclaration {
+public interface ExistsExpression extends Criterion, SimpleCondExpression {
 
-    void accept(IdentificationVarialbleVisitor visitor);
+    ExistsExpression setSubquery(Subquery subquery);
 
 }

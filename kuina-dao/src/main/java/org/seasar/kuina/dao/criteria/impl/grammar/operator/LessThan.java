@@ -36,6 +36,10 @@ public class LessThan extends AbstractBinaryOperator implements
         super(" < ", lhs, rhs);
     }
 
+    public LessThan(final PathExpression lhs, final AllOrAnyExpression rhs) {
+        super(" < ", lhs, rhs);
+    }
+
     public LessThan(final StringExpression lhs, final StringExpression rhs) {
         super(" < ", lhs, rhs);
     }

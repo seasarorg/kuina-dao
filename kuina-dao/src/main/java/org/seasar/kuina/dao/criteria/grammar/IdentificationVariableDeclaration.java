@@ -22,7 +22,9 @@ import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
  * 
  * @author koichik
  */
-public interface IdentificationVariableDeclaration extends Criterion {
+public interface IdentificationVariableDeclaration extends Criterion,
+        SubselectIdentificationVariableDeclaration {
+
     IdentificationVariableDeclaration inner(String associationPathSpec);
 
     IdentificationVariableDeclaration inner(PathExpression associationPathSpec);

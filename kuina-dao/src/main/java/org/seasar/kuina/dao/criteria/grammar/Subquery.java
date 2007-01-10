@@ -24,4 +24,24 @@ import org.seasar.kuina.dao.criteria.Criterion;
 public interface Subquery extends Criterion, ArithmeticExpression,
         StringExpression, DatetimeExpression, BooleanExpression, EnumExpression {
 
+    Subquery select(String simpleSelectExpression);
+
+    Subquery select(SimpleSelectExpression simpleSelectExpression);
+
+    Subquery select(Object... simpleSelectExpression);
+
+    Subquery from(Class<?>... entityClasses);
+
+    Subquery from(Class<?> entityClass, String alias);
+
+    Subquery from(SubselectIdentificationVariableDeclaration... declarations);
+
+    Subquery where(ConditionalExpression... conditionalExpressions);
+
+    Subquery groupby(String... groupbyItems);
+
+    Subquery groupby(GroupbyItem... groupbyItems);
+
+    Subquery having(ConditionalExpression... conditionalExpressions);
+
 }

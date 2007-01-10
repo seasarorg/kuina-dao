@@ -1,4 +1,4 @@
-/*
+package org.seasar.kuina.dao./*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,18 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.grammar;
+criteria.grammar;
 
 import org.seasar.kuina.dao.criteria.Criterion;
-import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
  * 
  * @author koichik
  */
-public interface CollectionMemberDeclaration extends Criterion,
-        SubselectIdentificationVariableDeclaration {
+public interface SimpleSelectClause extends Criterion {
 
-    void accept(IdentificationVarialbleVisitor visitor);
+    SimpleSelectClause setDistinct(boolean distinct);
 
+    SimpleSelectClause add(SimpleSelectExpression... simpleSelectExpressions);
+
+    boolean isEmpty();
 }

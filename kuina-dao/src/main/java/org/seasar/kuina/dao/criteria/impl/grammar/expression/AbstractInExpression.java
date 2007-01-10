@@ -18,11 +18,13 @@ package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 import java.util.List;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.exception.SIllegalStateException;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.InExpression;
 import org.seasar.kuina.dao.criteria.grammar.InItem;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
+import org.seasar.kuina.dao.criteria.grammar.Subquery;
 
 /**
  * 
@@ -35,6 +37,8 @@ public abstract class AbstractInExpression implements InExpression {
     protected final PathExpression pathExpression;
 
     protected final List<InItem> inItems = CollectionsUtil.newArrayList();
+
+    protected Subquery subquery;
 
     public AbstractInExpression(final String operator,
             final PathExpression pathExpression) {
@@ -63,16 +67,27 @@ public abstract class AbstractInExpression implements InExpression {
         return this;
     }
 
-    public void evaluate(final CriteriaContext context) {
-        pathExpression.evaluate(context);
-        context.append(operator).append("(");
-        for (final InItem inItem : inItems) {
-            inItem.evaluate(context);
-            context.append(", ");
-        }
-        context.cutBack(2);
-        context.append(")");
-
+    public InExpression setSubquery(final Subquery subquery) {
+        this.subquery = subquery;
+        inItems.clear();
+        return this;
     }
 
+    public void evaluate(final CriteriaContext context) {
+        pathExpression.evaluate(context);
+        context.append(operator);
+        if (!inItems.isEmpty()) {
+            context.append("(");
+            for (final InItem inItem : inItems) {
+                inItem.evaluate(context);
+                context.append(", ");
+            }
+            context.cutBack(2).append(")");
+        } else if (subquery != null) {
+            subquery.evaluate(context);
+        } else {
+            throw new SIllegalStateException("EKuinaDao1005",
+                    new Object[] { operator });
+        }
+    }
 }

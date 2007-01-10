@@ -22,8 +22,21 @@ import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
  * 
  * @author koichik
  */
-public interface CollectionMemberDeclaration extends Criterion,
-        SubselectIdentificationVariableDeclaration {
+public interface SubqueryFromClause extends Criterion {
+
+    SubqueryFromClause add(
+            SubselectIdentificationVariableDeclaration... declarations);
+
+    SubqueryFromClause add(CollectionMemberDeclaration... declarations);
+
+    boolean isEmpty();
+
+    int size();
+
+    SubselectIdentificationVariableDeclaration getIdentificationVariableDeclaration(
+            int index);
+
+    IdentificationVariable getIdentificationVariable(int index);
 
     void accept(IdentificationVarialbleVisitor visitor);
 

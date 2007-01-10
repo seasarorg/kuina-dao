@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import org.seasar.kuina.dao.OrderingSpec;
 import org.seasar.kuina.dao.TrimSpecification;
 import org.seasar.kuina.dao.criteria.grammar.AggregateExpression;
+import org.seasar.kuina.dao.criteria.grammar.AllOrAnyExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticFactor;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticPrimary;
@@ -43,6 +44,7 @@ import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.EnumExpression;
 import org.seasar.kuina.dao.criteria.grammar.EnumLiteral;
 import org.seasar.kuina.dao.criteria.grammar.EnumPrimary;
+import org.seasar.kuina.dao.criteria.grammar.ExistsExpression;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningDatetime;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningNumerics;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningStrings;
@@ -61,6 +63,7 @@ import org.seasar.kuina.dao.criteria.grammar.SimpleEntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringLiteral;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
+import org.seasar.kuina.dao.criteria.grammar.Subquery;
 import org.seasar.kuina.dao.criteria.impl.SelectStatementImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Avg;
 import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Count;
@@ -70,16 +73,22 @@ import org.seasar.kuina.dao.criteria.impl.grammar.aggregate.Sum;
 import org.seasar.kuina.dao.criteria.impl.grammar.conditional.And;
 import org.seasar.kuina.dao.criteria.impl.grammar.conditional.Or;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.expression.AllExpressionImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.expression.AnyExpressionImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.BooleanLiteralImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.EnumLiteralImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.expression.ExistsExpressionImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.InExpressionImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.InputParameterImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.expression.NotExistsExpressionImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.NumericLiteralImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.OrderbyItemImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.Parenthesis;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.expression.SomeExpressionImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.StringLiteralImpl;
+import org.seasar.kuina.dao.criteria.impl.grammar.expression.SubqueryImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.function.Abs;
 import org.seasar.kuina.dao.criteria.impl.grammar.function.Concat;
 import org.seasar.kuina.dao.criteria.impl.grammar.function.CurrentDate;
@@ -121,12 +130,13 @@ import org.seasar.kuina.dao.criteria.impl.grammar.operator.UnaryPlus;
  * @author koichik
  */
 public abstract class CriteriaOperations {
+
     public static SelectStatement select() {
         return new SelectStatementImpl();
     }
 
     public static SelectStatement select(final Object... selectExpressions) {
-        return new SelectStatementImpl().select(selectExpressions);
+        return select().select(selectExpressions);
     }
 
     public static SelectStatement selectDistinct() {
@@ -135,7 +145,23 @@ public abstract class CriteriaOperations {
 
     public static SelectStatement selectDistinct(
             final Object... selectExpressions) {
-        return new SelectStatementImpl(true).select(selectExpressions);
+        return selectDistinct().select(selectExpressions);
+    }
+
+    public static Subquery subselect() {
+        return new SubqueryImpl();
+    }
+
+    public static Subquery subselect(final Object... selectExpressions) {
+        return subselect().select(selectExpressions);
+    }
+
+    public static Subquery subselectDistinct() {
+        return new SubqueryImpl(true);
+    }
+
+    public static Subquery subselectDistinct(final Object... selectExpressions) {
+        return subselectDistinct().select(selectExpressions);
     }
 
     public static PathExpression path(final String path) {
@@ -475,6 +501,12 @@ public abstract class CriteriaOperations {
         return inExpression;
     }
 
+    public static InExpression in(final String path, final Subquery subquery) {
+        final InExpression inExpression = new InExpressionImpl(path(path));
+        inExpression.setSubquery(subquery);
+        return inExpression;
+    }
+
     public static NullComparisonExpression isNull(final String path) {
         return isNull(path(path));
     }
@@ -602,12 +634,47 @@ public abstract class CriteriaOperations {
         return new NotMemberOf(lhs, rhs);
     }
 
+    public static ExistsExpression exists(final Subquery subquery) {
+        final ExistsExpression existsExpression = new ExistsExpressionImpl();
+        existsExpression.setSubquery(subquery);
+        return existsExpression;
+    }
+
+    public static ExistsExpression notExists(final Subquery subquery) {
+        final ExistsExpression existsExpression = new NotExistsExpressionImpl();
+        existsExpression.setSubquery(subquery);
+        return existsExpression;
+    }
+
+    public static AllOrAnyExpression all(final Subquery subquery) {
+        final AllOrAnyExpression allOrAnyExpression = new AllExpressionImpl();
+        allOrAnyExpression.setSubquery(subquery);
+        return allOrAnyExpression;
+    }
+
+    public static AllOrAnyExpression any(final Subquery subquery) {
+        final AllOrAnyExpression allOrAnyExpression = new AnyExpressionImpl();
+        allOrAnyExpression.setSubquery(subquery);
+        return allOrAnyExpression;
+    }
+
+    public static AllOrAnyExpression some(final Subquery subquery) {
+        final AllOrAnyExpression allOrAnyExpression = new SomeExpressionImpl();
+        allOrAnyExpression.setSubquery(subquery);
+        return allOrAnyExpression;
+    }
+
     public static ComparisonExpression eq(final String lhs, final String rhs) {
         return eq(path(lhs), path(rhs));
     }
 
     public static ComparisonExpression eq(final String lhs,
             final PathExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    public static ComparisonExpression eq(final String lhs,
+            final AllOrAnyExpression rhs) {
         return eq(path(lhs), rhs);
     }
 
@@ -618,6 +685,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression eq(final PathExpression lhs,
             final PathExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new Equal(lhs, rhs);
     }
 
@@ -654,6 +726,11 @@ public abstract class CriteriaOperations {
         return new Equal(lhs, rhs);
     }
 
+    public static ComparisonExpression eq(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return eq(lhs, rhs);
+    }
+
     public static ComparisonExpression eq(final String lhs,
             final StringExpression rhs) {
         return eq(path(lhs), rhs);
@@ -669,6 +746,11 @@ public abstract class CriteriaOperations {
         return new Equal(lhs, rhs);
     }
 
+    public static ComparisonExpression eq(final StringExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
     public static ComparisonExpression eq(final String lhs,
             final DatetimeExpression rhs) {
         return eq(path(lhs), rhs);
@@ -681,6 +763,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression eq(final DatetimeExpression lhs,
             final DatetimeExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    public static ComparisonExpression eq(final DatetimeExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new Equal(lhs, rhs);
     }
 
@@ -704,6 +791,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression eq(final BooleanExpression lhs,
             final BooleanExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    public static ComparisonExpression eq(final BooleanExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new Equal(lhs, rhs);
     }
 
@@ -732,6 +824,11 @@ public abstract class CriteriaOperations {
         return new Equal(lhs, rhs);
     }
 
+    public static ComparisonExpression eq(final EnumExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
     public static ComparisonExpression eq(final String lhs,
             final EntityExpression rhs) {
         return eq(path(lhs), rhs);
@@ -747,12 +844,22 @@ public abstract class CriteriaOperations {
         return new Equal(lhs, rhs);
     }
 
+    public static ComparisonExpression eq(final EntityExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
     public static ComparisonExpression ne(final String lhs, final String rhs) {
         return ne(path(lhs), path(rhs));
     }
 
     public static ComparisonExpression ne(final String lhs,
             final PathExpression rhs) {
+        return ne(path(lhs), rhs);
+    }
+
+    public static ComparisonExpression ne(final String lhs,
+            final AllOrAnyExpression rhs) {
         return ne(path(lhs), rhs);
     }
 
@@ -763,6 +870,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression ne(final PathExpression lhs,
             final PathExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new NotEqual(lhs, rhs);
     }
 
@@ -799,6 +911,11 @@ public abstract class CriteriaOperations {
         return new NotEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression ne(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression ne(final String lhs,
             final StringExpression rhs) {
         return ne(path(lhs), rhs);
@@ -814,6 +931,11 @@ public abstract class CriteriaOperations {
         return new NotEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression ne(final StringExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression ne(final String lhs,
             final DatetimeExpression rhs) {
         return ne(path(lhs), rhs);
@@ -826,6 +948,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression ne(final DatetimeExpression lhs,
             final DatetimeExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    public static ComparisonExpression ne(final DatetimeExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new NotEqual(lhs, rhs);
     }
 
@@ -849,6 +976,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression ne(final BooleanExpression lhs,
             final BooleanExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    public static ComparisonExpression ne(final BooleanExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new NotEqual(lhs, rhs);
     }
 
@@ -877,6 +1009,11 @@ public abstract class CriteriaOperations {
         return new NotEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression ne(final EnumExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression ne(final String lhs,
             final EntityExpression rhs) {
         return ne(path(lhs), rhs);
@@ -892,12 +1029,32 @@ public abstract class CriteriaOperations {
         return new NotEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression ne(final EntityExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression gt(final String lhs, final String rhs) {
         return new GreaterThan(path(lhs), path(rhs));
     }
 
     public static ComparisonExpression gt(final String lhs, final Number rhs) {
         return gt(path(lhs), literal(rhs));
+    }
+
+    public static ComparisonExpression gt(final String lhs,
+            final AllOrAnyExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    public static ComparisonExpression gt(final PathExpression lhs,
+            final PathExpression rhs) {
+        return new GreaterThan(lhs, rhs);
+    }
+
+    public static ComparisonExpression gt(final PathExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new GreaterThan(lhs, rhs);
     }
 
     public static ComparisonExpression gt(final Number lhs, final String rhs) {
@@ -929,6 +1086,11 @@ public abstract class CriteriaOperations {
         return new GreaterThan(lhs, rhs);
     }
 
+    public static ComparisonExpression gt(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new GreaterThan(lhs, rhs);
+    }
+
     public static ComparisonExpression gt(final String lhs,
             final StringExpression rhs) {
         return gt(path(lhs), rhs);
@@ -944,6 +1106,11 @@ public abstract class CriteriaOperations {
         return new GreaterThan(lhs, rhs);
     }
 
+    public static ComparisonExpression gt(final StringExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new GreaterThan(lhs, rhs);
+    }
+
     public static ComparisonExpression gt(final String lhs,
             final DatetimeExpression rhs) {
         return gt(path(lhs), rhs);
@@ -956,6 +1123,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression gt(final DatetimeExpression lhs,
             final DatetimeExpression rhs) {
+        return new GreaterThan(lhs, rhs);
+    }
+
+    public static ComparisonExpression gt(final DatetimeExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new GreaterThan(lhs, rhs);
     }
 
@@ -965,6 +1137,21 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression ge(final String lhs, final Number rhs) {
         return ge(path(lhs), literal(rhs));
+    }
+
+    public static ComparisonExpression ge(final String lhs,
+            final AllOrAnyExpression rhs) {
+        return ge(path(lhs), rhs);
+    }
+
+    public static ComparisonExpression ge(final PathExpression lhs,
+            final PathExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
+    }
+
+    public static ComparisonExpression ge(final PathExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
     }
 
     public static ComparisonExpression ge(final Number lhs, final String rhs) {
@@ -996,6 +1183,11 @@ public abstract class CriteriaOperations {
         return new GreaterOrEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression ge(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression ge(final String lhs,
             final StringExpression rhs) {
         return ge(path(lhs), rhs);
@@ -1011,6 +1203,11 @@ public abstract class CriteriaOperations {
         return new GreaterOrEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression ge(final StringExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression ge(final String lhs,
             final DatetimeExpression rhs) {
         return ge(path(lhs), rhs);
@@ -1023,6 +1220,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression ge(final DatetimeExpression lhs,
             final DatetimeExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
+    }
+
+    public static ComparisonExpression ge(final DatetimeExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new GreaterOrEqual(lhs, rhs);
     }
 
@@ -1032,6 +1234,21 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression lt(final String lhs, final Number rhs) {
         return lt(path(lhs), literal(rhs));
+    }
+
+    public static ComparisonExpression lt(final String lhs,
+            final AllOrAnyExpression rhs) {
+        return lt(path(lhs), rhs);
+    }
+
+    public static ComparisonExpression lt(final PathExpression lhs,
+            final PathExpression rhs) {
+        return new LessThan(lhs, rhs);
+    }
+
+    public static ComparisonExpression lt(final PathExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new LessThan(lhs, rhs);
     }
 
     public static ComparisonExpression lt(final Number lhs, final String rhs) {
@@ -1063,6 +1280,11 @@ public abstract class CriteriaOperations {
         return new LessThan(lhs, rhs);
     }
 
+    public static ComparisonExpression lt(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new LessThan(lhs, rhs);
+    }
+
     public static ComparisonExpression lt(final String lhs,
             final StringExpression rhs) {
         return lt(path(lhs), rhs);
@@ -1078,6 +1300,11 @@ public abstract class CriteriaOperations {
         return new LessThan(lhs, rhs);
     }
 
+    public static ComparisonExpression lt(final StringExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new LessThan(lhs, rhs);
+    }
+
     public static ComparisonExpression lt(final String lhs,
             final DatetimeExpression rhs) {
         return lt(path(lhs), rhs);
@@ -1090,6 +1317,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression lt(final DatetimeExpression lhs,
             final DatetimeExpression rhs) {
+        return new LessThan(lhs, rhs);
+    }
+
+    public static ComparisonExpression lt(final DatetimeExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new LessThan(lhs, rhs);
     }
 
@@ -1099,6 +1331,21 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression le(final String lhs, final Number rhs) {
         return le(path(lhs), literal(rhs));
+    }
+
+    public static ComparisonExpression le(final String lhs,
+            final AllOrAnyExpression rhs) {
+        return le(path(lhs), rhs);
+    }
+
+    public static ComparisonExpression le(final PathExpression lhs,
+            final PathExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
+    }
+
+    public static ComparisonExpression le(final PathExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
     }
 
     public static ComparisonExpression le(final Number lhs, final String rhs) {
@@ -1130,6 +1377,11 @@ public abstract class CriteriaOperations {
         return new LessOrEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression le(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression le(final String lhs,
             final StringExpression rhs) {
         return le(path(lhs), rhs);
@@ -1145,6 +1397,11 @@ public abstract class CriteriaOperations {
         return new LessOrEqual(lhs, rhs);
     }
 
+    public static ComparisonExpression le(final StringExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
+    }
+
     public static ComparisonExpression le(final String lhs,
             final DatetimeExpression rhs) {
         return le(path(lhs), rhs);
@@ -1157,6 +1414,11 @@ public abstract class CriteriaOperations {
 
     public static ComparisonExpression le(final DatetimeExpression lhs,
             final DatetimeExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
+    }
+
+    public static ComparisonExpression le(final DatetimeExpression lhs,
+            final AllOrAnyExpression rhs) {
         return new LessOrEqual(lhs, rhs);
     }
 

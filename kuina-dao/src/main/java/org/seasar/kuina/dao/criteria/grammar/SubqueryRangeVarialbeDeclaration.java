@@ -22,7 +22,7 @@ import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
  * 
  * @author koichik
  */
-public interface CollectionMemberDeclaration extends Criterion,
+public interface SubqueryRangeVarialbeDeclaration extends Criterion,
         SubselectIdentificationVariableDeclaration {
 
     void accept(IdentificationVarialbleVisitor visitor);

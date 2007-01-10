@@ -36,6 +36,10 @@ public class LessOrEqual extends AbstractBinaryOperator implements
         super(" <= ", lhs, rhs);
     }
 
+    public LessOrEqual(final PathExpression lhs, final AllOrAnyExpression rhs) {
+        super(" <= ", lhs, rhs);
+    }
+
     public LessOrEqual(final StringExpression lhs, final StringExpression rhs) {
         super(" <= ", lhs, rhs);
     }

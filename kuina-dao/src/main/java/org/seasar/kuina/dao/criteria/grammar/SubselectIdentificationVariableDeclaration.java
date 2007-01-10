@@ -16,15 +16,10 @@
 package org.seasar.kuina.dao.criteria.grammar;
 
 import org.seasar.kuina.dao.criteria.Criterion;
-import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
  * 
  * @author koichik
  */
-public interface CollectionMemberDeclaration extends Criterion,
-        SubselectIdentificationVariableDeclaration {
-
-    void accept(IdentificationVarialbleVisitor visitor);
-
+public interface SubselectIdentificationVariableDeclaration extends Criterion {
 }

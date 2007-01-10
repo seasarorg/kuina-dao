@@ -39,6 +39,10 @@ public class NotEqual extends AbstractBinaryOperator implements
         super(" <> ", lhs, rhs);
     }
 
+    public NotEqual(final PathExpression lhs, final AllOrAnyExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
     public NotEqual(final StringExpression lhs, final StringExpression rhs) {
         super(" <> ", lhs, rhs);
     }

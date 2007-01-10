@@ -23,4 +23,6 @@ import org.seasar.kuina.dao.criteria.Criterion;
  */
 public interface AllOrAnyExpression extends Criterion {
 
+    AllOrAnyExpression setSubquery(Subquery subquery);
+
 }

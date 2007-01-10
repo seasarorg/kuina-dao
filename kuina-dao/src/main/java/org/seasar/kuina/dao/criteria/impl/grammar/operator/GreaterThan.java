@@ -36,6 +36,10 @@ public class GreaterThan extends AbstractBinaryOperator implements
         super(" > ", lhs, rhs);
     }
 
+    public GreaterThan(final PathExpression lhs, final AllOrAnyExpression rhs) {
+        super(" > ", lhs, rhs);
+    }
+
     public GreaterThan(final StringExpression lhs, final StringExpression rhs) {
         super(" > ", lhs, rhs);
     }

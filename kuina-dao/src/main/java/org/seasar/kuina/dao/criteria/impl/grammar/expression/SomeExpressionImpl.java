@@ -13,18 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.kuina.dao.criteria.grammar;
-
-import org.seasar.kuina.dao.criteria.Criterion;
-import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
+package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
 /**
  * 
  * @author koichik
  */
-public interface CollectionMemberDeclaration extends Criterion,
-        SubselectIdentificationVariableDeclaration {
+public class SomeExpressionImpl extends AbstractAllOrAnyExpression {
 
-    void accept(IdentificationVarialbleVisitor visitor);
+    public SomeExpressionImpl() {
+        super("SOME ");
+    }
 
 }

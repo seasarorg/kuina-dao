@@ -23,28 +23,30 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 import org.seasar.kuina.dao.criteria.grammar.CollectionMemberDeclaration;
-import org.seasar.kuina.dao.criteria.grammar.FromClause;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
+import org.seasar.kuina.dao.criteria.grammar.SubqueryFromClause;
+import org.seasar.kuina.dao.criteria.grammar.SubselectIdentificationVariableDeclaration;
 
 /**
  * 
  * @author koichik
  */
-public class FromClauseImpl implements FromClause {
+public class SubqueryFromClauseImpl implements SubqueryFromClause {
+
     protected List<Criterion> declarations = CollectionsUtil.newArrayList();
 
-    public FromClause add(
-            final IdentificationVariableDeclaration... identificationVariableDeclarations) {
-        for (final IdentificationVariableDeclaration declaration : identificationVariableDeclarations) {
+    public SubqueryFromClause add(
+            final SubselectIdentificationVariableDeclaration... declarations) {
+        for (final SubselectIdentificationVariableDeclaration declaration : declarations) {
             this.declarations.add(declaration);
         }
         return this;
     }
 
-    public FromClause add(
-            final CollectionMemberDeclaration... collectionMemberDeclarations) {
-        for (final CollectionMemberDeclaration declaration : collectionMemberDeclarations) {
+    public SubqueryFromClause add(
+            final CollectionMemberDeclaration... declarations) {
+        for (final CollectionMemberDeclaration declaration : declarations) {
             this.declarations.add(declaration);
         }
         return this;
