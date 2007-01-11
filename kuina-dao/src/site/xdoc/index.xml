@@ -6,15 +6,13 @@
 	<body>
 		<section name="Welcome">
 			<p>
-				Kuina-Dao は，JavaEE 5 の O/R マッピング標準，Java Persistence API (JPA) 上で利用可能な Data Access Object (DAO) フレームワークです．
-				Kuina-Dao を利用することにより，Java インタフェースを定義するだけで動的な問い合わせを作成したり，名前付き問い合わせを容易に呼び出したりすることが可能になります．
 			</p>
 		</section>
 		<section name="News">
 			<dl>
-				<dt>2006/11/25</dt>
+				<dt>14-01-2007</dt>
 				<dd>
-					1.0.0-rc1 をリリースしました． (<a href="downloads.html">ダウンロード</a>)
+					Kuina-Dao 1.0.0-rc1 released. (<a href="downloads.html">download</a>)
 				</dd>
 			</dl>
 		</section>
