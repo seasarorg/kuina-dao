@@ -29,6 +29,10 @@
 			</zipfileset>
 			<zipfileset prefix="kuina-dao/doc" dir="target/site">
 			</zipfileset>
+			<zipfileset prefix="kuina-dao-it" dir="../kuina-dao-it">
+				<exclude name="**/build/**"/>
+				<exclude name="**/target/**"/>
+			</zipfileset>
 		</zip>
 	</target>
 </project>
