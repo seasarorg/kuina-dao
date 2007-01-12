@@ -28,6 +28,36 @@
 				<a href="downloads.html">こちら</a>からKuina-Daoをダウンロードしてください．
 			</p>
 		</section>
+		<section name="配布ファイルの内容">
+			<p>
+				Kuina-Daoの配布ファイルには以下の内容が含まれています
+			</p>
+			<dl>
+				<dt>
+					<code>kuina-dao</code>
+				</dt>
+				<dd>
+					Kuina-Dao本体です．
+				</dd>
+				<dt>
+					<code>kuina-dao-it</code>
+				</dt>
+				<dd>
+					Kuina-DaoをJPA実装と組み合わせてテストするためのEclipseプロジェクトです．<br/>
+					以下のJPA実装を使用します．
+					<ul>
+						<li><p>Hibernate-Core + Hibernate-Annotations + Hibernate-EntityManager</p></li>
+						<li><p>TopLink Essentials</p></li>
+					</ul>
+					以下のRDBMSを使用します．
+					<ul>
+						<li><p>HSQLDB</p></li>
+						<li><p>Apache Derby</p></li>
+					</ul>
+					使用するJPA実装とRDBMSの組み合わせは<code>src/test/resource/env.txt</code>で指定できます．
+				</dd>
+			</dl>
+		</section>
 		<section name="JDKでの利用">
 			<subsection name="事前条件">
 				<p>
@@ -62,7 +92,7 @@
 		</section>
 		<section name="Eclipseでの利用">
 			<p>
-				S2RMIの配布ファイルは，他のSeasar2関連プロダクトの多くと同様，
+				Kuina-Daoの配布ファイルは，他のSeasar2関連プロダクトの多くと同様，
 				Eclipseプロジェクトをアーカイブしたものになっています．
 			</p>
 			<subsection name="事前条件">
@@ -112,7 +142,8 @@
 					</li>
 					<li>
 						<p>
-							「Projects」で "kuina-dao"がチェックされていることを確認して「Finish」ボタンを押下します．
+							「Projects」で "kuina-dao"および"kuina-dao-it"がチェックされていることを確認して
+							「Finish」ボタンを押下します．
 						</p>
 					</li>
 				</ul>

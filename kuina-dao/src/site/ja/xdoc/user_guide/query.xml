@@ -239,7 +239,7 @@ SELECT employee FROM Employee AS employee WHERE employee.name LIKE :name
 					<dt>引数</dt>
 					<dd>条件式の並び</dd>
 					<dt>戻り値</dt>
-					<dd>エンティティの<code>List</code></dd>
+					<dd>エンティティまたはエンティティの<code>List</code></dd>
 					<dt>例</dt>
 					<dd>
 <source><![CDATA[
@@ -257,8 +257,8 @@ public interface EmployeeDao {
 					使用するNamed Queryの名前は問い合わせ対象のエンティティ名とメソッド名をピリオドで
 					連結したものになります．
 					メソッドに<code>@QueryName</code>を付けることにより，使用するNamed Queryの名前を
-					変更することができます．
-					JPQLは@NamedQueryアノテーションまたはマッピングファイルで指定します．
+					変更することができます．<br/>
+					JPQLは@NamedQueryアノテーションまたはマッピングファイルで定義します．
 				</p>
 				<dl>
 					<dt>メソッド名 (正規表現)</dt>
@@ -268,9 +268,9 @@ public interface EmployeeDao {
 ]]></source>
 					</dd>
 					<dt>引数</dt>
-					<dd>JPQLに含まれるパラメータ</dd>
+					<dd>JPQLに含まれるパラメータの並び</dd>
 					<dt>戻り値</dt>
-					<dd>エンティティの<code>List</code></dd>
+					<dd>エンティティまたはエンティティの<code>List</code></dd>
 					<dt>例</dt>
 					<dd>
 <source><![CDATA[
@@ -279,10 +279,19 @@ public interface EmployeeDao {
 }
 ]]></source>
 					</dd>
-					<dt>実行されるNamed Queryの名前</dt>
+					<dt>実行されるNamed Queryの例</dt>
 					<dd>
 <source><![CDATA[
-Employee.findByName
+<named-query name="Employee.findByName">
+  <query>
+    SELECT
+      employee
+    FROM
+      Employee employee
+    WHERE
+      employee.name = :name
+  </query>
+</named-query>
 ]]></source>
 					</dd>
 				</dl>
@@ -291,6 +300,8 @@ Employee.findByName
 			<subsection name="SQLによる検索">
 				<p>
 					S2Dao相当の2WAY-SQLファイルを使用して問い合わせを行うメソッドです．<br/>
+					問い合わせの結果は任意のDTOにマップすることができます．
+					問い合わせの結果セットと名前の一致するDTOのプロパティに値が設定されます．<br/>
 					使用するSQLファイルの名前は，Daoのインタフェース名 (先頭小文字) とメソッド名をアンダースコアで連結し，
 					拡張子 <code>.sql</code> を付加したものになります．
 					SQLファイルはDaoインタフェースのパッケージと同じ階層のディレクトリに配置します．<br/>
@@ -304,21 +315,46 @@ Employee.findByName
 ]]></source>
 					</dd>
 					<dt>引数</dt>
-					<dd>SQLに含まれるパラメータ</dd>
+					<dd>SQLに含まれるパラメータの並び</dd>
 					<dt>戻り値</dt>
-					<dd>エンティティの<code>List</code></dd>
+					<dd>DTOまたはDTOの<code>List</code></dd>
 					<dt>例</dt>
 					<dd>
 <source><![CDATA[
 public interface EmployeeDao {
-    List<Employee> findByDepartmentName();
+    List<EmployeeDto> findByDepartmentName(String departmentName);
 }
 ]]></source>
 					</dd>
-					<dt>実行されるSQLファイルの名前</dt>
+					<dt>DTO</dt>
+					<dd>
+<source><![CDATA[
+public class EmployeeDto {
+    private int eid;
+    private String ename;
+    private String dname;
+
+    //setters and getters
+}
+]]></source>
+					</dd>
+					<dt>実行されるSQLファイルの名前の例</dt>
 					<dd>
 <source><![CDATA[
 employeeDao_findByDepartmentName.sql
+]]></source>
+					</dd>
+					<dt>実行されるSQLファイルの例</dt>
+					<dd>
+<source><![CDATA[
+SELECT
+  e.id eid,
+  e.name ename,
+  d.name dname
+FROM
+  Employee e INNER JOIN Department d ON (e.department_id = d.id)
+WHERE 
+  d.name = /*departmentName*/'foo'
 ]]></source>
 					</dd>
 				</dl>
@@ -402,12 +438,18 @@ employeeDao_findByDepartmentName.sql
 						<tr>
 							<td><code>_IS_NULL</code></td>
 							<td><code>IS NULL</code></td>
-							<td>引数またはプロパティの値は使用されません．</td>
+							<td>
+								引数またはプロパティの値は<code>boolean</code>または<code>Boolean</code>としてください．
+								値が真の場合，問い合わせ条件に含まれます．
+							</td>
 						</tr>
 						<tr>
 							<td><code>_IS_NOT_NULL</code></td>
 							<td><code>IS NOT NULL</code></td>
-							<td>引数またはプロパティの値は使用されません．</td>
+							<td>
+								引数またはプロパティの値は<code>boolean</code>または<code>Boolean</code>としてください．
+								値が真の場合，問い合わせ条件に含まれます．
+							</td>
 						</tr>
 					</tbody>
 				</table>
