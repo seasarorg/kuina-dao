@@ -70,7 +70,7 @@ public class InBuilder extends AbstractConditionalExpressionBuilder {
         return parameters;
     }
 
-    protected Object createParameterFromCollection(final Collection values) {
+    protected Object createParameterFromCollection(final Collection<?> values) {
         final Object[] parameters = new Object[values.size()];
         int i = 0;
         for (final Object value : values) {

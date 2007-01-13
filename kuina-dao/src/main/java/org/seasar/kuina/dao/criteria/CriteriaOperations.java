@@ -180,7 +180,7 @@ public abstract class CriteriaOperations {
         return new NumericLiteralImpl(literal);
     }
 
-    public static EnumLiteral literal(final Enum literal) {
+    public static EnumLiteral literal(final Enum<?> literal) {
         return new EnumLiteralImpl(literal);
     }
 
@@ -239,7 +239,7 @@ public abstract class CriteriaOperations {
         return new InputParameterImpl(name, value, temporalType);
     }
 
-    public static EnumPrimary parameter(final String name, final Enum value) {
+    public static EnumPrimary parameter(final String name, final Enum<?> value) {
         return new InputParameterImpl(name, value);
     }
 
@@ -478,7 +478,7 @@ public abstract class CriteriaOperations {
 
     public static InExpression in(final String path, final Enum... inItems) {
         final InExpression inExpression = new InExpressionImpl(path(path));
-        for (final Enum inItem : inItems) {
+        for (final Enum<?> inItem : inItems) {
             inExpression.add(literal(inItem));
         }
         return inExpression;
@@ -809,13 +809,13 @@ public abstract class CriteriaOperations {
         return eq(lhs, path(rhs));
     }
 
-    public static ComparisonExpression eq(final Enum lhs,
+    public static ComparisonExpression eq(final Enum<?> lhs,
             final EnumExpression rhs) {
         return eq(literal(lhs), rhs);
     }
 
     public static ComparisonExpression eq(final EnumExpression lhs,
-            final Enum rhs) {
+            final Enum<?> rhs) {
         return eq(lhs, literal(rhs));
     }
 
@@ -994,13 +994,13 @@ public abstract class CriteriaOperations {
         return ne(lhs, path(rhs));
     }
 
-    public static ComparisonExpression ne(final Enum lhs,
+    public static ComparisonExpression ne(final Enum<?> lhs,
             final EnumExpression rhs) {
         return ne(literal(lhs), rhs);
     }
 
     public static ComparisonExpression ne(final EnumExpression lhs,
-            final Enum rhs) {
+            final Enum<?> rhs) {
         return ne(lhs, literal(rhs));
     }
 

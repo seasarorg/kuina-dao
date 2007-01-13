@@ -89,7 +89,7 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return getTargetClassFromDaoName(daoClass);
     }
 
-    protected Class getTargetClassFromDaoName(final Class<?> daoClass) {
+    protected Class<?> getTargetClassFromDaoName(final Class<?> daoClass) {
         final String daoClassShortName = ClassUtil.getShortClassName(convention
                 .toInterfaceClassName(daoClass.getName()));
         final String partOfEntityClassName = ClassUtil.concatName(convention

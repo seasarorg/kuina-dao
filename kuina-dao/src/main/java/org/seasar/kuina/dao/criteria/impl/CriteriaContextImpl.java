@@ -91,7 +91,7 @@ public class CriteriaContextImpl implements CriteriaContext {
         return this;
     }
 
-    public CriteriaContext append(final Enum e) {
+    public CriteriaContext append(final Enum<?> e) {
         stringBuilder.append(e.getClass().getName()).append(".").append(
                 e.name());
         return this;

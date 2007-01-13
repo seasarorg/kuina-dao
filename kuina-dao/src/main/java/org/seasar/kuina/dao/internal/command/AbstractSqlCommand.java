@@ -61,7 +61,7 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
             final SqlContext sqlContext = new SqlContextImpl();
             for (int i = 0; i < parameterNames.length; ++i) {
                 final String name = parameterNames[i];
-                final Class type = parameterTypes[i];
+                final Class<?> type = parameterTypes[i];
                 final Object value = parameters[i];
                 sqlContext.addArg(name, value, type);
             }

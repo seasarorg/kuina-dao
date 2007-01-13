@@ -24,12 +24,13 @@ import org.seasar.kuina.dao.criteria.grammar.EnumLiteral;
  * @author koichik
  */
 public class EnumLiteralImpl implements EnumLiteral {
-    protected final Enum literal;
+
+    protected final Enum<?> literal;
 
     /**
      * インスタンスを構築します。
      */
-    public EnumLiteralImpl(final Enum literal) {
+    public EnumLiteralImpl(final Enum<?> literal) {
         if (literal == null) {
             throw new SIllegalArgumentException("EKuinaDao0001",
                     new Object[] { "literal" });

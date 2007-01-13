@@ -63,7 +63,7 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
         if (sql == null) {
             return null;
         }
-        final Class targetClass = getResultClass(method);
+        final Class<?> targetClass = getResultClass(method);
         if (targetClass == null) {
             throw new IllegalStateException(daoClass.getName() + "#"
                     + method.getName() + "()");

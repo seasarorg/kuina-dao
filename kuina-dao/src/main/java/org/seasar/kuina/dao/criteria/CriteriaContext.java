@@ -45,7 +45,7 @@ public interface CriteriaContext {
 
     CriteriaContext append(String s);
 
-    CriteriaContext append(Enum e);
+    CriteriaContext append(Enum<?> e);
 
     CriteriaContext append(Object o);
 

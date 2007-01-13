@@ -34,13 +34,14 @@ public class SqlCommand extends AbstractSqlCommand {
 
     protected final boolean resultList;
 
-    protected final Class beanClass;
+    protected final Class<?> beanClass;
 
     protected final ResultSetFactory resultSetFactory;
 
-    public SqlCommand(final boolean resultList, final Class beanClass,
+    public SqlCommand(final boolean resultList, final Class<?> beanClass,
             final String sql, final String[] parameterNames,
-            final Class[] parameterTypes, final DialectManager dialectManager,
+            final Class<?>[] parameterTypes,
+            final DialectManager dialectManager,
             final ResultSetFactory resultSetFactory,
             final StatementFactory statementFactory) {
         super(sql, parameterNames, parameterTypes, dialectManager,
