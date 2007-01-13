@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 
 import org.seasar.extension.dao.helper.DaoHelper;
 import org.seasar.extension.tx.annotation.RequiresNewTx;
+import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.convention.NamingConvention;
@@ -109,13 +110,14 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
     }
 
     protected ParameterBinder[] getBinders(final Method method,
-            final String[] parameterNames) {
+            final BeanDesc beanDesc) {
         final PositionalParameter positional = method
                 .getAnnotation(PositionalParameter.class);
-        if (positional != null || parameterNames == null) {
+        if (positional != null) {
             return getBindersForPositionalParameter(method);
         }
-        return getBindersForNamedParameter(method, parameterNames);
+        return getBindersForNamedParameter(method, beanDesc
+                .getMethodParameterNames(method));
     }
 
     protected ParameterBinder[] getBindersForNamedParameter(
