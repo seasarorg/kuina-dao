@@ -8,7 +8,7 @@
   <artifactId>kuina-dao</artifactId>
   <packaging>jar</packaging>
   <name>Kuina-Dao Project</name>
-  <version>1.0.0-rc1-SNAPSHOT</version>
+  <version>1.0.0-rc1</version>
   <description></description>
   <url>http://kuina.seasar.org/</url>
   <issueManagement>
@@ -149,19 +149,19 @@
     <dependency>
       <groupId>org.seasar.hibernate</groupId>
       <artifactId>s2hibernate-jpa</artifactId>
-      <version>1.0.0-rc1-SNAPSHOT</version>
+      <version>1.0.0-rc1</version>
       <type>jar</type>
+      <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
-<!--
     <dependency>
       <groupId>org.seasar.toplink</groupId>
       <artifactId>s2toplink-jpa</artifactId>
-      <version>1.0.0-beta-1-SNAPSHOT</version>
+      <version>1.0.0-rc1</version>
       <type>jar</type>
+      <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
--->
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-j2ee_1.4_spec</artifactId>
