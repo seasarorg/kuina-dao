@@ -18,8 +18,8 @@
 	</target>
 
 	<target name="dist" depends="fix-site">
-		<mkdir dir="target/site/download/${releaseDate}"/>
-		<zip zipfile="target/site/download/${releaseDate}/Kuina-Dao-${ver}.zip">
+		<mkdir dir="target/site/downloads/${releaseDate}"/>
+		<zip zipfile="target/site/downloads/${releaseDate}/Kuina-Dao-${ver}.zip">
 			<zipfileset prefix="kuina-dao" dir=".">
 				<exclude name="**/build/**"/>
 				<exclude name="**/target/**"/>
