@@ -1,5 +1,5 @@
 <project name="kuina-dao" default="dist" basedir=".">
-	<property name="ver" value="1.0.0-rc1"/>
+	<property name="ver" value="1.0.0-rc2-SNAPSHOT"/>
 	<property name="releaseDate" value="2007/01/14"/>
 
 	<target name="fix-site">
