@@ -54,7 +54,7 @@
 						<li><p>HSQLDB</p></li>
 						<li><p>Apache Derby</p></li>
 					</ul>
-					使用するJPA実装とRDBMSの組み合わせは<code>src/test/resource/env.txt</code>で指定できます．
+					使用するJPA実装とRDBMSの組み合わせは<code>src/test/resources/env.txt</code>で指定できます．
 				</dd>
 			</dl>
 		</section>
