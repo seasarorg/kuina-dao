@@ -16,11 +16,18 @@
 package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 
+import org.seasar.framework.util.NumberConversionUtil;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.FlushMode;
+import org.seasar.kuina.dao.Hint;
+import org.seasar.kuina.dao.Hints;
+import org.seasar.kuina.dao.IllegalHintTypeException;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 
 /**
@@ -29,13 +36,16 @@ import org.seasar.kuina.dao.criteria.SelectStatement;
  */
 public abstract class AbstractQueryCommand extends AbstractCommand {
 
-    protected Class<?> entityClass;
+    protected final Class<?> entityClass;
 
-    protected Method method;
+    protected final Method method;
 
     protected final boolean resultList;
 
-    protected FlushModeType flushMode;
+    protected final FlushModeType flushMode;
+
+    protected final Map<String, Object> hints = CollectionsUtil
+            .newLinkedHashMap();
 
     /**
      * インスタンスを構築します。
@@ -46,6 +56,7 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
         this.method = method;
         this.resultList = resultList;
         flushMode = detectFlushMode(method);
+        detectHints(method);
     }
 
     protected FlushModeType detectFlushMode(final Method method) {
@@ -53,15 +64,50 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
         return flushMode == null ? null : flushMode.value();
     }
 
+    protected void detectHints(final Method method) {
+        final Hints hints = method.getAnnotation(Hints.class);
+        if (hints != null) {
+            for (final Hint hint : hints.value()) {
+                this.hints.put(hint.name(), getHintValue(hint));
+            }
+        }
+        final Hint hint = method.getAnnotation(Hint.class);
+        if (hint != null) {
+            this.hints.put(hint.name(), getHintValue(hint));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    protected Object getHintValue(final Hint hint) {
+        final String value = hint.value();
+        final Class<?> type = hint.type();
+        if (type == String.class) {
+            return value;
+        } else if (type == Boolean.class) {
+            return Boolean.valueOf(value);
+        } else if (Number.class.isAssignableFrom(type)) {
+            return NumberConversionUtil.convertNumber(type, value);
+        } else if (Enum.class.isAssignableFrom(type)) {
+            return Enum.valueOf((Class<? extends Enum>) type, value);
+        }
+        throw new IllegalHintTypeException(type);
+    }
+
     protected void setupQuery(final Query query) {
         if (flushMode != null) {
             query.setFlushMode(flushMode);
+        }
+        for (final Entry<String, Object> entry : hints.entrySet()) {
+            query.setHint(entry.getKey(), entry.getValue());
         }
     }
 
     protected void setupStatement(final SelectStatement statement) {
         if (flushMode != null) {
             statement.setFlushMode(flushMode);
+        }
+        for (final Entry<String, Object> entry : hints.entrySet()) {
+            statement.addHint(entry.getKey(), entry.getValue());
         }
     }
 

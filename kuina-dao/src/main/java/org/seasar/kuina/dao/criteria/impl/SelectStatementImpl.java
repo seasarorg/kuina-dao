@@ -26,6 +26,7 @@ import javax.persistence.Query;
 import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.framework.exception.SIllegalStateException;
 import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 import org.seasar.kuina.dao.criteria.SelectStatement;
@@ -77,6 +78,8 @@ public class SelectStatementImpl implements SelectStatement {
     protected Integer maxResults;
 
     protected FlushModeType flushMode;
+
+    protected Map<String, Object> hints = CollectionsUtil.newLinkedHashMap();
 
     /**
      * インスタンスを構築します。
@@ -182,8 +185,13 @@ public class SelectStatementImpl implements SelectStatement {
         return this;
     }
 
-    public SelectStatement setFlushMode(FlushModeType flushMode) {
+    public SelectStatement setFlushMode(final FlushModeType flushMode) {
         this.flushMode = flushMode;
+        return this;
+    }
+
+    public SelectStatement addHint(final String name, final Object value) {
+        hints.put(name, value);
         return this;
     }
 
@@ -221,6 +229,9 @@ public class SelectStatementImpl implements SelectStatement {
         }
         if (flushMode != null) {
             query.setFlushMode(flushMode);
+        }
+        for (final Entry<String, Object> entry : hints.entrySet()) {
+            query.setHint(entry.getKey(), entry.getValue());
         }
         if (fillParameter) {
             context.fillParameters(query);

@@ -63,6 +63,8 @@ public interface SelectStatement extends Criteria {
 
     SelectStatement setFlushMode(FlushModeType flushMode);
 
+    SelectStatement addHint(String name, Object value);
+
     <T> List<T> getResultList(EntityManager em);
 
     <T> T getSingleResult(EntityManager em);
