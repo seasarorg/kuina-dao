@@ -19,11 +19,13 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.framework.util.ClassUtil;
+import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.FetchJoin;
+import org.seasar.kuina.dao.FlushMode;
 import org.seasar.kuina.dao.JoinSpec;
 import org.seasar.kuina.dao.entity.Employee;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
@@ -41,8 +43,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     private EntityManager em;
 
-    private Method method = ClassUtil.getMethod(DummyDao.class, "findEmployee",
-            null);
+    private Method method = ReflectionUtil.getMethod(DummyDao.class, "findEmployee");
 
     @Override
     protected void setUp() throws Exception {
@@ -54,7 +55,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
         ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class, method,
                 true,
-                false,
                 new String[] { "name" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
                         .createBuilder(Employee.class, "name", String.class) });
@@ -69,7 +69,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
         ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,method,
                 true,
-                true,
                 new String[] { "blootType_NE" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
                         .createBuilder(Employee.class, "bloodType_NE", String.class) });
@@ -83,7 +82,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
         ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,method,
                 true,
-                false,
                 new String[] { "name_IN" },
                 new ConditionalExpressionBuilder[] { ConditionalExpressionBuilderFactory
                         .createBuilder(Employee.class, "name_IN", String[].class) });
@@ -96,7 +94,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testMultiParameterTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(Employee.class,method,
-                true, false, new String[] { "name", "bloodType" },
+                true, new String[] { "name", "bloodType" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
                                 Employee.class, "name", String.class),
@@ -114,7 +112,6 @@ public class ParameterQueryCommandTest extends S2TestCase {
         ParameterQueryCommand command = new ParameterQueryCommand(
                 Employee.class,method,
                 true,
-                true,
                 new String[] { "belongTo$department$name" },
                 ConditionalExpressionBuilderFactory
                         .createBuilders(Employee.class, new String[] {"belongTo$department$name"}, new Class<?>[] {String.class}));
@@ -130,7 +127,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testOrderbyTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class, method,true, false,
+                Employee.class, method,true, 
                 new String[] { "bloodType", "orderby" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
@@ -155,7 +152,7 @@ public class ParameterQueryCommandTest extends S2TestCase {
 
     public void testPagingTx() throws Exception {
         ParameterQueryCommand command = new ParameterQueryCommand(
-                Employee.class, method,true, false,
+                Employee.class, method,true, 
                 new String[] { "bloodType", "firstResult", "maxResults" },
                 new ConditionalExpressionBuilder[] {
                         ConditionalExpressionBuilderFactory.createBuilder(
@@ -172,10 +169,46 @@ public class ParameterQueryCommandTest extends S2TestCase {
         assertEquals("うー太", list.get(4).getName());
     }
 
+    public void testAutoFlushTx() throws Exception {
+        Employee emp = em.find(Employee.class, 16);
+        emp.setBloodType("B");
+        
+        ParameterQueryCommand command = new ParameterQueryCommand(
+                Employee.class, method,true, 
+                new String[] { "bloodType" },
+                new ConditionalExpressionBuilder[] {
+                        ConditionalExpressionBuilderFactory.createBuilder(
+                                Employee.class, "bloodType", String.class) });
+        List<Employee> list = (List) command.execute(em, new Object[] { "A" });
+        assertNotNull(list);
+        assertEquals(10, list.size());
+    }
+
+    public void testNoFlushTx() throws Exception {
+        Employee emp = em.find(Employee.class, 16);
+        emp.setBloodType("B");
+        
+        ParameterQueryCommand command = new ParameterQueryCommand(
+                Employee.class, ReflectionUtil.getMethod(DummyDao.class, "findEmployeeNoFlush"),
+                true, 
+                new String[] { "bloodType" },
+                new ConditionalExpressionBuilder[] {
+                        ConditionalExpressionBuilderFactory.createBuilder(
+                                Employee.class, "bloodType", String.class) });
+        List<Employee> list = (List) command.execute(em, new Object[] { "A" });
+        assertNotNull(list);
+        assertEquals(11, list.size());
+    }
+
     public interface DummyDao {
         @Distinct
         @FetchJoin(value = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
         List<Employee> findEmployee();
+
+        @Distinct
+        @FetchJoin(value = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
+        @FlushMode(FlushModeType.COMMIT)
+        List<Employee> findEmployeeNoFlush();
     }
 
 }

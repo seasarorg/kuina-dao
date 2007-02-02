@@ -15,9 +15,12 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
+
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.unit.S2TestCase;
+import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
@@ -29,6 +32,9 @@ public class NamedQueryResultListCommandTest extends S2TestCase {
 
     private EntityManager em;
 
+    private Method method = ReflectionUtil
+            .getMethod(DummyDao.class, "getCount");
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -36,10 +42,16 @@ public class NamedQueryResultListCommandTest extends S2TestCase {
     }
 
     public void testCountTx() throws Exception {
-        NamedQueryCommand command = new NamedQueryCommand(false,
-                "Employee.getCount", new ParameterBinder[0]);
+        NamedQueryCommand command = new NamedQueryCommand(DummyDao.class,
+                method, false, "Employee.getCount", new ParameterBinder[0]);
         int result = Integer.class.cast(command.execute(em, new Object[0]));
         assertEquals(30, result);
+    }
+
+    public interface DummyDao {
+
+        Integer getCount();
+
     }
 
 }

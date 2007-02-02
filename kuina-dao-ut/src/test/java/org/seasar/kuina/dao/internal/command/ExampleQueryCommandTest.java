@@ -48,7 +48,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
 
     public void testSimpleTx() throws Exception {
         AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
-                method, true, false, -1, -1, -1);
+                method, true, -1, -1, -1);
         Employee emp = new Employee();
         emp.setName("シマゴロー");
         List<Employee> list = (List) command.execute(em, new Object[] { emp });
@@ -59,7 +59,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
 
     public void testOrderbyTx() throws Exception {
         AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
-                method, true, false, 1, -1, -1);
+                method, true, 1, -1, -1);
         Employee emp = new Employee();
         emp.setBloodType("AB");
         List<Employee> list = (List) command.execute(em, new Object[] { emp,
@@ -117,7 +117,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
 
     public void testPagingTx() throws Exception {
         AbstractQueryCommand command = new ExampleQueryCommand(Employee.class,
-                method, true, false, -1, 1, 2);
+                method, true, -1, 1, 2);
         Employee emp = new Employee();
         emp.setBloodType("A");
         List<Employee> list = (List) command.execute(em, new Object[] { emp, 5,
@@ -132,6 +132,7 @@ public class ExampleQueryCommandTest extends S2TestCase {
     }
 
     public interface DummyDao {
+
         @FetchJoin(value = "belongTo", joinSpec = JoinSpec.LEFT_OUTER_JOIN)
         List<Employee> findEmployee();
     }
