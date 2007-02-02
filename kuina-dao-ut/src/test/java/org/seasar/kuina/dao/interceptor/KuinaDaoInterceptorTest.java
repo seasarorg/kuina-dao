@@ -70,6 +70,15 @@ public class KuinaDaoInterceptorTest extends S2TestCase {
         assertEquals(30, list.size());
     }
 
+    public void testFindAllReadOnlyTx() throws Exception {
+        List<Employee> list = employeeDao.findAllReadOnly();
+        assertNotNull(list);
+        assertEquals(30, list.size());
+        Employee emp = list.get(0);
+        emp.setName("hoge");
+        em.flush();
+    }
+
     public void testFindByExampleTx() throws Exception {
         Employee emp = new Employee();
         emp.setName("シマゴロー");
