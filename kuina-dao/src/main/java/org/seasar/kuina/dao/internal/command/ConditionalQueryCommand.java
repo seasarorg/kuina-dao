@@ -33,9 +33,8 @@ public class ConditionalQueryCommand extends AbstractDynamicQueryCommand {
             .getLogger(ConditionalQueryCommand.class);
 
     public ConditionalQueryCommand(final Class<?> entityClass,
-            final Method method, final boolean resultList,
-            final boolean distinct) {
-        super(entityClass, method, resultList, distinct);
+            final Method method, final boolean resultList) {
+        super(entityClass, method, resultList);
     }
 
     @Override

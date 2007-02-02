@@ -15,10 +15,54 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
+
+import javax.persistence.FlushModeType;
+import javax.persistence.Query;
+
+import org.seasar.kuina.dao.FlushMode;
+import org.seasar.kuina.dao.criteria.SelectStatement;
+
 /**
  * 
  * @author koichik
  */
 public abstract class AbstractQueryCommand extends AbstractCommand {
+
+    protected Class<?> entityClass;
+
+    protected Method method;
+
+    protected final boolean resultList;
+
+    protected FlushModeType flushMode;
+
+    /**
+     * インスタンスを構築します。
+     */
+    public AbstractQueryCommand(final Class<?> entityClass,
+            final Method method, final boolean resultList) {
+        this.entityClass = entityClass;
+        this.method = method;
+        this.resultList = resultList;
+        flushMode = detectFlushMode(method);
+    }
+
+    protected FlushModeType detectFlushMode(final Method method) {
+        final FlushMode flushMode = method.getAnnotation(FlushMode.class);
+        return flushMode == null ? null : flushMode.value();
+    }
+
+    protected void setupQuery(final Query query) {
+        if (flushMode != null) {
+            query.setFlushMode(flushMode);
+        }
+    }
+
+    protected void setupStatement(final SelectStatement statement) {
+        if (flushMode != null) {
+            statement.setFlushMode(flushMode);
+        }
+    }
 
 }

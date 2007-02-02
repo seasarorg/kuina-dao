@@ -24,6 +24,7 @@ import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
+import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.FetchJoin;
 import org.seasar.kuina.dao.FetchJoins;
 import org.seasar.kuina.dao.JoinSpec;
@@ -40,31 +41,27 @@ import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
  */
 public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
-    protected Class<?> entityClass;
-
-    protected Method method;
-
-    protected boolean resultList;
-
     protected boolean distinct;
 
     protected String identificationVariable;
 
     public AbstractDynamicQueryCommand(final Class<?> entityClass,
-            final Method method, final boolean resultList,
-            final boolean distinct) {
-        this.entityClass = entityClass;
-        this.method = method;
-        this.resultList = resultList;
-        this.distinct = distinct;
+            final Method method, final boolean resultList) {
+        super(entityClass, method, resultList);
+        this.distinct = detectDistinct(method);
         this.identificationVariable = JpqlUtil
                 .toDefaultIdentificationVariable(entityClass);
     }
 
     public Object execute(final EntityManager em, final Object[] arguments) {
         final SelectStatement statement = createSelectStatement(arguments);
+        setupStatement(statement);
         return resultList ? statement.getResultList(em) : statement
                 .getSingleResult(em);
+    }
+
+    protected boolean detectDistinct(final Method method) {
+        return method.getAnnotation(Distinct.class) != null;
     }
 
     protected SelectStatement createSelectStatement(final Object[] arguments) {

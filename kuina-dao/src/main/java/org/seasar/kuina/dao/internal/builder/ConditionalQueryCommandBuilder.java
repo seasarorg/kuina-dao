@@ -44,7 +44,7 @@ public class ConditionalQueryCommandBuilder extends AbstractQueryCommandBuilder 
         }
 
         return new ConditionalQueryCommand(entityClass, method,
-                isResultList(method), isDistinct(method));
+                isResultList(method));
     }
 
 }

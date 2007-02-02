@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -24,20 +26,23 @@ import org.seasar.kuina.dao.internal.binder.ParameterBinder;
  * 
  * @author koichik
  */
-public class NamedQueryUpdateCommand extends AbstractCommand {
+public class NamedQueryUpdateCommand extends AbstractQueryCommand {
 
     protected final String queryName;
 
     protected final ParameterBinder[] binders;
 
-    public NamedQueryUpdateCommand(final String queryName,
+    public NamedQueryUpdateCommand(final Class<?> entityClass,
+            final Method method, final String queryName,
             final ParameterBinder[] binders) {
+        super(entityClass, method, false);
         this.queryName = queryName;
         this.binders = binders;
     }
 
     public Object execute(final EntityManager em, final Object[] parameters) {
         final Query query = createQuery(em, parameters);
+        setupQuery(query);
         return query.executeUpdate();
     }
 

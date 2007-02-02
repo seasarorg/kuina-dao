@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
@@ -31,6 +32,7 @@ import org.seasar.kuina.dao.criteria.grammar.SelectExpression;
  * @author koichik
  */
 public interface SelectStatement extends Criteria {
+
     SelectStatement select(String selectExpression);
 
     SelectStatement select(SelectExpression selectExpression);
@@ -58,6 +60,8 @@ public interface SelectStatement extends Criteria {
     SelectStatement setFirstResult(int startPosition);
 
     SelectStatement setMaxResults(int maxResult);
+
+    SelectStatement setFlushMode(FlushModeType flushMode);
 
     <T> List<T> getResultList(EntityManager em);
 

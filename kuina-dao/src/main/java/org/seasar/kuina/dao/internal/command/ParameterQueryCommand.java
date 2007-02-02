@@ -34,9 +34,9 @@ public class ParameterQueryCommand extends AbstractDynamicQueryCommand {
 
     public ParameterQueryCommand(final Class<?> entityClass,
             final Method method, final boolean resultList,
-            final boolean distinct, final String[] parameterNames,
+            final String[] parameterNames,
             final ConditionalExpressionBuilder[] builders) {
-        super(entityClass, method, resultList, distinct);
+        super(entityClass, method, resultList);
         this.parameterNames = parameterNames;
         this.builders = builders;
     }

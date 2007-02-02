@@ -51,7 +51,7 @@ public class DtoQueryCommandBuilder extends AbstractDynamicQueryCommandBuilder {
         final ConditionalExpressionBuilder[] builders = createBuilders(
                 entityClass, beanDesc);
         return new DtoQueryCommand(entityClass, method, isResultList(method),
-                isDistinct(method), getterMethods, builders);
+                getterMethods, builders);
     }
 
     protected ConditionalExpressionBuilder[] createBuilders(

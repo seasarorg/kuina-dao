@@ -46,9 +46,9 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
      * インスタンスを構築します。
      */
     public ExampleQueryCommand(final Class<?> entityClass, final Method method,
-            final boolean resultList, final boolean distinct,
-            final int orderby, final int firstResult, final int maxResults) {
-        super(entityClass, method, resultList, distinct);
+            final boolean resultList, final int orderby, final int firstResult,
+            final int maxResults) {
+        super(entityClass, method, resultList);
         this.orderby = orderby;
         this.firstResult = firstResult;
         this.maxResults = maxResults;
@@ -127,6 +127,7 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
     }
 
     public static class Context {
+
         protected Map<Object, Object> resolvedEntities = CollectionsUtil
                 .newIdentityHashMap();
 
@@ -147,6 +148,7 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
         public List<String> getBindParameters() {
             return bindParameters;
         }
+
     }
 
 }

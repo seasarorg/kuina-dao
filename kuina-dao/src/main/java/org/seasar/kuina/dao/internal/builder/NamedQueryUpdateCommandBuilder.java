@@ -45,8 +45,8 @@ public class NamedQueryUpdateCommandBuilder extends AbstractCommandBuilder {
         }
 
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQueryUpdateCommand(queryName, getBinders(method,
-                beanDesc));
+        return new NamedQueryUpdateCommand(daoClass, method, queryName,
+                getBinders(method, beanDesc));
     }
 
 }

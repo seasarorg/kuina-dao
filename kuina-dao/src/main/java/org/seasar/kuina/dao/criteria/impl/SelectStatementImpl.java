@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
@@ -55,6 +56,7 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
  * @author koichik
  */
 public class SelectStatementImpl implements SelectStatement {
+
     private static final Logger logger = Logger
             .getLogger(SelectStatementImpl.class);
 
@@ -73,6 +75,8 @@ public class SelectStatementImpl implements SelectStatement {
     protected Integer firstResult;
 
     protected Integer maxResults;
+
+    protected FlushModeType flushMode;
 
     /**
      * インスタンスを構築します。
@@ -178,6 +182,11 @@ public class SelectStatementImpl implements SelectStatement {
         return this;
     }
 
+    public SelectStatement setFlushMode(FlushModeType flushMode) {
+        this.flushMode = flushMode;
+        return this;
+    }
+
     @SuppressWarnings("unchecked")
     public <T> List<T> getResultList(final EntityManager em) {
         return createQuery(em, true).getResultList();
@@ -210,6 +219,9 @@ public class SelectStatementImpl implements SelectStatement {
         if (maxResults != null && maxResults >= 0) {
             query.setMaxResults(maxResults);
         }
+        if (flushMode != null) {
+            query.setFlushMode(flushMode);
+        }
         if (fillParameter) {
             context.fillParameters(query);
         }
@@ -229,6 +241,7 @@ public class SelectStatementImpl implements SelectStatement {
 
         if (selectClause.isEmpty()) {
             fromClause.accept(new IdentificationVarialbleVisitor() {
+
                 public void identificationVariable(
                         final IdentificationVariable identificationVariable) {
                     select(identificationVariable);

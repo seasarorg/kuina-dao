@@ -59,10 +59,10 @@ public class ExampleQueryCommandBuilder extends AbstractQueryCommandBuilder {
         final Annotation[][] annotations = method.getParameterAnnotations();
 
         return new ExampleQueryCommand(entityClass, method,
-                isResultList(method), isDistinct(method), getOrderbyParameter(
-                        parameterNames, annotations), getFirstResultParameter(
-                        parameterNames, annotations), getMaxResultsParameter(
-                        parameterNames, annotations));
+                isResultList(method), getOrderbyParameter(parameterNames,
+                        annotations), getFirstResultParameter(parameterNames,
+                        annotations), getMaxResultsParameter(parameterNames,
+                        annotations));
     }
 
 }

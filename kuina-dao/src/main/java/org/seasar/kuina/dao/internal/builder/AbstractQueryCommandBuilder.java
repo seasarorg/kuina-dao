@@ -23,7 +23,6 @@ import java.util.regex.Pattern;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.tiger.ReflectionUtil;
-import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.FirstResult;
 import org.seasar.kuina.dao.MaxResults;
 import org.seasar.kuina.dao.NamedParameter;
@@ -63,10 +62,6 @@ public abstract class AbstractQueryCommandBuilder extends
 
     protected boolean isResultList(final Method method) {
         return List.class.isAssignableFrom(method.getReturnType());
-    }
-
-    protected boolean isDistinct(final Method method) {
-        return method.getAnnotation(Distinct.class) != null;
     }
 
     @Override
