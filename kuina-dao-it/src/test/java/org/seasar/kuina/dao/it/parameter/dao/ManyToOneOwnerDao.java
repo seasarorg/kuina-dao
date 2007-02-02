@@ -19,6 +19,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.FlushModeType;
+
+import org.seasar.kuina.dao.FlushMode;
 import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
@@ -67,5 +70,8 @@ public interface ManyToOneOwnerDao {
 
     List<ManyToOneOwner> findByRelationship(
             String oneToManyInverse$subManyToOneOwners$name);
+
+    @FlushMode(FlushModeType.COMMIT)
+    List<ManyToOneOwner> findByBloodTypeNoFlush(String... bloodType_IN);
 
 }

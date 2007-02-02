@@ -18,6 +18,9 @@ package org.seasar.kuina.dao.it.named.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.FlushModeType;
+
+import org.seasar.kuina.dao.FlushMode;
 import org.seasar.kuina.dao.PositionalParameter;
 import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
@@ -37,6 +40,10 @@ public interface ManyToOneOwnerDao {
     @QueryName("named.dao.ManyToOneOwner.findByName")
     List<ManyToOneOwner> findByName(String ownerName);
 
+    @QueryName("named.dao.ManyToOneOwner.findByName")
+    @FlushMode(FlushModeType.COMMIT)
+    List<ManyToOneOwner> findByNameNoFlush(String ownerName);
+
     @PositionalParameter
     @QueryName("named.dao.ManyToOneOwner.findByBirthday")
     List<ManyToOneOwner> findByBirthday(Date date);
@@ -53,5 +60,10 @@ public interface ManyToOneOwnerDao {
     @PositionalParameter
     @QueryName("named.dao.ManyToOneOwner.getCountByBloodType")
     Integer getCountByBloodType(String bloodType);
+
+    @PositionalParameter
+    @QueryName("named.dao.ManyToOneOwner.getCountByBloodType")
+    @FlushMode(FlushModeType.COMMIT)
+    Integer getCountByBloodTypeNoFlush(String bloodType);
 
 }

@@ -57,17 +57,30 @@ public class ManyToOneOwnerDaoTest {
         assertEquals("simagoro", list.get(0).getName());
     }
 
+    public void findByNameNoFlush() throws Exception {
+        ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
+        owner.setName("hoge");
+
+        List<ManyToOneOwner> list = dao.findByNameNoFlush("simagoro");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertSame(owner, list.get(0));
+
+        list = dao.findByName("simagoro");
+        assertNotNull(list);
+        assertTrue(list.isEmpty());
+    }
+
     public void findByBirthday() throws Exception {
-        List<ManyToOneOwner> list = dao.findByBirthday(DateUtil.newDate(
-                1953, 10, 1));
+        List<ManyToOneOwner> list = dao.findByBirthday(DateUtil.newDate(1953,
+                10, 1));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("simagoro", list.get(0).getName());
     }
 
     public void findByOneToManayInverseName() throws Exception {
-        List<ManyToOneOwner> list = dao
-                .findByOneToManyInverseName("Personnel");
+        List<ManyToOneOwner> list = dao.findByOneToManyInverseName("Personnel");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("nekomaru", list.get(0).getName());
@@ -89,4 +102,16 @@ public class ManyToOneOwnerDaoTest {
         int count = dao.getCountByBloodType("AB");
         assertEquals(3, count);
     }
+
+    public void getCountByBloodTypeNoFlush() throws Exception {
+        ManyToOneOwner owner = em.find(ManyToOneOwner.class, 4);
+        owner.setBloodType("O");
+
+        int count = dao.getCountByBloodTypeNoFlush("AB");
+        assertEquals(3, count);
+
+        count = dao.getCountByBloodType("AB");
+        assertEquals(2, count);
+    }
+
 }

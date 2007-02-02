@@ -62,8 +62,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByNameBloodType() throws Exception {
-        List<ManyToOneOwner> list = dao.findByNameBloodType("simagoro",
-                null);
+        List<ManyToOneOwner> list = dao.findByNameBloodType("simagoro", null);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -86,9 +85,8 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByBloodTypeOrderbyHeightWeight() throws Exception {
-        List<ManyToOneOwner> list = dao
-                .findByBloodTypeOrderbyHeightWeight("A", new String[] {
-                        "height", "weight" });
+        List<ManyToOneOwner> list = dao.findByBloodTypeOrderbyHeightWeight("A",
+                new String[] { "height", "weight" });
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("roly", list.get(0).getName());
@@ -190,8 +188,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findBySalaryRate() throws Exception {
-        List<ManyToOneOwner> list = dao
-                .findBySalaryRate(SalaryRate.MANAGER);
+        List<ManyToOneOwner> list = dao.findBySalaryRate(SalaryRate.MANAGER);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("maki", list.get(0).getName());
@@ -217,8 +214,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByOneToManyInverseName() throws Exception {
-        List<ManyToOneOwner> list = dao
-                .findByOneToManyInverseName("Personnel");
+        List<ManyToOneOwner> list = dao.findByOneToManyInverseName("Personnel");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("nekomaru", list.get(0).getName());
@@ -232,5 +228,18 @@ public class ManyToOneOwnerDaoTest {
         assertEquals(2, list.size());
         assertEquals("goma", list.get(0).getName());
         assertEquals("panda", list.get(1).getName());
+    }
+
+    public void findByBloodTypeNoFlush() throws Exception {
+        ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
+        owner.setBloodType("AB");
+
+        List<ManyToOneOwner> list = dao.findByBloodTypeNoFlush("B", "AB");
+        assertNotNull(list);
+        assertEquals(11, list.size());
+
+        list = dao.findByBloodType("B", "AB");
+        assertNotNull(list);
+        assertEquals(12, list.size());
     }
 }
