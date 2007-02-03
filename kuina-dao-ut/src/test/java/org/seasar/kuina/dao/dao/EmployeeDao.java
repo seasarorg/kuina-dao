@@ -21,6 +21,7 @@ import java.util.List;
 import javax.persistence.TemporalType;
 
 import org.seasar.kuina.dao.Hint;
+import org.seasar.kuina.dao.Hints;
 import org.seasar.kuina.dao.PositionalParameter;
 import org.seasar.kuina.dao.TargetEntity;
 import org.seasar.kuina.dao.TemporalSpec;
@@ -36,7 +37,9 @@ public interface EmployeeDao {
 
     List<Employee> findAll();
 
-    @Hint(name = "org.hibernate.readOnly", value = "true", type = Boolean.class)
+    @Hints( {
+            @Hint(name = "org.hibernate.readOnly", value = "true"),
+            @Hint(name = "org.hibernate.cacheMode", value = "@org.hibernate.CacheMode@NORMAL") })
     List<Employee> findAllReadOnly();
 
     List<Employee> findByExample(Employee employee);
