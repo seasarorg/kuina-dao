@@ -32,6 +32,4 @@ public @interface Hint {
 
     String value();
 
-    Class<?> type() default String.class;
-
 }

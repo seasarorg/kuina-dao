@@ -22,12 +22,12 @@ import java.util.Map.Entry;
 import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 
-import org.seasar.framework.util.NumberConversionUtil;
+import org.seasar.framework.util.OgnlUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.FlushMode;
 import org.seasar.kuina.dao.Hint;
 import org.seasar.kuina.dao.Hints;
-import org.seasar.kuina.dao.IllegalHintTypeException;
+import org.seasar.kuina.dao.IllegalHintValueException;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 
 /**
@@ -55,16 +55,16 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
         this.entityClass = entityClass;
         this.method = method;
         this.resultList = resultList;
-        flushMode = detectFlushMode(method);
-        detectHints(method);
+        flushMode = detectFlushMode();
+        detectHints();
     }
 
-    protected FlushModeType detectFlushMode(final Method method) {
+    protected FlushModeType detectFlushMode() {
         final FlushMode flushMode = method.getAnnotation(FlushMode.class);
         return flushMode == null ? null : flushMode.value();
     }
 
-    protected void detectHints(final Method method) {
+    protected void detectHints() {
         final Hints hints = method.getAnnotation(Hints.class);
         if (hints != null) {
             for (final Hint hint : hints.value()) {
@@ -77,20 +77,16 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected Object getHintValue(final Hint hint) {
-        final String value = hint.value();
-        final Class<?> type = hint.type();
-        if (type == String.class) {
-            return value;
-        } else if (type == Boolean.class) {
-            return Boolean.valueOf(value);
-        } else if (Number.class.isAssignableFrom(type)) {
-            return NumberConversionUtil.convertNumber(type, value);
-        } else if (Enum.class.isAssignableFrom(type)) {
-            return Enum.valueOf((Class<? extends Enum>) type, value);
+        final String expression = hint.value();
+        try {
+            final Object parsedExpression = OgnlUtil
+                    .parseExpression(expression);
+            return OgnlUtil.getValue(parsedExpression, null);
+        } catch (final Exception e) {
+            throw new IllegalHintValueException(method, hint.name(),
+                    expression, e);
         }
-        throw new IllegalHintTypeException(type);
     }
 
     protected void setupQuery(final Query query) {

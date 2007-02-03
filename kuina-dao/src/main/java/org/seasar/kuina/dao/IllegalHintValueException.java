@@ -15,18 +15,21 @@
  */
 package org.seasar.kuina.dao;
 
+import java.lang.reflect.Method;
+
 import org.seasar.framework.exception.SRuntimeException;
 
 /**
  * 
  * @author koichik
  */
-public class IllegalHintTypeException extends SRuntimeException {
+public class IllegalHintValueException extends SRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public IllegalHintTypeException(final Class<?> type) {
-        super("EKuinaDao2004", new Object[] { type.getName() });
+    public IllegalHintValueException(final Method method, final String name,
+            final String value, final Exception e) {
+        super("EKuinaDao2004", new Object[] { method, name, value }, e);
     }
 
 }
