@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="src/test/resources"/>
 	<classpathentry kind="src" path="src/test-hsqldb/resources"/>
 	<classpathentry kind="src" path="src/test-derby/resources"/>
+	<classpathentry kind="src" path="src/test-h2/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/kuina-dao"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/s2-tiger"/>
@@ -12,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/derbyLocale_ja_JP.jar"/>
 	<classpathentry kind="lib" path="lib/derbyrun.jar"/>
 	<classpathentry kind="lib" path="lib/derbytools.jar"/>
+	<classpathentry kind="lib" path="lib/h2-1.0.20061217.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
