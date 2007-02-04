@@ -26,6 +26,7 @@ import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.FirstResult;
 import org.seasar.kuina.dao.MaxResults;
 import org.seasar.kuina.dao.NamedParameter;
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.internal.binder.FirstResultBinder;
 import org.seasar.kuina.dao.internal.binder.MaxResultsBinder;
 import org.seasar.kuina.dao.internal.binder.NullBinder;
@@ -120,7 +121,7 @@ public abstract class AbstractQueryCommandBuilder extends
         for (final Annotation annotation : annotations) {
             if (annotation instanceof NamedParameter) {
                 return false;
-            } else if (annotation instanceof FirstResult)
+            } else if (annotation instanceof Orderby)
                 return true;
         }
         return name != null && orderbyPattern.matcher(name).matches();
