@@ -25,8 +25,9 @@ import org.seasar.kuina.dao.it.entity.OneToOneOwner;
  */
 public interface OneToOneOwnerDao {
 
-    List<OneToOneOwner> findByName(String name);
+    List<OneToOneOwner> findByName(String name, String... orderby);
 
-    List<OneToOneOwner> findByOneToOneInverseName(String oneToOneInverse$name);
+    List<OneToOneOwner> findByOneToOneInverseName(String oneToOneInverse$name,
+            String... orderby);
 
 }

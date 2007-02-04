@@ -1,1 +1,1 @@
-select id, name from ManyToManyInverse
+select id, name from ManyToManyInverse order by id

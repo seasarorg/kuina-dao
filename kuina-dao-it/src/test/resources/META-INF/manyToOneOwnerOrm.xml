@@ -33,6 +33,7 @@
 				ManyToOneOwner owner
 			WHERE
 				owner.name = :ownerName
+			ORDER BY owner.id
 		</query>
 	</named-query>
 	<named-query name="named.dao.ManyToOneOwner.findByBirthday">
@@ -43,6 +44,7 @@
 				ManyToOneOwner owner
 			WHERE
 				owner.birthday = ?1
+			ORDER BY owner.id
 		</query>
 	</named-query>
 	<named-query name="named.dao.ManyToOneOwner.findByOneToManyInverseName">
@@ -54,6 +56,7 @@
 					INNER JOIN owner.oneToManyInverse inverse
 			WHERE
 				inverse.name = :name
+			ORDER BY owner.id				
 		</query>
 	</named-query>
 	<named-query name="named.dao.ManyToOneOwner.getName">
@@ -64,6 +67,7 @@
 				ManyToOneOwner owner
 			WHERE
 				owner.id = :id
+			ORDER BY owner.id		
 		</query>
 	</named-query>
 

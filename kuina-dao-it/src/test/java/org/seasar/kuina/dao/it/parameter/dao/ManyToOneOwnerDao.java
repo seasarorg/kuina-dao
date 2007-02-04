@@ -33,45 +33,56 @@ import org.seasar.kuina.dao.it.entity.SalaryRate;
  */
 public interface ManyToOneOwnerDao {
 
-    List<ManyToOneOwner> findByBloodType(String... bloodType_IN);
+    List<ManyToOneOwner> findByBloodType(String[] bloodType_IN,
+            String... orderby);
 
-    List<ManyToOneOwner> findByNameBloodType(String name, String bloodType);
+    List<ManyToOneOwner> findByNameBloodType(String name, String bloodType,
+            String... orderby);
 
     List<ManyToOneOwner> findByBloodTypeOrderbyHeightWeight(String bloodType,
-            String[] orderby);
+            String... orderby);
 
     List<ManyToOneOwner> findByBloodTypePaging(String bloodType,
-            int firstResult, int maxResults);
+            int firstResult, int maxResults, String... orderby);
 
-    List<ManyToOneOwner> findByBirthday(Date birthday_GE);
+    List<ManyToOneOwner> findByBirthday(Date birthday_GE, String... orderby);
 
-    List<ManyToOneOwner> findByWeddingDay(Calendar weddingDay);
+    List<ManyToOneOwner> findByWeddingDay(Calendar weddingDay,
+            String... orderby);
 
-    List<ManyToOneOwner> findByEmploymentDate(java.sql.Date employmentDate);
+    List<ManyToOneOwner> findByEmploymentDate(java.sql.Date employmentDate,
+            String... orderby);
 
-    List<ManyToOneOwner> findByBirthTime(java.sql.Time birthTime);
+    List<ManyToOneOwner> findByBirthTime(java.sql.Time birthTime,
+            String... orderby);
 
-    List<ManyToOneOwner> findByBirthTimestamp(java.sql.Timestamp birthTimestamp);
+    List<ManyToOneOwner> findByBirthTimestamp(
+            java.sql.Timestamp birthTimestamp, String... orderby);
 
-    List<ManyToOneOwner> findByName(String name_CONTAINS);
+    List<ManyToOneOwner> findByName(String name_CONTAINS, String... orderby);
 
-    List<ManyToOneOwner> findByHireFiscalYear(boolean hireFiscalYear_IS_NULL);
+    List<ManyToOneOwner> findByHireFiscalYear(boolean hireFiscalYear_IS_NULL,
+            String... orderby);
 
-    List<ManyToOneOwner> findByEmployeeStatus(EmployeeStatus employeeStatus);
+    List<ManyToOneOwner> findByEmployeeStatus(EmployeeStatus employeeStatus,
+            String... orderby);
 
-    List<ManyToOneOwner> findBySalaryRate(SalaryRate salaryRate);
+    List<ManyToOneOwner> findBySalaryRate(SalaryRate salaryRate,
+            String... orderby);
 
-    List<ManyToOneOwner> findByRetiredFlag(Boolean retired);
+    List<ManyToOneOwner> findByRetiredFlag(Boolean retired, String... orderby);
 
     List<ManyToOneOwner> findByOneToManyInverse(
-            OneToManyInverse oneToManyInverse);
+            OneToManyInverse oneToManyInverse, String... orderby);
 
-    List<ManyToOneOwner> findByOneToManyInverseName(String oneToManyInverse$name);
+    List<ManyToOneOwner> findByOneToManyInverseName(
+            String oneToManyInverse$name, String... orderby);
 
     List<ManyToOneOwner> findByRelationship(
-            String oneToManyInverse$subManyToOneOwners$name);
+            String oneToManyInverse$subManyToOneOwners$name, String... orderby);
 
     @FlushMode(FlushModeType.COMMIT)
-    List<ManyToOneOwner> findByBloodTypeNoFlush(String... bloodType_IN);
+    List<ManyToOneOwner> findByBloodTypeNoFlush(String[] bloodType_IN,
+            String... orderby);
 
 }

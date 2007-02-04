@@ -27,12 +27,10 @@ import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 public interface OneToManyInverseDao {
 
     @Distinct
-    List<OneToManyInverse> findByExample(OneToManyInverse inverse);
-
-    List<OneToManyInverse> findByExampleOrderby(OneToManyInverse inverse,
+    List<OneToManyInverse> findByExample(OneToManyInverse inverse,
             String... orderby);
 
     List<OneToManyInverse> findByExamplePaging(OneToManyInverse inverse,
-            int firstResult, int maxResults);
+            int firstResult, int maxResults, String... orderby);
 
 }

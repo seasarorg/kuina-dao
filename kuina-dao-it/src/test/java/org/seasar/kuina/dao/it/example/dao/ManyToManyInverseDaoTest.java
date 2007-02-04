@@ -44,7 +44,7 @@ public class ManyToManyInverseDaoTest {
         owners.add(owner);
         ManyToManyInverse inverse = new ManyToManyInverse();
         inverse.setManyToManyOwners(owners);
-        List<ManyToManyInverse> list = dao.findByExample(inverse);
+        List<ManyToManyInverse> list = dao.findByExample(inverse, "id");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("Business", list.get(0).getName());
@@ -58,7 +58,7 @@ public class ManyToManyInverseDaoTest {
         owners.add(owner);
         ManyToManyInverse inverse = new ManyToManyInverse();
         inverse.setManyToManyOwners(owners);
-        List<ManyToManyInverse> list = dao.findByExample(inverse);
+        List<ManyToManyInverse> list = dao.findByExample(inverse, "id");
         assertNotNull(list);
         assertEquals(6, list.size());
         assertEquals("Business", list.get(0).getName());
@@ -74,7 +74,7 @@ public class ManyToManyInverseDaoTest {
         owner.setName("maki");
         ManyToManyInverse inverse = new ManyToManyInverse();
         owner.addManyToManyInverse(inverse);
-        List<ManyToManyInverse> list = dao.findByExample(inverse);
+        List<ManyToManyInverse> list = dao.findByExample(inverse, "id");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("Business", list.get(0).getName());

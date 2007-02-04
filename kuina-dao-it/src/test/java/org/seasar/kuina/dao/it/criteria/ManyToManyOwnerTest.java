@@ -76,8 +76,8 @@ public class ManyToManyOwnerTest {
         ManyToManyInverse inverse = em.find(ManyToManyInverse.class, 5);
         List<ManyToManyOwner> list = selectDistinct("mo").from(
                 ManyToManyOwner.class, "mo").where(
-                memberOf(":inverse", "mo.manyToManyInverses")).getQuery(em)
-                .setParameter("inverse", inverse).getResultList();
+                memberOf(":inverse", "mo.manyToManyInverses")).orderby("mo.id")
+                .getQuery(em).setParameter("inverse", inverse).getResultList();
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals("michiro", list.get(0).getName());
@@ -89,8 +89,9 @@ public class ManyToManyOwnerTest {
         ManyToManyInverse inverse = em.find(ManyToManyInverse.class, 5);
         List<ManyToManyOwner> list = selectDistinct("mo").from(
                 ManyToManyOwner.class, "mo").where(
-                notMemberOf(":inverse", "mo.manyToManyInverses")).getQuery(em)
-                .setParameter("inverse", inverse).getResultList();
+                notMemberOf(":inverse", "mo.manyToManyInverses")).orderby(
+                "mo.id").getQuery(em).setParameter("inverse", inverse)
+                .getResultList();
         assertNotNull(list);
         assertEquals(4, list.size());
         assertEquals("simagoro", list.get(0).getName());

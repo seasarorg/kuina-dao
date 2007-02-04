@@ -25,6 +25,7 @@ import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
  */
 public interface ManyToManyOwnerDao {
 
-    List<ManyToManyOwner> findByExample(ManyToManyOwner owner);
+    List<ManyToManyOwner> findByExample(ManyToManyOwner owner,
+            String... orderby);
 
 }

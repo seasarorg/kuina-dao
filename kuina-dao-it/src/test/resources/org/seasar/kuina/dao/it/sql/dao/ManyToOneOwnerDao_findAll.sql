@@ -1,1 +1,1 @@
-select id, name from ManyToOneOwner
+select id, name from ManyToOneOwner order by id

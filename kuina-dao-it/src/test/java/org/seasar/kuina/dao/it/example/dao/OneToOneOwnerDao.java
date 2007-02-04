@@ -25,6 +25,6 @@ import org.seasar.kuina.dao.it.entity.OneToOneOwner;
  */
 public interface OneToOneOwnerDao {
 
-    List<OneToOneOwner> findByExample(OneToOneOwner owner);
+    List<OneToOneOwner> findByExample(OneToOneOwner owner, String... orderby);
 
 }

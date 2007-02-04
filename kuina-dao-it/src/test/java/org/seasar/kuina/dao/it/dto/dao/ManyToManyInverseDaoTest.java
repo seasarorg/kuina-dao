@@ -39,6 +39,7 @@ public class ManyToManyInverseDaoTest {
         ManyToManyInverseDto dto = new ManyToManyInverseDto();
         dto.setName_CONTAINS("a");
         dto.setManyToManyOwners$name_EQ("michiro");
+        dto.setOrderby("id");
         List<ManyToManyInverse> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(2, list.size());

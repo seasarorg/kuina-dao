@@ -1,1 +1,1 @@
-select id, name from OneToManyInverse
+select id, name from OneToManyInverse order by id

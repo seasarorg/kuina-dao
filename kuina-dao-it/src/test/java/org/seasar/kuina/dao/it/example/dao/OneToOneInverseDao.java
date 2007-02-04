@@ -25,6 +25,7 @@ import org.seasar.kuina.dao.it.entity.OneToOneInverse;
  */
 public interface OneToOneInverseDao {
 
-    List<OneToOneInverse> findByExample(OneToOneInverse inverse);
+    List<OneToOneInverse> findByExample(OneToOneInverse inverse,
+            String... orderby);
 
 }

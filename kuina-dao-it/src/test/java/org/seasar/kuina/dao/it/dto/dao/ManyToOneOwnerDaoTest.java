@@ -52,6 +52,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByDto_name_NE() throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_NE("simagoro");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(29, list.size());
@@ -62,6 +63,7 @@ public class ManyToOneOwnerDaoTest {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_GT("ma");
         dto.setName_LT("michiro");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -73,6 +75,7 @@ public class ManyToOneOwnerDaoTest {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_GE("ma");
         dto.setName_LE("michiro");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(4, list.size());
@@ -85,6 +88,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByDto_name_IN() throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_IN("ma", "michiro", "monchi");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -96,6 +100,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByDto_name_LIKE() throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_LIKE("%om%");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -106,6 +111,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByDto_name_STARTS() throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_STARTS("sa");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -116,6 +122,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByDto_name_ENDS() throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_ENDS("ro");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -127,6 +134,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByDto_name_CONTAINS() throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setName_CONTAINS("om");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -168,6 +176,7 @@ public class ManyToOneOwnerDaoTest {
         OneToManyInverse oneToManyInverse = em.find(OneToManyInverse.class, 3);
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setOneToManyInverse_EQ(oneToManyInverse);
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -179,6 +188,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByDto_oneToManyInverse$name_EQ() throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setOneToManyInverse$name_EQ("Personnel");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -191,6 +201,7 @@ public class ManyToOneOwnerDaoTest {
             throws Exception {
         ManyToOneOwnerDto dto = new ManyToOneOwnerDto();
         dto.setOneToManyInverse$subManyToOneOwners$name_EQ("simagoro");
+        dto.setOrderby("id");
         List<ManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(2, list.size());

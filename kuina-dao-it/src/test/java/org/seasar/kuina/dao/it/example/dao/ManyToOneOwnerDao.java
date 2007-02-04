@@ -25,12 +25,9 @@ import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
  */
 public interface ManyToOneOwnerDao {
 
-    List<ManyToOneOwner> findByExample(ManyToOneOwner owner);
-
-    List<ManyToOneOwner> findByExampleOrderby(ManyToOneOwner owner,
-            String[] orderby);
+    List<ManyToOneOwner> findByExample(ManyToOneOwner owner, String... orderby);
 
     List<ManyToOneOwner> findByExamplePaging(ManyToOneOwner owner,
-            int firstResult, int maxResults);
+            int firstResult, int maxResults, String... orderby);
 
 }

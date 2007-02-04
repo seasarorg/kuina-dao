@@ -23,6 +23,7 @@
 				OneToOneOwner owner
 			WHERE
 				owner.name like :name
+			ORDER BY owner.id
 		</query>
 	</named-query>
 </entity-mappings>

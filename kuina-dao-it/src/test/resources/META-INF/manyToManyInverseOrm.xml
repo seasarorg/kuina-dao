@@ -23,6 +23,7 @@
 				ManyToManyInverse inverse
 			WHERE
 				inverse.name like :name
+			ORDER BY inverse.id
 		</query>
 	</named-query>
 </entity-mappings>

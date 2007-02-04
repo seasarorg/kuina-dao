@@ -41,7 +41,7 @@ public class ManyToOneOwnerTest {
 
     public void fromOnly() throws Exception {
         List<ManyToOneOwner> list = select().from(ManyToOneOwner.class)
-                .getResultList(em);
+                .orderby("manyToOneOwner.id").getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -49,7 +49,8 @@ public class ManyToOneOwnerTest {
 
     public void selectIdentificationVariable() throws Exception {
         List<ManyToOneOwner> list = select("manyToOneOwner").from(
-                ManyToOneOwner.class).getResultList(em);
+                ManyToOneOwner.class).orderby("manyToOneOwner.id")
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -57,7 +58,7 @@ public class ManyToOneOwnerTest {
 
     public void selectSpecifiedStates() throws Exception {
         List<Object[]> list = select("m.id", "m.name").from(
-                ManyToOneOwner.class, "m").getResultList(em);
+                ManyToOneOwner.class, "m").orderby("m.id").getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals(new Integer(1), list.get(0)[0]);
@@ -99,7 +100,8 @@ public class ManyToOneOwnerTest {
     public void selectDistinctAndCrossJoinWithAlias() throws Exception {
         List<ManyToOneOwner> list = selectDistinct("m").from(
                 alias(ManyToOneOwner.class, "m"),
-                alias(OneToManyInverse.class, "o")).getResultList(em);
+                alias(OneToManyInverse.class, "o")).orderby("m.id")
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -109,7 +111,8 @@ public class ManyToOneOwnerTest {
     public void _inner() throws Exception {
         List<ManyToOneOwner> list = select("m").from(
                 join(ManyToOneOwner.class, "m")
-                        .inner("m.oneToManyInverse", "o")).getResultList(em);
+                        .inner("m.oneToManyInverse", "o")).orderby("m.id")
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -118,7 +121,8 @@ public class ManyToOneOwnerTest {
     public void _innerFetch() throws Exception {
         List<ManyToOneOwner> list = select("m").from(
                 join(ManyToOneOwner.class, "m")
-                        .innerFetch("m.oneToManyInverse")).getResultList(em);
+                        .innerFetch("m.oneToManyInverse")).orderby("m.id")
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -128,7 +132,8 @@ public class ManyToOneOwnerTest {
         List<ManyToOneOwner> list = select("m")
                 .from(
                         join(ManyToOneOwner.class, "m").left(
-                                "m.oneToManyInverse", "o")).getResultList(em);
+                                "m.oneToManyInverse", "o")).orderby("m.id",
+                        "o.id").getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -138,7 +143,8 @@ public class ManyToOneOwnerTest {
         List<ManyToOneOwner> list = select()
                 .from(
                         join(ManyToOneOwner.class, "m").leftFetch(
-                                "m.oneToManyInverse")).getResultList(em);
+                                "m.oneToManyInverse")).orderby("m.id")
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -149,7 +155,8 @@ public class ManyToOneOwnerTest {
                 join(ManyToOneOwner.class, "m")
                         .inner("m.oneToManyInverse", "o")).where(
                 eq("o.name", literal("Personnel")),
-                memberOf("m", "o.subManyToOneOwners")).getResultList(em);
+                memberOf("m", "o.subManyToOneOwners")).orderby("m.id")
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(0, list.size());
     }
@@ -159,7 +166,8 @@ public class ManyToOneOwnerTest {
                 join(ManyToOneOwner.class, "m")
                         .inner("m.oneToManyInverse", "o")).where(
                 eq("o.name", literal("Personnel")),
-                notMemberOf("m", "o.subManyToOneOwners")).getResultList(em);
+                notMemberOf("m", "o.subManyToOneOwners")).orderby("m.id")
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(3, list.size());
     }
@@ -300,8 +308,8 @@ public class ManyToOneOwnerTest {
 
     public void whereSingleCondition() throws Exception {
         List<ManyToOneOwner> list = select().from(ManyToOneOwner.class).where(
-                eq("manyToOneOwner.bloodType", literal("AB")))
-                .getResultList(em);
+                eq("manyToOneOwner.bloodType", literal("AB"))).orderby(
+                "manyToOneOwner.id").getResultList(em);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("maru", list.get(0).getName());
@@ -312,8 +320,8 @@ public class ManyToOneOwnerTest {
     public void whereCompoundCondition() throws Exception {
         List<ManyToOneOwner> list = select().from(ManyToOneOwner.class, "m")
                 .where(between("m.height", 150, 170),
-                        or(lt("m.weight", 45), gt("m.weight", 70)))
-                .getResultList(em);
+                        or(lt("m.weight", 45), gt("m.weight", 70))).orderby(
+                        "m.id").getResultList(em);
         assertNotNull(list);
         assertEquals(4, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -324,7 +332,8 @@ public class ManyToOneOwnerTest {
 
     public void paging() throws Exception {
         List<ManyToOneOwner> list = select().from(ManyToOneOwner.class)
-                .setFirstResult(1).setMaxResults(2).getResultList(em);
+                .setFirstResult(1).setMaxResults(2)
+                .orderby("manyToOneOwner.id").getResultList(em);
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals("gochin", list.get(0).getName());

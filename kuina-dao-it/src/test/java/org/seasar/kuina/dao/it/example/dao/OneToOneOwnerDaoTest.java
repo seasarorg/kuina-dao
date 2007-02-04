@@ -50,7 +50,7 @@ public class OneToOneOwnerDaoTest {
         OneToOneInverse inverse = new OneToOneInverse();
         OneToOneOwner owner = new OneToOneOwner();
         owner.setOneToOneInverse(inverse);
-        List<OneToOneOwner> list = dao.findByExample(owner);
+        List<OneToOneOwner> list = dao.findByExample(owner, "id");
         assertNotNull(list);
         assertEquals(6, list.size());
         assertEquals("simagoro", list.get(0).getName());

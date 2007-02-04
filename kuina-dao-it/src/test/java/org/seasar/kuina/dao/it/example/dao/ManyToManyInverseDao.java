@@ -25,6 +25,7 @@ import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
  */
 public interface ManyToManyInverseDao {
 
-    List<ManyToManyInverse> findByExample(ManyToManyInverse inverse);
+    List<ManyToManyInverse> findByExample(ManyToManyInverse inverse,
+            String... orderby);
 
 }

@@ -58,6 +58,7 @@ public class OneToManyInverseDaoTest {
         OneToManyInverseDto dto = new OneToManyInverseDto();
         dto.setManyToOneOwners$bloodType_EQ("A");
         dto.setManyToOneOwners$weight_GT(60);
+        dto.setOrderby("id");
         List<OneToManyInverse> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());

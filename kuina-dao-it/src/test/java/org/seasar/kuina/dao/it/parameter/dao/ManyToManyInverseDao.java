@@ -25,9 +25,9 @@ import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
  */
 public interface ManyToManyInverseDao {
 
-    List<ManyToManyInverse> findByName(String name);
+    List<ManyToManyInverse> findByName(String name, String... orderby);
 
     List<ManyToManyInverse> findByManyToManyOwnerName(
-            String manyToManyOwners$name);
+            String manyToManyOwners$name, String... orderby);
 
 }
