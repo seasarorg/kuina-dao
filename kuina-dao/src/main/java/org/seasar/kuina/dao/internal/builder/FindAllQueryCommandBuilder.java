@@ -40,7 +40,7 @@ public class FindAllQueryCommandBuilder extends AbstractQueryCommandBuilder {
             return null;
         }
 
-        return new FindAllQueryCommand(entityClass);
+        return new FindAllQueryCommand(entityClass, method);
     }
 
 }

@@ -24,7 +24,10 @@ import java.lang.annotation.Target;
  * 
  * @author koichik
  */
-@Target(ElementType.PARAMETER)
+@Target( { ElementType.PARAMETER, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Orderby {
+
+    String value() default "";
+
 }

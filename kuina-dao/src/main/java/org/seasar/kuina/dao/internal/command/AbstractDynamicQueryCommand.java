@@ -23,15 +23,21 @@ import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.Distinct;
 import org.seasar.kuina.dao.FetchJoin;
 import org.seasar.kuina.dao.FetchJoins;
+import org.seasar.kuina.dao.IllegalOrderbyException;
 import org.seasar.kuina.dao.JoinSpec;
+import org.seasar.kuina.dao.Orderby;
+import org.seasar.kuina.dao.OrderbySpec;
+import org.seasar.kuina.dao.OrderingSpec;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
+import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
@@ -43,12 +49,15 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
     protected boolean distinct;
 
+    protected OrderbySpec[] orderbySpecs;
+
     protected String identificationVariable;
 
     public AbstractDynamicQueryCommand(final Class<?> entityClass,
             final Method method, final boolean resultList) {
         super(entityClass, method, resultList);
-        this.distinct = detectDistinct(method);
+        this.distinct = detectDistinct();
+        this.orderbySpecs = detectOrderbySpec();
         this.identificationVariable = JpqlUtil
                 .toDefaultIdentificationVariable(entityClass);
     }
@@ -60,8 +69,37 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
                 .getSingleResult(em);
     }
 
-    protected boolean detectDistinct(final Method method) {
+    protected boolean detectDistinct() {
         return method.getAnnotation(Distinct.class) != null;
+    }
+
+    protected OrderbySpec[] detectOrderbySpec() {
+        final Orderby annotation = method.getAnnotation(Orderby.class);
+        if (annotation == null) {
+            return null;
+        }
+        final String text = annotation.value();
+        if (StringUtil.isEmpty(text)) {
+            return null;
+        }
+        final List<OrderbySpec> list = CollectionsUtil.newArrayList();
+        final String[] orderbyItems = text.split(", *");
+        for (final String orderbyItem : orderbyItems) {
+            final String[] tokens = orderbyItem.split(" +");
+            if (tokens.length == 1) {
+                list.add(new OrderbySpec(tokens[0]));
+            } else if (tokens.length == 2) {
+                try {
+                    list.add(new OrderbySpec(tokens[0], OrderingSpec
+                            .valueOf(tokens[1].toUpperCase())));
+                } catch (final IllegalArgumentException e) {
+                    throw new IllegalOrderbyException(method, text, e);
+                }
+            } else {
+                throw new IllegalOrderbyException(method, text);
+            }
+        }
+        return list.toArray(new OrderbySpec[list.size()]);
     }
 
     protected SelectStatement createSelectStatement(final Object[] arguments) {
@@ -70,6 +108,10 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         final List<String> boundProperties = bindParameter(statement, arguments);
         statement
                 .from(createIdentificationVariableDeclaration(boundProperties));
+        if (orderbySpecs != null) {
+            SelectStatementUtil.appendOrderbyClause(identificationVariable,
+                    statement, orderbySpecs);
+        }
         return statement;
     }
 
