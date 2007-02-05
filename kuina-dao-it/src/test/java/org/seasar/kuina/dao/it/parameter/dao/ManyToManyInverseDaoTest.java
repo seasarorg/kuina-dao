@@ -35,7 +35,7 @@ public class ManyToManyInverseDaoTest {
     private ManyToManyInverseDao dao;
 
     public void findByName() throws Exception {
-        List<ManyToManyInverse> list = dao.findByName("Personnel", "id");
+        List<ManyToManyInverse> list = dao.findByName("Personnel");
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("Personnel", list.get(0).getName());
@@ -43,8 +43,7 @@ public class ManyToManyInverseDaoTest {
     }
 
     public void findByManyToManyInverseName() throws Exception {
-        List<ManyToManyInverse> list = dao.findByManyToManyOwnerName("maki",
-                "id");
+        List<ManyToManyInverse> list = dao.findByManyToManyOwnerName("maki");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("Business", list.get(0).getName());

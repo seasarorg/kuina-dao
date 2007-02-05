@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.parameter.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
 
 /**
@@ -25,9 +26,11 @@ import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
  */
 public interface ManyToManyOwnerDao {
 
-    List<ManyToManyOwner> findByName(String name, String... orderby);
+    @Orderby("id")
+    List<ManyToManyOwner> findByName(String name);
 
+    @Orderby("id")
     List<ManyToManyOwner> findByManyToManyInverseName(
-            String manyToManyInverses$name, String... orderby);
+            String manyToManyInverses$name);
 
 }

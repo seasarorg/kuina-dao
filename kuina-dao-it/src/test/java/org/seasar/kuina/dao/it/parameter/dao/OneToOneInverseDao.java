@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.parameter.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.OneToOneInverse;
 
 /**
@@ -25,9 +26,10 @@ import org.seasar.kuina.dao.it.entity.OneToOneInverse;
  */
 public interface OneToOneInverseDao {
 
-    List<OneToOneInverse> findByName(String name, String... orderby);
+    @Orderby("id")
+    List<OneToOneInverse> findByName(String name);
 
-    List<OneToOneInverse> findByOneToOneOwnerName(String oneToOneOwner$name,
-            String... orderby);
+    @Orderby("id")
+    List<OneToOneInverse> findByOneToOneOwnerName(String oneToOneOwner$name);
 
 }

@@ -57,7 +57,7 @@ public class OneToManyInverseDaoTest {
         owners.add(owner);
         OneToManyInverse inverse = new OneToManyInverse();
         inverse.setManyToOneOwners(owners);
-        List<OneToManyInverse> list = dao.findByExample(inverse, "id");
+        List<OneToManyInverse> list = dao.findByExample(inverse);
         assertNotNull(list);
         assertEquals(6, list.size());
         assertEquals("Business", list.get(0).getName());
@@ -87,7 +87,7 @@ public class OneToManyInverseDaoTest {
         OneToManyInverse example = new OneToManyInverse();
         example.addManyToOneOwner(owner);
         example.addSubManyToOneOwner(subOwner);
-        List<OneToManyInverse> list = dao.findByExample(example, "id");
+        List<OneToManyInverse> list = dao.findByExample(example);
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals("Business", list.get(0).getName());
@@ -119,7 +119,7 @@ public class OneToManyInverseDaoTest {
         owners.add(owner2);
         OneToManyInverse inverse = new OneToManyInverse();
         inverse.setManyToOneOwners(owners);
-        List<OneToManyInverse> list = dao.findByExample(inverse, "id");
+        List<OneToManyInverse> list = dao.findByExample(inverse);
         assertNotNull(list);
         assertEquals(6, list.size());
         assertEquals("Business", list.get(0).getName());
@@ -132,7 +132,7 @@ public class OneToManyInverseDaoTest {
 
     public void findByExampleOrderby() throws Exception {
         OneToManyInverse inverse = new OneToManyInverse();
-        List<OneToManyInverse> list = dao.findByExample(inverse, "name");
+        List<OneToManyInverse> list = dao.findByExampleOrderby(inverse, "name");
         assertNotNull(list);
         assertEquals(6, list.size());
         assertEquals("Account", list.get(0).getName());
@@ -145,8 +145,7 @@ public class OneToManyInverseDaoTest {
 
     public void findByExamplePaging() throws Exception {
         OneToManyInverse inverse = new OneToManyInverse();
-        List<OneToManyInverse> list = dao.findByExamplePaging(inverse, 3, 2,
-                "id");
+        List<OneToManyInverse> list = dao.findByExamplePaging(inverse, 3, 2);
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals("Account", list.get(0).getName());

@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.example.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
 
 /**
@@ -25,7 +26,7 @@ import org.seasar.kuina.dao.it.entity.ManyToManyOwner;
  */
 public interface ManyToManyOwnerDao {
 
-    List<ManyToManyOwner> findByExample(ManyToManyOwner owner,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToManyOwner> findByExample(ManyToManyOwner owner);
 
 }

@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.it.parameter.dao;
 import java.util.List;
 
 import org.seasar.kuina.dao.Distinct;
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 import org.seasar.kuina.dao.it.entity.SalaryRate;
 
@@ -27,23 +28,26 @@ import org.seasar.kuina.dao.it.entity.SalaryRate;
  */
 public interface OneToManyInverseDao {
 
-    List<OneToManyInverse> findByName(String name, String... orderby);
+    @Orderby("id")
+    List<OneToManyInverse> findByName(String name);
 
-    OneToManyInverse findByManyToOneOwnerName(String manyToOneOwners$name,
-            String... orderby);
+    @Orderby("id")
+    OneToManyInverse findByManyToOneOwnerName(String manyToOneOwners$name);
 
     @Distinct
+    @Orderby("id")
     List<OneToManyInverse> findByOwnerSalaryRateOwnerWeight(
-            SalaryRate manyToOneOwners$salaryRate,
-            int manyToOneOwners$weight_GT, String... orderby);
+            SalaryRate manyToOneOwners$salaryRate, int manyToOneOwners$weight_GT);
 
     @Distinct
+    @Orderby("id")
     List<OneToManyInverse> findByOwnerSalaryRateSubOwnerWeight(
             SalaryRate manyToOneOwners$salaryRate,
-            int subManyToOneOwners$weight_GT, String... orderby);
+            int subManyToOneOwners$weight_GT);
 
     @Distinct
+    @Orderby("id")
     List<OneToManyInverse> findByRelationship(
-            String manyToOneOwners$subOneToManyInverse$name, String... orderby);
+            String manyToOneOwners$subOneToManyInverse$name);
 
 }

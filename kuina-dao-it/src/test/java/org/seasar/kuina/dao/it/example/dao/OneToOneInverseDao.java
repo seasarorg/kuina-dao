@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.example.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.OneToOneInverse;
 
 /**
@@ -25,7 +26,7 @@ import org.seasar.kuina.dao.it.entity.OneToOneInverse;
  */
 public interface OneToOneInverseDao {
 
-    List<OneToOneInverse> findByExample(OneToOneInverse inverse,
-            String... orderby);
+    @Orderby("id")
+    List<OneToOneInverse> findByExample(OneToOneInverse inverse);
 
 }

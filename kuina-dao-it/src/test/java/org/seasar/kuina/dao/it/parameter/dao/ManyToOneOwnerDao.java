@@ -22,6 +22,7 @@ import java.util.List;
 import javax.persistence.FlushModeType;
 
 import org.seasar.kuina.dao.FlushMode;
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.EmployeeStatus;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
@@ -33,56 +34,62 @@ import org.seasar.kuina.dao.it.entity.SalaryRate;
  */
 public interface ManyToOneOwnerDao {
 
-    List<ManyToOneOwner> findByBloodType(String[] bloodType_IN,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByBloodType(String... bloodType_IN);
 
-    List<ManyToOneOwner> findByNameBloodType(String name, String bloodType,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByNameBloodType(String name, String bloodType);
 
     List<ManyToOneOwner> findByBloodTypeOrderbyHeightWeight(String bloodType,
             String... orderby);
 
+    @Orderby("id")
     List<ManyToOneOwner> findByBloodTypePaging(String bloodType,
-            int firstResult, int maxResults, String... orderby);
+            int firstResult, int maxResults);
 
-    List<ManyToOneOwner> findByBirthday(Date birthday_GE, String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByBirthday(Date birthday_GE);
 
-    List<ManyToOneOwner> findByWeddingDay(Calendar weddingDay,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByWeddingDay(Calendar weddingDay);
 
-    List<ManyToOneOwner> findByEmploymentDate(java.sql.Date employmentDate,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByEmploymentDate(java.sql.Date employmentDate);
 
-    List<ManyToOneOwner> findByBirthTime(java.sql.Time birthTime,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByBirthTime(java.sql.Time birthTime);
 
-    List<ManyToOneOwner> findByBirthTimestamp(
-            java.sql.Timestamp birthTimestamp, String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByBirthTimestamp(java.sql.Timestamp birthTimestamp);
 
-    List<ManyToOneOwner> findByName(String name_CONTAINS, String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByName(String name_CONTAINS);
 
-    List<ManyToOneOwner> findByHireFiscalYear(boolean hireFiscalYear_IS_NULL,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByHireFiscalYear(boolean hireFiscalYear_IS_NULL);
 
-    List<ManyToOneOwner> findByEmployeeStatus(EmployeeStatus employeeStatus,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByEmployeeStatus(EmployeeStatus employeeStatus);
 
-    List<ManyToOneOwner> findBySalaryRate(SalaryRate salaryRate,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findBySalaryRate(SalaryRate salaryRate);
 
-    List<ManyToOneOwner> findByRetiredFlag(Boolean retired, String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByRetiredFlag(Boolean retired);
 
+    @Orderby("id")
     List<ManyToOneOwner> findByOneToManyInverse(
-            OneToManyInverse oneToManyInverse, String... orderby);
+            OneToManyInverse oneToManyInverse);
 
-    List<ManyToOneOwner> findByOneToManyInverseName(
-            String oneToManyInverse$name, String... orderby);
+    @Orderby("id")
+    List<ManyToOneOwner> findByOneToManyInverseName(String oneToManyInverse$name);
 
+    @Orderby("id")
     List<ManyToOneOwner> findByRelationship(
-            String oneToManyInverse$subManyToOneOwners$name, String... orderby);
+            String oneToManyInverse$subManyToOneOwners$name);
 
+    @Orderby("id")
     @FlushMode(FlushModeType.COMMIT)
-    List<ManyToOneOwner> findByBloodTypeNoFlush(String[] bloodType_IN,
-            String... orderby);
+    List<ManyToOneOwner> findByBloodTypeNoFlush(String... bloodType_IN);
 
 }

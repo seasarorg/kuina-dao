@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.it.example.dao;
 import java.util.List;
 
 import org.seasar.kuina.dao.Distinct;
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 
 /**
@@ -27,10 +28,14 @@ import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 public interface OneToManyInverseDao {
 
     @Distinct
-    List<OneToManyInverse> findByExample(OneToManyInverse inverse,
+    @Orderby("id")
+    List<OneToManyInverse> findByExample(OneToManyInverse inverse);
+
+    List<OneToManyInverse> findByExampleOrderby(OneToManyInverse inverse,
             String... orderby);
 
+    @Orderby("id")
     List<OneToManyInverse> findByExamplePaging(OneToManyInverse inverse,
-            int firstResult, int maxResults, String... orderby);
+            int firstResult, int maxResults);
 
 }

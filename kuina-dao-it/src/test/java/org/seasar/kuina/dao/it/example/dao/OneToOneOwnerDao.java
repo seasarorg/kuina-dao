@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.example.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.OneToOneOwner;
 
 /**
@@ -25,6 +26,7 @@ import org.seasar.kuina.dao.it.entity.OneToOneOwner;
  */
 public interface OneToOneOwnerDao {
 
-    List<OneToOneOwner> findByExample(OneToOneOwner owner, String... orderby);
+    @Orderby("id")
+    List<OneToOneOwner> findByExample(OneToOneOwner owner);
 
 }

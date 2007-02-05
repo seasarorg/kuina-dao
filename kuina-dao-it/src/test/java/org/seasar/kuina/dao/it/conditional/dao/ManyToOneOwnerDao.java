@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.conditional.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
@@ -26,6 +27,7 @@ import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
  */
 public interface ManyToOneOwnerDao {
 
+    @Orderby("id")
     List<ManyToOneOwner> findByCondition(ConditionalExpression... expressions);
 
 }

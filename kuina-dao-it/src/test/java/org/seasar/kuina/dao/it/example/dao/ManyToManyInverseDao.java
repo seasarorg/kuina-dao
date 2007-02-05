@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.it.example.dao;
 
 import java.util.List;
 
+import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
 
 /**
@@ -25,7 +26,7 @@ import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
  */
 public interface ManyToManyInverseDao {
 
-    List<ManyToManyInverse> findByExample(ManyToManyInverse inverse,
-            String... orderby);
+    @Orderby("id")
+    List<ManyToManyInverse> findByExample(ManyToManyInverse inverse);
 
 }

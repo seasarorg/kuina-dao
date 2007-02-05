@@ -15,8 +15,6 @@
  */
 package org.seasar.kuina.dao.it.conditional.dao;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.junit.runner.RunWith;
@@ -47,7 +45,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.weight", "manyToOneOwner.height"), 240));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("simagoro", list.get(0).getName());
         assertNotNull("michiro", list.get(1).getName());
     }
@@ -63,7 +60,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.weight", "manyToOneOwner.height"), -100));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("michiro", list.get(0).getName());
         assertNotNull("prin", list.get(1).getName());
     }
@@ -94,7 +90,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.height", "manyToOneOwner.weight"), 2));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("panda", list.get(0).getName());
         assertNotNull("kuma", list.get(1).getName());
     }
@@ -143,7 +138,6 @@ public class ManyToOneOwnerDaoTest {
                 literal(EmployeeStatus.FULL_TIME)));
         assertNotNull(list);
         assertEquals(10, list.size());
-        sort(list);
         assertNotNull("simagoro", list.get(0).getName());
         assertNotNull("maru", list.get(1).getName());
         assertNotNull("sara", list.get(2).getName());
@@ -161,7 +155,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.salaryRate", literal(SalaryRate.MANAGER)));
         assertNotNull(list);
         assertEquals(3, list.size());
-        sort(list);
         assertNotNull("maki", list.get(0).getName());
         assertNotNull("nekomaru", list.get(1).getName());
         assertNotNull("ma", list.get(2).getName());
@@ -180,7 +173,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.name", literal("simagoro")));
         assertNotNull(list);
         assertEquals(29, list.size());
-        sort(list);
         assertNotNull("gochin", list.get(0).getName());
     }
 
@@ -189,7 +181,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.weight", 52), le("manyToOneOwner.weight", 56));
         assertNotNull(list);
         assertEquals(5, list.size());
-        sort(list);
         assertNotNull("maki", list.get(0).getName());
         assertNotNull("pko", list.get(1).getName());
         assertNotNull("monchi", list.get(2).getName());
@@ -210,7 +201,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.name", literal("ma%")));
         assertNotNull(list);
         assertEquals(3, list.size());
-        sort(list);
         assertNotNull("maki", list.get(0).getName());
         assertNotNull("maru", list.get(1).getName());
         assertNotNull("ma", list.get(2).getName());
@@ -221,7 +211,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.name", literal("ma%"), literal("\\")));
         assertNotNull(list);
         assertEquals(3, list.size());
-        sort(list);
         assertNotNull("maki", list.get(0).getName());
         assertNotNull("maru", list.get(1).getName());
         assertNotNull("ma", list.get(2).getName());
@@ -232,7 +221,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.weight", 52, 56));
         assertNotNull(list);
         assertEquals(5, list.size());
-        sort(list);
         assertNotNull("maki", list.get(0).getName());
         assertNotNull("pko", list.get(1).getName());
         assertNotNull("monchi", list.get(2).getName());
@@ -245,7 +233,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.weight", 50, 60, 70));
         assertNotNull(list);
         assertEquals(4, list.size());
-        sort(list);
         assertNotNull("gochin", list.get(0).getName());
         assertNotNull("michiro", list.get(1).getName());
         assertNotNull("sara", list.get(2).getName());
@@ -267,7 +254,6 @@ public class ManyToOneOwnerDaoTest {
                 isNotNull("manyToOneOwner.weddingDay")));
         assertNotNull(list);
         assertEquals(7, list.size());
-        sort(list);
         assertNotNull("maki", list.get(0).getName());
         assertNotNull("pko", list.get(1).getName());
         assertNotNull("panda", list.get(2).getName());
@@ -284,7 +270,6 @@ public class ManyToOneOwnerDaoTest {
                         "manyToOneOwner.height", 153)))));
         assertNotNull(list);
         assertEquals(4, list.size());
-        sort(list);
         assertNotNull("minami", list.get(0).getName());
         assertNotNull("prin", list.get(1).getName());
         assertNotNull("sary", list.get(2).getName());
@@ -406,7 +391,6 @@ public class ManyToOneOwnerDaoTest {
                 literal("personnel")));
         assertNotNull(list);
         assertEquals(3, list.size());
-        sort(list);
         assertNotNull("nekomaru", list.get(0).getName());
         assertNotNull("nyantaro", list.get(1).getName());
         assertNotNull("monchi", list.get(2).getName());
@@ -418,7 +402,6 @@ public class ManyToOneOwnerDaoTest {
                 literal("PERSONNEL")));
         assertNotNull(list);
         assertEquals(3, list.size());
-        sort(list);
         assertNotNull("nekomaru", list.get(0).getName());
         assertNotNull("nyantaro", list.get(1).getName());
         assertNotNull("monchi", list.get(2).getName());
@@ -429,7 +412,6 @@ public class ManyToOneOwnerDaoTest {
                 length("manyToOneOwner.name"), 5));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("panda", list.get(0).getName());
         assertNotNull("mikel", list.get(1).getName());
     }
@@ -439,7 +421,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.name"), 3));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("rasukal", list.get(0).getName());
         assertNotNull("tasuke", list.get(1).getName());
     }
@@ -449,7 +430,6 @@ public class ManyToOneOwnerDaoTest {
                 path("manyToOneOwner.name"), literal(2)), 3));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("rasukal", list.get(0).getName());
         assertNotNull("tasuke", list.get(1).getName());
     }
@@ -459,7 +439,6 @@ public class ManyToOneOwnerDaoTest {
                 abs("manyToOneOwner.weight"), 50));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("sara", list.get(0).getName());
         assertNotNull("tasuke", list.get(1).getName());
     }
@@ -477,7 +456,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.weight", 49), 1));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("sara", list.get(0).getName());
         assertNotNull("tasuke", list.get(1).getName());
     }
@@ -487,7 +465,6 @@ public class ManyToOneOwnerDaoTest {
                 size("manyToOneOwner.oneToManyInverse.subManyToOneOwners"), 2));
         assertNotNull(list);
         assertEquals(3, list.size());
-        sort(list);
         assertNotNull("nekomaru", list.get(0).getName());
         assertNotNull("nyantaro", list.get(1).getName());
         assertNotNull("monchi", list.get(2).getName());
@@ -513,7 +490,6 @@ public class ManyToOneOwnerDaoTest {
                 "manyToOneOwner.weight", 52));
         assertNotNull(list);
         assertEquals(3, list.size());
-        sort(list);
         assertNotNull("usa", list.get(0).getName());
         assertNotNull("mikel", list.get(1).getName());
         assertNotNull("miya", list.get(2).getName());
@@ -524,7 +500,6 @@ public class ManyToOneOwnerDaoTest {
                 plus("manyToOneOwner.weight"), 50));
         assertNotNull(list);
         assertEquals(2, list.size());
-        sort(list);
         assertNotNull("sara", list.get(0).getName());
         assertNotNull("tasuke", list.get(1).getName());
     }
@@ -534,25 +509,6 @@ public class ManyToOneOwnerDaoTest {
                 minus("manyToOneOwner.weight"), 50));
         assertNotNull(list);
         assertEquals(0, list.size());
-    }
-
-    private void sort(List<ManyToOneOwner> list) {
-        Collections.sort(list, new ManyToOneOwnerComparator());
-    }
-
-    public static class ManyToOneOwnerComparator implements
-            Comparator<ManyToOneOwner> {
-
-        public int compare(ManyToOneOwner o1, ManyToOneOwner o2) {
-            if (o1 == o2) {
-                return 0;
-            } else if (o1 == null) {
-                return -1;
-            } else if (o2 == null) {
-                return 1;
-            }
-            return o1.getId().compareTo(o2.getId());
-        }
     }
 
 }
