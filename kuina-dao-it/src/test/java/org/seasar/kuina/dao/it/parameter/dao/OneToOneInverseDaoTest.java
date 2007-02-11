@@ -41,7 +41,7 @@ public class OneToOneInverseDaoTest {
         assertEquals("Personnel", list.get(0).getName());
     }
 
-    public void findByManyToManyInverseName() throws Exception {
+    public void findByOneToOneOwnerName() throws Exception {
         List<OneToOneInverse> list = dao.findByOneToOneOwnerName("maki");
         assertNotNull(list);
         assertEquals(1, list.size());
