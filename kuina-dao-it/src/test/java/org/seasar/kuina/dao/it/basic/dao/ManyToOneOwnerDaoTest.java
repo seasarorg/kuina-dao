@@ -94,11 +94,13 @@ public class ManyToOneOwnerDaoTest {
     public void readLock() throws Exception {
         ManyToOneOwner owner = dao.find(1);
         dao.readLock(owner);
+        em.flush();
     }
 
     public void writeLock() throws Exception {
         ManyToOneOwner owner = dao.find(1);
         dao.writeLock(owner);
+        em.flush();
     }
 
 }

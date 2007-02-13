@@ -97,10 +97,12 @@ public class OneToManyInverseDaoTest {
     public void readLock() throws Exception {
         OneToManyInverse inverse = dao.find(1);
         dao.readLock(inverse);
+        em.flush();
     }
 
     public void writeLock() throws Exception {
         OneToManyInverse inverse = dao.find(1);
         dao.writeLock(inverse);
+        em.flush();
     }
 }

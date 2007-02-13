@@ -91,11 +91,13 @@ public class OneToOneInverseDaoTest {
     public void readLock() throws Exception {
         OneToOneInverse inverse = dao.find(3);
         dao.readLock(inverse);
+        em.flush();
     }
 
     public void writeLock() throws Exception {
         OneToOneInverse inverse = dao.find(3);
         dao.writeLock(inverse);
+        em.flush();
     }
 
 }
