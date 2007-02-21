@@ -23,6 +23,8 @@ import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.framework.jpa.metadata.EntityDesc;
+import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.Distinct;
@@ -37,6 +39,7 @@ import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
+import org.seasar.kuina.dao.internal.util.KuinaDaoUtil;
 import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
@@ -172,10 +175,19 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         final Set<String> associations = CollectionsUtil.newTreeSet();
         for (int i = 0; i < boundProperties.size(); ++i) {
             final String propertyName = boundProperties.get(i);
-            int pos = propertyName.length();
-            while ((pos = propertyName.lastIndexOf('.', pos - 1)) > -1) {
-                final String path = propertyName.substring(0, pos);
+            EntityDesc owner = EntityDescFactory.getEntityDesc(entityClass);
+            int pos1 = 0;
+            int pos2 = 0;
+            while ((pos2 = propertyName.indexOf('.', pos1)) > -1) {
+                final String path = propertyName.substring(0, pos2);
+                final String maybeAssociationPropName = propertyName.substring(pos1, pos2);
+                pos1 = pos2 + 1;
+                if (!KuinaDaoUtil
+                        .isAssociation(owner, maybeAssociationPropName)) {
+                    break;
+                }
                 associations.add(path);
+                owner = KuinaDaoUtil.getAssociationEntityDesc(owner, maybeAssociationPropName);
             }
         }
         return associations;

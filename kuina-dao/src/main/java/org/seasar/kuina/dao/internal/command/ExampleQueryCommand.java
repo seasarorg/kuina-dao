@@ -117,10 +117,15 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
             } else {
                 addCondition(statement, type, value, associationPath, context);
             }
+        } else if (attribute.isComponent()) {
+            for (final AttributeDesc child : attribute.getChildAttributeDescs()) {
+                addCondition(statement, entityClass, entity, child,
+                        associationPath, context);
+            }
         } else {
             final String parameterName = associationPath.replace('.', '$');
             final ConditionalExpressionBuilder builder = ConditionalExpressionBuilderFactory
-                    .createBuilder(entityClass, parameterName, type);
+                    .createBuilder(this.entityClass, parameterName, type);
             builder.appendCondition(statement, value);
             context.addBindParamter(associationPath);
         }

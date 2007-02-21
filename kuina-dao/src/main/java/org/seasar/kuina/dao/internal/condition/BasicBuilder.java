@@ -34,13 +34,6 @@ public class BasicBuilder extends AbstractConditionalExpressionBuilder {
                 operationMethod);
     }
 
-    public BasicBuilder(final String identificationVariable,
-            final String propertyName, final String parameterName,
-            final Method parameterMethod, final Method operationMethod) {
-        super(identificationVariable, propertyName, parameterName,
-                parameterMethod, operationMethod);
-    }
-
     public String appendCondition(final SelectStatement statement,
             final Object value) {
         if (value == null) {

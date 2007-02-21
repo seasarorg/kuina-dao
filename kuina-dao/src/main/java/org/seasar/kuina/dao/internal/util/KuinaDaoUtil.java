@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.util;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.jpa.metadata.AttributeDesc;
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 
@@ -39,4 +40,22 @@ public class KuinaDaoUtil {
         return entityDesc != null;
     }
 
+    public static EntityDesc getAssociationEntityDesc(
+            final Class<?> owner, final String propertyName) {
+        return getAssociationEntityDesc(getEntityDesc(owner), propertyName);
+    }
+
+    public static EntityDesc getAssociationEntityDesc(final EntityDesc owner,
+            final String propertyName) {
+        final AttributeDesc attribute = owner.getAttributeDesc(propertyName);
+        final Class<?> associationType = attribute.isCollection() ? attribute
+                .getElementType() : attribute.getType();
+        return getEntityDesc(associationType);
+    }
+
+    public static boolean isAssociation(final EntityDesc owner,
+            final String propertyName) {
+        final AttributeDesc attribute = owner.getAttributeDesc(propertyName);
+        return attribute != null && attribute.isAssociation();
+    }
 }

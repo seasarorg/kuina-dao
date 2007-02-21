@@ -17,7 +17,9 @@ package org.seasar.kuina.dao.internal.condition;
 
 import java.lang.reflect.Method;
 
+import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
+import org.seasar.kuina.dao.internal.util.KuinaDaoUtil;
 
 /**
  * 
@@ -25,6 +27,8 @@ import org.seasar.kuina.dao.internal.util.JpqlUtil;
  */
 public abstract class AbstractConditionalExpressionBuilder implements
         ConditionalExpressionBuilder {
+
+    protected Class<?> entityClass;
 
     protected String identificationVariable;
 
@@ -39,31 +43,32 @@ public abstract class AbstractConditionalExpressionBuilder implements
     protected Method operationMethod;
 
     public AbstractConditionalExpressionBuilder(final Class<?> entityClass,
-            final String propertyName, final String parameterName,
+            final String propertyPath, final String parameterName,
             final Method parameterMethod, final Method operationMethod) {
-        this(JpqlUtil.toDefaultIdentificationVariable(entityClass),
-                propertyName, parameterName, parameterMethod, operationMethod);
-    }
-
-    public AbstractConditionalExpressionBuilder(
-            final String identificationVariable, final String propertyPath,
-            final String parameterName, final Method parameterMethod,
-            final Method operationMethod) {
-        this.identificationVariable = identificationVariable;
+        this.entityClass = entityClass;
+        this.identificationVariable = JpqlUtil
+                .toDefaultIdentificationVariable(entityClass);
         this.propertyPath = propertyPath;
         this.parameterName = parameterName;
         this.parameterMethod = parameterMethod;
         this.operationMethod = operationMethod;
 
-        final int pos1 = propertyPath.lastIndexOf('.');
+        final int pos1 = propertyPath.indexOf('.');
         if (pos1 == -1) {
             this.propertyName = identificationVariable + "." + propertyPath;
         } else {
-            final int pos2 = propertyPath.lastIndexOf('.', pos1 - 1);
+            final int pos2 = propertyPath.indexOf('.', pos1 + 1);
             if (pos2 == -1) {
                 this.propertyName = propertyPath;
             } else {
-                this.propertyName = propertyPath.substring(pos2 + 1);
+                final String associationPropName = propertyPath.substring(0, pos1);
+                final EntityDesc associationEntity = KuinaDaoUtil
+                        .getAssociationEntityDesc(entityClass, associationPropName);
+                final String maybeAssociationPropName = propertyPath.substring(pos1 + 1,
+                        pos2);
+                this.propertyName = KuinaDaoUtil.isAssociation(
+                        associationEntity, maybeAssociationPropName) ? propertyPath
+                        .substring(pos1 + 1) : propertyPath;
             }
         }
     }

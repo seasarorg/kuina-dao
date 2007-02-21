@@ -1,0 +1,16 @@
+02-21 16:02:32 jdbc[0]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement CREATE MEMORY TABLE COMPKEYONETOMANYINVERSE(PK1 INTEGER NOT NULL, PK2 DATE NOT NULL, NAME VARCHAR, VERSION INTEGER DEFAULT 1, CONSTRAINT COMPKEYONETOMANYINVERSE_PK PRIMARY KEY(PK1, PK2))
+CREATE[*] MEMORY TABLE COMPKEYMANYTOONEOWNER(PK1 INTEGER NOT NULL, PK2 DATE NOT NULL, NAME VARCHAR,HEIGHT INTEGER,WEIGHT INTEGER,EMAIL VARCHAR,HIREFISCALYEAR INTEGER,BIRTHDAY DATE,BIRTHTIME TIME,BIRTHTIMESTAMP TIMESTAMP,EMPLOYMENTDATE DATE,WEDDINGDAY DATE,BLOODTYPE VARCHAR,EMPLOYEESTATUS INTEGER,SALARYRATE VARCHAR,RETIRED BOOLEAN,VERSION INTEGER DEFAULT 1,COMPKEYONETOMANYINVERSE_PK1 INTEGER NOT NULL,COMPKEYONETOMANYINVERSE_PK2 DATE NOT NULL, CONSTRAINT COMPKEYMANYTOONEOWNER PRIMARY KEY(PK1, PK2), CONSTRAINT SYS_FK_70 FOREIGN KEY(COMPKEYONETOMANYINVERSE_PK1, COMPKEYONETOMANYINVERSE_PK2) REFERENCES COMPKEYONETOMANYINVERSE(PK1, PK2)) [42000-34]
+	at org.h2.message.Message.getSQLException(Message.java:67)
+	at org.h2.message.Message.getSQLException(Message.java:49)
+	at org.h2.message.Message.getSyntaxError(Message.java:72)
+	at org.h2.command.Parser.getSyntaxError(Parser.java:405)
+	at org.h2.command.Parser.prepareCommand(Parser.java:206)
+	at org.h2.engine.Session.prepareLocal(Session.java:169)
+	at org.h2.engine.Session.prepareCommand(Session.java:151)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:982)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:143)
+	at org.h2.server.web.AppThread.getResult(AppThread.java:915)
+	at org.h2.server.web.AppThread.query(AppThread.java:593)
+	at org.h2.server.web.AppThread.process(AppThread.java:67)
+	at org.h2.server.web.WebServerThread.run(WebServerThread.java:127)

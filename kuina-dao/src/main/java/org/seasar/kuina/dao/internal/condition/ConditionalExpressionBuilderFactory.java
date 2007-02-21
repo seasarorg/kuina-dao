@@ -272,14 +272,24 @@ public class ConditionalExpressionBuilderFactory {
                 .getEntityDesc(entityClass);
         final int pos = propertyName.indexOf('.');
         if (pos >= 0) {
-            final AttributeDesc attributeDesc = entityDesc
+            final AttributeDesc attribute = entityDesc
                     .getAttributeDesc(propertyName.substring(0, pos));
-            return getTemporalType(attributeDesc.getElementType(), propertyName
-                    .substring(pos + 1));
+            final String subPropertyName = propertyName.substring(pos + 1);
+            if (attribute.isAssociation()) {
+                return getTemporalType(attribute.getElementType(),
+                        subPropertyName);
+            }
+            if (attribute.isComponent()) {
+                return getTemporalType(attribute
+                        .getChildAttributeDesc(subPropertyName));
+            }
+            throw new IllegalArgumentException(propertyName);
         }
-        final AttributeDesc attributeDesc = entityDesc
-                .getAttributeDesc(propertyName);
-        final TemporalType temporalType = attributeDesc.getTemporalType();
+        return getTemporalType(entityDesc.getAttributeDesc(propertyName));
+    }
+
+    protected static TemporalType getTemporalType(final AttributeDesc attribute) {
+        final TemporalType temporalType = attribute.getTemporalType();
         return temporalType != null ? temporalType : TemporalType.DATE;
     }
 
