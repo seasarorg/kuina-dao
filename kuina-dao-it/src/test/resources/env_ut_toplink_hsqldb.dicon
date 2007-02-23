@@ -11,7 +11,7 @@
 	<component name="afterClasspath">
 		new String[] {
 			"../s2toplink-jpa/build/classes",
-			"../s2toplink-jpa/lib/toplink-essentials-2.0.b35.jar"
+			"../s2toplink-jpa/lib/toplink-essentials-2.0.b36.jar"
 		}
 	</component>
 </components>
