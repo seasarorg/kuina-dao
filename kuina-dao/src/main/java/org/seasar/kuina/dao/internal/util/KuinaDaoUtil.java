@@ -40,11 +40,6 @@ public class KuinaDaoUtil {
         return entityDesc != null;
     }
 
-    public static EntityDesc getAssociationEntityDesc(
-            final Class<?> owner, final String propertyName) {
-        return getAssociationEntityDesc(getEntityDesc(owner), propertyName);
-    }
-
     public static EntityDesc getAssociationEntityDesc(final EntityDesc owner,
             final String propertyName) {
         final AttributeDesc attribute = owner.getAttributeDesc(propertyName);

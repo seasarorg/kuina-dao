@@ -30,8 +30,6 @@ public abstract class AbstractConditionalExpressionBuilder implements
 
     protected Class<?> entityClass;
 
-    protected String identificationVariable;
-
     protected String propertyPath;
 
     protected String propertyName;
@@ -46,31 +44,37 @@ public abstract class AbstractConditionalExpressionBuilder implements
             final String propertyPath, final String parameterName,
             final Method parameterMethod, final Method operationMethod) {
         this.entityClass = entityClass;
-        this.identificationVariable = JpqlUtil
-                .toDefaultIdentificationVariable(entityClass);
         this.propertyPath = propertyPath;
         this.parameterName = parameterName;
         this.parameterMethod = parameterMethod;
         this.operationMethod = operationMethod;
+        this.propertyName = createPropertyName();
+    }
 
+    protected String createPropertyName() {
+        final String identificationVariable = JpqlUtil
+                .toDefaultIdentificationVariable(entityClass);
         final int pos1 = propertyPath.indexOf('.');
         if (pos1 == -1) {
-            this.propertyName = identificationVariable + "." + propertyPath;
-        } else {
-            final int pos2 = propertyPath.indexOf('.', pos1 + 1);
-            if (pos2 == -1) {
-                this.propertyName = propertyPath;
-            } else {
-                final String associationPropName = propertyPath.substring(0, pos1);
-                final EntityDesc associationEntity = KuinaDaoUtil
-                        .getAssociationEntityDesc(entityClass, associationPropName);
-                final String maybeAssociationPropName = propertyPath.substring(pos1 + 1,
-                        pos2);
-                this.propertyName = KuinaDaoUtil.isAssociation(
-                        associationEntity, maybeAssociationPropName) ? propertyPath
-                        .substring(pos1 + 1) : propertyPath;
-            }
+            return identificationVariable + "." + propertyPath;
         }
+
+        final String firstPropertyName = propertyPath.substring(0, pos1);
+        final EntityDesc entityDesc = KuinaDaoUtil.getEntityDesc(entityClass);
+        final int pos2 = propertyPath.indexOf('.', pos1 + 1);
+        if (pos2 == -1) {
+            return KuinaDaoUtil.isAssociation(entityDesc, firstPropertyName) ? propertyPath
+                    : identificationVariable + "." + propertyPath;
+        }
+
+        final String secondPropertyName = propertyPath
+                .substring(pos1 + 1, pos2);
+        final EntityDesc associationEntity = KuinaDaoUtil
+                .getAssociationEntityDesc(entityDesc, firstPropertyName);
+        return KuinaDaoUtil
+                .isAssociation(associationEntity, secondPropertyName) ? propertyPath
+                .substring(pos1 + 1)
+                : propertyPath;
     }
 
     public String getPropertyPath() {
