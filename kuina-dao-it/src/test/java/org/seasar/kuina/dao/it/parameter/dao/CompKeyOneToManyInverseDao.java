@@ -32,15 +32,15 @@ public interface CompKeyOneToManyInverseDao {
     @Orderby("id.pk1")
     List<CompKeyOneToManyInverse> findByPk2(Date id$pk2);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyOneToManyInverse> findByName(String name);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     CompKeyOneToManyInverse findByCompKeyManyToOneOwnerName(
             String compKeyManyToOneOwners$name);
 
     @Distinct
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyOneToManyInverse> findByOwnerSalaryRateOwnerWeight(
             SalaryRate compKeyManyToOneOwners$info$salaryRate,
             int compKeyManyToOneOwners$info$weight_GT);

@@ -60,7 +60,7 @@ public class CompKeyOneToManyInverseDaoTest {
         dto.setCompKeyManyToOneOwners$id$pk2_EQ(DateUtil.newDate(2007, 1, 1));
         dto.setCompKeyManyToOneOwners$info$bloodType_EQ("A");
         dto.setCompKeyManyToOneOwners$info$weight_GT(60);
-        dto.setOrderby("id");
+        dto.setOrderby("id.pk1");
         List<CompKeyOneToManyInverse> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());

@@ -46,7 +46,7 @@ public class CompKeyManyToOneOwnerDaoTest {
         CompKeyManyToOneOwnerDto dto = new CompKeyManyToOneOwnerDto();
         dto.setName_GT("ma");
         dto.setName_LT("michiro");
-        dto.setOrderby("id");
+        dto.setOrderby("id.pk1");
         List<CompKeyManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -84,7 +84,7 @@ public class CompKeyManyToOneOwnerDaoTest {
                 CompKeyOneToManyInverse.class, id);
         CompKeyManyToOneOwnerDto dto = new CompKeyManyToOneOwnerDto();
         dto.setCompKeyOneToManyInverse_EQ(compKeyOneToManyInverse);
-        dto.setOrderby("id");
+        dto.setOrderby("id.pk1");
         List<CompKeyManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());
@@ -96,7 +96,7 @@ public class CompKeyManyToOneOwnerDaoTest {
     public void findByDto_oneToManyInverse$name_EQ() throws Exception {
         CompKeyManyToOneOwnerDto dto = new CompKeyManyToOneOwnerDto();
         dto.setCompKeyOneToManyInverse$name_EQ("Personnel");
-        dto.setOrderby("id");
+        dto.setOrderby("id.pk1");
         List<CompKeyManyToOneOwner> list = dao.findByDto(dto);
         assertNotNull(list);
         assertEquals(3, list.size());

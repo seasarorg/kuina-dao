@@ -34,59 +34,59 @@ public interface CompKeyManyToOneOwnerDao {
     @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByPk2(Date id$pk2);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByBloodType(String... info$bloodType_IN);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByNameBloodType(String name,
             String info$bloodType);
 
     List<CompKeyManyToOneOwner> findByBloodTypeOrderbyHeightWeight(
             String info$bloodType, String... orderby);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByBloodTypePaging(String info$bloodType,
             int firstResult, int maxResults);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByBirthday(Date info$birthday_GE);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByWeddingDay(Calendar info$weddingDay);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByEmploymentDate(
             java.sql.Date info$employmentDate);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByBirthTime(java.sql.Time info$birthTime);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByBirthTimestamp(
             java.sql.Timestamp info$birthTimestamp);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByName(String name_CONTAINS);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByHireFiscalYear(
             boolean info$hireFiscalYear_IS_NULL);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByEmployeeStatus(
             EmployeeStatus info$employeeStatus);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findBySalaryRate(SalaryRate info$salaryRate);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByRetiredFlag(Boolean info$retired);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByCompKeyOneToManyInverse(
             CompKeyOneToManyInverse compKeyOneToManyInverse);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByCompKeyOneToManyInverseName(
             String compKeyOneToManyInverse$name);
 

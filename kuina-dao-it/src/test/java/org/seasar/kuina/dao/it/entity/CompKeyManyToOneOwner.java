@@ -19,6 +19,8 @@ import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
@@ -42,6 +44,9 @@ public class CompKeyManyToOneOwner {
     private CompKeyManyToOneOwnerInfo info;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns( {
+            @JoinColumn(name = "COMPKEYONETOMANYINVERSE_PK1", referencedColumnName = "PK1"),
+            @JoinColumn(name = "COMPKEYONETOMANYINVERSE_PK2", referencedColumnName = "PK2") })
     private CompKeyOneToManyInverse compKeyOneToManyInverse;
 
     public CompKeyManyToOneOwnerId getId() {

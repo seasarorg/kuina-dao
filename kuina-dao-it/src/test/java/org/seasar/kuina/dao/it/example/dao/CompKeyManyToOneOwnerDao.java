@@ -26,13 +26,13 @@ import org.seasar.kuina.dao.it.entity.CompKeyManyToOneOwner;
  */
 public interface CompKeyManyToOneOwnerDao {
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByExample(CompKeyManyToOneOwner owner);
 
     List<CompKeyManyToOneOwner> findByExampleOrderby(
             CompKeyManyToOneOwner owner, String... orderby);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyManyToOneOwner> findByExamplePaging(
             CompKeyManyToOneOwner owner, int firstResult, int maxResults);
 

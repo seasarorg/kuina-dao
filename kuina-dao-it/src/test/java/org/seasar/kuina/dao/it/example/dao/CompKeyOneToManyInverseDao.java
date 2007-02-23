@@ -28,13 +28,13 @@ import org.seasar.kuina.dao.it.entity.CompKeyOneToManyInverse;
 public interface CompKeyOneToManyInverseDao {
 
     @Distinct
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyOneToManyInverse> findByExample(CompKeyOneToManyInverse inverse);
 
     List<CompKeyOneToManyInverse> findByExampleOrderby(
             CompKeyOneToManyInverse inverse, String... orderby);
 
-    @Orderby("id")
+    @Orderby("id.pk1")
     List<CompKeyOneToManyInverse> findByExamplePaging(
             CompKeyOneToManyInverse inverse, int firstResult, int maxResults);
 
