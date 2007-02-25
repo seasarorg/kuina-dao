@@ -87,17 +87,15 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
         final EntityDesc entityDesc = KuinaDaoUtil.getEntityDesc(entityClass);
         final AttributeDesc[] attributes = entityDesc.getAttributeDescs();
         for (final AttributeDesc attribute : attributes) {
-            addCondition(statement, entityClass, entity, attribute,
-                    pathExpression, context);
+            addCondition(statement, entity, attribute, pathExpression, context);
         }
     }
 
     @SuppressWarnings("unchecked")
     protected void addCondition(final SelectStatement statement,
-            final Class<?> entityClass, final Object entity,
-            final AttributeDesc attribute, final String pathExpression,
-            final Context context) {
-        final Object value = attribute.getValue(entity);
+            final Object owner, final AttributeDesc attribute,
+            final String pathExpression, final Context context) {
+        final Object value = attribute.getValue(owner);
         if (value == null) {
             return;
         }
@@ -119,13 +117,13 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
             }
         } else if (attribute.isComponent()) {
             for (final AttributeDesc child : attribute.getChildAttributeDescs()) {
-                addCondition(statement, entityClass, entity, child,
+                addCondition(statement, attribute.getValue(owner), child,
                         associationPath, context);
             }
         } else {
             final String parameterName = associationPath.replace('.', '$');
             final ConditionalExpressionBuilder builder = ConditionalExpressionBuilderFactory
-                    .createBuilder(this.entityClass, parameterName, type);
+                    .createBuilder(entityClass, parameterName, type);
             builder.appendCondition(statement, value);
             context.addBindParamter(associationPath);
         }
