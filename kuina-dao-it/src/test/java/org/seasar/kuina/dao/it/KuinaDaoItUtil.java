@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.seasar.framework.env.Env;
+import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.util.ResourceUtil;
 
 /**
@@ -27,10 +28,15 @@ import org.seasar.framework.util.ResourceUtil;
  */
 public class KuinaDaoItUtil {
 
+    protected static final String ENV_PATH = "env_ut.txt";
+
     private KuinaDaoItUtil() {
     }
 
     public static boolean shouldRun(final Method method) {
+        if (!ResourceUtil.isExist(ENV_PATH)) {
+            throw new ResourceNotFoundRuntimeException(ENV_PATH);
+        }
         final String fileName = Env.getValue() + ".properties";
         if (ResourceUtil.isExist(fileName)) {
             final Properties props = ResourceUtil.getProperties(fileName);
@@ -39,5 +45,7 @@ public class KuinaDaoItUtil {
             return props.get(key) == null;
         }
         return true;
+
     }
+
 }
