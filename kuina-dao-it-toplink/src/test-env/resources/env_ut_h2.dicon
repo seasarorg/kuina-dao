@@ -4,14 +4,10 @@
 <components>
 	<component name="beforeClasspath">
 		new String[] {
-			"src/test-h2/resources",
-			"src/test-toplink-h2/resources"
+			"src/test-h2/resources"
 		}
 	</component>
 	<component name="afterClasspath">
-		new String[] {
-			"../s2toplink-jpa/build/classes",
-			"../s2toplink-jpa/lib/toplink-essentials-2.0.b36.jar"
-		}
+		new String[] {}
 	</component>
 </components>
