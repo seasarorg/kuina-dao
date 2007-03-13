@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="lib/derbyLocale_ja_JP.jar"/>
 	<classpathentry kind="lib" path="lib/derbyrun.jar"/>
 	<classpathentry kind="lib" path="lib/derbytools.jar"/>
-	<classpathentry kind="lib" path="lib/h2-1.0.20061217.jar"/>
+	<classpathentry kind="lib" path="lib/h2-1.0.20070304.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
