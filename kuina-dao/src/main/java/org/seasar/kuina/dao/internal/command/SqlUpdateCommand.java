@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
+
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.jdbc.StatementFactory;
@@ -28,10 +30,11 @@ import org.seasar.framework.jpa.DialectManager;
  */
 public class SqlUpdateCommand extends AbstractSqlCommand {
 
-    public SqlUpdateCommand(final String sql, final String[] parameterNames,
-            final Class[] parameterTypes, final DialectManager dialectManager,
+    public SqlUpdateCommand(final Method method, final String sql,
+            final String[] parameterNames, final Class[] parameterTypes,
+            final DialectManager dialectManager,
             final StatementFactory statementFactory) {
-        super(sql, parameterNames, parameterTypes, dialectManager,
+        super(method, sql, parameterNames, parameterTypes, dialectManager,
                 statementFactory);
     }
 

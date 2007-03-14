@@ -15,7 +15,10 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
+
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 
 import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.extension.sql.Node;
@@ -42,8 +45,11 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
 
     protected final StatementFactory statementFactory;
 
-    public AbstractSqlCommand(final String sql, final String[] parameterNames,
-            final Class[] parameterTypes, final DialectManager dialectManager,
+    protected final FlushModeType flushMode;
+
+    public AbstractSqlCommand(final Method method, final String sql,
+            final String[] parameterNames, final Class[] parameterTypes,
+            final DialectManager dialectManager,
             final StatementFactory statementFactory) {
         this.sql = sql;
         node = new SqlParserImpl(sql).parse();
@@ -51,9 +57,11 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
         this.parameterTypes = parameterTypes;
         this.dialectManager = dialectManager;
         this.statementFactory = statementFactory;
+        flushMode = detectFlushMode(method);
     }
 
     public Object execute(final EntityManager em, final Object[] parameters) {
+        flushIfNeed(em);
         String query = sql;
         Object[] args = parameters;
         Class[] argTypes = null;
@@ -72,6 +80,13 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
         }
 
         return execute(em, query, args, argTypes);
+    }
+
+    protected void flushIfNeed(final EntityManager em) {
+        if (flushMode == FlushModeType.AUTO
+                || (flushMode == null && em.getFlushMode() == FlushModeType.AUTO)) {
+            em.flush();
+        }
     }
 
     protected abstract Object execute(final EntityManager em,

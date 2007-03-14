@@ -19,6 +19,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
@@ -35,6 +36,7 @@ import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.ClassUtil;
+import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.PositionalParameter;
 import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.TargetEntity;
@@ -205,22 +207,27 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return TemporalType.DATE;
     }
 
-    protected String getQueryName(final Class<?> daoClass, final Method method) {
+    protected String[] getQueryNames(final Class<?> daoClass,
+            final Method method) {
+        final List<String> names = CollectionsUtil.newArrayList();
         final QueryName queryName = method.getAnnotation(QueryName.class);
         if (queryName != null) {
-            return queryName.value();
+            names.add(queryName.value());
         }
+
+        names.add(daoClass.getName() + "." + method.getName());
+        names.add(daoClass.getSimpleName() + "." + method.getName());
 
         final Class<?> targetClass = getTargetClass(daoClass, method);
         if (targetClass != null) {
             final EntityDesc entityDesc = EntityDescFactory
                     .getEntityDesc(targetClass);
             if (entityDesc != null) {
-                return entityDesc.getEntityName() + "." + method.getName();
+                names.add(entityDesc.getEntityName() + "." + method.getName());
             }
         }
 
-        return null;
+        return names.toArray(new String[names.size()]);
     }
 
     @RequiresNewTx

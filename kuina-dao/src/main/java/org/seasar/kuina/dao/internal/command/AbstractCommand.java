@@ -15,6 +15,17 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
+import java.util.Map;
+
+import javax.persistence.FlushModeType;
+
+import org.seasar.framework.util.OgnlUtil;
+import org.seasar.framework.util.tiger.CollectionsUtil;
+import org.seasar.kuina.dao.FlushMode;
+import org.seasar.kuina.dao.Hint;
+import org.seasar.kuina.dao.Hints;
+import org.seasar.kuina.dao.IllegalHintValueException;
 import org.seasar.kuina.dao.internal.Command;
 
 /**
@@ -22,4 +33,37 @@ import org.seasar.kuina.dao.internal.Command;
  * @author koichik
  */
 public abstract class AbstractCommand implements Command {
+
+    protected FlushModeType detectFlushMode(final Method method) {
+        final FlushMode flushMode = method.getAnnotation(FlushMode.class);
+        return flushMode == null ? null : flushMode.value();
+    }
+
+    protected Map<String, Object> detectHints(final Method method) {
+        final Map<String, Object> result = CollectionsUtil.newHashMap();
+        final Hints hints = method.getAnnotation(Hints.class);
+        if (hints != null) {
+            for (final Hint hint : hints.value()) {
+                result.put(hint.name(), getHintValue(method, hint));
+            }
+        }
+        final Hint hint = method.getAnnotation(Hint.class);
+        if (hint != null) {
+            result.put(hint.name(), getHintValue(method, hint));
+        }
+        return result;
+    }
+
+    protected Object getHintValue(final Method method, final Hint hint) {
+        final String expression = hint.value();
+        try {
+            final Object parsedExpression = OgnlUtil
+                    .parseExpression(expression);
+            return OgnlUtil.getValue(parsedExpression, null);
+        } catch (final Exception e) {
+            throw new IllegalHintValueException(method, hint.name(),
+                    expression, e);
+        }
+    }
+
 }

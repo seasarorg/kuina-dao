@@ -22,12 +22,6 @@ import java.util.Map.Entry;
 import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 
-import org.seasar.framework.util.OgnlUtil;
-import org.seasar.framework.util.tiger.CollectionsUtil;
-import org.seasar.kuina.dao.FlushMode;
-import org.seasar.kuina.dao.Hint;
-import org.seasar.kuina.dao.Hints;
-import org.seasar.kuina.dao.IllegalHintValueException;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 
 /**
@@ -44,8 +38,7 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
 
     protected final FlushModeType flushMode;
 
-    protected final Map<String, Object> hints = CollectionsUtil
-            .newLinkedHashMap();
+    protected final Map<String, Object> hints;
 
     /**
      * インスタンスを構築します。
@@ -55,38 +48,8 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
         this.entityClass = entityClass;
         this.method = method;
         this.resultList = resultList;
-        flushMode = detectFlushMode();
-        detectHints();
-    }
-
-    protected FlushModeType detectFlushMode() {
-        final FlushMode flushMode = method.getAnnotation(FlushMode.class);
-        return flushMode == null ? null : flushMode.value();
-    }
-
-    protected void detectHints() {
-        final Hints hints = method.getAnnotation(Hints.class);
-        if (hints != null) {
-            for (final Hint hint : hints.value()) {
-                this.hints.put(hint.name(), getHintValue(hint));
-            }
-        }
-        final Hint hint = method.getAnnotation(Hint.class);
-        if (hint != null) {
-            this.hints.put(hint.name(), getHintValue(hint));
-        }
-    }
-
-    protected Object getHintValue(final Hint hint) {
-        final String expression = hint.value();
-        try {
-            final Object parsedExpression = OgnlUtil
-                    .parseExpression(expression);
-            return OgnlUtil.getValue(parsedExpression, null);
-        } catch (final Exception e) {
-            throw new IllegalHintValueException(method, hint.name(),
-                    expression, e);
-        }
+        flushMode = detectFlushMode(method);
+        hints = detectHints(method);
     }
 
     protected void setupQuery(final Query query) {

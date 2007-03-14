@@ -69,8 +69,9 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
                     + method.getName() + "()");
         }
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new SqlCommand(isResultList(method), targetClass, sql, beanDesc
-                .getMethodParameterNames(method), method.getParameterTypes(),
-                dialectManager, resultSetFactory, statementFactory);
+        return new SqlCommand(method, isResultList(method), targetClass, sql,
+                beanDesc.getMethodParameterNames(method), method
+                        .getParameterTypes(), dialectManager, resultSetFactory,
+                statementFactory);
     }
 }

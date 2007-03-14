@@ -35,14 +35,16 @@ public class NamedQueryCommandBuilder extends AbstractQueryCommandBuilder {
             return null;
         }
 
-        final String queryName = getQueryName(daoClass, method);
-        if (queryName == null || !isExists(daoClass, queryName)) {
-            return null;
+        final String[] queryNames = getQueryNames(daoClass, method);
+        for (final String queryName : queryNames) {
+            if (isExists(daoClass, queryName)) {
+                final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
+                return new NamedQueryCommand(daoClass, method,
+                        isResultList(method), queryName, getBinders(method,
+                                beanDesc));
+            }
         }
-
-        final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
-        return new NamedQueryCommand(daoClass, method, isResultList(method),
-                queryName, getBinders(method, beanDesc));
+        return null;
     }
 
 }

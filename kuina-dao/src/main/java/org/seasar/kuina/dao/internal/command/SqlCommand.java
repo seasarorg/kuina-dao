@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao.internal.command;
 
+import java.lang.reflect.Method;
+
 import javax.persistence.EntityManager;
 
 import org.seasar.extension.jdbc.ResultSetFactory;
@@ -38,13 +40,13 @@ public class SqlCommand extends AbstractSqlCommand {
 
     protected final ResultSetFactory resultSetFactory;
 
-    public SqlCommand(final boolean resultList, final Class<?> beanClass,
-            final String sql, final String[] parameterNames,
-            final Class<?>[] parameterTypes,
+    public SqlCommand(final Method method, final boolean resultList,
+            final Class<?> beanClass, final String sql,
+            final String[] parameterNames, final Class<?>[] parameterTypes,
             final DialectManager dialectManager,
             final ResultSetFactory resultSetFactory,
             final StatementFactory statementFactory) {
-        super(sql, parameterNames, parameterTypes, dialectManager,
+        super(method, sql, parameterNames, parameterTypes, dialectManager,
                 statementFactory);
         this.resultList = resultList;
         this.beanClass = beanClass;
