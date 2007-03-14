@@ -38,7 +38,7 @@ public class SqlUpdateCommandTest extends S2TestCase {
     }
 
     public void testUpdatesTx() throws Exception {
-        SqlUpdateCommand command = new SqlUpdateCommand(
+        SqlUpdateCommand command = new SqlUpdateCommand(EmpDao.class.getMethod("updateAll"),
                 "update employee set name = null", null, null, dialectManager,
                 null);
         int rows = Integer.class.cast(command.execute(em, null));
@@ -47,13 +47,21 @@ public class SqlUpdateCommandTest extends S2TestCase {
     }
 
     public void testUpdateTx() throws Exception {
-        SqlUpdateCommand command = new SqlUpdateCommand(
-                "update employee set name = null where id=/*id*/0",
+        SqlUpdateCommand command = new SqlUpdateCommand(EmpDao.class.getMethod("updateById",
+                Integer.class), "update employee set name = null where id=/*id*/0",
                 new String[] {"id"}, new Class<?>[] {Integer.class},
                 dialectManager, null);
         int rows = Integer.class.cast(command.execute(em, new Object[] { 1 }));
         System.out.println(rows);
         assertEquals(1, rows);
+    }
+
+    public interface EmpDao {
+
+        int updateAll();
+
+        int updateById(Integer id);
+
     }
 
     public static class EmpDto {

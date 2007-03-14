@@ -40,16 +40,17 @@ public class SqlCommandTest extends S2TestCase {
     }
 
     public void testExecute_resultListTx() throws Exception {
-        SqlCommand command = new SqlCommand(true, EmpDto.class,
-                "select id, name from employee", null, null, dialectManager,
-                null, null);
+        SqlCommand command = new SqlCommand(EmpDao.class.getMethod("findAll"),
+                true, EmpDto.class, "select id, name from employee", null,
+                null, dialectManager, null, null);
         List<EmpDto> emps = (List<EmpDto>) command.execute(em, null);
         System.out.println(emps);
         assertEquals(30, emps.size());
     }
 
     public void testExecute_singleResultTx() throws Exception {
-        SqlCommand command = new SqlCommand(false, EmpDto.class,
+        SqlCommand command = new SqlCommand(EmpDao.class.getMethod("findById",
+                Integer.class), false, EmpDto.class,
                 "select name from employee where id = /*id*/0",
                 new String[] { "id" }, new Class[] { Integer.class },
                 dialectManager, null, null);
@@ -59,7 +60,16 @@ public class SqlCommandTest extends S2TestCase {
         assertEquals("シマゴロー", emp.getName());
     }
 
+    public interface EmpDao {
+
+        List<EmpDto> findAll();
+
+        List<EmpDto> findById(Integer id);
+
+    }
+
     public static class EmpDto {
+
         private Integer id;
 
         private String name;
