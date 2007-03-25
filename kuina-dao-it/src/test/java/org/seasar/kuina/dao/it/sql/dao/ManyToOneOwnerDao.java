@@ -17,6 +17,9 @@ package org.seasar.kuina.dao.it.sql.dao;
 
 import java.util.List;
 
+import javax.persistence.FlushModeType;
+
+import org.seasar.kuina.dao.FlushMode;
 import org.seasar.kuina.dao.it.dto.EmpDto;
 
 /**
@@ -26,6 +29,12 @@ import org.seasar.kuina.dao.it.dto.EmpDto;
 public interface ManyToOneOwnerDao {
 
     EmpDto findById(Integer id);
+
+    @FlushMode(FlushModeType.AUTO)
+    EmpDto findByIdWithAutoFlushMode(Integer id);
+
+    @FlushMode(FlushModeType.COMMIT)
+    EmpDto findByIdWithCommitFlushMode(Integer id);
 
     List<EmpDto> findAll();
 

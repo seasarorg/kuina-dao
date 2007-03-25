@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.it.sql.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
@@ -40,7 +41,34 @@ public class ManyToOneOwnerDaoTest {
     private ManyToOneOwnerDao dao;
 
     public void findById() throws Exception {
+        ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
+        owner.setName("hoge");
         EmpDto dto = dao.findById(1);
+        assertNotNull(dto);
+        assertEquals("hoge", dto.getName());
+    }
+
+    public void findByIdWithEntityManagerCommitFlushMode() throws Exception {
+        em.setFlushMode(FlushModeType.COMMIT);
+        ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
+        owner.setName("hoge");
+        EmpDto dto = dao.findById(1);
+        assertNotNull(dto);
+        assertEquals("simagoro", dto.getName());
+    }
+
+    public void findByIdWithAutoFlushMode() throws Exception {
+        ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
+        owner.setName("hoge");
+        EmpDto dto = dao.findByIdWithAutoFlushMode(1);
+        assertNotNull(dto);
+        assertEquals("hoge", dto.getName());
+    }
+
+    public void findByIdWithCommitFlushMode() throws Exception {
+        ManyToOneOwner owner = em.find(ManyToOneOwner.class, 1);
+        owner.setName("hoge");
+        EmpDto dto = dao.findByIdWithCommitFlushMode(1);
         assertNotNull(dto);
         assertEquals("simagoro", dto.getName());
     }
