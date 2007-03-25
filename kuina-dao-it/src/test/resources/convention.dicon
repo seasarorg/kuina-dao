@@ -6,5 +6,8 @@
 		<initMethod name="addRootPackageName">
 			<arg>"org.seasar.kuina.dao.it"</arg>
 		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.named"</arg>
+		</initMethod>		
 	</component>
 </components>

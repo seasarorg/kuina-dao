@@ -66,4 +66,8 @@ public interface ManyToOneOwnerDao {
     @FlushMode(FlushModeType.COMMIT)
     Integer getCountByBloodTypeNoFlush(String bloodType);
 
+    List<ManyToOneOwner> findByWeigth(Integer weight);
+
+    List<ManyToOneOwner> findByHeigth(Integer height);
+
 }

@@ -114,4 +114,18 @@ public class ManyToOneOwnerDaoTest {
         assertEquals(2, count);
     }
 
+    public void findByWeight() {
+        List<ManyToOneOwner> list = dao.findByWeigth(95);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("panda", list.get(0).getName());
+    }
+
+    public void findByHeight() {
+        List<ManyToOneOwner> list = dao.findByHeigth(185);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("panda", list.get(0).getName());
+    }
+
 }
