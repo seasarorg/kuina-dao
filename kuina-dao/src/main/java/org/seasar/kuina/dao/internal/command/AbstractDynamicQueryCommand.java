@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,6 +57,8 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
     protected String identificationVariable;
 
+    protected FetchJoin[] fetchJoins;
+
     public AbstractDynamicQueryCommand(final Class<?> entityClass,
             final Method method, final boolean resultList) {
         super(entityClass, method, resultList);
@@ -63,6 +66,7 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         this.orderbySpecs = detectOrderbySpec();
         this.identificationVariable = JpqlUtil
                 .toDefaultIdentificationVariable(entityClass);
+        this.fetchJoins = detectFetchJoins();
     }
 
     public Object execute(final EntityManager em, final Object[] arguments) {
@@ -103,6 +107,18 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
             }
         }
         return list.toArray(new OrderbySpec[list.size()]);
+    }
+
+    protected FetchJoin[] detectFetchJoins() {
+        final FetchJoins joins = method.getAnnotation(FetchJoins.class);
+        if (joins != null) {
+            return joins.value();
+        }
+        final FetchJoin join = method.getAnnotation(FetchJoin.class);
+        if (join != null) {
+            return new FetchJoin[] { join };
+        }
+        return null;
     }
 
     protected SelectStatement createSelectStatement(final Object[] arguments) {
@@ -151,21 +167,16 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         return fromDecl;
     }
 
+    @SuppressWarnings("unchecked")
     protected Map<String, JoinSpec> createFetchJoinAssociations(
             final String abstractSchemaName) {
+        if (fetchJoins == null) {
+            return Collections.EMPTY_MAP;
+        }
         final Map<String, JoinSpec> associations = CollectionsUtil.newTreeMap();
-        final FetchJoins joins = method.getAnnotation(FetchJoins.class);
-        if (joins != null) {
-            for (final FetchJoin join : joins.value()) {
-                associations.put(abstractSchemaName + "." + join.value(), join
-                        .joinSpec());
-            }
-        } else {
-            final FetchJoin join = method.getAnnotation(FetchJoin.class);
-            if (join != null) {
-                associations.put(abstractSchemaName + "." + join.value(), join
-                        .joinSpec());
-            }
+        for (final FetchJoin join : fetchJoins) {
+            associations.put(abstractSchemaName + "." + join.value(), join
+                    .joinSpec());
         }
         return associations;
     }
@@ -180,14 +191,16 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
             int pos2 = 0;
             while ((pos2 = propertyName.indexOf('.', pos1)) > -1) {
                 final String path = propertyName.substring(0, pos2);
-                final String maybeAssociationPropName = propertyName.substring(pos1, pos2);
+                final String maybeAssociationPropName = propertyName.substring(
+                        pos1, pos2);
                 pos1 = pos2 + 1;
                 if (!KuinaDaoUtil
                         .isAssociation(owner, maybeAssociationPropName)) {
                     break;
                 }
                 associations.add(path);
-                owner = KuinaDaoUtil.getAssociationEntityDesc(owner, maybeAssociationPropName);
+                owner = KuinaDaoUtil.getAssociationEntityDesc(owner,
+                        maybeAssociationPropName);
             }
         }
         return associations;
