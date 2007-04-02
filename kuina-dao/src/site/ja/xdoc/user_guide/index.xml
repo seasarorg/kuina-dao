@@ -28,6 +28,7 @@
 						<li><p><a href="query.html#SQLによる検索">SQLによる検索</a></p></li>
 					</ul>
 				</li>
+				<li><p><a href="configuration.html">コンフィグレーション</a></p></li>
 			</ul>
 		</section>
 	</body>

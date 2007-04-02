@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Kuina-Daoユーザ・ガイド - コンフィグレーション</title>
+	</properties>
+	<body>
+		<section name="コンフィグレーション">
+			<p>
+				Kuina-Daoは永続ユニットが複数存在する場合に対応しています．
+			</p>
+			<subsection name="異なった構成を持つ複数の永続ユニットの使用">
+				<p>
+					異なった構成をもつ複数の永続ユニットを使用するには、以下の命名規約とパッケージ構成に従うことを推奨します． 以下の構成にすることで、エンティティとマッピングファイルは対応する永続ユニットに自動的に登録されます.
+					<ul>
+						<li>永続ユニット名は<code>persistenceUnit</code>、もしくは<var>任意のプレフィックス</var><code>PersistenceUnit</code>とする．</li>
+						<li>永続ユニット<code>persistenceUnit</code>に属するエンティティは<var>ルートパッケージ</var><code>.entity</code>に配置する.<br/>永続ユニット<var>任意のプレフィックス</var><code>PersistenceUnit</code>に属するエンティティは<var>ルートパッケージ</var><var>.任意のプレフィックス</var><code>.entity</code>に配置する.</li>
+						<li>永続ユニット<code>persistenceUnit</code>に属するマッピングファイルは<var>ルートパッケージ</var><code>.entity</code>、もしくは<var>ルートパッケージ</var><code>.dao</code>に配置する.<br/>永続ユニット<var>任意のプレフィックス</var><code>PersistenceUnit</code>に属するマッピングファイルは<var>ルートパッケージ</var><var>.任意のプレフィックス</var><code>.entity</code>、もしくは<var>ルートパッケージ</var><var>.任意のプレフィックス</var><code>.dao</code>に配置する.</li>
+					</ul>				
+				</p>
+				<p>
+					例：<code>persistenceUnit</code>という名称の永続ユニットと<code>hogePerisitenceUnit</code>という名称の永続ユニットがそれぞれ存在する場合、推奨されるパッケージ構成は次のようになります. この例でのルートパッケージは<code>kuina.dao.examle</code>とします. Emp.class、Dept.class、Sales.classはエンティティとします. また、登場するxmlファイルはすべてJPAのマッピングファイルとします.
+					<ul>
+						<li><code>kuina.dao.examle.dao.EmpDao.class</code></li>
+						<li><code>kuina.dao.examle.dao.EmpOrm.xml</code></li>
+						<li><code>kuina.dao.examle.dao.DeptDao.class</code></li>
+						<li><code>kuina.dao.examle.dao.DeptOrm.xml</code></li>
+						<li><code>kuina.dao.examle.dao.hoge.SalesDao.class</code></li>
+						<li><code>kuina.dao.examle.dao.hoge.SalesOrm.xml</code></li>
+						<li><code>kuina.dao.examle.entity.Emp.class</code></li>
+						<li><code>kuina.dao.examle.entity.Dept.class</code></li>
+						<li><code>kuina.dao.examle.entity.hoge.Sales.class</code></li>						
+					</ul>
+					<code>EmpOrm.xml</code>、<code>DeptOrm.xml</code>、<code>Emp.class</code>、<code>Dept.class</code>が永続ユニット<code>persistenceUnit</code>に登録されます. 残りの、<code>SalesOrm.xml</code>、<code>Sales.class</code>が永続ユニット<code>hogePerisitenceUnit</code>に登録されます.
+				</p>				
+			</subsection>
+			<subsection name="同一の構成を持つ複数の永続ユニットの使用">
+			</subsection>
+			<subsection name="Kuina-Daoのカスタマイズ">
+			</subsection>						
+		</section>
+	</body>
+</document>
