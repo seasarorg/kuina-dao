@@ -6,18 +6,11 @@
 	<include path="s2toplink-jpa.dicon"/>
 
 <!-- 1. PersistenceUnitProviderの設定 -->
-
-	<!-- for test 単体テスト時はこちらのPersistenceUnitProviderを有効にしてください
 	<component class="org.seasar.toplink.jpa.impl.S2TopLinkPersistenceUnitProvider">
 		<property name="javaSECMPInitializer">
-			@org.seasar.toplink.jpa.impl.S2JavaSECMPInitializer@getJavaSECMPInitializer("s2toplink-jpa.dicon", #{})
+			@org.seasar.toplink.jpa.impl.S2JavaSECMPInitializer@getJavaSECMPInitializer("s2toplink-jpa-preload.dicon", #{})
 		</property>
 	</component>
-	-->
-
-	<!-- Web環境ではこちらのPersistenceUnitProviderを有効にしてください
-	 -->
-	<component class="org.seasar.toplink.jpa.impl.S2TopLinkContainerPersistenceUnitProvider"/>
 
 <!-- 2. Oracle TopLink PersistenceProviderの設定 -->	
 	<component class="oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider"/>
@@ -29,8 +22,7 @@
 <!-- 4. S2Assert(TestCase)用Componentの設定 -->
 	<component class="org.seasar.toplink.jpa.unit.TopLinkEntityReaderProvider"/>
 
-<!-- 5. テスト用DataSourceの設定 -->
-	<!-- for test -->
+<!-- 5. DataSourceの設定 -->
 	<component name="dataSourceProxy" class="org.seasar.extension.datasource.impl.SingletonDataSourceProxy"/>
 
 <!-- 6. EntityManagerFactory、EntityManagerの設定 -->
