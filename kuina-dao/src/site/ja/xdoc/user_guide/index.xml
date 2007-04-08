@@ -28,7 +28,14 @@
 						<li><p><a href="query.html#SQLによる検索">SQLによる検索</a></p></li>
 					</ul>
 				</li>
-				<li><p><a href="configuration.html">コンフィグレーション</a></p></li>
+				<li><p><a href="annotation.html">アノテーション一覧</a></p></li>
+				<li><p><a href="configuration.html">コンフィグレーション</a></p>
+					<ul>
+						<li><p><a href="configuration.html#異なった構成を持つ複数の永続ユニットの使用">異なった構成を持つ複数の永続ユニットの使用</a></p></li>
+						<li><p><a href="configuration.html#同一の構成を持つ複数の永続ユニットの使用">同一の構成を持つ複数の永続ユニットの使用</a></p></li>
+						<li><p><a href="configuration.html#Kuina-Daoのカスタマイズ">Kuina-Daoのカスタマイズ</a></p></li>
+					</ul>
+				</li>
 			</ul>
 		</section>
 	</body>

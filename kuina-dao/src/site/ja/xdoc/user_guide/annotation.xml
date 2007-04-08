@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Kuina-Daoユーザ・ガイド - 問い合わせメソッド</title>
+	</properties>
+	<body>
+		<section name="アノテーション一覧">
+			<p>
+				DAOインタフェースやDTOに指定可能なアノテーションの一覧です．
+			</p>
+			<ul>
+				<li><p><a href="#@Distinctアノテーション">@Distinctアノテーション</a></p></li>
+				<li><p><a href="#@FetchJoinアノテーション">@FetchJoinアノテーション</a></p></li>
+				<li><p><a href="#@FetchJoinsアノテーション">@FetchJoinsアノテーション</a></p></li>
+				<li><p><a href="#@FirstResultアノテーション">@FirstResultアノテーション</a></p></li>
+				<li><p><a href="#@FlushModeアノテーション">@FlushModeアノテーション</a></p></li>
+				<li><p><a href="#@Hintアノテーション">@Hintアノテーション</a></p></li>
+				<li><p><a href="#@Hintsアノテーション">@Hintsアノテーション</a></p></li>
+				<li><p><a href="#@MaxResultsアノテーション">@MaxResultsアノテーション</a></p></li>
+				<li><p><a href="#@NamedParameterアノテーション">@NamedParameterアノテーション</a></p></li>
+				<li><p><a href="#@Orderbyアノテーション">@Orderbyアノテーション</a></p></li>
+				<li><p><a href="#@PoisitionalParameterアノテーション">@PoisitionalParameterアノテーション</a></p></li>
+				<li><p><a href="#@QueryNameアノテーション">@QueryNameアノテーション</a></p></li>
+				<li><p><a href="#@TargetEntityアノテーション">@TargetEntityアノテーション</a></p></li>
+				<li><p><a href="#@TemporalSpecアノテーション">@TemporalSpecアノテーション</a></p></li>
+			</ul>
+
+			<subsection name="@Distinctアノテーション">
+				<p>
+					生成されるJPQLの<code>SELECT</code>句に<code>DISTINCT</code>を指定します．
+					1対多・多対多の関連をFETCH JOINする場合に，結果リストから重複を取り除くことができます．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド (Named Query・SQL Queryを除く)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@Distinct
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@FetchJoinアノテーション">
+				<p>
+					生成するJPQLのFROM句でFETCH JOINを指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド (Named Query・SQL Queryを除く)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@FetchJoin(
+    value = "relationshipName",
+    joinSpec = JoinSpec.INNER_JOIN
+)
+]]></source>
+						<dl>
+							<dt><code>value</code></dt>
+							<dd>
+									FETCH JOINする関連名を指定します．
+							</dd>
+							<dt><code>joinSpec</code></dt>
+							<dd>
+								FETCH JOINする方法を指定します．
+								<code>JoinSpec.INNER_JOIN</code>または<code>JoinSpec.LEFT_OUTER_JOIN</code>を
+								指定することができます．
+								デフォルトは<code>JoinSpec.INNER_JOIN</code>です．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@FetchJoinsアノテーション">
+				<p>
+					生成するJPQLのFROM句にFETCH JOINを複数指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド (Named Query・SQL Queryを除く)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@FetchJoins(
+    {@FetchJoin(...), @FetchJoin(...)}
+)
+]]></source>
+						<dl>
+							<dt><code>value</code></dt>
+							<dd>
+								<code>@FetchJoin</code>アノテーションを任意の数指定することができます．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@FirstResultアノテーション">
+				<p>
+					引数またはDTOのプロパティでページングを指定する際に，
+					最初の位置を指定する引数またはプロパティを<code>firstResult</code>以外の
+					名前にする場合に指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッドの引数</p></li>
+						<li><p>DTOのプロパティのgetterメソッド</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@FirstResult
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@FlushModeアノテーション">
+				<p>
+					問い合わせのフラッシュ・モードを指定します．
+					<code>FlushModeType.AUTO</code>を指定した場合，または指定しなかった場合は，
+					<code>EntityManager</code>のフラッシュ・モードに従います．
+					<code>FulshModeType.COMMIT</code>を指定した場合は問い合わせの前に永続コンテキストを同期化するための
+					フラッシュは行われません．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@FulshMode(FulshModeType.COMMIT)
+]]></source>
+					</dd>
+					<dt><code>value</code></dt>
+					<dd>
+						フラッシュ・モードを指定します．
+						<code>FlushModeType.AUTO</code>または<code>FlushModeType.COMMIT</code>を
+						指定することができます．
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@Hintアノテーション">
+				<p>
+					問い合わせのヒントを指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド (Named Query・SQL Queryを除く)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@Hint(
+	name = "hintName",
+	value = "hintValue"
+)
+]]></source>
+						<dl>
+							<dt><code>name</code></dt>
+							<dd>
+								ヒントの名前を指定します．
+							</dd>
+							<dt><code>value</code></dt>
+							<dd>
+								ヒントの値をOGNL式で指定します．
+								文字列値を指定する場合はダブルクオートで囲む必要があります．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@Hintsアノテーション">
+				<p>
+					問い合わせのヒントを複数指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド (Named Query・SQL Queryを除く)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@Hints(
+    {@Hint(...), @Hint(...)}
+)
+]]></source>
+						<dl>
+							<dt><code>value</code></dt>
+							<dd>
+								<code>@Hint</code>アノテーションを任意の数指定することができます．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@MaxResultsアノテーション">
+				<p>
+					引数またはDTOのプロパティでページングを指定する際に，
+					最大件数を指定する引数またはプロパティを<code>maxResults</code>以外の
+					名前にする場合に指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッドの引数</p></li>
+						<li><p>DTOのプロパティのgetterメソッド</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@MaxResults
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@NamedParameterアノテーション">
+				<p>
+					Kuina-Daoが特別扱いする
+					<code>firstResult</code>・<code>maxResults</code>・<code>orderby</code>という名前の
+					引数またはDTOのプロパティをパラメータとして使用する場合に指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッドの引数</p></li>
+						<li><p>DTOのプロパティのgetterメソッド</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@NamedParameter
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@Orderbyアノテーション">
+				<p>
+					このアノテーションは二種類の用途に使われます．
+				</p>
+				<p>
+					実行時に変わらない，静的なソート順を指定するためにDaoメソッドに指定します．
+				</p>
+				<p>
+					実行時に動的に変わる，動的なソート順を引数またはDTOのプロパティで指定する際に，
+					ソート順を指定する引数またはプロパティを<code>orderby</code>以外の名前にする場合に指定します．
+				</p>
+				<p>
+					静的なソート順と動的なソート順は同時に指定することができます．
+					その場合，生成されるJPQLのORDER BY句は静的なソート順で指定された項目の後に
+					動的なソート順で指定された項目が続きます．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド (静的なソート順)</p></li>
+						<li><p>Daoメソッドの引数 (動的なソート順)</p></li>
+						<li><p>DTOのプロパティのgetterメソッド (動的なソート順)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@Orderby("name, saraly DESC")
+]]></source>
+						<dl>
+							<dt><code>value</code></dt>
+							<dd>
+								静的なソート順をJPQLのORDER BY句と同じ構文で指定します．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@PoisitionalParameterアノテーション">
+				<p>
+					JPQLによる検索において，Named ParameterではなくPositional Parameterを使う場合に指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド(SQL Queryを除く)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@PositionalParameter
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@QueryNameアノテーション">
+				<p>
+					JPQLによる検索において，Named Queryの名前を明示的に指定する場合に指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッド(Named Queryのみ)</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@QueryName("queryName")
+]]></source>
+						<dl>
+							<dt><code>value</code></dt>
+							<dd>
+								Named Queryの名前を指定します．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@TargetEntityアノテーション">
+				<p>
+					検索対象のエンティティを明示的に指定します．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoインタフェース</p></li>
+						<li><p>Daoメソッド</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@TargetEntity(Employee.class)
+]]></source>
+						<dl>
+							<dt><code>value</code></dt>
+							<dd>
+								エンティティのクラスを指定します．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="@TemporalSpecアノテーション">
+				<p>
+					検索条件で<code>java.util.Date</code>または<code>java.util.Calendar</code>を指定する場合に，
+					時制を指定します．
+					<code>@TemporalSpec</code>アノテーションを指定しなかった場合は<code>TemporalType.DATE</code>が
+					使用されます．
+				</p>
+				<dl>
+					<dt>対象</dt>
+					<dd><ul>
+						<li><p>Daoメソッドの引数</p></li>
+						<li><p>DTOのプロパティのgetterメソッド</p></li>
+					</ul></dd>
+					<dt>指定方法</dt>
+					<dd>
+<source><![CDATA[
+@TemporalSpec(TemporalType.DATE)
+]]></source>
+						<dl>
+							<dt><code>value</code></dt>
+							<dd>
+								時制を指定します．
+								<code>TemporalType.DATE</code>・<code>TemporalType</code>.<code>DATE・TemporalType.DATE</code>の
+								いずれかを指定することができます．
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+			</subsection>
+		</section>
+	</body>
+</document>

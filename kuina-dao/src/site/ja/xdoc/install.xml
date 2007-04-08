@@ -37,24 +37,49 @@
 					<code>kuina-dao</code>
 				</dt>
 				<dd>
+					<p>
 					Kuina-Dao本体です．
+					</p>
 				</dd>
 				<dt>
-					<code>kuina-dao-it</code>
+					<code>kuina-dao-it-hibernate</code>
 				</dt>
 				<dd>
-					Kuina-DaoをJPA実装と組み合わせてテストするためのEclipseプロジェクトです．<br/>
-					以下のJPA実装を使用します．
-					<ul>
-						<li><p>Hibernate-Core + Hibernate-Annotations + Hibernate-EntityManager</p></li>
-						<li><p>TopLink Essentials</p></li>
-					</ul>
+					<p>
+					Kuina-DaoとHibernateを組み合わせてテストするためのEclipseプロジェクトです．
+					Kuina-Daoのサンプルとして参照してください．
+					</p>
+					<p>
 					以下のRDBMSを使用します．
+					</p>
 					<ul>
 						<li><p>HSQLDB</p></li>
+						<li><p>H2 Database Engine</p></li>
 						<li><p>Apache Derby</p></li>
 					</ul>
+					<p>
 					使用するJPA実装とRDBMSの組み合わせは<code>src/test/resources/env.txt</code>で指定できます．
+					</p>
+				</dd>
+				<dt>
+					<code>kuina-dao-it-toplink</code>
+				</dt>
+				<dd>
+					<p>
+					Kuina-DaoとTopLink Essentialsを組み合わせてテストするためのEclipseプロジェクトです．
+					Kuina-Daoのサンプルとして参照してください．
+					</p>
+					<p>
+					以下のRDBMSを使用します．
+					</p>
+					<ul>
+						<li><p>HSQLDB</p></li>
+						<li><p>H2 Database Engine</p></li>
+						<li><p>Apache Derby</p></li>
+					</ul>
+					<p>
+					使用するJPA実装とRDBMSの組み合わせは<code>src/test/resources/env.txt</code>で指定できます．
+					</p>
 				</dd>
 			</dl>
 		</section>
@@ -68,10 +93,15 @@
 					<li><p><a href="http://s2container.seasar.org">S2-Tiger</a></p></li>
 				</ul>
 				<p>
-					以下のプロダクトのいずれかを利用できるようにしてください．
+					kuina-dao-it-hibernateを使用する場合は以下のプロダクトを利用できるようにしてください．
 				</p>
 				<ul>
 					<li><p><a href="http://s2hibernate.seasar.org">S2Hibernate-JPA</a></p></li>
+				</ul>
+				<p>
+					kuina-dao-it-toplinkを使用する場合は以下のプロダクトを利用できるようにしてください．
+				</p>
+				<ul>
 					<li><p><a href="http://s2toplink.sandbox.seasar.org">S2TopLink-JPA</a></p></li>
 				</ul>
 				<p>
@@ -104,10 +134,15 @@
 					<li><p><a href="http://s2container.seasar.org">S2-Tiger</a></p></li>
 				</ul>
 				<p>
-					以下のプロダクトのいずれかをワークスペースにインポートしてください．
+					kuina-dao-it-hibernateを使用する場合は以下のプロダクトをワークスペースにインポートしてください．
 				</p>
 				<ul>
 					<li><p><a href="http://s2hibernate.seasar.org">S2Hibernate-JPA</a></p></li>
+				</ul>
+				<p>
+					kuina-dao-it-toplinkを使用する場合は以下のプロダクトをワークスペースにインポートしてください．
+				</p>
+				<ul>
 					<li><p><a href="http://s2toplink.sandbox.seasar.org">S2TopLink-JPA</a></p></li>
 				</ul>
 				<p>
@@ -142,8 +177,9 @@
 					</li>
 					<li>
 						<p>
-							「Projects」で "kuina-dao"および"kuina-dao-it"がチェックされていることを確認して
-							「Finish」ボタンを押下します．
+							「Projects」で "kuina-dao"，"kuina-dao-it-hibernate"，"kuina-dao-it-toplink"が
+							チェックされていることを確認して「Finish」ボタンを押下します．
+							"kuina-dao-it-hibernate"，"kuina-dao-it-toplink"は必要なければチェックを外して構いません．
 						</p>
 					</li>
 				</ul>

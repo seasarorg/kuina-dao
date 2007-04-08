@@ -6,7 +6,7 @@
 	<body>
 		<section name="コンフィグレーション">
 			<p>
-				ここでは、Kuina-Daoで複数の永続ユニットを使用する場合や、Kuina-Daoをカスタマイズする方法について説明します．
+				ここでは，Kuina-Daoで複数の永続ユニットを使用する場合や，Kuina-Daoをカスタマイズする方法について説明します．
 			</p>
 			<ul>
 				<li><p><a href="#異なった構成を持つ複数の永続ユニットの使用">異なった構成を持つ複数の永続ユニットの使用</a></p></li>
@@ -15,90 +15,124 @@
 			</ul>			
 			<subsection name="異なった構成を持つ複数の永続ユニットの使用">
 				<p>
-					異なった構成をもつ複数の永続ユニットを使用するには、以下の命名規約とパッケージ構成に従うことを推奨します． 推奨する命名規約とパッケージ構成に従うと、エンティティとマッピングファイルは対応する永続ユニットに自動的に登録されます.
+					異なった構成をもつ複数の永続ユニットを使用するには，以下の命名規約とパッケージ構成に従うことを推奨します．
+					推奨する命名規約とパッケージ構成に従うと，エンティティとマッピングファイルは対応する永続ユニットに自動的に登録されます．
 				</p>
 				
 				<dl>
 					<dt>推奨する命名規約</dt>
 					<dd>
-						永続ユニット名は&quot;<code>persistenceUnit</code>&quot;、もしくは&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;とする．					
-					</dd>
-					<dd>
-						マッピングファイル名は&quot;<var>任意のプレフィックス</var><code>Orm.xml</code>&quot;とする．					
+						<p>
+							永続ユニット名は&quot;<code>persistenceUnit</code>&quot;，
+							もしくは&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;とする．
+						</p>
+						<p>
+							マッピングファイル名は&quot;<var>任意のプレフィックス</var><code>Orm.xml</code>&quot;とする．
+						</p>
 					</dd>					
 					<dt>推奨するパッケージ構成</dt>
 					<dd>
-						永続ユニット&quot;<code>persistenceUnit</code>&quot;に属するエンティティは<var>ルートパッケージ</var><code>.entity</code>に配置する.
-					</dd>
-					<dd>
-						永続ユニット&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;に属するエンティティは<var>ルートパッケージ</var><var>.任意のプレフィックス</var><code>.entity</code>に配置する.
-					</dd>
-					<dd>
-						永続ユニット&quot;<code>persistenceUnit</code>&quot;に属するマッピングファイルは<var>ルートパッケージ</var><code>.entity</code>、もしくは<var>ルートパッケージ</var><code>.dao</code>に配置する.
-					</dd>
-					<dd>
-						永続ユニット&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;に属するマッピングファイルは<var>ルートパッケージ</var><var>.任意のプレフィックス</var><code>.entity</code>、もしくは<var>ルートパッケージ</var><var>.任意のプレフィックス</var><code>.dao</code>に配置する.						
+						<p>
+							永続ユニット&quot;<code>persistenceUnit</code>&quot;に属するエンティティは
+							<var>ルートパッケージ</var><code>.entity</code>に配置する．
+						</p>
+						<p>
+							永続ユニット&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;に属するエンティティは
+							<var>ルートパッケージ</var>.<var>任意のプレフィックス</var><code>.entity</code>に配置する．
+						</p>
+						<p>
+							永続ユニット&quot;<code>persistenceUnit</code>&quot;に属するマッピングファイルは
+							<var>ルートパッケージ</var><code>.entity</code>，もしくは<var>ルートパッケージ</var><code>.dao</code>に配置する．
+						</p>
+						<p>
+							永続ユニット&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;に属するマッピングファイルは
+							<var>ルートパッケージ</var>.<var>任意のプレフィックス</var><code>.entity</code>，
+							もしくは<var>ルートパッケージ</var>.<var>任意のプレフィックス</var><code>.dao.</code>に配置する．
+						</p>
 					</dd>
 				</dl>				
 				<h4>例</h4>								
 				<p>
-					&quot;<code>persistenceUnit</code>&quot;という名称の永続ユニットと&quot;<code>hogePerisitenceUnit</code>&quot;という名称の永続ユニットがそれぞれ存在する場合、推奨されるパッケージ構成は次のようになります. この例でのルートパッケージは<code>kuina.dao.examle</code>とします. Emp.class、Dept.class、Sales.classはエンティティとします. また、登場するxmlファイルはすべてJPAのマッピングファイルとします.
+					&quot;<code>persistenceUnit</code>&quot;という名称の永続ユニットと
+					&quot;<code>hogePerisitenceUnit</code>&quot;という名称の永続ユニットがそれぞれ存在する場合，
+					推奨されるパッケージ構成は次のようになります．
+					この例でのルートパッケージは<code>kuina.dao.examle</code>とします．
+					Emp.class，Dept.class，Sales.classはエンティティとします．
+					また，登場するxmlファイルはすべてJPAのマッピングファイルとします．
 				</p>	
 				<ul>
-					<li><code>kuina.dao.examle.dao.EmpDao.class</code></li>
-					<li><code>kuina.dao.examle.dao.EmpOrm.xml</code></li>
-					<li><code>kuina.dao.examle.dao.DeptDao.class</code></li>
-					<li><code>kuina.dao.examle.dao.DeptOrm.xml</code></li>
-					<li><code>kuina.dao.examle.dao.hoge.SalesDao.class</code></li>
-					<li><code>kuina.dao.examle.dao.hoge.SalesOrm.xml</code></li>
-					<li><code>kuina.dao.examle.entity.Emp.class</code></li>
-					<li><code>kuina.dao.examle.entity.Dept.class</code></li>
-					<li><code>kuina.dao.examle.entity.hoge.Sales.class</code></li>						
+					<li><p><code>kuina.dao.examle.dao.EmpDao.class</code></p></li>
+					<li><p><code>kuina.dao.examle.dao.EmpOrm.xml</code></p></li>
+					<li><p><code>kuina.dao.examle.dao.DeptDao.class</code></p></li>
+					<li><p><code>kuina.dao.examle.dao.DeptOrm.xml</code></p></li>
+					<li><p><code>kuina.dao.examle.dao.hoge.SalesDao.class</code></p></li>
+					<li><p><code>kuina.dao.examle.dao.hoge.SalesOrm.xml</code></p></li>
+					<li><p><code>kuina.dao.examle.entity.Emp.class</code></p></li>
+					<li><p><code>kuina.dao.examle.entity.Dept.class</code></p></li>
+					<li><p><code>kuina.dao.examle.entity.hoge.Sales.class</code></p></li>						
 				</ul>
 				<p>
-					<code>EmpOrm.xml</code>、<code>DeptOrm.xml</code>、<code>Emp.class</code>、<code>Dept.class</code>が永続ユニット<code>persistenceUnit</code>に登録されます. 残りの、<code>SalesOrm.xml</code>、<code>Sales.class</code>が永続ユニット<code>hogePerisitenceUnit</code>に登録されます.
+					<code>EmpOrm.xml</code>，<code>DeptOrm.xml</code>，<code>Emp.class</code>，
+					<code>Dept.class</code>が永続ユニット<code>persistenceUnit</code>に登録されます．
+					残りの，<code>SalesOrm.xml</code>，<code>Sales.class</code>が
+					永続ユニット<code>hogePerisitenceUnit</code>に登録されます．
 				</p>				
 			</subsection>
 			<subsection name="同一の構成を持つ複数の永続ユニットの使用">
 				<p>
-					同一の構成を持つ複数の永続ユニットを作成する場合、エンティティやDAOを共有したままコンテキストに応じてデータベースの接続先を切り替えることができます. <br/> 
-					推奨する命名規約とパッケージ構成に従えば、エンティティとマッピングファイルは対応する永続ユニットに自動的に登録されます.
+					同一の構成を持つ複数の永続ユニットを作成する場合，エンティティやDAOを共有したままコンテキストに応じて
+					データベースの接続先を切り替えることができます．
+				</p>
+				<p>
+					推奨する命名規約とパッケージ構成に従えば，エンティティとマッピングファイルは対応する永続ユニットに
+					自動的に登録されます．
 				</p>
 				<dl>
 					<dt>推奨する命名規約</dt>
 					<dd>
-						永続ユニット名は&quot;<code>persistenceUnit</code>&quot;以外とする. 
-					</dd>				
-					<dd>
-						マッピングファイル名は&quot;<var>任意のプレフィックス</var><code>Orm.xml</code>&quot;とする．					
+						<p>
+							永続ユニット名は&quot;<code>persistenceUnit</code>&quot;以外とする．
+						</p>
+						<p>
+							マッピングファイル名は&quot;<var>任意のプレフィックス</var><code>Orm.xml</code>&quot;とする．
+						</p>
 					</dd>					
 					<dt>推奨するパッケージ構成</dt>
 					<dd>
-						エンティティは<var>ルートパッケージ</var><code>.entity</code>に配置する.
-					</dd>
-					<dd>
-						マッピングファイルは<var>ルートパッケージ</var><code>.entity</code>、もしくは<var>ルートパッケージ</var><code>.dao</code>に配置する.
+						<p>
+							エンティティは<var>ルートパッケージ</var><code>.entity</code>に配置する．
+						</p>
+						<p>
+							マッピングファイルは<var>ルートパッケージ</var><code>.entity</code>，
+							もしくは<var>ルートパッケージ</var><code>.dao</code>に配置する．
+						</p>
 					</dd>
 				</dl>				
 				
 				<h4>推奨する設定ファイル定義例</h4>
 				<p>
-					まずデータベースの接続先ごとにデータソースの設定を行います. 
-					この例ではH2とDerbyを使います. 
-					データベースごとの設定ファイルとそれを束ねるひとつの設定ファイルを用意します. 
+					まずデータベースの接続先ごとにデータソースの設定を行います．
+					この例ではH2とDerbyを使います．
+					データベースごとの設定ファイルとそれを束ねるひとつの設定ファイルを用意します．
 				</p>
 				<ul>
-					<li><code>h2-jdbc.dicon</code></li>
-					<li><code>derby-jdbc.dicon</code></li>
-					<li><code>jdbc.dion</code></li>
+					<li><p><code>h2-jdbc.dicon</code></p></li>
+					<li><p><code>derby-jdbc.dicon</code></p></li>
+					<li><p><code>jdbc.dion</code></p></li>
 				</ul>
 				<p>
-					それぞれのファイルの定義は以下のようになります. 設定上の注意点は太字にしています. 一部定義を省略しています. 
+					それぞれのファイルの定義は以下のようになります．
+					設定上の注意点は太字にしています．
+					一部定義を省略しています．
 				</p>
 				<h5>h2-jdbc.dicon</h5>
-				<code>namespace</code>には&quot;<code>jdbc</code>&quot;を指定します. 
-				<code>DataSource</code>を表すコンポーネントの名前は&quot;<var>任意のプレフィックス</var><code>DataSource</code>&quot;にする必要があります. ここでは&quot;<code>h2DataSource</code>&quot;とします. 
-<pre>
+				<p>
+					<code>namespace</code>には&quot;<code>jdbc</code>&quot;を指定します．
+					<code>DataSource</code>を表すコンポーネントの名前は
+					&quot;<var>任意のプレフィックス</var><code>DataSource</code>&quot;にする必要があります．
+					ここでは&quot;<code>h2DataSource</code>&quot;とします．
+				</p>
+<source>
 &lt;components namespace="<b>jdbc</b>"&gt;
   &lt;include path="jta.dicon"/&gt;
   &lt;include path="jdbc-extension.dicon"/&gt;
@@ -109,11 +143,15 @@
     class="org.seasar.extension.dbcp.impl.DataSourceImpl"
   /&gt;
 &lt;/components&gt;
-</pre>
+</source>
 				<h5>derby-jdbc.dicon</h5>
-				<code>namespace</code>には&quot;<code>jdbc</code>&quot;を指定します. 
-				<code>DataSource</code>を表すコンポーネントの名前は&quot;<var>任意のプレフィックス</var><code>DataSource</code>&quot;にする必要があります. ここでは&quot;<code>derbyDataSource</code>&quot;とします. 
-<pre>
+				<p>
+					<code>namespace</code>には&quot;<code>jdbc</code>&quot;を指定します．
+					<code>DataSource</code>を表すコンポーネントの名前は
+					&quot;<var>任意のプレフィックス</var><code>DataSource</code>&quot;にする必要があります．
+					ここでは&quot;<code>derbyDataSource</code>&quot;とします．
+				</p>
+<source>
 &lt;components namespace="<b>jdbc</b>"&gt;
   &lt;include path="jta.dicon"/&gt;
   &lt;include path="jdbc-extension.dicon"/&gt;
@@ -125,12 +163,15 @@
   /&gt;
 
 &lt;/components&gt;
-</pre>
+</source>
 				<h5>jdbc.dicon</h5>
-				データベースごとに用意した設定ファイルをインクルードします. 
-				<code>namespace</code>には&quot;<code>jdbc</code>&quot;を指定します. 
-				<code>SelectableDataSourceProxy</code>を定義しコンポーネントの名前は&quot;<code>dataSource</code>&quot;とします. 
-<pre>
+				<p>
+					データベースごとに用意した設定ファイルをインクルードします．
+					<code>namespace</code>には&quot;<code>jdbc</code>&quot;を指定します．
+					<code>SelectableDataSourceProxy</code>を定義しコンポーネントの名前は
+					&quot;<code>dataSource</code>&quot;とします．
+				</p>
+<source>
 &lt;components namespace="<b>jdbc</b>"&gt;
   &lt;include path="h2-jdbc.dicon"/&gt;
   &lt;include path="derby-jdbc.dicon"/&gt;
@@ -139,23 +180,26 @@
     class="<b>org.seasar.extension.datasource.impl.SelectableDataSourceProxy</b>"/&gt;
 
 &lt;/components&gt;
-</pre>				
+</source>
 				<p>
-					次に永続ユニットごとの設定を用意します. 
+					次に永続ユニットごとの設定を用意します．
 				</p>
 				<ul>
-					<li><code>persistence.xml</code></li>
-					<li><code>jpa.dicon</code></li>
-					<li><code>h2-jpa.dicon</code></li>
-					<li><code>derby-jpa.dicon</code></li>
+					<li><p><code>persistence.xml</code></p></li>
+					<li><p><code>jpa.dicon</code></p></li>
+					<li><p><code>h2-jpa.dicon</code></p></li>
+					<li><p><code>derby-jpa.dicon</code></p></li>
 				</ul>
 				<p>
-					それぞれの設定ファイルは以下のようになります. （この例はJPA実装にHibernateを使う場合の設定です. ）
+					それぞれの設定ファイルは以下のようになります
+					(この例はJPA実装にHibernateを使う場合の設定です)．
 				</p>
 				<h5>persistence.xml</h5>
-				永続ユニットを複数定義します. 
-				接続先のデータベースは自動的に切り替えるのでデータソースは同じ名前でかまいません. 
-<pre>
+				<p>
+					永続ユニットを複数定義します．
+					接続先のデータベースは自動的に切り替えるのでデータソースは同じ名前でかまいません．
+				</p>
+<source>
 &lt;persistence&gt;
   &lt;persistence-unit name="<b>h2PersistenceUnit</b>" transaction-type="JTA"&gt;
     &lt;jta-data-source&gt;dataSourceProxy&lt;/jta-data-source&gt;
@@ -167,13 +211,19 @@
     ...（略）...
   &lt;/persistence-unit&gt;
 &lt;/persistence&gt;    
-</pre>				
+</source>
 				<h5>h2-jpa.dicon</h5>
-				永続ユニット<code>h2PersistenceUnit</code>用の設定ファイルです. 
-				<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数にはSeasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を、2番目の引数には実際の永続ユニットである<code>h2PersistenceUnit</code>を渡します. 
-				最初の引数からエンティティとマッピングファイルが自動で検出され2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます. 
-				<code>EntityManager</code>を表すコンポーネントの名前は&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります
-<pre>
+				<p>
+					永続ユニット<code>h2PersistenceUnit</code>用の設定ファイルです．
+					<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数には
+					Seasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を，
+					2番目の引数には実際の永続ユニットである<code>h2PersistenceUnit</code>を渡します．
+					最初の引数からエンティティとマッピングファイルが自動で検出され，
+					2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます．
+					<code>EntityManager</code>を表すコンポーネントの名前は
+					&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります．
+				</p>
+<source>
 &lt;components&gt;
   &lt;include path="s2hibernate-jpa.dicon"/&gt;
 
@@ -188,13 +238,19 @@
   &lt;component name="dataSourceProxy" class="org.seasar.extension.datasource.impl.SingletonDataSourceProxy"/&gt;
 
 &lt;/components&gt;
-</pre>
+</source>
 				<h5>derby-jpa.dicon</h5>
-				永続ユニット<code>derbyPersistenceUnit</code>用の設定ファイルです. 
-				<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数にはSeasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を、2番目の引数には実際の永続ユニットである<code>derbyPersistenceUnit</code>を渡します. 
-				最初の引数からエンティティとマッピングファイルが自動で検出され2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます. 
-				<code>EntityManager</code>を表すコンポーネントの名前は&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります
-<pre>
+				<p>
+					永続ユニット<code>derbyPersistenceUnit</code>用の設定ファイルです．
+					<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数には
+					Seasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を，
+					2番目の引数には実際の永続ユニットである<code>derbyPersistenceUnit</code>を渡します．
+					最初の引数からエンティティとマッピングファイルが自動で検出され，
+					2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます．
+					<code>EntityManager</code>を表すコンポーネントの名前は
+					&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります．
+				</p>
+<source>
 &lt;components&gt;
   &lt;include path="s2hibernate-jpa.dicon"/&gt;
 
@@ -209,11 +265,14 @@
   &lt;component name="dataSourceProxy" class="org.seasar.extension.datasource.impl.SingletonDataSourceProxy"/&gt;
   
 &lt;/components&gt;
-</pre>				
+</source>
 				<h5>jpa.dicon</h5>
-				永続ユニットごとに用意した設定ファイルをインクルードします. 
-				<code>SelectableEntityManagerProxy</code>を定義しコンポーネントの名前は&quot;<code>entityManager</code>&quot;とします. 				
-<pre>
+				<p>
+					永続ユニットごとに用意した設定ファイルをインクルードします．
+					<code>SelectableEntityManagerProxy</code>を定義しコンポーネントの名前は
+					&quot;<code>entityManager</code>&quot;とします．
+				</p>
+<source>
 &lt;components&gt;
   &lt;include path="h2-jpa.dicon"/&gt;
   &lt;include path="derby-jpa.dicon"/&gt;
@@ -221,13 +280,20 @@
   &lt;component name="<b>entityManager</b>" class="<b>org.seasar.framework.jpa.impl.SelectableEntityManagerProxy</b>"/&gt;
 
 &lt;/components&gt;
-</pre>
-			<h4>実行方法</h4>
+</source>
+				<h4>実行方法</h4>
 				<p>
-					コンテキストを指定して接続先のデータベースを切り替えるには<code>org.seasar.extension.datasource.DataSourceFactory</code>コンポーネント
-					の<code>setSelectableDataSourceName(String)</code>メソッドに、<var>データソースのプレフィックス</var>を引数として渡して実行します. <br/>
-					例えば、上記の定義に従った場合、Derbyに接続するには<code><value>derby</value></code>を渡し、H2に接続には<code><value>h2</value></code>を渡します. <br/>
-					値を設定する場所としては、Servelet FilterやAOPのロジックが適しています. <br/>
+					コンテキストを指定して接続先のデータベースを切り替えるには
+					<code>org.seasar.extension.datasource.DataSourceFactory</code>コンポーネントの
+					<code>setSelectableDataSourceName(String)</code>メソッドに，
+					<var>データソースのプレフィックス</var>を引数として渡して実行します．
+				</p>
+				<p>
+					例えば，上記の定義に従った場合，Derbyに接続するには<code><value>derby</value></code>を渡し，
+					H2に接続には<code><value>h2</value></code>を渡します．
+				</p>
+				<p>
+					値を設定する場所としては，Servelet FilterやAOPのロジックが適しています．<br/>
 				</p>
 			</subsection>
 			<subsection name="Kuina-Daoのカスタマイズ">

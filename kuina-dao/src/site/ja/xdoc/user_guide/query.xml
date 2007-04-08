@@ -18,6 +18,7 @@
 				<li><p><a href="#条件式による検索">条件式による検索</a></p></li>
 				<li><p><a href="#JPQLによる検索">JPQLによる検索</a></p></li>
 				<li><p><a href="#SQLによる検索">SQLによる検索</a></p></li>
+				<li><p><a href="#引数およびDTOのプロパティ">引数およびDTOのプロパティ</a></p></li>
 			</ul>
 
 			<subsection name="全件取得">
@@ -254,10 +255,19 @@ public interface EmployeeDao {
 			<subsection name="JPQLによる検索">
 				<p>
 					Named Queryを使用して問い合わせを行うメソッドです．<br/>
-					使用するNamed Queryの名前は問い合わせ対象のエンティティ名とメソッド名をピリオドで
+					使用するNamed Queryの名前はDaoのインタフェース名または問い合わせ対象のエンティティ名と，メソッド名をピリオドで
 					連結したものになります．
 					メソッドに<code>@QueryName</code>を付けることにより，使用するNamed Queryの名前を
-					変更することができます．<br/>
+					明示的に指定することもできます．
+					検索順は次のとおりです．
+				</p>
+				<ol>
+					<li><p>(もしあれば) <code>@QueryName</code>アノテーションで指定された名前</p></li>
+					<li><p>&lt;DaoのFQN&gt;.&lt;Daoのメソッド名&gt;</p></li>
+					<li><p>&lt;Daoの単純名&gt;.&lt;Daoのメソッド名&gt;</p></li>
+					<li><p>&lt;エンティティ名&gt;.&lt;Daoのメソッド名&gt;</p></li>
+				</ol>
+				<p>
 					JPQLは@NamedQueryアノテーションまたはマッピングファイルで定義します．
 				</p>
 				<dl>
