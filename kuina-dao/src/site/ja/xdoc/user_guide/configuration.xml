@@ -38,7 +38,7 @@
 						</p>
 						<p>
 							永続ユニット&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;に属するエンティティは
-							<var>ルートパッケージ</var>.<var>任意のプレフィックス</var><code>.entity</code>に配置する．
+							<var>ルートパッケージ</var><code>.entity</code>.<var>任意のプレフィックス</var>に配置する．
 						</p>
 						<p>
 							永続ユニット&quot;<code>persistenceUnit</code>&quot;に属するマッピングファイルは
@@ -46,8 +46,8 @@
 						</p>
 						<p>
 							永続ユニット&quot;<var>任意のプレフィックス</var><code>PersistenceUnit</code>&quot;に属するマッピングファイルは
-							<var>ルートパッケージ</var>.<var>任意のプレフィックス</var><code>.entity</code>，
-							もしくは<var>ルートパッケージ</var>.<var>任意のプレフィックス</var><code>.dao.</code>に配置する．
+							<var>ルートパッケージ</var><code>.entity</code>.<var>任意のプレフィックス</var>，
+							もしくは<var>ルートパッケージ</var><code>.dao</code>.<var>任意のプレフィックス</var>に配置する．
 						</p>
 					</dd>
 				</dl>				
@@ -215,11 +215,15 @@
 				<h5>h2-jpa.dicon</h5>
 				<p>
 					永続ユニット<code>h2PersistenceUnit</code>用の設定ファイルです．
+				</p>
+				<p>
 					<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数には
 					Seasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を，
 					2番目の引数には実際の永続ユニットである<code>h2PersistenceUnit</code>を渡します．
 					最初の引数からエンティティとマッピングファイルが自動で検出され，
 					2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます．
+				</p>
+				<p>	
 					<code>EntityManager</code>を表すコンポーネントの名前は
 					&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります．
 				</p>
@@ -242,11 +246,13 @@
 				<h5>derby-jpa.dicon</h5>
 				<p>
 					永続ユニット<code>derbyPersistenceUnit</code>用の設定ファイルです．
+				</p>	
 					<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数には
 					Seasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を，
 					2番目の引数には実際の永続ユニットである<code>derbyPersistenceUnit</code>を渡します．
 					最初の引数からエンティティとマッピングファイルが自動で検出され，
 					2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます．
+				<p>	
 					<code>EntityManager</code>を表すコンポーネントの名前は
 					&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります．
 				</p>
@@ -289,14 +295,122 @@
 					<var>データソースのプレフィックス</var>を引数として渡して実行します．
 				</p>
 				<p>
-					例えば，上記の定義に従った場合，Derbyに接続するには<code><value>derby</value></code>を渡し，
-					H2に接続には<code><value>h2</value></code>を渡します．
+					例えば，上記の定義に従った場合，Derbyに接続するには<code>setSelectableDataSourceName("derby")</code>を呼び出し，
+					H2に接続するには<code>setSelectableDataSourceName("h2")</code>を呼び出します.
 				</p>
 				<p>
 					値を設定する場所としては，Servelet FilterやAOPのロジックが適しています．<br/>
 				</p>
 			</subsection>
 			<subsection name="Kuina-Daoのカスタマイズ">
+				<p>
+					Kuina-Daoが提供するインターフェースを実装したクラスを作成し設定ファイルを適切に定義することでKuina-Daoをカスタマイズできます．
+					たとえば，新しい機能を追加する場合次の作業が必要です．
+				</p>
+				<ul>
+					<li>org.seasar.kuina.dao.internal.Commandインターフェースの実装クラスを作成する．</li>
+					<li>org.seasar.kuina.dao.internal.CommandBuilderインターフェースの実装クラスを作成する．</li>
+					<li>kuina-dao-builder.diconをコピーした設定ファイルにCommandBuilderの実装クラスを登録する．</li>
+					<li>s2container.diconに上記で新しく作成した設定ファイルを使用することを指定する．</li>
+				</ul>
+				<h4>設定例</h4>
+				
+				<h5><code>org.seasar.kuina.dao.internal.Command</code>の実装クラスの作成</h5>
+				<p>
+					<code>Command</code>インタフェースを実装するクラスを作成しDAOメソッドに適応したい処理を記述します．
+					このクラスでは<code>EntityManager</code>に対し問い合わせや更新などを実行できます．
+				</p>
+				<p>
+					<code>execute</code>メソッドの戻り値はDAOメソッドの戻り値となります．
+					DAOメソッドが戻り値を持たない場合，<code>execute</code>メソッドでは<code>null</code>を返してください．
+				</p>
+<source>
+public class HogeCommand <b>implements Command</b> {
+  public Object execute(EntityManager em, Object[] arguments) {
+    ...
+    return null;
+  }
+}
+</source>
+				<h5><code>org.seasar.kuina.dao.internal.CommandBuilder</code>の実装クラスの作成</h5>
+				<p>
+					<code>CommandBuilder</code>インターフェースを実装するクラスを作成し<code>Command</code>を生成するための処理を記述します．
+				</p>	
+				<p>
+					<code>build</code>メソッドはDAOメソッドのシグネチャ等の情報から対応する<code>Command</code>を生成します．
+					生成しない場合は<code>null</code>を返してください．
+				</p>
+<source>
+public class HogeCommandBuilder <b>implements CommandBuilder</b> {
+  public Command build(Class&lt;?&gt; daoClass, Method method) {
+    if (!method.getName().startsWith("hoge")) {
+      return null;
+    }
+    ...
+    return new HogeCommand();
+  }
+}
+</source>
+				<h5><code>kuina-dao-builder.dicon</code>のコピーの作成</h5>
+				<p>
+					<code>kuina-dao-<var>x.x.x</var>.jar</code>に同梱されている<code>kuina-dao-builder.dicon</code>をコピーしてカスタマイズ用の設定ファイルを作成し，
+					新規に作成した<code>CommandBuilder</code>を登録します．
+				</p>
+				
+				<p>
+					たとえば，コピーしたファイルを<code>my-kuina-dao-builder.dicon</code>という名前にし
+					次のように新しい<code>CommandBuilder</code>を定義します．
+				</p>
+<source>
+&lt;components namespace="kuinaDaoBuilder"&gt;
+  &lt;include path="convention.dicon"/&gt;
+  &lt;include path="javaee5.dicon"/&gt;
+
+  &lt;component class="org.seasar.kuina.dao.internal.metadata.DaoMetadataFactoryImpl"/&gt;
+  &lt;component instance="prototype" class="org.seasar.kuina.dao.internal.metadata.DaoMetadataImpl"/&gt;
+
+  &lt;component class="org.seasar.kuina.dao.internal.builder.SqlCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.SqlUpdateCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.NamedQueryCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.NamedQueryUpdateCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.ExampleQueryCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.DtoQueryCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.ParameterQueryCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.PersistCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.RemoveCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.MergeCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.RefreshCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.ReadLockCommandBuilder"/&gt;
+  &lt;component class="org.seasar.kuina.dao.internal.builder.WriteLockCommandBuilder"/&gt;
+  <b>&lt;component class="kuina.dao.example.HogeCommandBuilder"/&gt;</b>
+&lt;/components&gt;
+</source>				
+				<h5><code>s2container.diconの設定</code></h5>
+				<p>	
+					S2Containerの振る舞いを制御する設定ファイルである<code>s2container.dicon</code>で
+					<code>kuina-dao-builder.dicon</code>の替わりにカスタマイズ用の設定ファイルを使用することを指定します．
+				</p>
+				<p>	
+					カスタマイズ用の設定ファイルが<code>my-kuina-dao-builder.dicon</code>という名前である場合，次のように記述します．
+				</p>
+<source>
+&lt;components&gt;
+    &lt;include condition="#ENV == 'ut'" path="hotdeploy.dicon"/&gt;
+    &lt;include condition="#ENV != 'ut'" path="cooldeploy.dicon"/&gt;
+
+    &lt;component class="org.seasar.framework.container.factory.SimplePathResolver"&gt;
+        &lt;initMethod name="addRealPath"&gt;
+            &lt;arg&gt;"<b>kuina-dao-builder.dicon</b>"&lt;/arg&gt;
+            &lt;arg&gt;"<b>my-kuina-dao-builder.dicon</b>"&lt;/arg&gt;
+        &lt;/initMethod&gt;
+    &lt;/component&gt;
+&lt;/components&gt;
+</source>						
 			</subsection>						
 		</section>
 	</body>
