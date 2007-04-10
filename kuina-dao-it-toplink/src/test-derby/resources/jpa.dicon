@@ -27,7 +27,7 @@
 
 <!-- 6. EntityManagerFactory、EntityManagerの設定 -->
 	<component name="entityManagerFactory" class="javax.persistence.EntityManagerFactory">
-		jpa.persistenceUnitManager.getEntityManagerFactory("persistenceUnit")
+		jpa.persistenceUnitManager.getEntityManagerFactory("kuinaDaoItPersistenceUnit")
 	</component>
 
 	<component name="entityManager" class="org.seasar.framework.jpa.impl.TxScopedEntityManagerProxy">
