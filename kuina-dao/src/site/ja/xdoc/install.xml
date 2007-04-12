@@ -13,13 +13,13 @@
 					<p><a href="#配布ファイルの内容">配布ファイルの内容</a></p>
 				</li>
 				<li>
-					<p><a href="#JDKでの利用">JDKでの利用</a></p>
-				</li>
-				<li>
 					<p><a href="#Eclipseでの利用">Eclipseでの利用</a></p>
 				</li>
 				<li>
 					<p><a href="#Maven2での利用">Maven2での利用</a></p>
+				</li>
+				<li>
+					<p><a href="#JDKでの利用">JDKでの利用</a></p>
 				</li>
 			</ul>
 		</section>
@@ -46,7 +46,8 @@
 				</dt>
 				<dd>
 					<p>
-					Kuina-DaoとHibernateを組み合わせてテストするためのEclipseプロジェクトです．
+					Kuina-DaoとHibernate (Hibernate Core + Hibernate Annotations + Hibernate EntityManager) を
+					組み合わせてテストするためのEclipseプロジェクトです．
 					Kuina-Daoのサンプルとして参照してください．
 					</p>
 					<p>
@@ -58,7 +59,7 @@
 						<li><p>Apache Derby</p></li>
 					</ul>
 					<p>
-					使用するJPA実装とRDBMSの組み合わせは<code>src/test/resources/env.txt</code>で指定できます．
+					使用するRDBMSは<code>src/test-env/resources/env_ut.txt</code>で指定できます．
 					</p>
 				</dd>
 				<dt>
@@ -78,47 +79,10 @@
 						<li><p>Apache Derby</p></li>
 					</ul>
 					<p>
-					使用するJPA実装とRDBMSの組み合わせは<code>src/test/resources/env.txt</code>で指定できます．
+					使用するRDBMSは<code>src/test-env/resources/env_ut.txt</code>で指定できます．
 					</p>
 				</dd>
 			</dl>
-		</section>
-		<section name="JDKでの利用">
-			<subsection name="事前条件">
-				<p>
-					事前に以下のプロダクトを利用できるようにしてください．
-				</p>
-				<ul>
-					<li><p><a href="http://s2container.seasar.org">Seasar2</a></p></li>
-					<li><p><a href="http://s2container.seasar.org">S2-Tiger</a></p></li>
-				</ul>
-				<p>
-					kuina-dao-it-hibernateを使用する場合は以下のプロダクトを利用できるようにしてください．
-				</p>
-				<ul>
-					<li><p><a href="http://s2hibernate.seasar.org">S2Hibernate-JPA</a></p></li>
-				</ul>
-				<p>
-					kuina-dao-it-toplinkを使用する場合は以下のプロダクトを利用できるようにしてください．
-				</p>
-				<ul>
-					<li><p><a href="http://s2toplink.sandbox.seasar.org">S2TopLink-JPA</a></p></li>
-				</ul>
-				<p>
-					依存するバージョンについては「<a href="dependencies.html">プロジェクトの依存関係</a>」を参照してください．
-				</p>
-			</subsection>
-			<subsection name="クラスパスの設定">
-				<p>
-					ダウンロードしたKuina-Daoの配布ファイルを適当なディレクトリに解凍してください．
-					解凍したディレクトリ以下の次のJarファイルをクラスパスに設定してください．
-				</p>
-				<ul>
-					<li>
-						<p><code>kuina-dao/lib/kuina-dao-<var>x.x.x</var>.jar</code></p>
-					</li>
-				</ul>
-			</subsection>
 		</section>
 		<section name="Eclipseでの利用">
 			<p>
@@ -226,6 +190,43 @@
 					Kuina-Daoの依存関係については「<a href="dependencies.html">プロジェクトの依存関係</a>」を
 					参照してください．
 				</p>
+			</subsection>
+		</section>
+		<section name="JDKでの利用">
+			<subsection name="事前条件">
+				<p>
+					事前に以下のプロダクトを利用できるようにしてください．
+				</p>
+				<ul>
+					<li><p><a href="http://s2container.seasar.org">Seasar2</a></p></li>
+					<li><p><a href="http://s2container.seasar.org">S2-Tiger</a></p></li>
+				</ul>
+				<p>
+					kuina-dao-it-hibernateを使用する場合は以下のプロダクトを利用できるようにしてください．
+				</p>
+				<ul>
+					<li><p><a href="http://s2hibernate.seasar.org">S2Hibernate-JPA</a></p></li>
+				</ul>
+				<p>
+					kuina-dao-it-toplinkを使用する場合は以下のプロダクトを利用できるようにしてください．
+				</p>
+				<ul>
+					<li><p><a href="http://s2toplink.sandbox.seasar.org">S2TopLink-JPA</a></p></li>
+				</ul>
+				<p>
+					依存するバージョンについては「<a href="dependencies.html">プロジェクトの依存関係</a>」を参照してください．
+				</p>
+			</subsection>
+			<subsection name="クラスパスの設定">
+				<p>
+					ダウンロードしたKuina-Daoの配布ファイルを適当なディレクトリに解凍してください．
+					解凍したディレクトリ以下の次のJarファイルをクラスパスに設定してください．
+				</p>
+				<ul>
+					<li>
+						<p><code>kuina-dao/lib/kuina-dao-<var>x.x.x</var>.jar</code></p>
+					</li>
+				</ul>
 			</subsection>
 		</section>
 	</body>

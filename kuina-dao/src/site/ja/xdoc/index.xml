@@ -14,22 +14,16 @@
 			<dl>
 				<dt>2007/04/xx</dt>
 				<dd>
-					<p>
-						Kuina-Dao 1.0.0-rc2 をリリースしました． (<a href="downloads.html">ダウンロード</a>)
-					</p>
+					Kuina-Dao 1.0.0-rc2 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.0-rc2">Changelog</a>)
 				</dd>
 				<dt>2007/03/29</dt>
 				<dd>
-					<p>
-						技術評論社刊「<a href="http://gihyo.jp/book/2007/978-4-7741-3070-5/">Java Expert #01</a>」に
-						Kuina-Daoの紹介記事「特集3 Hibernate＆Kuina-Daoで楽々JPA」が掲載されました．
-					</p>
+					技術評論社刊「<a href="http://gihyo.jp/book/2007/978-4-7741-3070-5/">Java Expert #01</a>」に
+					Kuina-Daoの紹介記事「特集3 Hibernate＆Kuina-Daoで楽々JPA」が掲載されました．
 				</dd>
 				<dt>2007/01/14</dt>
 				<dd>
-					<p>
-						Kuina-Dao 1.0.0-rc1 をリリースしました． (<a href="downloads.html">ダウンロード</a>)
-					</p>
+					Kuina-Dao 1.0.0-rc1 をリリースしました． (<a href="downloads.html">ダウンロード</a>)
 				</dd>
 			</dl>
 		</section>
