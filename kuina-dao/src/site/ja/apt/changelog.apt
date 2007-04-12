@@ -7,6 +7,11 @@ Kuina-Dao Changelog
 
 Version {1.0.0-rc2} (2007/04/12)
 
+* 移行の注意
+
+  Kuina-Dao 1.0.0-rc2 は Seasar2.4.12 および，S2Hibernate 1.0.0-rc2 または S2Toplink-JPA 1.0.0-rc2 との組み合わせで動作します．
+  これ以前のバージョンでは動作しないのでご注意ください．
+
 * 変更点
 
 ** Improvement
@@ -22,5 +27,3 @@ Version {1.0.0-rc2} (2007/04/12)
     * [KUINA-4] - @EmbeddedIdアノテーションを使用した複合キーをサポートしました (@IdClassは未サポート)．
 
     * [KUINA-5] - ソート順をDaoメソッドに@Orderbyアノテーションを付けることで指定することができるようになりました．
-
-
