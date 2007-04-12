@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 注釈されたメソッド引数を{@link javax.persistence.Query#setMaxResults()}に与えるパラメータとして使用することを示します．
+ * 注釈されたメソッド引数を{@link javax.persistence.Query#setMaxResults(int)}に与えるパラメータとして使用することを示します．
  * 
  * @author koichik
  * @see javax.persistence.Query#setMaxResults(int)
