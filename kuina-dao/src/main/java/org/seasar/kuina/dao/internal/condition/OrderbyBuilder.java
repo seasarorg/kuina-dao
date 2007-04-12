@@ -16,21 +16,37 @@
 package org.seasar.kuina.dao.internal.condition;
 
 import org.seasar.kuina.dao.criteria.SelectStatement;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
 import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 
 /**
+ * パラメータからORDER BY句を作成し，SELECT文に追加するビルダです．
  * 
  * @author koichik
  */
 public class OrderbyBuilder implements ConditionalExpressionBuilder {
 
+    // instance fields
+    /** identification_variable */
     protected String identificationVariable;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     */
     public OrderbyBuilder(final Class<?> entityClass) {
         this(JpqlUtil.toDefaultIdentificationVariable(entityClass));
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param identificationVariable
+     *            identification_variable
+     */
     public OrderbyBuilder(final String identificationVariable) {
         this.identificationVariable = identificationVariable;
     }

@@ -16,9 +16,18 @@
 package org.seasar.kuina.dao.criteria;
 
 /**
+ * JPQLを構成する要素です．
  * 
  * @author koichik
  */
 public interface Criterion {
+
+    /**
+     * 要素を評価してコンテキストに反映します．
+     * 
+     * @param context
+     *            コンテキスト
+     */
     void evaluate(CriteriaContext context);
+
 }

@@ -18,9 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのarithmetic_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * arithmetic_expression ::=
+ *     simple_arithmetic_expression | (subquery)
+ * </pre>
  * 
  * @author koichik
  */
 public interface ArithmeticExpression extends Criterion {
-
 }

@@ -18,26 +18,25 @@ package org.seasar.kuina.dao.internal.command;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
+import org.seasar.kuina.dao.internal.Command;
+
 /**
+ * {@link EntityManager#lock(Object, LockModeType)}を{@link LockModeType#READ}で実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class ReadLockCommand extends AbstractCommand {
+
     /**
      * インスタンスを構築します。
      */
     public ReadLockCommand() {
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
-        assert arguments != null;
-        assert arguments.length == 1;
-
         final Object entity = arguments[0];
         em.lock(entity, LockModeType.READ);
         return null;
     }
+
 }

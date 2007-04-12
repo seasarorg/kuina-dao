@@ -18,18 +18,43 @@ package org.seasar.kuina.dao.internal.condition;
 import java.lang.reflect.Method;
 
 import org.seasar.framework.util.tiger.ReflectionUtil;
+import org.seasar.kuina.dao.criteria.CriteriaOperations;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 
 /**
+ * IS NULLを使用した問い合わせ条件を作成し，SELECT文に追加するビルダです．
+ * <p>
+ * このビルダは，次のようなCriteria API呼び出しを行います．
+ * </p>
+ * 
+ * <pre>
+ * statement.where(<var>isNull</var>("pathExpression"));
+ * </pre>
+ * 
+ * <p>
+ * <code><var>isNull</var></code>は<code>operationMethod</code>で表されるメソッドです．
+ * </p>
  * 
  * @author koichik
  */
 public class IsNullBuilder extends AbstractConditionalExpressionBuilder {
 
-    public IsNullBuilder(final Class<?> entityClass, final String propertyName,
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param propertyPath
+     *            プロパティのパス
+     * @param parameterName
+     *            パラメータ名
+     * @param operationMethod
+     *            {@link CriteriaOperations}の問い合わせ条件作成メソッド
+     */
+    public IsNullBuilder(final Class<?> entityClass, final String propertyPath,
             final String parameterName, final Method operationMethod) {
-        super(entityClass, propertyName, parameterName, null, operationMethod);
+        super(entityClass, propertyPath, parameterName, null, operationMethod);
     }
 
     public String appendCondition(final SelectStatement statement,
@@ -42,7 +67,7 @@ public class IsNullBuilder extends AbstractConditionalExpressionBuilder {
         }
 
         final Object expression = ReflectionUtil.invokeStatic(
-                getOperationMethod(), getPropertyName());
+                getOperationMethod(), getPathExpression());
         statement.where(ConditionalExpression.class.cast(expression));
         return getPropertyPath();
     }

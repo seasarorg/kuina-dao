@@ -16,11 +16,16 @@
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
 /**
+ * JPQLのALL演算子を使用したall_or_any_expressionを表すクラスです．
  * 
  * @author koichik
  */
 public class AllExpressionImpl extends AbstractAllOrAnyExpression {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public AllExpressionImpl() {
         super("ALL ");
     }

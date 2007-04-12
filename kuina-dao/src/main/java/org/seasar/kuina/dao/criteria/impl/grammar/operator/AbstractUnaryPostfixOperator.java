@@ -19,16 +19,26 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * 単項後置演算子を表すクラスです．
  * 
  * @author koichik
  */
 public class AbstractUnaryPostfixOperator implements Criterion {
+
+    // instance fields
+    /** 演算子 */
     protected final String operator;
 
+    /** オペランド */
     protected final Criterion operand;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     * @param operand
+     *            オペランド
      */
     public AbstractUnaryPostfixOperator(final String operator,
             final Criterion operand) {
@@ -36,12 +46,10 @@ public class AbstractUnaryPostfixOperator implements Criterion {
         this.operand = operand;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append("(");
         operand.evaluate(context);
         context.append(operator).append(")");
     }
+
 }

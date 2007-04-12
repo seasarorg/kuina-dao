@@ -22,16 +22,34 @@ import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
+import org.seasar.kuina.dao.internal.Command;
 
 /**
+ * Daoメソッドの引数で指定された{@link ConditionalExpression}を検索条件として問い合わせを行う{@link Command}です．
  * 
  * @author koichik
  */
 public class ConditionalQueryCommand extends AbstractDynamicQueryCommand {
 
+    // constants
+    /** 空の{@link List} */
+    protected static final List<String> EMPTY_LIST = CollectionsUtil
+            .newArrayList();
+
+    // static fields
     protected static final Logger logger = Logger
             .getLogger(ConditionalQueryCommand.class);
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            問い合わせ対象のエンティティ・クラス
+     * @param method
+     *            Daoメソッド
+     * @param resultList
+     *            問い合わせ結果を{@link List}で返す場合に<code>true</code>
+     */
     public ConditionalQueryCommand(final Class<?> entityClass,
             final Method method, final boolean resultList) {
         super(entityClass, method, resultList);
@@ -44,7 +62,7 @@ public class ConditionalQueryCommand extends AbstractDynamicQueryCommand {
                 .cast(arguments[0])) {
             statement.where(condition);
         }
-        return CollectionsUtil.newArrayList();
+        return EMPTY_LIST;
     }
 
 }

@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningNumerics;
 import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
 
 /**
+ * JPQLのABS関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,9 @@ public class Abs extends AbstractFunction implements FunctionReturningNumerics {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param number
+     *            絶対値を求める数値のsimple_arithmetic_expression
      */
     public Abs(final SimpleArithmeticExpression number) {
         super("ABS", number);

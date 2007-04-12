@@ -18,11 +18,27 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのexists_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * exists_expression::=
+ *     [NOT] EXISTS (subquery)
+ * </pre>
  * 
  * @author koichik
  */
 public interface ExistsExpression extends Criterion, SimpleCondExpression {
 
+    /**
+     * 副問い合わせを設定します．
+     * 
+     * @param subquery
+     *            副問い合わせ
+     * @return このインスタンス自身
+     */
     ExistsExpression setSubquery(Subquery subquery);
 
 }

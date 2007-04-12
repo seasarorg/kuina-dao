@@ -18,11 +18,18 @@ package org.seasar.kuina.dao.criteria;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 
 /**
+ * JPQLに含まれるidentification_variableをたどるためのビジタです．
  * 
  * @author koichik
  */
 public interface IdentificationVarialbleVisitor {
 
+    /**
+     * identification_variableごとに呼び出されます．
+     * 
+     * @param identificationVariable
+     *            identification_variable
+     */
     void identificationVariable(IdentificationVariable identificationVariable);
 
 }

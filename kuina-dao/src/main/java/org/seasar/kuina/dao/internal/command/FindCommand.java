@@ -17,23 +17,29 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.kuina.dao.internal.Command;
+
 /**
+ * {@link EntityManager#find(Class, Object)}を実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class FindCommand extends AbstractCommand {
+
+    // instance fileds
+    /** エンティティ・クラス */
     final Class<?> entityClass;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
      */
     public FindCommand(final Class<?> entityClass) {
         this.entityClass = entityClass;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
         assert arguments != null;
         assert arguments.length == 1;
@@ -41,4 +47,5 @@ public class FindCommand extends AbstractCommand {
         final Object primaryKey = arguments[0];
         return em.find(entityClass, primaryKey);
     }
+
 }

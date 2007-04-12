@@ -16,12 +16,20 @@
 package org.seasar.kuina.dao.internal.condition;
 
 import org.seasar.kuina.dao.criteria.SelectStatement;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 
 /**
+ * パラメータを{@link SelectStatement#setMaxResults(int)}にバインドするビルダです．
  * 
  * @author koichik
  */
 public class MaxResultsBuilder implements ConditionalExpressionBuilder {
+
+    /**
+     * インスタンスを構築します。
+     */
+    public MaxResultsBuilder() {
+    }
 
     public String appendCondition(final SelectStatement statement,
             final Object value) {

@@ -28,11 +28,21 @@ import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 
 /**
+ * JPQLのfrom_clauseを表現するクラスです．
  * 
  * @author koichik
  */
 public class FromClauseImpl implements FromClause {
+
+    // instance fields
+    /** identification_variable_declaration および collection_member_delarationのリスト */
     protected List<Criterion> declarations = CollectionsUtil.newArrayList();
+
+    /**
+     * インスタンスを構築します。
+     */
+    public FromClauseImpl() {
+    }
 
     public FromClause add(
             final IdentificationVariableDeclaration... identificationVariableDeclarations) {

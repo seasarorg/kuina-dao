@@ -27,19 +27,33 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.Subquery;
 
 /**
+ * JPQLのin_expressionを表す抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractInExpression implements InExpression {
 
+    // instance fields
+    /** 演算子 */
     protected final String operator;
 
+    /** path_expression */
     protected final PathExpression pathExpression;
 
+    /** in_itemsのリスト */
     protected final List<InItem> inItems = CollectionsUtil.newArrayList();
 
+    /** subquery */
     protected Subquery subquery;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     * @param pathExpression
+     *            path_expression
+     */
     public AbstractInExpression(final String operator,
             final PathExpression pathExpression) {
         if (pathExpression == null) {
@@ -50,6 +64,16 @@ public abstract class AbstractInExpression implements InExpression {
         this.pathExpression = pathExpression;
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     * @param pathExpression
+     *            path_expression
+     * @param inItems
+     *            in_itemsの並び
+     */
     public AbstractInExpression(final String operator,
             final PathExpression pathExpression, final InItem... inItems) {
         this(operator, pathExpression);
@@ -90,4 +114,5 @@ public abstract class AbstractInExpression implements InExpression {
                     new Object[] { operator });
         }
     }
+
 }

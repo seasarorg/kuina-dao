@@ -20,15 +20,21 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.EnumLiteral;
 
 /**
+ * JPQLのenum_literalを表すクラスです．
  * 
  * @author koichik
  */
 public class EnumLiteralImpl implements EnumLiteral {
 
+    // instance fields
+    /** enum_literal */
     protected final Enum<?> literal;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param literal
+     *            enum_literalとなる列挙
      */
     public EnumLiteralImpl(final Enum<?> literal) {
         if (literal == null) {

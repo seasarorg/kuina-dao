@@ -20,15 +20,25 @@ import org.seasar.kuina.dao.criteria.grammar.AllOrAnyExpression;
 import org.seasar.kuina.dao.criteria.grammar.Subquery;
 
 /**
+ * JPQLのall_or_any_expressionを表す抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractAllOrAnyExpression implements AllOrAnyExpression {
 
+    // instance fields
+    /** 演算子 */
     protected final String operator;
 
+    /** subquery */
     protected Subquery subquery;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     */
     public AbstractAllOrAnyExpression(final String operator) {
         this.operator = operator;
     }

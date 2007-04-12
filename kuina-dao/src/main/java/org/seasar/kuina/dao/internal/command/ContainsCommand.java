@@ -17,11 +17,15 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.kuina.dao.internal.Command;
+
 /**
+ * {@link EntityManager#contains(Object)}を実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class ContainsCommand extends AbstractCommand {
+
     /**
      * インスタンスを構築します。
      */
@@ -35,4 +39,5 @@ public class ContainsCommand extends AbstractCommand {
         final Object entity = arguments[0];
         return em.contains(entity);
     }
+
 }

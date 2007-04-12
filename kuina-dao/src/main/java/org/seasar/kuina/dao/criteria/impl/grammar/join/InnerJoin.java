@@ -22,16 +22,31 @@ import org.seasar.kuina.dao.criteria.grammar.Join;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * 内部結合を表すクラスです．
  * 
  * @author koichik
  */
 public class InnerJoin extends AbstractJoin implements Join {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param associationPathSpec
+     *            association_path_expression
+     */
     public InnerJoin(final PathExpression associationPathSpec) {
         this(associationPathSpec,
                 getDefaultIdentificationVariable(associationPathSpec));
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param associationPathSpec
+     *            association_path_expression
+     * @param identificationVariable
+     *            identification_variable
+     */
     public InnerJoin(final PathExpression associationPathSpec,
             final IdentificationVariable identificationVariable) {
         super(" INNER JOIN ", associationPathSpec, identificationVariable);

@@ -21,14 +21,21 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 
 /**
+ * JPQLのidentification_variableを表すクラスです．
  * 
  * @author koichik
  */
 public class IdentificationVariableImpl implements IdentificationVariable {
+
+    // instance fields
+    /** identification_variable */
     protected final String identificationVariable;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param identificationVariable
+     *            identification_variable
      */
     public IdentificationVariableImpl(final String identificationVariable) {
         if (StringUtil.isEmpty(identificationVariable)) {
@@ -42,6 +49,11 @@ public class IdentificationVariableImpl implements IdentificationVariable {
         context.append(identificationVariable);
     }
 
+    /**
+     * オブジェクトの文字列表現を返します．
+     * 
+     * @return このオブジェクトの文字列表現
+     */
     @Override
     public String toString() {
         return identificationVariable;

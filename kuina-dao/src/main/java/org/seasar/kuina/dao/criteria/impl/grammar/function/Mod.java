@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningNumerics;
 import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
 
 /**
+ * JPQLのMOD関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,11 @@ public class Mod extends AbstractFunction implements FunctionReturningNumerics {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param divided
+     *            除算される値を表すsimple_arithmetic_expression
+     * @param divisor
+     *            除算する値を表すsimple_arithmetic_expression
      */
     public Mod(final SimpleArithmeticExpression divided,
             final SimpleArithmeticExpression divisor) {

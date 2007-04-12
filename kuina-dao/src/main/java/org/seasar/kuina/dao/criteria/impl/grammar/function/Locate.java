@@ -20,6 +20,7 @@ import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
 
 /**
+ * JPQLのLOCATE関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -28,6 +29,11 @@ public class Locate extends AbstractFunction implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param located
+     *            走査対象の文字列を表すstring_primary
+     * @param searched
+     *            走査する文字列を表すstring_primary
      */
     public Locate(final StringPrimary located, final StringPrimary searched) {
         super("LOCATE", located, searched);
@@ -35,6 +41,13 @@ public class Locate extends AbstractFunction implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param located
+     *            走査対象の文字列を表すstring_primary
+     * @param searched
+     *            走査する文字列を表すstring_primary
+     * @param start
+     *            捜査を開始する位置を表すsimple_arithmetic_expression
      */
     public Locate(final StringPrimary located, final StringPrimary searched,
             final SimpleArithmeticExpression start) {

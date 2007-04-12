@@ -23,13 +23,31 @@ import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.extension.jdbc.impl.BasicUpdateHandler;
 import org.seasar.framework.jpa.Dialect;
 import org.seasar.framework.jpa.DialectManager;
+import org.seasar.kuina.dao.internal.Command;
 
 /**
+ * SQL (挿入・更新・削除) を実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class SqlUpdateCommand extends AbstractSqlCommand {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param method
+     *            Daoメソッド
+     * @param sql
+     *            SQL
+     * @param parameterNames
+     *            パラメータ名の配列
+     * @param parameterTypes
+     *            パラメータ型の配列
+     * @param dialectManager
+     *            Dialectマネージャ
+     * @param statementFactory
+     *            ステートメント・ファクトリ
+     */
     public SqlUpdateCommand(final Method method, final String sql,
             final String[] parameterNames, final Class[] parameterTypes,
             final DialectManager dialectManager,

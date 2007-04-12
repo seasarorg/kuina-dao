@@ -19,13 +19,18 @@ import org.seasar.kuina.dao.criteria.grammar.ArithmeticFactor;
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticPrimary;
 
 /**
+ * JPQLの単項<code>+</code>演算子を表すクラスです．
  * 
  * @author koichik
  */
 public class UnaryPlus extends AbstractUnaryPrefixOperator implements
         ArithmeticFactor {
+
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            オペランドを表すarithmetic_primary
      */
     public UnaryPlus(final ArithmeticPrimary operand) {
         super("+", operand);

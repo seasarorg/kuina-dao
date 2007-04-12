@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -27,19 +28,45 @@ import org.seasar.extension.jdbc.impl.BeanListResultSetHandler;
 import org.seasar.extension.jdbc.impl.BeanResultSetHandler;
 import org.seasar.framework.jpa.Dialect;
 import org.seasar.framework.jpa.DialectManager;
+import org.seasar.kuina.dao.internal.Command;
 
 /**
+ * SQL (問い合わせ) を実行する{@link Command}です．
  * 
  * @author higa
  */
 public class SqlCommand extends AbstractSqlCommand {
 
+    // instance fields
+    /** 問い合わせ結果を{@link List}で返す場合に<code>true</code> */
     protected final boolean resultList;
 
+    /** 結果セットを受け取るJavaBeansのクラス */
     protected final Class<?> beanClass;
 
+    /** 結果セットファクトリ */
     protected final ResultSetFactory resultSetFactory;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param method
+     *            Daoメソッド
+     * @param resultList
+     *            問い合わせ結果を{@link List}で返す場合に<code>true</code>
+     * @param beanClass
+     *            結果セットを受け取るJavaBeansのクラス
+     * @param sql
+     *            SQL
+     * @param parameterNames
+     *            パラメータ名の配列
+     * @param parameterTypes
+     *            パラメータ型の配列
+     * @param dialectManager
+     *            Dialectマネージャ
+     * @param statementFactory
+     *            ステートメント・ファクトリ
+     */
     public SqlCommand(final Method method, final boolean resultList,
             final Class<?> beanClass, final String sql,
             final String[] parameterNames, final Class<?>[] parameterTypes,

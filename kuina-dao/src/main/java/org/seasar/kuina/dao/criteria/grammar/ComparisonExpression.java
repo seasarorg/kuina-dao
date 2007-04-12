@@ -18,9 +18,24 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのcomparison_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * comparison_expression ::=
+ *     string_expression comparison_operator {string_expression | all_or_any_expression} |
+ *     boolean_expression { =|<>} {boolean_expression | all_or_any_expression} |
+ *     enum_expression { =|<>} {enum_expression | all_or_any_expression} |
+ *     datetime_expression comparison_operator
+ *         {datetime_expression | all_or_any_expression} |
+ *     entity_expression { = | <> } {entity_expression | all_or_any_expression} |
+ *     arithmetic_expression comparison_operator
+ *         {arithmetic_expression | all_or_any_expression}
+ * </pre>
  * 
  * @author koichik
  */
 public interface ComparisonExpression extends Criterion, SimpleCondExpression {
-
 }

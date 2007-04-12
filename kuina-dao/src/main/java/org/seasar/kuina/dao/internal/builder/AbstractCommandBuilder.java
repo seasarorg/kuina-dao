@@ -41,6 +41,7 @@ import org.seasar.kuina.dao.PositionalParameter;
 import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.TargetEntity;
 import org.seasar.kuina.dao.TemporalSpec;
+import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.CommandBuilder;
 import org.seasar.kuina.dao.internal.binder.CalendarParameterBinder;
 import org.seasar.kuina.dao.internal.binder.DateParameterBinder;
@@ -48,33 +49,79 @@ import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
+ * {@link Command コマンド}を作成するビルダの抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractCommandBuilder implements CommandBuilder {
 
+    // static fields
     private static final Logger logger = Logger
             .getLogger(AbstractCommandBuilder.class);
 
+    // instance fields
+    /** 命名規約 */
     @Binding(bindingType = BindingType.MUST)
     protected NamingConvention convention;
 
+    /** Daoヘルパー */
     @Binding(bindingType = BindingType.MUST)
     protected DaoHelper daoHelper;
 
+    /** エンティティ・マネージャ・プロバイダ */
     @Binding(bindingType = BindingType.MUST)
     protected EntityManagerProvider entityManagerProvider;
 
+    /** メソッド名の正規表現パターン */
     protected Pattern methodNamePattern;
 
+    /**
+     * インスタンスを構築します。
+     */
+    public AbstractCommandBuilder() {
+    }
+
+    /**
+     * メソッド名の正規表現パターンを文字列で設定します．
+     * 
+     * @param methodNamePattern
+     *            メソッド名の正規表現パターン文字列
+     */
     public void setMethodNamePattern(final String methodNamePattern) {
         this.methodNamePattern = Pattern.compile(methodNamePattern);
     }
 
+    /**
+     * テスト対象のメソッドの名前が正規表現パターンとマッチする場合に<code>true</code>を返します．
+     * 
+     * @param method
+     *            テスト対象のメソッド
+     * @return テスト対象のメソッドの名前が正規表現パターンとマッチする場合に<code>true</code>
+     */
     protected boolean isMatched(final Method method) {
         return methodNamePattern.matcher(method.getName()).matches();
     }
 
+    /**
+     * 操作対象のエンティティクラスを返します．
+     * <p>
+     * 操作対象のエンティティクラスは次の順で検索します．
+     * </p>
+     * <ol>
+     * <li>Daoのメソッドに{@link TargetEntity}アノテーションが付けられていればその<code>value</code>要素の値</li>
+     * <li>Daoクラスに{@link TargetEntity}アノテーションが付けられていればその<code>value</code>要素の値</li>
+     * <li>Daoのクラス名から操作対象となるエンティティクラスを求めることができればそのクラス</li>
+     * </ol>
+     * <p>
+     * 操作対象となるエンティティクラスが見つからない場合は<code>null</code>を返します．
+     * </p>
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param method
+     *            Daoのメソッド
+     * @return 操作対象のエンティティクラス
+     */
     protected Class<?> getTargetClass(final Class<?> daoClass,
             final Method method) {
         final TargetEntity methodAnnotatedTargetEntity = method
@@ -92,6 +139,23 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return getTargetClassFromDaoName(daoClass);
     }
 
+    /**
+     * Daoのクラス名から操作対象となるエンティティクラスを求めて返します．
+     * <p>
+     * 操作対象のエンティティは，Daoのクラス名からDaoのサフィックスを取り除いてエンティティのサフィックスを付加したものをエンティティクラスの単純名とし，
+     * <br>
+     * <var>ルートパッケージ</var><code>.</code><var>Daoのサブパッケージ名</var><code>.</code><var>エンティティの単純名</var>
+     * <br>
+     * という名前のクラスが見つかればそれを操作対象のエンティティクラスとして返します．
+     * </p>
+     * <p>
+     * 操作対象となるエンティティクラスが見つからない場合は<code>null</code>を返します．
+     * </p>
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @return 操作対象となるエンティティクラス
+     */
     protected Class<?> getTargetClassFromDaoName(final Class<?> daoClass) {
         final String daoClassShortName = ClassUtil.getShortClassName(convention
                 .toInterfaceClassName(daoClass.getName()));
@@ -111,6 +175,15 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return null;
     }
 
+    /**
+     * パラメータをバインドする{@link ParameterBinder}の配列を作成して返します．
+     * 
+     * @param method
+     *            Daoのメソッド
+     * @param beanDesc
+     *            Daoクラスの{@link BeanDesc}
+     * @return パラメータをバインドする{@link ParameterBinder}の配列
+     */
     protected ParameterBinder[] getBinders(final Method method,
             final BeanDesc beanDesc) {
         final PositionalParameter positional = method
@@ -122,6 +195,15 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
                 .getMethodParameterNames(method));
     }
 
+    /**
+     * Named Parameterをバインドする{@link ParameterBinder}の配列を作成して返します．
+     * 
+     * @param method
+     *            Daoのメソッド
+     * @param parameterNames
+     *            Daoメソッドの引数名の配列
+     * @return パラメータをバインドする{@link ParameterBinder}の配列
+     */
     protected ParameterBinder[] getBindersForNamedParameter(
             final Method method, final String[] parameterNames) {
         final Class<?>[] parameterTypes = method.getParameterTypes();
@@ -137,6 +219,17 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return binders;
     }
 
+    /**
+     * Named Parameterをバインドする{@link ParameterBinder}を作成して返します．
+     * 
+     * @param type
+     *            引数の型
+     * @param name
+     *            引数の名前
+     * @param annotations
+     *            引数に付けられたアノテーションの配列
+     * @return パラメータをバインドする{@link ParameterBinder}
+     */
     protected ParameterBinder getBinderForNamedParameter(final Class<?> type,
             final String name, final Annotation[] annotations) {
         if (java.sql.Date.class.isAssignableFrom(type)) {
@@ -158,6 +251,13 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return new ObjectParameterBinder(name);
     }
 
+    /**
+     * Positional Parameterをバインドする{@link ParameterBinder}の配列を作成して返します．
+     * 
+     * @param method
+     *            Daoのメソッド
+     * @return パラメータをバインドする{@link ParameterBinder}の配列
+     */
     protected ParameterBinder[] getBindersForPositionalParameter(
             final Method method) {
         final Class<?>[] parameterTypes = method.getParameterTypes();
@@ -174,6 +274,17 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return binders;
     }
 
+    /**
+     * Positional Parameterをバインドする{@link ParameterBinder}を作成して返します．
+     * 
+     * @param type
+     *            引数の型
+     * @param position
+     *            引数の位置
+     * @param annotations
+     *            引数に付けられたアノテーションの配列
+     * @return パラメータをバインドする{@link ParameterBinder}
+     */
     protected ParameterBinder getBinderForPositionalParameter(
             final Class<?> type, final int position,
             final Annotation[] annotations) {
@@ -197,6 +308,18 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return new ObjectParameterBinder(position);
     }
 
+    /**
+     * アノテーションで指定された時制を返します．
+     * <p>
+     * <code>annotations</code>の中に{@link TemporalSpec}アノテーションが含まれていれば， その<code>value</code>要素の値を返します．
+     * <br>
+     * <code>annotations</code>の中に{@link TemporalSpec}アノテーションが含まれていなければ{@link TemporalType#DATE}を返します．
+     * </p>
+     * 
+     * @param annotations
+     *            アノテーションの配列
+     * @return 時制
+     */
     protected TemporalType getTemporalType(final Annotation[] annotations) {
         for (final Annotation annotation : annotations) {
             if (annotation instanceof TemporalSpec) {
@@ -207,6 +330,24 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return TemporalType.DATE;
     }
 
+    /**
+     * Named Queryの名前の候補を配列で返します．
+     * <p>
+     * 次の順でNamed Queryの候補を作成します．
+     * </p>
+     * <ol>
+     * <li>{@link QueryName}アノテーションが指定されていれば，その<code>value</code>要素で指定された名前</li>
+     * <li><var>DaoのFQN</var><code>.</code><var>Daoのメソッド名</var></li>
+     * <li><var>Daoの単純名</var><code>.</code><var>Daoのメソッド名</var></li>
+     * <li>対象のエンティティを求めることができれば，<var>エンティティ名</var><code>.</code><var>Daoのメソッド名</var></li>
+     * </ol>
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param method
+     *            Daoのメソッド
+     * @return Named Queryの名前の配列
+     */
     protected String[] getQueryNames(final Class<?> daoClass,
             final Method method) {
         final List<String> names = CollectionsUtil.newArrayList();
@@ -230,6 +371,20 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         return names.toArray(new String[names.size()]);
     }
 
+    /**
+     * 指定された名前のNamed Queryが存在すれば<code>true</code>を返します．
+     * <p>
+     * Named Queryが存在するかチェックするために{@link EntityManager#createNamedQuery(String)}を呼び出します．
+     * Named Queryが存在しない場合，<code>EntityManager</code>は例外をスローし，JPA実装によってはトランザクションを
+     * ロールバックしてしまうため，トランザクション特性を<code>REQUIRES_NEW</code>にしています．
+     * </p>
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param queryName
+     *            Named Queryの名前
+     * @return 指定された名前のNamed Queryが存在すれば<code>true</code>
+     */
     @RequiresNewTx
     public boolean isExists(final Class<?> daoClass, final String queryName) {
         try {

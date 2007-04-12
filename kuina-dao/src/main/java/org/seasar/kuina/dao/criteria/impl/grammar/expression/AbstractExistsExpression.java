@@ -20,15 +20,25 @@ import org.seasar.kuina.dao.criteria.grammar.ExistsExpression;
 import org.seasar.kuina.dao.criteria.grammar.Subquery;
 
 /**
+ * JPQLのexists_expressionを表す抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractExistsExpression implements ExistsExpression {
 
+    // instance fields
+    /** 演算子 */
     protected final String operator;
 
+    /** subquery */
     protected Subquery subquery;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     */
     public AbstractExistsExpression(final String operator) {
         this.operator = operator;
     }

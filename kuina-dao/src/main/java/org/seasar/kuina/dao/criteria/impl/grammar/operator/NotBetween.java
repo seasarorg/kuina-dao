@@ -17,18 +17,44 @@ package org.seasar.kuina.dao.criteria.impl.grammar.operator;
 
 import org.seasar.kuina.dao.criteria.grammar.ArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.DatetimeExpression;
+import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
+ * JPQLのNOT BETWEENを表す抽象クラスです．
  * 
  * @author koichik
  */
 public class NotBetween extends AbstractBetween {
 
+    // constants
+    /** NOT BETWEEN のキーワード */
     protected static final String OPERATOR = " NOT BETWEEN ";
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象を表すpath_expression
+     * @param from
+     *            範囲の下限を表すpath_expression
+     * @param to
+     *            範囲の上限を表すpath_expression
+     */
+    public NotBetween(final PathExpression operand, final PathExpression from,
+            final PathExpression to) {
+        super(OPERATOR, operand, from, to);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param operand
+     *            被演算子を表すarithmetic_expression
+     * @param from
+     *            範囲の下限を表すarithmetic_expression
+     * @param to
+     *            範囲の上限を表すarithmetic_expression
      */
     public NotBetween(final ArithmeticExpression operand,
             final ArithmeticExpression from, final ArithmeticExpression to) {
@@ -37,6 +63,13 @@ public class NotBetween extends AbstractBetween {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            被演算子を表すstring_expression
+     * @param from
+     *            範囲の下限を表すstring_expression
+     * @param to
+     *            範囲の上限を表すstring_expression
      */
     public NotBetween(final StringExpression operand,
             final StringExpression from, final StringExpression to) {
@@ -45,6 +78,13 @@ public class NotBetween extends AbstractBetween {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            被演算子を表すdatetime_expression
+     * @param from
+     *            範囲の下限を表すdatetime_expression
+     * @param to
+     *            範囲の上限を表すdatetime_expression
      */
     public NotBetween(final DatetimeExpression operand,
             final DatetimeExpression from, final DatetimeExpression to) {

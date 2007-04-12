@@ -18,9 +18,21 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのbetween_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * between_expression ::=
+ *     arithmetic_expression [NOT] BETWEEN
+ *     arithmetic_expression AND arithmetic_expression |
+ *     string_expression [NOT] BETWEEN string_expression AND string_expression |
+ *     datetime_expression [NOT] BETWEEN
+ *     datetime_expression AND datetime_expression
+ * </pre>
  * 
  * @author koichik
  */
 public interface BetweenExpression extends Criterion, SimpleCondExpression {
-
 }

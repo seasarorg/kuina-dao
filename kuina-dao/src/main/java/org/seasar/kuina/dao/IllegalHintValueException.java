@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import org.seasar.framework.exception.SRuntimeException;
 
 /**
+ * {@link Hint}アノテーションで指定したヒントの値が不正であることを示すためにスローされます．
  * 
  * @author koichik
  */
@@ -27,6 +28,18 @@ public class IllegalHintValueException extends SRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param method
+     *            注釈されたメソッド
+     * @param name
+     *            ヒントの名前
+     * @param value
+     *            ヒントの値を表現するOGNL式
+     * @param e
+     *            原因となった例外
+     */
     public IllegalHintValueException(final Method method, final String name,
             final String value, final Exception e) {
         super("EKuinaDao2004", new Object[] { method, name, value }, e);

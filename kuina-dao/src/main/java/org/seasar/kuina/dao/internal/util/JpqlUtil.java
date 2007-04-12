@@ -19,21 +19,45 @@ import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.util.StringUtil;
 
 /**
+ * JPQLを扱うためのユーティリティ・クラスです．
  * 
  * @author koichik
  */
 public class JpqlUtil {
 
-    public static String toAbstractSchemaName(final Class<?> clazz) {
-        final EntityDesc entityDesc = KuinaDaoUtil.getEntityDesc(clazz);
+    /**
+     * エンティティクラスをabstract_schema_nameに変換して返します．
+     * <p>
+     * abstract_schema_nameはエンティティ名です．
+     * </p>
+     * 
+     * @param entityClass
+     *            エンティティクラス
+     * @return abstract_schema_name
+     */
+    public static String toAbstractSchemaName(final Class<?> entityClass) {
+        final EntityDesc entityDesc = KuinaDaoUtil.getEntityDesc(entityClass);
         return entityDesc.getEntityName();
     }
 
+    /**
+     * エンティティクラスからデフォルトのidentification_variableに変換して返します．
+     * 
+     * @param entityClass
+     *            エンティティクラス
+     * @return デフォルトのidentification_variable
+     */
     public static String toDefaultIdentificationVariable(
             final Class<?> entityClass) {
         return toDefaultIdentificationVariable(toAbstractSchemaName(entityClass));
     }
 
+    /**
+     * abstract_schema_nameからデフォルトのidentification_variableに変換して返します．
+     * 
+     * @param abstractSchemaName
+     * @return デフォルトのidentification_variable
+     */
     public static String toDefaultIdentificationVariable(
             final String abstractSchemaName) {
         return StringUtil.decapitalize(abstractSchemaName

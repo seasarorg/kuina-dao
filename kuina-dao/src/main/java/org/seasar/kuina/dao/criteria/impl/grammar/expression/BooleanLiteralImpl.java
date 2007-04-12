@@ -19,14 +19,21 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.BooleanLiteral;
 
 /**
+ * JPQLのboolean_literalを表すクラスです．
  * 
  * @author koichik
  */
 public class BooleanLiteralImpl implements BooleanLiteral {
+
+    // instance fields
+    /** boolean_literal */
     protected final boolean literal;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param literal
+     *            boolean_literalとなる<code>boolean</code>
      */
     public BooleanLiteralImpl(final boolean literal) {
         this.literal = literal;

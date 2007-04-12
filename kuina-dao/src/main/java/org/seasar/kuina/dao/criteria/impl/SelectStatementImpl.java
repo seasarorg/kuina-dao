@@ -53,32 +53,61 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVaria
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
 
 /**
+ * JPQLのslelect_statementの実装クラスです．
  * 
  * @author koichik
  */
 public class SelectStatementImpl implements SelectStatement {
 
+    // static fields
     private static final Logger logger = Logger
             .getLogger(SelectStatementImpl.class);
 
+    // instance fields
+    /** SELECT句 */
     protected final SelectClause selectClause = new SelectClauseImpl();
 
+    /** FROM句 */
     protected final FromClause fromClause = new FromClauseImpl();
 
+    /** WHERE句 */
     protected final WhereClause whereClause = new WhereClauseImpl();
 
+    /** GROUP BY句 */
     protected final GroupbyClause groupbyClause = new GroupbyClauseImpl();
 
+    /** HAVING句 */
     protected final HavingClause havingClause = new HavingClauseImpl();
 
+    /** ORDER BY句 */
     protected final OrderbyClause orderbyClause = new OrderbyClauseImpl();
 
+    /**
+     * 取得する結果セットの最初の位置
+     * 
+     * @see javax.persistence.Query#setFirstResult(int)
+     */
     protected Integer firstResult;
 
+    /**
+     * 取得する結果セットの最大件数
+     * 
+     * @see javax.persistence.Query#setMaxResults(int)
+     */
     protected Integer maxResults;
 
+    /**
+     * 問い合わせを実行する際のフラッシュモード
+     * 
+     * @see javax.persistence.Query#setFlushMode(javax.persistence.FlushModeType)
+     */
     protected FlushModeType flushMode;
 
+    /**
+     * 問い合わせのヒント
+     * 
+     * @see javax.persistence.Query#setHint(String, Object)
+     */
     protected Map<String, Object> hints = CollectionsUtil.newLinkedHashMap();
 
     /**
@@ -88,6 +117,12 @@ public class SelectStatementImpl implements SelectStatement {
         this(false);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            DISTINCTを指定する場合は<code>true</code>，それ以外の場合は<code>false</code>
+     */
     public SelectStatementImpl(final boolean distinct) {
         selectClause.setDistinct(distinct);
     }
@@ -213,6 +248,15 @@ public class SelectStatementImpl implements SelectStatement {
         return createQuery(em, false);
     }
 
+    /**
+     * このSELECT文を実行するための{@link javax.persistence.Query}を作成します．
+     * 
+     * @param em
+     *            エンティティ・マネージャ
+     * @param fillParameter
+     *            {@link javax.persistence.Query}にパラメータをバインドするなら<code>true</code>，それ以外の場合は<code>false</code>
+     * @return このSELECT文を実行するための{@link javax.persistence.Query}
+     */
     protected Query createQuery(final EntityManager em,
             final boolean fillParameter) {
         final CriteriaContext context = createContext();
@@ -239,12 +283,23 @@ public class SelectStatementImpl implements SelectStatement {
         return query;
     }
 
+    /**
+     * JPQLを作成するためのコンテキスト情報を作成して返します．
+     * 
+     * @return JPQLを作成するためのコンテキスト情報
+     */
     protected CriteriaContext createContext() {
         final CriteriaContext context = new CriteriaContextImpl();
         evaluate(context);
         return context;
     }
 
+    /**
+     * この問い合わせを評価し，コンテキスト情報に反映します．
+     * 
+     * @param context
+     *            JPQLを作成するためのコンテキスト情報
+     */
     protected void evaluate(final CriteriaContext context) {
         if (fromClause.isEmpty()) {
             throw new SIllegalStateException("EKuinaDao1003", new Object[] {});
@@ -267,10 +322,19 @@ public class SelectStatementImpl implements SelectStatement {
         orderbyClause.evaluate(context);
     }
 
+    /**
+     * {@link javax.persistence.Query}にパラメータをバインドします．
+     * 
+     * @param parameters
+     *            バインドパラメータの{@link java.util.Map}
+     * @param query
+     *            {@link javax.persistence.Query}
+     */
     protected void setupParameters(final Map<String, Object> parameters,
             final Query query) {
         for (final Entry<String, Object> entry : parameters.entrySet()) {
             query.setParameter(entry.getKey(), entry.getValue());
         }
     }
+
 }

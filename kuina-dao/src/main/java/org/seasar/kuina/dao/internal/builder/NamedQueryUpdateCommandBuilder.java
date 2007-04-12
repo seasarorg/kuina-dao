@@ -24,12 +24,17 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.NamedQueryUpdateCommand;
 
 /**
+ * {@link NamedQueryUpdateCommand}を作成するコマンドです．
  * 
  * @author koichik
  */
 @Component
 public class NamedQueryUpdateCommandBuilder extends AbstractCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public NamedQueryUpdateCommandBuilder() {
         setMethodNamePattern("(update|delete|remove).+");
     }

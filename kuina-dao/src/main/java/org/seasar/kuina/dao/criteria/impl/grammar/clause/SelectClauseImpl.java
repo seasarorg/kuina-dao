@@ -26,19 +26,34 @@ import org.seasar.kuina.dao.criteria.grammar.SelectClause;
 import org.seasar.kuina.dao.criteria.grammar.SelectExpression;
 
 /**
+ * JPQLのselect_clauseを表すクラスです．
  * 
  * @author koichik
  */
 public class SelectClauseImpl implements SelectClause {
+
+    // instance fields
+    /** 問い合わせがDISTINCTの場合は<code>true</code>，それ以外の場合は<code>false</code> */
     protected boolean distinct;
 
+    /** select_expressionのリスト */
     protected final List<Criterion> selectExpressions = CollectionsUtil
             .newArrayList();
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public SelectClauseImpl() {
         this(false);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            問い合わせがDISTINCTの場合は<code>true</code>，それ以外の場合は<code>false</code>
+     */
     public SelectClauseImpl(final boolean distinct) {
         this.distinct = distinct;
     }

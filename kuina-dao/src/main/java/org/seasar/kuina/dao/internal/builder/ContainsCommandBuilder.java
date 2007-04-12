@@ -23,11 +23,15 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ContainsCommand;
 
 /**
+ * {@link ContainsCommand}を作成するビルダです．
  * 
  * @author koichik
  */
 public class ContainsCommandBuilder extends AbstractCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     */
     public ContainsCommandBuilder() {
         setMethodNamePattern("contains");
     }

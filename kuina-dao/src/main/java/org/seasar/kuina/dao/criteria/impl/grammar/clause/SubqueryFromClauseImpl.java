@@ -29,11 +29,14 @@ import org.seasar.kuina.dao.criteria.grammar.SubqueryFromClause;
 import org.seasar.kuina.dao.criteria.grammar.SubselectIdentificationVariableDeclaration;
 
 /**
+ * JPQLのsubquery_from_clauseを表します．
  * 
  * @author koichik
  */
 public class SubqueryFromClauseImpl implements SubqueryFromClause {
 
+    // instance fields
+    /** 問い合わせがDISTINCTの場合は<code>true</code>，それ以外の場合は<code>false</code> */
     protected List<Criterion> declarations = CollectionsUtil.newArrayList();
 
     public SubqueryFromClause add(

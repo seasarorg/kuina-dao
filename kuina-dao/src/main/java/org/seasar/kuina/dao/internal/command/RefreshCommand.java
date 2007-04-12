@@ -17,26 +17,25 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.kuina.dao.internal.Command;
+
 /**
+ * {@link EntityManager#refresh(Object)}を実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class RefreshCommand extends AbstractCommand {
+
     /**
      * インスタンスを構築します。
      */
     public RefreshCommand() {
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
-        assert arguments != null;
-        assert arguments.length == 1;
-
         final Object entity = arguments[0];
         em.refresh(entity);
         return null;
     }
+
 }

@@ -20,6 +20,7 @@ import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
 
 /**
+ * JPQLのSUBSTRING関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -28,6 +29,13 @@ public class Substring extends AbstractFunction implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param source
+     *            部分文字列を求める対象文字列を表すstring_primary
+     * @param start
+     *            部分文字列の開始位置を表すsimple_arithmetic_expression
+     * @param length
+     *            部分文字列の長さを表すsimple_arithmetic_expression
      */
     public Substring(final StringPrimary source,
             final SimpleArithmeticExpression start,

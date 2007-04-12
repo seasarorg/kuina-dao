@@ -21,15 +21,29 @@ import org.seasar.kuina.dao.criteria.grammar.WhereClause;
 import org.seasar.kuina.dao.criteria.impl.grammar.conditional.And;
 
 /**
+ * JPQLのwhere_clauseを表すクラスです．
  * 
  * @author koichik
  */
 public class WhereClauseImpl implements WhereClause {
+
+    // instance fields
+    /** conditional_expression */
     protected ConditionalExpression conditionalExpression;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public WhereClauseImpl() {
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
+     */
     public WhereClauseImpl(final ConditionalExpression... expressions) {
         and(expressions);
     }

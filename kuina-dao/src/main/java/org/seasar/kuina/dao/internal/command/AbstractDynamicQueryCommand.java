@@ -16,7 +16,6 @@
 package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,6 +38,7 @@ import org.seasar.kuina.dao.OrderingSpec;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.IdentificationVariableDeclaration;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
+import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
 import org.seasar.kuina.dao.internal.util.KuinaDaoUtil;
 import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
@@ -46,27 +46,48 @@ import org.seasar.kuina.dao.internal.util.SelectStatementUtil;
 import static org.seasar.kuina.dao.criteria.CriteriaOperations.*;
 
 /**
+ * 動的にJPQLを生成して問い合わせを行う{@link Command}の共通機能を提供する抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
 
+    // constants
+    /** 空の{@link Map} */
+    protected static final Map<String, JoinSpec> EMPTY_MAP = CollectionsUtil
+            .newHashMap();
+
+    // instance fields
+    /** Daoメソッドに{@link Distinct}アノテーションが指定されていれば<code>true</code> */
     protected boolean distinct;
 
-    protected OrderbySpec[] orderbySpecs;
-
+    /** 問い合わせ対象エンティティのidentification_variable */
     protected String identificationVariable;
 
+    /** フェッチ結合指定の配列 */
     protected FetchJoin[] fetchJoins;
 
+    /** ORDER BY指定の配列 */
+    protected OrderbySpec[] orderbySpecs;
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            問い合わせ対象のエンティティ・クラス
+     * @param method
+     *            Daoメソッド
+     * @param resultList
+     *            問い合わせ結果を{@link List}で返す場合に<code>true</code>
+     */
     public AbstractDynamicQueryCommand(final Class<?> entityClass,
             final Method method, final boolean resultList) {
         super(entityClass, method, resultList);
         this.distinct = detectDistinct();
-        this.orderbySpecs = detectOrderbySpec();
         this.identificationVariable = JpqlUtil
                 .toDefaultIdentificationVariable(entityClass);
         this.fetchJoins = detectFetchJoins();
+        this.orderbySpecs = detectOrderbySpec();
     }
 
     public Object execute(final EntityManager em, final Object[] arguments) {
@@ -76,10 +97,45 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
                 .getSingleResult(em);
     }
 
+    /**
+     * Daoメソッドに{@link Distinct}アノテーションが指定されていれば<code>true</code>を返します．
+     * 
+     * @return Daoメソッドに{@link Distinct}アノテーションが指定されていれば<code>true</code>
+     */
     protected boolean detectDistinct() {
         return method.getAnnotation(Distinct.class) != null;
     }
 
+    /**
+     * Daoメソッドに{@link FetchJoins}アノテーションまたは{@link FetchJoin}アノテーションが指定されていれば，フェッチ結合指定の配列を返します．
+     * <p>
+     * Daoメソッドに{@link FetchJoins}アノテーションも{@link FetchJoin}アノテーションお指定されていなければ<code>null</code>を返します．
+     * </p>
+     * 
+     * @return フェッチ結合指定の配列
+     */
+    protected FetchJoin[] detectFetchJoins() {
+        final FetchJoins joins = method.getAnnotation(FetchJoins.class);
+        if (joins != null) {
+            return joins.value();
+        }
+        final FetchJoin join = method.getAnnotation(FetchJoin.class);
+        if (join != null) {
+            return new FetchJoin[] { join };
+        }
+        return null;
+    }
+
+    /**
+     * Daoメソッドに{@link Orderby}アノテーションが指定されていれば，ORDER BY指定の配列を返します．
+     * <p>
+     * Daoメソッドに{@link Orderby}アノテーションが指定されていなければ<code>null</code>を返します．
+     * </p>
+     * 
+     * @return ORDER BY指定の配列
+     * @throws IllegalOrderbyException
+     *             {@link Orderby}アノテーションの<code>value</code>要素の指定が不正な場合にスローされます
+     */
     protected OrderbySpec[] detectOrderbySpec() {
         final Orderby annotation = method.getAnnotation(Orderby.class);
         if (annotation == null) {
@@ -87,7 +143,7 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         }
         final String text = annotation.value();
         if (StringUtil.isEmpty(text)) {
-            return null;
+            throw new IllegalOrderbyException(method, "");
         }
         final List<OrderbySpec> list = CollectionsUtil.newArrayList();
         final String[] orderbyItems = text.split(", *");
@@ -109,18 +165,16 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         return list.toArray(new OrderbySpec[list.size()]);
     }
 
-    protected FetchJoin[] detectFetchJoins() {
-        final FetchJoins joins = method.getAnnotation(FetchJoins.class);
-        if (joins != null) {
-            return joins.value();
-        }
-        final FetchJoin join = method.getAnnotation(FetchJoin.class);
-        if (join != null) {
-            return new FetchJoin[] { join };
-        }
-        return null;
-    }
-
+    /**
+     * SELECT文を作成して返します．
+     * <p>
+     * 作成したSELECT文にDaoメソッドの引数をパラメータ値としてバインドします．
+     * </p>
+     * 
+     * @param arguments
+     *            Daoメソッドの引数
+     * @return SELECT文
+     */
     protected SelectStatement createSelectStatement(final Object[] arguments) {
         final SelectStatement statement = distinct ? selectDistinct(path(identificationVariable))
                 : select(path(identificationVariable));
@@ -134,9 +188,25 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         return statement;
     }
 
+    /**
+     * Daoメソッドの引数をパラメータ値としてSELECT文にバインドします．
+     * 
+     * @param statement
+     *            SELECT文
+     * @param arguments
+     *            Daoメソッドの引数
+     * @return バインドしたパラメータ名の{@link List}
+     */
     protected abstract List<String> bindParameter(SelectStatement statement,
             Object[] arguments);
 
+    /**
+     * SELECT文のFROM句 (identification_variable_declaration) を作成して返します．
+     * 
+     * @param boundProperties
+     *            SELECT文にバインドしたパラメータ名の{@link List}
+     * @return SELECT文のFROM句 (identification_variable_declaration)
+     */
     protected IdentificationVariableDeclaration createIdentificationVariableDeclaration(
             final List<String> boundProperties) {
         final IdentificationVariableDeclaration fromDecl = new IdentificationVariableDeclarationImpl(
@@ -167,11 +237,17 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         return fromDecl;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * フェッチ結合する関連の{@link Map}を返します．
+     * 
+     * @param abstractSchemaName
+     *            問い合わせの基点となるエンティティのabstract_schema_name
+     * @return フェッチ結合する関連の{@link Map}
+     */
     protected Map<String, JoinSpec> createFetchJoinAssociations(
             final String abstractSchemaName) {
         if (fetchJoins == null) {
-            return Collections.EMPTY_MAP;
+            return EMPTY_MAP;
         }
         final Map<String, JoinSpec> associations = CollectionsUtil.newTreeMap();
         for (final FetchJoin join : fetchJoins) {
@@ -181,6 +257,13 @@ public abstract class AbstractDynamicQueryCommand extends AbstractQueryCommand {
         return associations;
     }
 
+    /**
+     * 結合する関連の{@link Set}を返します．
+     * 
+     * @param boundProperties
+     *            SELECT文にバインドしたパラメータ名の{@link List}
+     * @return 結合する関連の{@link Set}
+     */
     protected Set<String> createJoinAssociations(
             final List<String> boundProperties) {
         final Set<String> associations = CollectionsUtil.newTreeSet();

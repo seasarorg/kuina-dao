@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningStrings;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
 
 /**
+ * JPQLのLOWER関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,9 @@ public class Lower extends AbstractFunction implements FunctionReturningStrings 
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param source
+     *            小文字化する対象の文字列を表すstring_primary
      */
     public Lower(final StringPrimary source) {
         super("Lower", source);

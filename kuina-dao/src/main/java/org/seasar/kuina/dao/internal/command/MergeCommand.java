@@ -17,20 +17,21 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.kuina.dao.internal.Command;
+
 /**
+ * {@link EntityManager#merge(Object)}を実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class MergeCommand extends AbstractCommand {
+
     /**
      * インスタンスを構築します。
      */
     public MergeCommand() {
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
         assert arguments != null;
         assert arguments.length == 1;
@@ -38,4 +39,5 @@ public class MergeCommand extends AbstractCommand {
         final Object entity = arguments[0];
         return em.merge(entity);
     }
+
 }

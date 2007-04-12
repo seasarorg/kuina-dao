@@ -20,6 +20,7 @@ import org.seasar.kuina.dao.criteria.grammar.InputParameter;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのIS NOT EMPTYを表すクラスです．
  * 
  * @author koichik
  */
@@ -28,6 +29,9 @@ public class IsNotEmpty extends AbstractUnaryPostfixOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象となるpath_expression
      */
     public IsNotEmpty(final PathExpression operand) {
         super(" IS NOT EMPTY", operand);
@@ -35,6 +39,9 @@ public class IsNotEmpty extends AbstractUnaryPostfixOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象となるinput_parameter
      */
     public IsNotEmpty(final InputParameter operand) {
         super(" IS NOT EMPTY", operand);

@@ -20,20 +20,36 @@ import org.seasar.kuina.dao.criteria.grammar.LikeExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
+ * JPQLのlike_expressionを表すクラスです．
  * 
  * @author koichik
  */
 public class AbstractLike implements LikeExpression {
+
+    // instance fields
+    /** NOT LIKEの場合に<code>true</code>，それ以外の場合に<code>false</code> */
     protected final boolean not;
 
+    /** テスト対象 */
     protected final StringExpression string;
 
+    /** パターン */
     protected final StringExpression pattern;
 
+    /** エスケープ文字 */
     protected final StringExpression escape;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param not
+     *            NOT LIKEの場合に<code>true</code>，それ以外の場合に<code>false</code>
+     * @param string
+     *            テスト対象を表すstring_expression
+     * @param pattern
+     *            パターンを表すstring_expression
+     * @param escape
+     *            エスケープ文字を表すstring_expression
      */
     public AbstractLike(final boolean not, final StringExpression string,
             final StringExpression pattern, final StringExpression escape) {
@@ -43,9 +59,6 @@ public class AbstractLike implements LikeExpression {
         this.escape = escape;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append("(");
         string.evaluate(context);

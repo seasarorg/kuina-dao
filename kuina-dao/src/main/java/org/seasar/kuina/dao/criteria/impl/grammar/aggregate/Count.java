@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.IdentificationVariable;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのCOUNT関数を表現するクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,9 @@ public class Count extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param identificationVariable
+     *            COUNT関数に提供されるidentification_variable
      */
     public Count(final IdentificationVariable identificationVariable) {
         this(false, identificationVariable);
@@ -33,6 +37,11 @@ public class Count extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            DISTINCT の場合は<code>true</code>，それ以外の場合は<code>false</code>
+     * @param identificationVariable
+     *            COUNT関数に提供されるidentification_variable
      */
     public Count(final boolean distinct,
             final IdentificationVariable identificationVariable) {
@@ -41,6 +50,9 @@ public class Count extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            COUNT関数に適用されるpath_expression
      */
     public Count(final PathExpression pathExpression) {
         this(false, pathExpression);
@@ -48,6 +60,11 @@ public class Count extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            DISTINCT の場合は<code>true</code>，それ以外の場合は<code>false</code>
+     * @param pathExpression
+     *            COUNT関数に適用されるpath_expression
      */
     public Count(final boolean distinct, final PathExpression pathExpression) {
         super("COUNT", distinct, pathExpression);

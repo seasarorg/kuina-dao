@@ -18,13 +18,36 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのin_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * in_expression ::=
+ *     state_field_path_expression [NOT] IN ( in_item {, in_item}* | subquery)
+ * </pre>
  * 
  * @author koichik
  */
 public interface InExpression extends Criterion, SimpleCondExpression {
 
+    /**
+     * in_itemを追加します．
+     * 
+     * @param inItem
+     *            in_itemの並び
+     * @return このインスタンス自身
+     */
     InExpression add(InItem... inItem);
 
+    /**
+     * 副問い合わせを設定します．
+     * 
+     * @param subquery
+     *            副問い合わせ
+     * @return このインスタンス自身
+     */
     InExpression setSubquery(Subquery subquery);
 
 }

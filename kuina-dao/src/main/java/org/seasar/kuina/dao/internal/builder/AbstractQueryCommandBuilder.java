@@ -33,38 +33,85 @@ import org.seasar.kuina.dao.internal.binder.NullBinder;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
+ * 問い合わせを実行するコマンドを作成するビルダの抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractQueryCommandBuilder extends
         AbstractCommandBuilder {
 
+    // instance fields
+    /** <code>orderby</code>を指定する引数名の正規表現パターン */
     protected Pattern orderbyPattern = Pattern.compile("order[bB]y");
 
+    /** <code>firstResult</code>を指定する引数名の正規表現パターン */
     protected Pattern firstResultPattern = Pattern.compile("firstResult");
 
+    /** <code>maxResults</code>を指定する引数名の正規表現パターン */
     protected Pattern maxResultsPattern = Pattern.compile("maxResults");
 
+    /**
+     * インスタンスを構築します。
+     */
     public AbstractQueryCommandBuilder() {
         setMethodNamePattern("(get|find).+");
     }
 
+    /**
+     * <code>orderby</code>を指定する引数名の正規表現パターンを文字列で設定します．
+     * 
+     * @param orderbyPattern
+     *            <code>orderby</code>を指定する引数名の正規表現パターン
+     */
     public void setOrderbyPattern(final String orderbyPattern) {
         this.orderbyPattern = Pattern.compile(orderbyPattern);
     }
 
+    /**
+     * <code>firstResult</code>を指定する引数名の正規表現パターンを文字列で設定します．
+     * 
+     * @param firstResultPattern
+     *            <code>firstResult</code>を指定する引数名の正規表現パターン
+     */
     public void setFirstResultPattern(final String firstResultPattern) {
         this.firstResultPattern = Pattern.compile(firstResultPattern);
     }
 
+    /**
+     * <code>maxResults</code>を指定する引数名の正規表現パターンを文字列で設定します．
+     * 
+     * @param maxResultsPattern
+     *            <code>maxResults</code>を指定する引数名の正規表現パターン
+     */
     public void setMaxResultsPattern(final String maxResultsPattern) {
         this.maxResultsPattern = Pattern.compile(maxResultsPattern);
     }
 
+    /**
+     * Daoの問い合わせメソッドが{@link java.util.List}を返す場合は<code>true</code>を返します．
+     * 
+     * @param method
+     *            Daoの問い合わせメソッド
+     * @return Daoの問い合わせメソッドが{@link java.util.List}を返す場合は<code>true</code>
+     */
     protected boolean isResultList(final Method method) {
         return List.class.isAssignableFrom(method.getReturnType());
     }
 
+    /**
+     * 操作対象のエンティティクラスを返します．
+     * <p>
+     * Daoのメソッドがエンティティクラスまたはその{@link List}を返す場合はそのクラスを返します．
+     * それ以外の場合は親クラスのメソッドに委譲します．
+     * </p>
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param method
+     *            Daoのメソッド
+     * @return 操作対象のエンティティクラス
+     * @see AbstractCommandBuilder#getTargetClass(Class, Method)
+     */
     @Override
     protected Class<?> getTargetClass(final Class<?> daoClass,
             final Method method) {
@@ -79,6 +126,13 @@ public abstract class AbstractQueryCommandBuilder extends
         return super.getTargetClass(daoClass, method);
     }
 
+    /**
+     * メソッドの戻り値型が{@link List}ならその要素型を，それ以外の場合は戻り値型を返します．
+     * 
+     * @param method
+     *            メソッド
+     * @return メソッドの戻り値型が{@link List}ならその要素型を，それ以外の場合は戻り値型
+     */
     protected Class<?> getResultClass(final Method method) {
         if (isResultList(method)) {
             return ReflectionUtil.getElementTypeOfList(method
@@ -116,6 +170,19 @@ public abstract class AbstractQueryCommandBuilder extends
                 annotations);
     }
 
+    /**
+     * 引数が<code>orderby</code>指定なら<code>true</code>を返します．
+     * <p>
+     * 引数に{@link Orderby}アノテーションが付けられているか， 引数名が{@link #orderbyPattern}にマッチすれば，
+     * その引数は<code>orderby</code>指定です．
+     * </p>
+     * 
+     * @param name
+     *            引数名
+     * @param annotations
+     *            引数に付けられたアノテーションの配列
+     * @return 引数が<code>orderby</code>指定なら<code>true</code>
+     */
     protected boolean isOrderby(final String name,
             final Annotation[] annotations) {
         for (final Annotation annotation : annotations) {
@@ -127,6 +194,18 @@ public abstract class AbstractQueryCommandBuilder extends
         return name != null && orderbyPattern.matcher(name).matches();
     }
 
+    /**
+     * 引数及び引数に付けられたアノテーションの配列から，<code>orderby</code>を指定する引数のインデックスを返します．
+     * <p>
+     * 配列に<code>orderby</code>指定が含まれていない場合は<code>-1</code>を返します．
+     * </p>
+     * 
+     * @param parameterNames
+     *            引数名の配列
+     * @param annotations
+     *            引数に付けられたアノテーションの配列の配列
+     * @return 引数及び引数に付けられたアノテーションの配列から，<code>orderby</code>を指定する引数のインデックス
+     */
     protected int getOrderbyParameter(final String[] parameterNames,
             final Annotation[][] annotations) {
         if (parameterNames == null) {
@@ -140,6 +219,19 @@ public abstract class AbstractQueryCommandBuilder extends
         return -1;
     }
 
+    /**
+     * 引数が<code>firstResult</code>指定なら<code>true</code>を返します．
+     * <p>
+     * 引数に{@link FirstResult}アノテーションが付けられているか， 引数名が{@link #firstResultPattern}にマッチすれば，
+     * その引数は<code>firstResult</code>指定です．
+     * </p>
+     * 
+     * @param name
+     *            引数名
+     * @param annotations
+     *            引数に付けられたアノテーションの配列
+     * @return 引数が<code>firstResult</code>指定なら<code>true</code>
+     */
     protected boolean isFirstResult(final String name,
             final Annotation[] annotations) {
         for (final Annotation annotation : annotations) {
@@ -151,6 +243,18 @@ public abstract class AbstractQueryCommandBuilder extends
         return name != null && firstResultPattern.matcher(name).matches();
     }
 
+    /**
+     * 引数及び引数に付けられたアノテーションの配列から，<code>firstResult</code>を指定する引数のインデックスを返します．
+     * <p>
+     * 配列に<code>firstResult</code>指定が含まれていない場合は<code>-1</code>を返します．
+     * </p>
+     * 
+     * @param parameterNames
+     *            引数名の配列
+     * @param annotations
+     *            引数に付けられたアノテーションの配列の配列
+     * @return 引数及び引数に付けられたアノテーションの配列から，<code>firstResult</code>を指定する引数のインデックス
+     */
     protected int getFirstResultParameter(final String[] parameterNames,
             final Annotation[][] annotations) {
         if (parameterNames == null) {
@@ -164,6 +268,19 @@ public abstract class AbstractQueryCommandBuilder extends
         return -1;
     }
 
+    /**
+     * 引数が<code>maxResults</code>指定なら<code>true</code>を返します．
+     * <p>
+     * 引数に{@link MaxResults}アノテーションが付けられているか， 引数名が{@link #maxResultsPattern}にマッチすれば，
+     * その引数は<code>maxResults</code>指定です．
+     * </p>
+     * 
+     * @param name
+     *            引数名
+     * @param annotations
+     *            引数に付けられたアノテーションの配列
+     * @return 引数が<code>maxResults</code>指定なら<code>true</code>
+     */
     protected boolean isMaxResults(final String name,
             final Annotation[] annotations) {
         for (final Annotation annotation : annotations) {
@@ -176,6 +293,18 @@ public abstract class AbstractQueryCommandBuilder extends
         return name != null && maxResultsPattern.matcher(name).matches();
     }
 
+    /**
+     * 引数及び引数に付けられたアノテーションの配列から，<code>maxResults</code>を指定する引数のインデックスを返します．
+     * <p>
+     * 配列に<code>maxResults</code>指定が含まれていない場合は<code>-1</code>を返します．
+     * </p>
+     * 
+     * @param parameterNames
+     *            引数名の配列
+     * @param annotations
+     *            引数に付けられたアノテーションの配列の配列
+     * @return 引数及び引数に付けられたアノテーションの配列から，<code>maxResults</code>を指定する引数のインデックス
+     */
     protected int getMaxResultsParameter(final String[] parameterNames,
             final Annotation[][] annotations) {
         if (parameterNames == null) {

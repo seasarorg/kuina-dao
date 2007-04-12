@@ -22,14 +22,21 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalPrimary;
 
 /**
+ * conditional_expressionをカッコで囲んだconditional_primaryを表すクラスです．
  * 
  * @author koichik
  */
 public class Parenthesis implements Criterion, ConditionalPrimary {
+
+    // instance fields
+    /** conditional_expression */
     protected final ConditionalExpression expression;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param expression
+     *            conditional_expression
      */
     public Parenthesis(final ConditionalExpression expression) {
         if (expression == null) {

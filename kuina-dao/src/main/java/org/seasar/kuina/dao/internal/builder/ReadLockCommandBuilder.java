@@ -23,11 +23,15 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ReadLockCommand;
 
 /**
+ * {@link ReadLockCommand}を作成するビルダです．
  * 
  * @author koichik
  */
 public class ReadLockCommandBuilder extends AbstractCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     */
     public ReadLockCommandBuilder() {
         setMethodNamePattern("readLock");
     }

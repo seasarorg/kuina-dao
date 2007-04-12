@@ -21,6 +21,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッド引数またはプロパティが，JPQL問い合わせの名前パラメータであることを示します．
+ * <p>
+ * この注釈は，メソッド引数名またはDTOのプロパティ名が<code>orderby</code>・<code>firstResutl</code>・<code>maxResults</code>の
+ * 場合に，それを名前パラメータとして使用するために使用します．
+ * </p>
  * 
  * @author koichik
  */

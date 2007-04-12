@@ -18,9 +18,27 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのhaving_clauseを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * having_clause ::=
+ *     HAVING conditional_expression
+ * </pre>
  * 
  * @author koichik
  */
 public interface HavingClause extends Criterion {
+
+    /**
+     * conditional_expressionを追加します．
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
+     * @return このインスタンス自身
+     */
     HavingClause and(ConditionalExpression... expressions);
+
 }

@@ -20,41 +20,39 @@ import java.lang.reflect.Method;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
+ * Named Query (更新・削除) を実行する{@link Command}です．
  * 
  * @author koichik
  */
-public class NamedQueryUpdateCommand extends AbstractQueryCommand {
+public class NamedQueryUpdateCommand extends NamedQueryCommand {
 
-    protected final String queryName;
-
-    protected final ParameterBinder[] binders;
-
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param method
+     *            Daoメソッド
+     * @param queryName
+     *            Named Query の名前
+     * @param binders
+     *            パラメータバインダの配列
+     */
     public NamedQueryUpdateCommand(final Class<?> entityClass,
             final Method method, final String queryName,
             final ParameterBinder[] binders) {
-        super(entityClass, method, false);
-        this.queryName = queryName;
-        this.binders = binders;
+        super(entityClass, method, false, queryName, binders);
     }
 
+    @Override
     public Object execute(final EntityManager em, final Object[] parameters) {
         final Query query = createQuery(em, parameters);
         setupQuery(query);
         return query.executeUpdate();
-    }
-
-    protected Query createQuery(final EntityManager em, final Object[] arguments) {
-        assert binders.length == arguments.length;
-
-        final Query query = em.createNamedQuery(queryName);
-        for (int i = 0; i < binders.length; ++i) {
-            final ParameterBinder binder = binders[i];
-            binder.bind(query, arguments[i]);
-        }
-        return query;
     }
 
 }

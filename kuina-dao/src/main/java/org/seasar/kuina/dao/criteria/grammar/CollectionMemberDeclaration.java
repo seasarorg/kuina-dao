@@ -19,12 +19,27 @@ import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
+ * JPQLのcollection_member_declarationを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * collection_member_declaration ::=
+ *     IN (collection_valued_path_expression) [AS] identification_variable
+ * </pre>
  * 
  * @author koichik
  */
 public interface CollectionMemberDeclaration extends Criterion,
         SubselectIdentificationVariableDeclaration {
 
+    /**
+     * ビジターを受け入れます．
+     * 
+     * @param visitor
+     *            ビジター
+     */
     void accept(IdentificationVarialbleVisitor visitor);
 
 }

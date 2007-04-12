@@ -19,24 +19,91 @@ import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
+ * JPQLのfrom_clauseを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * from_clause ::=
+ *     FROM identification_variable_declaration
+ *         {, {identification_variable_declaration | collection_member_declaration}}*
+ * </pre>
  * 
  * @author koichik
  */
 public interface FromClause extends Criterion {
 
+    /**
+     * identification_variable_declarationを追加します．
+     * 
+     * @param declarations
+     *            identification_variable_declarationの並び
+     * @return このインスタンス自身
+     */
     FromClause add(IdentificationVariableDeclaration... declarations);
 
+    /**
+     * collection_member_declarationを追加します．
+     * 
+     * @param declarations
+     *            collection_member_declarationの並び
+     * @return このインスタンス自身
+     */
     FromClause add(CollectionMemberDeclaration... declarations);
 
+    /**
+     * identification_variable_declarationまたはcollection_member_declarationを一つも持っていない場合に<code>true</code>を，
+     * そうでない場合に<code>false</code>を返します．
+     * 
+     * @return identification_variable_declarationまたはcollection_member_declarationを一つも持っていない場合に<code>true</code>
+     */
     boolean isEmpty();
 
+    /**
+     * 保持しているidentification_variable_declarationおよびcollection_member_declarationの数を返します．
+     * 
+     * @return 保持しているidentification_variable_declarationおよびcollection_member_declarationの数
+     */
     int size();
 
+    /**
+     * インデックスで指定された位置のidentification_variable_declarationを返します．
+     * <p>
+     * インデックスで指定された位置の宣言がidentification_variable_declarationではなく，
+     * collection_member_declarationだった場合は<code>ClassCastException</code>がスローされます．
+     * </p>
+     * 
+     * @param index
+     *            インデックス
+     * @return identification_variable_declaration
+     * @throws ClassCastException
+     *             インデックスで指定された位置の宣言がidentification_variable_declarationではなかった場合にスローされます
+     */
     IdentificationVariableDeclaration getIdentificationVariableDeclaration(
             int index);
 
+    /**
+     * インデックスで指定された位置のidentification_variableを返します．
+     * <p>
+     * インデックスで指定された位置の宣言がidentification_variable_declarationではなく，
+     * collection_member_declarationだった場合は<code>ClassCastException</code>がスローされます．
+     * </p>
+     * 
+     * @param index
+     *            インデックス
+     * @return identification_variable
+     * @throws ClassCastException
+     *             インデックスで指定された位置の宣言がidentification_variable_declarationではなかった場合にスローされます
+     */
     IdentificationVariable getIdentificationVariable(int index);
 
+    /**
+     * ビジタを受け入れます．
+     * 
+     * @param visitor
+     *            ビジタ
+     */
     void accept(IdentificationVarialbleVisitor visitor);
 
 }

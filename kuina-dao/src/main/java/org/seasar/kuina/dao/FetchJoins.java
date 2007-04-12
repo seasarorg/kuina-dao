@@ -21,11 +21,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッドによるJPQL問い合わせのFROM句に複数のFETCH JOINを含めることを示します．
  * 
  * @author koichik
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FetchJoins {
+
+    /** FETCH JOIN指定の配列 */
     FetchJoin[] value();
+
 }

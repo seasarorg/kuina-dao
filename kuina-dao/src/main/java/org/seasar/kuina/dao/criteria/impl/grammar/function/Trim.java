@@ -22,37 +22,74 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningStrings;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
 
 /**
+ * JPQLのTRIM関数を表すクラスです．
  * 
  * @author koichik
  */
 public class Trim implements FunctionReturningStrings {
 
+    // constants
+    /** デフォルトのtrim_specification */
     public static final TrimSpecification DEFAULT_TRIM_SPECIFICATION = TrimSpecification.BOTH;
 
+    /** デフォルトのtrim_character */
     public static final char DEFAULT_TRIM_CHARACTER = ' ';
 
+    // instance fields
+    /** trim_specification */
     protected final TrimSpecification trimSpecificatin;
 
+    /** trim_character */
     protected final char trimCharacter;
 
+    /** trim_source */
     protected final StringPrimary trimSource;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param trimSource
+     *            TRIM対象の文字列を表すstring_primary
      */
     public Trim(final StringPrimary trimSource) {
         this(DEFAULT_TRIM_SPECIFICATION, DEFAULT_TRIM_CHARACTER, trimSource);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param trimSpecification
+     *            トリムの方法
+     * @param trimSource
+     *            TRIM対象の文字列を表すstring_primary
+     */
     public Trim(final TrimSpecification trimSpecification,
             final StringPrimary trimSource) {
         this(trimSpecification, DEFAULT_TRIM_CHARACTER, trimSource);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param trimCharacter
+     *            トリムする文字
+     * @param trimSource
+     *            TRIM対象の文字列を表すstring_primary
+     */
     public Trim(final char trimCharacter, final StringPrimary trimSource) {
         this(DEFAULT_TRIM_SPECIFICATION, trimCharacter, trimSource);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param trimSpecification
+     *            トリムの方法
+     * @param trimCharacter
+     *            トリムする文字
+     * @param trimSource
+     *            TRIM対象の文字列を表すstring_primary
+     */
     public Trim(final TrimSpecification trimSpecification,
             final char trimCharacter, final StringPrimary trimSource) {
         if (trimSpecification == null) {

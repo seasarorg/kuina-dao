@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalFactor;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalPrimary;
 
 /**
+ * JPQLのNOTを表すクラスです．
  * 
  * @author koichik
  */
@@ -27,6 +28,9 @@ public class Not extends AbstractUnaryPrefixOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            被演算子となるconditional_primary
      */
     public Not(final ConditionalPrimary operand) {
         super("NOT ", operand);

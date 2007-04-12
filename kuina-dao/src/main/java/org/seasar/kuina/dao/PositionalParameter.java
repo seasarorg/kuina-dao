@@ -21,6 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッドによるNamed Queryによる問い合わせにpositional parameterを使うことを示します．
  * 
  * @author koichik
  */

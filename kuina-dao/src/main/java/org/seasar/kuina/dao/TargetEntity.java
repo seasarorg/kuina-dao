@@ -21,6 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたDaoインタフェースまたはメソッドが対象とするエンティティの型を明示的に指定することを示します．
  * 
  * @author koichik
  */
@@ -28,6 +29,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TargetEntity {
 
+    /** エンティティの型 */
     Class<?> value();
 
 }

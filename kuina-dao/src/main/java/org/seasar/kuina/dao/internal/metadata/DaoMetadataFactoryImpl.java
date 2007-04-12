@@ -29,20 +29,26 @@ import org.seasar.kuina.dao.internal.DaoMetadata;
 import org.seasar.kuina.dao.internal.DaoMetadataFactory;
 
 /**
+ * {@link DaoMetadata}を作成するファクトリの実装クラスです．
  * 
  * @author koichik
  */
 @Component
 public class DaoMetadataFactoryImpl implements DaoMetadataFactory, Disposable {
 
-    protected static final Logger logger = Logger
+    // static fields
+    private static final Logger logger = Logger
             .getLogger(DaoMetadataFactoryImpl.class);
 
+    // instance fields
+    /** ファクトリが初期化済みであることを示します */
     protected boolean initialized;
 
+    /** このコンポーネントを定義しているS2コンテナ */
     @Binding(bindingType = BindingType.MUST)
     protected S2Container container;
 
+    /** Daoクラスと{@link DaoMetadata}のマッピング */
     protected final ConcurrentMap<Class<?>, DaoMetadata> metadataCache = CollectionsUtil
             .newConcurrentHashMap();
 
@@ -52,6 +58,9 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory, Disposable {
     public DaoMetadataFactoryImpl() {
     }
 
+    /**
+     * インスタンスを初期化します．
+     */
     public synchronized void initialize() {
         if (!initialized) {
             DisposableUtil.add(this);
@@ -73,6 +82,13 @@ public class DaoMetadataFactoryImpl implements DaoMetadataFactory, Disposable {
         return createMetadata(daoClass);
     }
 
+    /**
+     * Daoクラスを扱う{@link DaoMetadata}を作成して返します．
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @return Daoクラスを扱う{@link DaoMetadata}
+     */
     protected DaoMetadata createMetadata(final Class<?> daoClass) {
         final DaoMetadata metadata = DaoMetadata.class.cast(container
                 .getComponent(DaoMetadata.class));

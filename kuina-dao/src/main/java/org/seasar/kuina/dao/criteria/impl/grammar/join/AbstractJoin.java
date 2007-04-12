@@ -24,21 +24,45 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVariableImpl;
 
 /**
+ * JPQLのjoinあるいはfetch_joinを表す抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractJoin implements JoinOrFetchJoin {
+
+    // instance fields
+    /** join_spec */
     protected final String joinSpec;
 
+    /** association_path_expression */
     protected final PathExpression associationPathSpec;
 
+    /** identification_variable */
     protected final IdentificationVariable identificationVariable;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param joinSpec
+     *            join_specを表す文字列
+     * @param associationPathSpec
+     *            association_path_spec
+     */
     public AbstractJoin(final String joinSpec,
             final PathExpression associationPathSpec) {
         this(joinSpec, associationPathSpec, null);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param joinSpec
+     *            join_specを表す文字列
+     * @param associationPathSpec
+     *            association_path_spec
+     * @param identificationVariable
+     *            identification_variable
+     */
     public AbstractJoin(final String joinSpec,
             final PathExpression associationPathSpec,
             final IdentificationVariable identificationVariable) {
@@ -55,10 +79,20 @@ public abstract class AbstractJoin implements JoinOrFetchJoin {
         this.identificationVariable = identificationVariable;
     }
 
+    /**
+     * identification_variableを返します．
+     * 
+     * @return identification_variable
+     */
     public IdentificationVariable getIdentificationVariable() {
         return identificationVariable;
     }
 
+    /**
+     * association_apth_specを返します．
+     * 
+     * @return association_path_spec
+     */
     public PathExpression getAssociationPathSpec() {
         return associationPathSpec;
     }
@@ -72,6 +106,13 @@ public abstract class AbstractJoin implements JoinOrFetchJoin {
         }
     }
 
+    /**
+     * association_path_expressionからデフォルトのidentification_variableを求めて返します．
+     * 
+     * @param associationPathSpec
+     *            association_path_spec
+     * @return association_path_expressionから求めたデフォルトのidentification_variable
+     */
     protected static IdentificationVariable getDefaultIdentificationVariable(
             final PathExpression associationPathSpec) {
         final String path = associationPathSpec.toString();
@@ -79,4 +120,5 @@ public abstract class AbstractJoin implements JoinOrFetchJoin {
         return new IdentificationVariableImpl(pos == -1 ? path : path
                 .substring(pos + 1));
     }
+
 }

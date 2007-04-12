@@ -18,10 +18,18 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのempty_collection_comparison_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * empty_collection_comparison_expression ::=
+ *     collection_valued_path_expression IS [NOT] EMPTY
+ * </pre>
  * 
  * @author koichik
  */
 public interface EmptyCollectionComparisonExpression extends Criterion,
         SimpleCondExpression {
-
 }

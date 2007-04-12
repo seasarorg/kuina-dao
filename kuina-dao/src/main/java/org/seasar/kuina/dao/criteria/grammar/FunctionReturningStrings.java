@@ -18,9 +18,22 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのfunctions_returning_stringsを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * functions_returning_strings ::=
+ *     CONCAT(string_primary, string_primary) |
+ *     SUBSTRING(string_primary,
+ *         simple_arithmetic_expression, simple_arithmetic_expression)|
+ *     TRIM([[trim_specification] [trim_character] FROM] string_primary) |
+ *     LOWER(string_primary) |
+ *     UPPER(string_primary)
+ * </pre>
  * 
  * @author koichik
  */
 public interface FunctionReturningStrings extends Criterion, StringPrimary {
-
 }

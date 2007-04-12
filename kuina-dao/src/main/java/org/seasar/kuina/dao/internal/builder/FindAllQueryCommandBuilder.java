@@ -21,11 +21,15 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.FindAllQueryCommand;
 
 /**
+ * {@link FindAllQueryCommand}を作成するコマンドです．
  * 
  * @author koichik
  */
 public class FindAllQueryCommandBuilder extends AbstractQueryCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     */
     public FindAllQueryCommandBuilder() {
         setMethodNamePattern("(get|find)All");
     }

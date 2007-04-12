@@ -18,17 +18,30 @@ package org.seasar.kuina.dao.internal.binder;
 import javax.persistence.Query;
 
 /**
+ * 数値を{@link javax.persistence.Query#setMaxResults(int)}にバインドします．
  * 
  * @author koichik
+ * @see javax.persistence.Query#setMaxResults(int)
  */
 public class MaxResultsBinder implements ParameterBinder {
 
+    /** 結果を取得する最大の件数 */
     protected final Number value;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public MaxResultsBinder() {
         this(null);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param value
+     *            結果を取得する最大の件数
+     */
     public MaxResultsBinder(final Number value) {
         this.value = value;
     }

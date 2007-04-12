@@ -18,9 +18,21 @@ package org.seasar.kuina.dao.internal;
 import java.lang.reflect.Method;
 
 /**
+ * {@link Command コマンド}を作成するビルダです．
  * 
  * @author koichik
  */
 public interface CommandBuilder {
+
+    /**
+     * <code>daoClass</code>の<code>method</code>のオペレーションを提供する{@link Command コマンド}を作成します．
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param method
+     *            Daoのメソッド
+     * @return <code>daoClass</code>の<code>method</code>のオペレーションを提供する{@link Command コマンド}
+     */
     Command build(Class<?> daoClass, Method method);
+
 }

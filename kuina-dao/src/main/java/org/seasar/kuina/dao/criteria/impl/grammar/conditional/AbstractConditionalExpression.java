@@ -25,18 +25,28 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalPrimary;
 
 /**
+ * JPQLのconditional_expresssionを表す抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractConditionalExpression implements
         ConditionalPrimary {
+
+    // instance fields
+    /** 演算子 */
     protected final String operator;
 
+    /** 式のリスト */
     protected final List<Criterion> expressions = CollectionsUtil
             .newArrayList();
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     * @param expressions
+     *            式の並び
      */
     public AbstractConditionalExpression(final String operator,
             final ConditionalExpression... expressions) {
@@ -44,6 +54,13 @@ public abstract class AbstractConditionalExpression implements
         add(expressions);
     }
 
+    /**
+     * conditional_expressionを追加します．
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
+     * @return このインスタンス自身
+     */
     public AbstractConditionalExpression add(
             final ConditionalExpression... expressions) {
         for (final Criterion expression : expressions) {

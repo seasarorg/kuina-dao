@@ -16,22 +16,42 @@
 package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
+ * Named Query (問い合わせ) を実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class NamedQueryCommand extends AbstractQueryCommand {
 
+    // instance fields
+    /** Named Query の名前 */
     protected final String queryName;
 
+    /** パラメータバインダの配列 */
     protected final ParameterBinder[] binders;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param method
+     *            Daoメソッド
+     * @param resultList
+     *            問い合わせ結果を{@link List}で返す場合に<code>true</code>
+     * @param queryName
+     *            Named Query の名前
+     * @param binders
+     *            パラメータバインダの配列
+     */
     public NamedQueryCommand(final Class<?> entityClass, final Method method,
             final boolean resultList, final String queryName,
             final ParameterBinder[] binders) {
@@ -40,10 +60,6 @@ public class NamedQueryCommand extends AbstractQueryCommand {
         this.binders = binders;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
-     *      java.lang.Object[])
-     */
     public Object execute(final EntityManager em, final Object[] parameters) {
         final Query query = createQuery(em, parameters);
         setupQuery(query);
@@ -51,12 +67,15 @@ public class NamedQueryCommand extends AbstractQueryCommand {
     }
 
     /**
-     * @see org.seasar.kuina.dao.internal.Command#execute(javax.persistence.EntityManager,
-     *      java.lang.Object[])
+     * {@link Query}を作成して返します．
+     * 
+     * @param em
+     *            エンティティ・マネージャ
+     * @param arguments
+     *            Daoメソッドの引数
+     * @return {@link Query}
      */
     protected Query createQuery(final EntityManager em, final Object[] arguments) {
-        assert binders.length == arguments.length;
-
         final Query query = em.createNamedQuery(queryName);
         for (int i = 0; i < binders.length; ++i) {
             final ParameterBinder binder = binders[i];
@@ -64,4 +83,5 @@ public class NamedQueryCommand extends AbstractQueryCommand {
         }
         return query;
     }
+
 }

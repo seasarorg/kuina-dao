@@ -16,12 +16,20 @@
 package org.seasar.kuina.dao.internal.condition;
 
 import org.seasar.kuina.dao.criteria.SelectStatement;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 
 /**
+ * 何もしないビルダです．
  * 
  * @author koichik
  */
 public class NullBuilder implements ConditionalExpressionBuilder {
+
+    /**
+     * インスタンスを構築します。
+     */
+    public NullBuilder() {
+    }
 
     public String appendCondition(final SelectStatement statement,
             final Object value) {

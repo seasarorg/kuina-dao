@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.function;
 import org.seasar.kuina.dao.criteria.grammar.FunctionReturningDatetime;
 
 /**
+ * JPQLのCURRENT_DATE関数を表すクラスです．
  * 
  * @author koichik
  */

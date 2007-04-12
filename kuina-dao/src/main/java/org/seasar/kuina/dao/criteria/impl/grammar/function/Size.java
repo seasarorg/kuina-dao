@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningNumerics;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのSIZE関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,9 @@ public class Size extends AbstractFunction implements FunctionReturningNumerics 
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param collection
+     *            大きさを求めるコレクションを表すpath_expression
      */
     public Size(final PathExpression collection) {
         super("SIZE", collection);

@@ -18,11 +18,21 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのaggreaga_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * aggregate_expression ::=
+ *     { AVG | MAX | MIN | SUM } ([DISTINCT] state_field_path_expression) |
+ *     COUNT ([DISTINCT] identification_variable | state_field_path_expression |
+ *         single_valued_association_path_expression)
+ * </pre>
  * 
  * @author koichik
  */
 public interface AggregateExpression extends Criterion, SelectExpression,
         ConstructorItem, SimpleSelectExpression, ArithmeticPrimary,
         StringPrimary, DatetimePrimary {
-
 }

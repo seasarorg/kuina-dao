@@ -23,11 +23,15 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.RemoveCommand;
 
 /**
+ * {@link RemoveCommand}を作成するビルダです．
  * 
  * @author koichik
  */
 public class RemoveCommandBuilder extends AbstractCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     */
     public RemoveCommandBuilder() {
         setMethodNamePattern("remove");
     }

@@ -16,11 +16,16 @@
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
 /**
+ * JPQLのNOT EXISTS演算子を使用したexists_expressionを表すクラスです．
  * 
  * @author koichik
  */
 public class NotExistsExpressionImpl extends AbstractExistsExpression {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public NotExistsExpressionImpl() {
         super("NOT EXISTS ");
     }

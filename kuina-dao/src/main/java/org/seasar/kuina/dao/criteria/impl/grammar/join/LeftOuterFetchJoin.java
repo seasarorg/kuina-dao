@@ -20,11 +20,18 @@ import org.seasar.kuina.dao.criteria.grammar.FetchJoin;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * 左外部フェッチ結合を表すクラスです．
  * 
  * @author koichik
  */
 public class LeftOuterFetchJoin extends AbstractJoin implements FetchJoin {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param associationPathSpec
+     *            association_path_expression
+     */
     public LeftOuterFetchJoin(final PathExpression associationPathSpec) {
         super(" LEFT OUTER JOIN FETCH ", associationPathSpec);
     }

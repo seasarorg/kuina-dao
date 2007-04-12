@@ -18,6 +18,20 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのarithmetic_primaryを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * arithmetic_primary ::=
+ *     state_field_path_expression |
+ *     numeric_literal |
+ *     (simple_arithmetic_expression) |
+ *     input_parameter |
+ *     functions_returning_numerics |
+ *     aggregate_expression
+ * </pre>
  * 
  * @author koichik
  */

@@ -16,9 +16,16 @@
 package org.seasar.kuina.dao;
 
 /**
+ * JPQLのORDER BY句に指定するオーダー指定を表す列挙です．
  * 
  * @author koichik
  */
 public enum OrderingSpec {
-    ASC, DESC
+
+    /** 昇順を示します． */
+    ASC,
+
+    /** 降順を示します． */
+    DESC
+
 }

@@ -21,29 +21,70 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 /**
+ * <code>Date</code>型のパラメータ値を{@link javax.persistence.Query}にバインドします．
  * 
  * @author koichik
+ * @see javax.persistence.Query#setParameter(String, java.util.Date,
+ *      javax.persistence.TemporalType)
+ * @see javax.persistence.Query#setParameter(int, java.util.Date,
+ *      javax.persistence.TemporalType)
  */
 public class DateParameterBinder implements ParameterBinder {
 
+    /** パラメータ名 (Named Parameterの場合) */
     protected final String name;
 
+    /** パラメータの位置 (Positional Parameterの場合) */
     protected final int position;
 
+    /** パラメータの値 */
     protected final Date value;
 
+    /** パラメータの時制 */
     protected TemporalType temporalType;
 
+    /**
+     * Named Parameterをバインドするインスタンスを構築します。
+     * <p>
+     * パラメータの値は{@link #bind(Query, Object)}によって与えられます．
+     * </p>
+     * 
+     * @param name
+     *            パラメータの名前
+     * @param temporalType
+     *            パラメータの時制
+     */
     public DateParameterBinder(final String name,
             final TemporalType temporalType) {
         this(name, null, temporalType);
     }
 
+    /**
+     * Positional Parameterをバインドするインスタンスを構築します。
+     * <p>
+     * パラメータの値は{@link #bind(Query, Object)}によって与えられます．
+     * </p>
+     * 
+     * @param position
+     *            パラメータの位置
+     * @param temporalType
+     *            パラメータの時制
+     */
     public DateParameterBinder(final int position,
             final TemporalType temporalType) {
         this(position, null, temporalType);
     }
 
+    /**
+     * Named Parameterのインスタンスを構築します。
+     * 
+     * @param name
+     *            パラメータの名前
+     * @param value
+     *            パラメータの値
+     * @param temporalType
+     *            パラメータの時制
+     */
     public DateParameterBinder(final String name, final Date value,
             final TemporalType temporalType) {
         this.name = name;
@@ -52,6 +93,16 @@ public class DateParameterBinder implements ParameterBinder {
         this.temporalType = temporalType;
     }
 
+    /**
+     * Positional Parameterのインスタンスを構築します。
+     * 
+     * @param position
+     *            パラメータの位置
+     * @param value
+     *            パラメータの値
+     * @param temporalType
+     *            パラメータの時制
+     */
     public DateParameterBinder(final int position, final Date value,
             final TemporalType temporalType) {
         this.name = null;

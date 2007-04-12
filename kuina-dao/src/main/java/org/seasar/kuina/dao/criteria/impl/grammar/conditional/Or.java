@@ -18,18 +18,30 @@ package org.seasar.kuina.dao.criteria.impl.grammar.conditional;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 
 /**
+ * 複数のconditional_expressionがORで結合されたconditional_expressionを表すクラスです．
  * 
  * @author koichik
  */
 public class Or extends AbstractConditionalExpression implements
         ConditionalExpression {
+
     /**
      * インスタンスを構築します。
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
      */
     public Or(final ConditionalExpression... expressions) {
         super("OR", expressions);
     }
 
+    /**
+     * conditional_expressionを追加します．
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
+     * @return このインスタンス自身
+     */
     public Or or(final ConditionalExpression... expressions) {
         super.add(expressions);
         return this;

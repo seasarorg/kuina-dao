@@ -18,24 +18,59 @@ package org.seasar.kuina.dao.internal.condition;
 import java.lang.reflect.Method;
 
 import org.seasar.framework.util.tiger.ReflectionUtil;
+import org.seasar.kuina.dao.criteria.CriteriaOperations;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 
 /**
+ * LIKEを使用した問い合わせ条件を作成し，SELECT文に追加するビルダです．
+ * <p>
+ * このビルダは，次のようなCriteria API呼び出しを行います．
+ * </p>
+ * 
+ * <pre>
+ * statement.where(<var>like</var>("pathExpression", <var>parameter</var>("parameterName", vale)));
+ * </pre>
+ * 
+ * <p>
+ * <code><var>like</var></code>は<code>operationMethod</code>で表されるメソッドです．
+ * <code><var>parameter</var></code>は<code>parameterMethod</code>で表されるメソッドです．
+ * </p>
  * 
  * @author koichik
  */
 public class LikeBuilder extends AbstractConditionalExpressionBuilder {
 
+    // insatnce fields
+    /** パターンのプレフィックス */
     protected String prefix;
 
+    /** パターンのサフィックス */
     protected String suffix;
 
-    public LikeBuilder(final Class<?> entityClass, final String propertyName,
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param propertyPath
+     *            プロパティのパス
+     * @param parameterName
+     *            パラメータ名
+     * @param parameterMethod
+     *            {@link CriteriaOperations}の<code>parameter()</code>メソッド
+     * @param operationMethod
+     *            {@link CriteriaOperations}の問い合わせ条件作成メソッド
+     * @param prefix
+     *            パターンのプレフィックス
+     * @param suffix
+     *            パターンのサフィックス
+     */
+    public LikeBuilder(final Class<?> entityClass, final String propertyPath,
             final String parameterName, final Method parameterMethod,
             final Method operationMethod, final String prefix,
             final String suffix) {
-        super(entityClass, propertyName, parameterName, parameterMethod,
+        super(entityClass, propertyPath, parameterName, parameterMethod,
                 operationMethod);
         this.prefix = prefix;
         this.suffix = suffix;
@@ -51,7 +86,7 @@ public class LikeBuilder extends AbstractConditionalExpressionBuilder {
                 getParameterMethod(), getParameterName(), prefix + value
                         + suffix);
         final Object expression = ReflectionUtil.invokeStatic(
-                getOperationMethod(), getPropertyName(), parameter);
+                getOperationMethod(), getPathExpression(), parameter);
         statement.where(ConditionalExpression.class.cast(expression));
         return getPropertyPath();
     }

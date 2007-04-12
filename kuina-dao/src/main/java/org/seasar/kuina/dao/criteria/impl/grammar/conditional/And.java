@@ -19,20 +19,33 @@ import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalTerm;
 
 /**
+ * 複数のconditional_expressionがANDで結合されたconditional_termを表すクラスです．
  * 
  * @author koichik
  */
 public class And extends AbstractConditionalExpression implements
         ConditionalTerm {
+
     /**
      * インスタンスを構築します。
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
      */
     public And(final ConditionalExpression... expressions) {
         super("AND", expressions);
     }
 
+    /**
+     * conditional_expressionを追加します．
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
+     * @return このインスタンス自身
+     */
     public And and(final ConditionalExpression... expressions) {
         add(expressions);
         return this;
     }
+
 }

@@ -19,11 +19,26 @@ import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
+ * JPQLのjoinあるいはfetch_joinを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * join_or_fetch_join ::=
+ *   join | fetch_join
+ * </pre>
  * 
  * @author koichik
  */
 public interface JoinOrFetchJoin extends Criterion {
 
+    /**
+     * ビジタを受け入れます．
+     * 
+     * @param visitor
+     *            ビジタ
+     */
     void accept(IdentificationVarialbleVisitor visitor);
 
 }

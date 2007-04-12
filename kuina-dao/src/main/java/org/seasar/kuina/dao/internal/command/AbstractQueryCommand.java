@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -23,25 +24,40 @@ import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 
 import org.seasar.kuina.dao.criteria.SelectStatement;
+import org.seasar.kuina.dao.internal.Command;
 
 /**
+ * 問い合わせを行う{@link Command}に共通の機能を提供する抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractQueryCommand extends AbstractCommand {
 
+    // instance fields
+    /** 問い合わせ対象のエンティティ・クラス */
     protected final Class<?> entityClass;
 
+    /** Daoメソッド */
     protected final Method method;
 
+    /** 問い合わせ結果を{@link List}で返す場合に<code>true</code> */
     protected final boolean resultList;
 
+    /** Daoメソッドのフラッシュ・モード */
     protected final FlushModeType flushMode;
 
+    /** Daoメソッドのヒントの{@link Map} */
     protected final Map<String, Object> hints;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            問い合わせ対象のエンティティ・クラス
+     * @param method
+     *            Daoメソッド
+     * @param resultList
+     *            問い合わせ結果を{@link List}で返す場合に<code>true</code>
      */
     public AbstractQueryCommand(final Class<?> entityClass,
             final Method method, final boolean resultList) {
@@ -52,6 +68,20 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
         hints = detectHints(method);
     }
 
+    /**
+     * 問い合わせの実行前に{@link Query}の設定を行います．
+     * <p>
+     * {@link Query}にフラッシュ・モードとヒントを設定します．
+     * </p>
+     * <p>
+     * サブクラスは必要に応じてメソッドをオーバーライドし，{@link Query}に様々な設定を行うことができます．
+     * </p>
+     * 
+     * @param query
+     *            {@link Query}
+     * @see Query#setFlushMode(FlushModeType)
+     * @see Query#setHint(String, Object)
+     */
     protected void setupQuery(final Query query) {
         if (flushMode != null) {
             query.setFlushMode(flushMode);
@@ -61,6 +91,18 @@ public abstract class AbstractQueryCommand extends AbstractCommand {
         }
     }
 
+    /**
+     * 問い合わせの実行前に{@link SelectStatement}の設定を行います．
+     * <p>
+     * {@link SelectStatement}にフラッシュ・モードとヒントを設定します．
+     * </p>
+     * <p>
+     * サブクラスは必要に応じてメソッドをオーバーライドし，{@link SelectStatement}に様々な設定を行うことができます．
+     * </p>
+     * 
+     * @param statement
+     *            問い合わせ文
+     */
     protected void setupStatement(final SelectStatement statement) {
         if (flushMode != null) {
             statement.setFlushMode(flushMode);

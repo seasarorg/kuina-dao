@@ -16,28 +16,57 @@
 package org.seasar.kuina.dao;
 
 /**
+ * JPQLのORDER BY句に指定するorder_by_specを表すクラスです．
  * 
  * @author koichik
  */
 public class OrderbySpec {
+
+    // instance fields
+    /** ソートに使用する項目を表すpath_expression */
     protected final String pathExpression;
 
+    /** 昇順・降順 */
     protected final OrderingSpec orderingSpec;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            ソートに使用する項目を表すpath_expression
+     */
     public OrderbySpec(final String pathExpression) {
         this(pathExpression, OrderingSpec.ASC);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            ソートに使用する項目を表すpath_expression
+     * @param orderingSpec
+     *            昇順・降順
+     */
     public OrderbySpec(final String pathExpression,
             final OrderingSpec orderingSpec) {
         this.pathExpression = pathExpression;
         this.orderingSpec = orderingSpec;
     }
 
+    /**
+     * ソートに使用する項目を表すpath_expressionを返します．
+     * 
+     * @return ソートに使用する項目を表すpath_expression
+     */
     public String getPathExpression() {
         return pathExpression;
     }
 
+    /**
+     * 昇順・降順を返します．
+     * 
+     * @return 昇順・降順
+     */
     public OrderingSpec getOrderingSpec() {
         return orderingSpec;
     }

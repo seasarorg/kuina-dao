@@ -36,29 +36,61 @@ import org.seasar.kuina.dao.criteria.impl.grammar.join.LeftOuterJoin;
 import org.seasar.kuina.dao.internal.util.JpqlUtil;
 
 /**
+ * JPQLのidentification_variable_declarationを表す実装クラスです．
  * 
  * @author koichik
  */
 public class IdentificationVariableDeclarationImpl implements
         IdentificationVariableDeclaration, RangeVarialbeDeclaration {
+
+    // instance fields
+    /** abstract_schema_name */
     protected final String abstractSchemaName;
 
+    /** identification_variable */
     protected final IdentificationVariable identificationVariable;
 
+    /** join_or_fetch_joinのリスト */
     protected final List<JoinOrFetchJoin> joins = CollectionsUtil
             .newArrayList();
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param abstractSchemaClass
+     *            abstract_schema_nameを表すエンティティクラス
+     * @param joins
+     *            join_or_fetch_joinの並び
+     */
     public IdentificationVariableDeclarationImpl(
             final Class<?> abstractSchemaClass, final JoinOrFetchJoin... joins) {
         this(JpqlUtil.toAbstractSchemaName(abstractSchemaClass), joins);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param abstractSchemaName
+     *            abstract_schema_nameを表す文字列
+     * @param joins
+     *            join_or_fetch_joinの並び
+     */
     public IdentificationVariableDeclarationImpl(
             final String abstractSchemaName, final JoinOrFetchJoin... joins) {
         this(abstractSchemaName, new IdentificationVariableImpl(JpqlUtil
                 .toDefaultIdentificationVariable(abstractSchemaName)), joins);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param abstractSchemaClass
+     *            abstract_schema_nameを表すエンティティクラス
+     * @param identificationVariable
+     *            identification_variableを表す文字列
+     * @param joins
+     *            join_or_fetch_joinの並び
+     */
     public IdentificationVariableDeclarationImpl(
             final Class<?> abstractSchemaClass,
             final IdentificationVariable identificationVariable,
@@ -67,6 +99,16 @@ public class IdentificationVariableDeclarationImpl implements
                 identificationVariable, joins);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param abstractSchemaName
+     *            abstract_schema_nameを表す文字列
+     * @param identificationVariable
+     *            identification_variable
+     * @param joins
+     *            join_or_fetch_joinの並び
+     */
     public IdentificationVariableDeclarationImpl(
             final String abstractSchemaName,
             final IdentificationVariable identificationVariable,
@@ -180,4 +222,5 @@ public class IdentificationVariableDeclarationImpl implements
             join.evaluate(context);
         }
     }
+
 }

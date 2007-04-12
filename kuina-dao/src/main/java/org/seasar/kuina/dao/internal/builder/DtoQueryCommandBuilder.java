@@ -24,14 +24,21 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.internal.Command;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 import org.seasar.kuina.dao.internal.command.DtoQueryCommand;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
 
 /**
+ * {@link ConditionalExpressionBuilder}を作成するビルダです．
  * 
  * @author koichik
  */
 public class DtoQueryCommandBuilder extends AbstractDynamicQueryCommandBuilder {
+
+    /**
+     * インスタンスを構築します。
+     */
+    public DtoQueryCommandBuilder() {
+    }
 
     @Override
     public Command build(final Class<?> daoClass, final Method method,
@@ -54,6 +61,15 @@ public class DtoQueryCommandBuilder extends AbstractDynamicQueryCommandBuilder {
                 getterMethods, builders);
     }
 
+    /**
+     * 問い合わせ条件を作成する{@link ConditionalExpressionBuilder}の配列を作成して返します．
+     * 
+     * @param entityClass
+     *            エンティティクラス
+     * @param beanDesc
+     *            エンティティクラスの{@link BeanDesc}
+     * @return 問い合わせ条件を作成する{@link ConditionalExpressionBuilder}の配列
+     */
     protected ConditionalExpressionBuilder[] createBuilders(
             final Class<?> entityClass, final BeanDesc beanDesc) {
         final List<ConditionalExpressionBuilder> builders = CollectionsUtil

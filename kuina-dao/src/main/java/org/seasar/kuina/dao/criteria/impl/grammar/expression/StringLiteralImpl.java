@@ -21,14 +21,21 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.StringLiteral;
 
 /**
+ * JPQLのstring_literalを表すクラスです．
  * 
  * @author koichik
  */
 public class StringLiteralImpl implements StringLiteral {
+
+    // instance fields
+    /** string_literal */
     protected final String literal;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param literal
+     *            string_literal
      */
     public StringLiteralImpl(final String literal) {
         if (StringUtil.isEmpty(literal)) {

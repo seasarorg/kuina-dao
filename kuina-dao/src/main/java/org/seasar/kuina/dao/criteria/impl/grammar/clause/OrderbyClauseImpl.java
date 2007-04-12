@@ -24,12 +24,22 @@ import org.seasar.kuina.dao.criteria.grammar.OrderbyClause;
 import org.seasar.kuina.dao.criteria.grammar.OrderbyItem;
 
 /**
+ * JPQLのorderby_clauseを表すクラスです．
  * 
  * @author koichik
  */
 public class OrderbyClauseImpl implements OrderbyClause {
+
+    // instance fields
+    /** orderby_itemのリスト */
     protected List<Criterion> orderbyItems = CollectionsUtil.newArrayList();
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param orderbyItems
+     *            orderby_itemの並び
+     */
     public OrderbyClauseImpl(final OrderbyItem... orderbyItems) {
         add(orderbyItems);
     }

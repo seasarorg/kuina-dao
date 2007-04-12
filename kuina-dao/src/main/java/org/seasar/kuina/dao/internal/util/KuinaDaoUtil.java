@@ -21,11 +21,23 @@ import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 
 /**
+ * Kuina-Daoのユーティリティ・クラスです．
  * 
  * @author koichik
  */
 public class KuinaDaoUtil {
 
+    /**
+     * クラスに対応した{@link EntityDesc}を返します．
+     * <p>
+     * クラスがエンティティでない場合は<code>IllegalArgumentException</code>がスローされます．
+     * </p>
+     * 
+     * @param clazz
+     *            クラス
+     * @return {@link EntityDesc}
+     * @throws IllegalArgumentException
+     */
     public static EntityDesc getEntityDesc(final Class<?> clazz) {
         final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
         if (entityDesc == null) {
@@ -35,22 +47,49 @@ public class KuinaDaoUtil {
         return entityDesc;
     }
 
+    /**
+     * クラスがエンティティなら<code>true</code>を返します．
+     * 
+     * @param clazz
+     *            クラス
+     * @return クラスがエンティティなら<code>true</code>
+     */
     public static boolean isEntityClass(final Class<?> clazz) {
         final EntityDesc entityDesc = EntityDescFactory.getEntityDesc(clazz);
         return entityDesc != null;
     }
 
+    /**
+     * エンティティ<code>owner</code>が持つ関連<code>association</code>の
+     * 端点であるエンティティの{@link EntityDesc}を返します．
+     * 
+     * @param owner
+     *            関連を持つエンティティクラス
+     * @param associationName
+     *            関連を表すプロパティ名またはフィールド名
+     * @return エンティティが持つ関連の端点であるエンティティの{@link EntityDesc}
+     */
     public static EntityDesc getAssociationEntityDesc(final EntityDesc owner,
-            final String propertyName) {
-        final AttributeDesc attribute = owner.getAttributeDesc(propertyName);
+            final String associationName) {
+        final AttributeDesc attribute = owner.getAttributeDesc(associationName);
         final Class<?> associationType = attribute.isCollection() ? attribute
                 .getElementType() : attribute.getType();
         return getEntityDesc(associationType);
     }
 
+    /**
+     * <code>association</code>がエンティティ<code>owner</code>の関連であれば<code>true</code>を返します．
+     * 
+     * @param owner
+     *            関連を持つエンティティクラス
+     * @param associationName
+     *            関連を表すプロパティ名またはフィールド名
+     * @return <code>association</code>がエンティティ<code>owner</code>の関連であれば<code>true</code>
+     */
     public static boolean isAssociation(final EntityDesc owner,
-            final String propertyName) {
-        final AttributeDesc attribute = owner.getAttributeDesc(propertyName);
+            final String associationName) {
+        final AttributeDesc attribute = owner.getAttributeDesc(associationName);
         return attribute != null && attribute.isAssociation();
     }
+
 }

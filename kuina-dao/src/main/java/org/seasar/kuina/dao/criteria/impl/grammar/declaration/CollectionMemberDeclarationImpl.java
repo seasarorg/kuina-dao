@@ -24,31 +24,62 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.IdentificationVaria
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
 
 /**
+ * JPQLのcollection_member_declarationを表す実装クラスです．
  * 
  * @author koichik
  */
 public class CollectionMemberDeclarationImpl implements
         CollectionMemberDeclaration {
+
+    // instance fields
+    /** path_expression */
     protected final PathExpression pathExpression;
 
+    /** identification_variable */
     protected final IdentificationVariable identificationVariable;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expressionを表す文字列
+     * @param identificationVariable
+     *            identification_variable
+     */
     public CollectionMemberDeclarationImpl(final String pathExpression,
             final String identificationVariable) {
         this(new PathExpressionImpl(pathExpression),
                 new IdentificationVariableImpl(identificationVariable));
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expression
+     * @param identificationVariable
+     *            identification_variable
+     */
     public CollectionMemberDeclarationImpl(final PathExpression pathExpression,
             final IdentificationVariable identificationVariable) {
         this.pathExpression = pathExpression;
         this.identificationVariable = identificationVariable;
     }
 
+    /**
+     * path_expressionを返します．
+     * 
+     * @return path_expression
+     */
     public PathExpression getPathExpression() {
         return pathExpression;
     }
 
+    /**
+     * identification_variableを返します．
+     * 
+     * @return identification_variable
+     */
     public IdentificationVariable getIdentificationVariable() {
         return identificationVariable;
     }

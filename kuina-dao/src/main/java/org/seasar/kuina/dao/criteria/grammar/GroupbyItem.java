@@ -18,9 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのgroupby_itemを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * groupby_item ::=
+ *     single_valued_path_expression | identification_variable
+ * </pre>
  * 
  * @author koichik
  */
 public interface GroupbyItem extends Criterion {
-
 }

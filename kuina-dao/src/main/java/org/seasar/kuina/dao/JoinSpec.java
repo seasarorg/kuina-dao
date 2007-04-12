@@ -16,9 +16,16 @@
 package org.seasar.kuina.dao;
 
 /**
+ * JPQLのFROM句に指定する結合を表す列挙です．
  * 
  * @author koichik
  */
 public enum JoinSpec {
-    INNER_JOIN, LEFT_OUTER_JOIN
+
+    /** 内部結合 */
+    INNER_JOIN,
+
+    /** 左外部結合 */
+    LEFT_OUTER_JOIN
+
 }

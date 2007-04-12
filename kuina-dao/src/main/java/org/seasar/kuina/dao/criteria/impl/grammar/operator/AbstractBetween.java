@@ -20,20 +20,36 @@ import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.grammar.BetweenExpression;
 
 /**
+ * JPQLのbetween_expressionを表す抽象クラスです．
  * 
  * @author koichik
  */
 public class AbstractBetween implements BetweenExpression {
+
+    // instance fields
+    /** 演算子 */
     protected final String operator;
 
+    /** テスト対象 */
     protected final Criterion operand;
 
+    /** 範囲の下限 */
     protected final Criterion from;
 
+    /** 範囲の上限 */
     protected final Criterion to;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     * @param operand
+     *            テスト対象
+     * @param from
+     *            範囲の下限
+     * @param to
+     *            範囲の上限
      */
     public AbstractBetween(final String operator, final Criterion operand,
             final Criterion from, final Criterion to) {

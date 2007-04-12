@@ -30,13 +30,17 @@ import org.seasar.kuina.dao.internal.binder.ObjectParameterBinder;
 import org.seasar.kuina.dao.internal.binder.ParameterBinder;
 
 /**
+ * JPQLを構築するためのコンテキスト情報の実装クラスです．
  * 
  * @author koichik
  */
 public class CriteriaContextImpl implements CriteriaContext {
 
+    // instance fields
+    /** 構築したJPQL文字列を保持するバッファ */
     protected final StringBuilder stringBuilder = new StringBuilder(1000);
 
+    /** JPQLに含まれるバインドパラメータを保持する<code>Set</code> */
     protected final Set<ParameterBinder> binders = CollectionsUtil
             .newLinkedHashSet();
 

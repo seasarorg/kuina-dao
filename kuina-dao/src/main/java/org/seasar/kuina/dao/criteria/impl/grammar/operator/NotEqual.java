@@ -26,6 +26,7 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
+ * 2項の<code>&lt;&gt;</code>演算子を表すクラスです．
  * 
  * @author koichik
  */
@@ -34,61 +35,170 @@ public class NotEqual extends AbstractBinaryOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すpath_expression
+     * @param rhs
+     *            右辺を表すpath_expression
      */
     public NotEqual(final PathExpression lhs, final PathExpression rhs) {
         super(" <> ", lhs, rhs);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すpath_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
     public NotEqual(final PathExpression lhs, final AllOrAnyExpression rhs) {
         super(" <> ", lhs, rhs);
     }
 
-    public NotEqual(final StringExpression lhs, final StringExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final StringExpression lhs, final AllOrAnyExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final BooleanExpression lhs, final BooleanExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final BooleanExpression lhs, final AllOrAnyExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final EnumExpression lhs, final EnumExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final EnumExpression lhs, final AllOrAnyExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final DatetimeExpression lhs, final DatetimeExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final DatetimeExpression lhs, final AllOrAnyExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final EntityExpression lhs, final EntityExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
-    public NotEqual(final EntityExpression lhs, final AllOrAnyExpression rhs) {
-        super(" <> ", lhs, rhs);
-    }
-
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すaritumetic_expression
+     * @param rhs
+     *            右辺を表すaritumetic_expression
+     */
     public NotEqual(final ArithmeticExpression lhs,
             final ArithmeticExpression rhs) {
         super(" <> ", lhs, rhs);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すaritumetic_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
     public NotEqual(final ArithmeticExpression lhs, final AllOrAnyExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すstring_expression
+     * @param rhs
+     *            右辺を表すstring_expression
+     */
+    public NotEqual(final StringExpression lhs, final StringExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すstring_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public NotEqual(final StringExpression lhs, final AllOrAnyExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すboolean_expression
+     * @param rhs
+     *            右辺を表すboolean_expression
+     */
+    public NotEqual(final BooleanExpression lhs, final BooleanExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すboolean_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public NotEqual(final BooleanExpression lhs, final AllOrAnyExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すenum_expression
+     * @param rhs
+     *            右辺を表すenum_expression
+     */
+    public NotEqual(final EnumExpression lhs, final EnumExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すenum_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public NotEqual(final EnumExpression lhs, final AllOrAnyExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すdatetime_expression
+     * @param rhs
+     *            右辺を表すdatetime_expression
+     */
+    public NotEqual(final DatetimeExpression lhs, final DatetimeExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すdatetime_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public NotEqual(final DatetimeExpression lhs, final AllOrAnyExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すentity_expression
+     * @param rhs
+     *            右辺を表すentity_expression
+     */
+    public NotEqual(final EntityExpression lhs, final EntityExpression rhs) {
+        super(" <> ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すentity_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public NotEqual(final EntityExpression lhs, final AllOrAnyExpression rhs) {
         super(" <> ", lhs, rhs);
     }
 

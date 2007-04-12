@@ -20,11 +20,18 @@ import org.seasar.kuina.dao.criteria.grammar.FetchJoin;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * 内部フェッチ結合を表すクラスです．
  * 
  * @author koichik
  */
 public class InnerFetchJoin extends AbstractJoin implements FetchJoin {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param associationPathSpec
+     *            association_path_spec
+     */
     public InnerFetchJoin(final PathExpression associationPathSpec) {
         super(" INNER JOIN FETCH ", associationPathSpec);
     }

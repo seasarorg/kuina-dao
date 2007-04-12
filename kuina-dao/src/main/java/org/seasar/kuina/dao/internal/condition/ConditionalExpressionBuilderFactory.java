@@ -34,71 +34,123 @@ import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.EnumExpression;
 import org.seasar.kuina.dao.criteria.grammar.InputParameter;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 
 /**
+ * {@link ConditionalExpressionBuilder}を作成するファクトリです．
  * 
  * @author koichik
  */
-public class ConditionalExpressionBuilderFactory {
+public abstract class ConditionalExpressionBuilderFactory {
 
+    // constants
+    /** 基本的な操作 (二項演算子) のサフィックスと対応する{@link CriteriaOperations}のメソッド名 */
     protected static final String[][] BASIC_OPERATIONS = new String[][] {
             { "_EQ", "eq" }, { "_NE", "ne" }, { "_LT", "lt" }, { "_LE", "le" },
             { "_GT", "gt" }, { "_GE", "ge" } };
 
+    /** IN演算子のサフィックスと対応する{@link CriteriaOperations}のメソッド名 */
     protected static final String[][] IN_OPERATIONS = new String[][] {
             { "_IN", "in" }, { "_NOT_IN", "notIn" } };
 
+    /** LIKE演算子のサフィックスと対応するパターンのプレフィックスおよびサフィックス */
     protected static final String[][] LIKE_OPERATIONS = new String[][] {
             { "_LIKE", "", "" }, { "_STARTS", "", "%" }, { "_ENDS", "%", "" },
             { "_CONTAINS", "%", "%" } };
 
+    /** IS NULL演算子のサフィックスと対応する{@link CriteriaOperations}のメソッド名 */
     protected static final String[][] IS_NULL_OPERATIONS = new String[][] {
             { "_IS_NULL", "isNull" }, { "_IS_NOT_NULL", "isNotNull" } };
 
+    /** サポートする操作の配列 */
     protected static final String[][][] OPERATIONS = new String[][][] {
             BASIC_OPERATIONS, IN_OPERATIONS, LIKE_OPERATIONS,
             IS_NULL_OPERATIONS };
 
+    /**
+     * {@link CriteriaOperations#parameter(String, Number)}
+     */
     protected static final Method ARITHMETIC_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Number.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, String)}
+     */
     protected static final Method STRING_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     String.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, boolean)}
+     */
     protected static final Method BOOLEAN_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     boolean.class);
 
+    /**
+     * @see CriteriaOperations#parameter(String, Date, TemporalType)
+     */
     protected static final Method DATE_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Date.class, TemporalType.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, Calendar, TemporalType)}
+     */
     protected static final Method CALENDAR_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Calendar.class, TemporalType.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, java.sql.Date)}
+     */
     protected static final Method SQL_DATE_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     java.sql.Date.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, java.sql.Time)}
+     */
     protected static final Method SQL_TIME_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     java.sql.Time.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, java.sql.Timestamp)}
+     */
     protected static final Method SQL_TIMESTAMP_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     java.sql.Timestamp.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, Enum)}
+     */
     protected static final Method ENUM_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Enum.class);
 
+    /**
+     * {@link CriteriaOperations#parameter(String, Object)}
+     */
     protected static final Method ENTITY_PARAMETER_METHOD = ReflectionUtil
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Object.class);
 
+    private ConditionalExpressionBuilderFactory() {
+    }
+
+    /**
+     * {@link ConditionalExpressionBuilder}の配列を作成して返します．
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param names
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティ名の配列
+     * @param parameterTypes
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティの型の配列
+     * @return {@link ConditionalExpressionBuilder}の配列
+     */
     public static ConditionalExpressionBuilder[] createBuilders(
             final Class<?> entityClass, final String[] names,
             final Class<?>[] parameterTypes) {
@@ -110,6 +162,17 @@ public class ConditionalExpressionBuilderFactory {
         return builders;
     }
 
+    /**
+     * {@link ConditionalExpressionBuilder}を作成して返します．
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param name
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティ名
+     * @param parameterType
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティの型
+     * @return {@link ConditionalExpressionBuilder}
+     */
     public static ConditionalExpressionBuilder createBuilder(
             final Class<?> entityClass, final String name,
             final Class<?> parameterType) {
@@ -154,24 +217,38 @@ public class ConditionalExpressionBuilderFactory {
                 .replace('$', '.'), getParameterMethod(parameterType), "eq");
     }
 
-    public static String toPropertyName(final String name) {
-        for (final String[][] operations : OPERATIONS) {
-            for (final String[] operation : operations) {
-                final String suffix = operation[0];
-                if (name.endsWith(suffix)) {
-                    return toPropertyName(name, suffix);
-                }
-            }
-        }
-        return name.replace('$', '.');
-    }
-
+    /**
+     * Daoメソッドの引数またはエンティティ・Dtoのプロパティ名から<code>_EQ</code>等のサフィックスを取り除いたプロパティ名を返します．
+     * 
+     * @param name
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティ名
+     * @param suffix
+     *            サフィックス
+     * @return プロパティ名
+     */
     protected static String toPropertyName(final String name,
             final String suffix) {
         return name.substring(0, name.length() - suffix.length()).replace('$',
                 '.');
     }
 
+    /**
+     * {@link ConditionalExpressionBuilder}を作成して返します．
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param parameterName
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティ名
+     * @param parameterType
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティの型
+     * @param propertyName
+     *            プロパティ名
+     * @param parameterMethod
+     *            {@link CriteriaOperations}の<code>parameter()</code>メソッド
+     * @param operationName
+     *            操作の名前
+     * @return {@link ConditionalExpressionBuilder}
+     */
     protected static ConditionalExpressionBuilder createBasicBuilder(
             final Class<?> entityClass, final String parameterName,
             final Class<?> parameterType, final String propertyName,
@@ -187,17 +264,40 @@ public class ConditionalExpressionBuilderFactory {
                         parameterType));
     }
 
+    /**
+     * {@link CriteriaOperations}の引数のないメソッドを返します．
+     * 
+     * @param name
+     *            メソッド名
+     * @return {@link CriteriaOperations}のメソッド
+     */
     protected static Method getOperationMethod(final String name) {
         return ReflectionUtil.getMethod(CriteriaOperations.class, name,
                 String.class);
     }
 
+    /**
+     * {@link CriteriaOperations}の1引数のメソッドを返します．
+     * 
+     * @param name
+     *            メソッド名
+     * @param parameterType
+     *            メソッドの引数の型
+     * @return {@link CriteriaOperations}のメソッド
+     */
     protected static Method getOperationMethod(final String name,
             final Class<?> parameterType) {
         return ReflectionUtil.getMethod(CriteriaOperations.class, name,
                 String.class, getOperationMethodParameterType(parameterType));
     }
 
+    /**
+     * 指定された型に対応する{@link CriteriaOperations}のメソッドの引数型を返します．
+     * 
+     * @param parameterType
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティの型
+     * @return {@link CriteriaOperations}のメソッドの引数型
+     */
     protected static Class<?> getOperationMethodParameterType(
             final Class<?> parameterType) {
         if (Number.class.isAssignableFrom(ClassUtil
@@ -228,6 +328,13 @@ public class ConditionalExpressionBuilderFactory {
         throw new IllegalArgumentException();// ToDo
     }
 
+    /**
+     * 指定された型に対応する{@link CriteriaOperations}の<code>parameter()</code>メソッドを返します．
+     * 
+     * @param parameterType
+     *            Daoメソッドの引数またはエンティティ・Dtoのプロパティの型
+     * @return {@link CriteriaOperations}の<code>parameter()</code>メソッド
+     */
     protected static Method getParameterMethod(final Class<?> parameterType) {
         if (Number.class.isAssignableFrom(ClassUtil
                 .getWrapperClassIfPrimitive(parameterType))) {
@@ -266,6 +373,15 @@ public class ConditionalExpressionBuilderFactory {
         throw new IllegalArgumentException();// TODO
     }
 
+    /**
+     * 指定されたエンティティのプロパティの時制を返します．
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param propertyName
+     *            プロパティ名
+     * @return 指定されたエンティティのプロパティの時制
+     */
     protected static TemporalType getTemporalType(final Class<?> entityClass,
             final String propertyName) {
         final EntityDesc entityDesc = EntityDescFactory
@@ -288,6 +404,13 @@ public class ConditionalExpressionBuilderFactory {
         return getTemporalType(entityDesc.getAttributeDesc(propertyName));
     }
 
+    /**
+     * 指定された属性の時制を返します．
+     * 
+     * @param attribute
+     *            属性
+     * @return 時制
+     */
     protected static TemporalType getTemporalType(final AttributeDesc attribute) {
         final TemporalType temporalType = attribute.getTemporalType();
         return temporalType != null ? temporalType : TemporalType.DATE;

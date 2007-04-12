@@ -26,6 +26,7 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
+ * JPQLの2項<code>=</code>演算子を表すクラスです．
  * 
  * @author koichik
  */
@@ -34,60 +35,169 @@ public class Equal extends AbstractBinaryOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すpath_expression
+     * @param rhs
+     *            右辺を表すpath_expression
      */
     public Equal(final PathExpression lhs, final PathExpression rhs) {
         super(" = ", lhs, rhs);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すpath_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
     public Equal(final PathExpression lhs, final AllOrAnyExpression rhs) {
         super(" = ", lhs, rhs);
     }
 
-    public Equal(final StringExpression lhs, final StringExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final StringExpression lhs, final AllOrAnyExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final BooleanExpression lhs, final BooleanExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final BooleanExpression lhs, final AllOrAnyExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final EnumExpression lhs, final EnumExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final EnumExpression lhs, final AllOrAnyExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final DatetimeExpression lhs, final DatetimeExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final DatetimeExpression lhs, final AllOrAnyExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final EntityExpression lhs, final EntityExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
-    public Equal(final EntityExpression lhs, final AllOrAnyExpression rhs) {
-        super(" = ", lhs, rhs);
-    }
-
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すarithmetic_expression
+     * @param rhs
+     *            右辺を表すarithmetic_expression
+     */
     public Equal(final ArithmeticExpression lhs, final ArithmeticExpression rhs) {
         super(" = ", lhs, rhs);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すarithmetic_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
     public Equal(final ArithmeticExpression lhs, final AllOrAnyExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すstring_expression
+     * @param rhs
+     *            右辺を表すstring_expression
+     */
+    public Equal(final StringExpression lhs, final StringExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すstring_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public Equal(final StringExpression lhs, final AllOrAnyExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すboolean_expression
+     * @param rhs
+     *            右辺を表すboolean_expression
+     */
+    public Equal(final BooleanExpression lhs, final BooleanExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すboolean_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public Equal(final BooleanExpression lhs, final AllOrAnyExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すenum_expression
+     * @param rhs
+     *            右辺を表すenum_expression
+     */
+    public Equal(final EnumExpression lhs, final EnumExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すenum_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public Equal(final EnumExpression lhs, final AllOrAnyExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すdatetime_expression
+     * @param rhs
+     *            右辺を表すdatetime_expression
+     */
+    public Equal(final DatetimeExpression lhs, final DatetimeExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すdatetime_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public Equal(final DatetimeExpression lhs, final AllOrAnyExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すentity_expression
+     * @param rhs
+     *            右辺を表すentity_expression
+     */
+    public Equal(final EntityExpression lhs, final EntityExpression rhs) {
+        super(" = ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すentity_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public Equal(final EntityExpression lhs, final AllOrAnyExpression rhs) {
         super(" = ", lhs, rhs);
     }
 

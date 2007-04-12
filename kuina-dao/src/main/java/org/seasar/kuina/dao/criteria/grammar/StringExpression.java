@@ -18,9 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのstring_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * string_expression ::=
+ *     string_primary | (subquery)
+ * </pre>
  * 
  * @author koichik
  */
 public interface StringExpression extends Criterion {
-
 }

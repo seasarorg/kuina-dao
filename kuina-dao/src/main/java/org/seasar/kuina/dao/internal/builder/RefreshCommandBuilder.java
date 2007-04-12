@@ -23,11 +23,16 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.RefreshCommand;
 
 /**
+ * {@link RefreshCommand}を作成するビルダです．
  * 
  * @author koichik
  */
 public class RefreshCommandBuilder extends AbstractCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public RefreshCommandBuilder() {
         setMethodNamePattern("refresh");
     }

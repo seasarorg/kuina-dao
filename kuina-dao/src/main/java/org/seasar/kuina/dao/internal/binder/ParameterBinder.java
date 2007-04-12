@@ -18,13 +18,30 @@ package org.seasar.kuina.dao.internal.binder;
 import javax.persistence.Query;
 
 /**
+ * {@link javax.persistence.Query}にパラメータをバインドします．
+ * <p>
+ * このインタフェースを実装したオブジェクトはパラメータの名前 (Named Parameterの場合) または位置 (Positional
+ * Parameterの場合) を持ち，それらとパラメータ値をバインドします．
+ * </p>
  * 
  * @author koichik
  */
 public interface ParameterBinder {
 
+    /**
+     * このインスタンスが保持しているパラメータ値を{@link javax.persistence.Query}にバインドします．
+     * 
+     * @param query
+     *            Query
+     */
     void bind(Query query);
 
+    /**
+     * <code>value</code>を{@link javax.persistence.Query}にバインドします．
+     * 
+     * @param query
+     * @param value
+     */
     void bind(Query query, Object value);
 
 }

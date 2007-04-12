@@ -18,11 +18,14 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのinput_parameterを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
  * 
  * @author koichik
  */
 public interface InputParameter extends Criterion, InItem, ArithmeticPrimary,
         StringPrimary, DatetimePrimary, BooleanPrimary, EnumPrimary,
         SimpleEntityExpression {
-
 }

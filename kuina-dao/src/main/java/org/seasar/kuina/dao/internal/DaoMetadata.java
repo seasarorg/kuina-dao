@@ -18,15 +18,38 @@ package org.seasar.kuina.dao.internal;
 import java.lang.reflect.Method;
 
 /**
+ * Daoのメタデータです．
+ * <p>
+ * DaoメタデータはDaoインタフェース(またはクラス)ごとにインスタンス化され， Daoインタフェースのメソッドに対応した{@link Command コマンド}を保持します．
+ * </p>
  * 
  * @author koichik
  */
 public interface DaoMetadata {
 
+    /** メソッドに対応した{@link Command コマンド}が実行されなかったことを示すために使われます */
     Object NOT_INVOKED = new Object();
 
+    /**
+     * このインスタンス化を初期化し，<code>daoClass</code>のメソッドに対応した{@link Command コマンド}を作成します．
+     * 
+     * @param daoClass
+     *            Daoインタフェースまたはクラス
+     */
     void initialize(Class<?> daoClass);
 
+    /**
+     * <code>method</code>に対応した{@link Command コマンド}を実行し，その結果を返します．
+     * <p>
+     * <code>method</code>に対応した{@link Command コマンド}がない場合は{@link #NOT_INVOKED}を返します．
+     * </p>
+     * 
+     * @param method
+     *            Daoのメソッド
+     * @param arguments
+     *            Daoのメソッド引数
+     * @return <code>method</code>に対応した{@link Command コマンド}の実行結果．
+     */
     Object execute(Method method, Object[] arguments);
 
 }

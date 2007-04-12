@@ -39,25 +39,42 @@ import org.seasar.kuina.dao.criteria.impl.grammar.clause.WhereClauseImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.declaration.IdentificationVariableDeclarationImpl;
 
 /**
+ * JPQLのsubqueryを表すクラスです．
  * 
  * @author koichik
  */
 public class SubqueryImpl implements Subquery {
 
+    // instance fields
+    /** SELECT句 */
     protected final SimpleSelectClause simpleSelectClause = new SimpleSelectClauseImpl();
 
+    /** FROM句 */
     protected final SubqueryFromClause fromClause = new SubqueryFromClauseImpl();
 
+    /** WHERE句 */
     protected final WhereClause whereClause = new WhereClauseImpl();
 
+    /** GROUP BY句 */
     protected final GroupbyClause groupbyClause = new GroupbyClauseImpl();
 
+    /** HAVING句 */
     protected final HavingClause havingClause = new HavingClauseImpl();
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public SubqueryImpl() {
         this(false);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            DISTINCTを指定する場合は<code>true</code>，それ以外の場合は<code>false</code>
+     */
     public SubqueryImpl(final boolean distinct) {
         simpleSelectClause.setDistinct(distinct);
     }
@@ -139,6 +156,7 @@ public class SubqueryImpl implements Subquery {
 
         if (simpleSelectClause.isEmpty()) {
             fromClause.accept(new IdentificationVarialbleVisitor() {
+
                 public void identificationVariable(
                         final IdentificationVariable identificationVariable) {
                     select(identificationVariable);

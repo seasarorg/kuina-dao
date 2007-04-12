@@ -20,6 +20,7 @@ import org.seasar.kuina.dao.criteria.grammar.NullComparisonExpression;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのIS NOT NULLを表すクラスです．
  * 
  * @author koichik
  */
@@ -28,6 +29,9 @@ public class IsNotNull extends AbstractUnaryPostfixOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象となるpath_expression
      */
     public IsNotNull(final PathExpression operand) {
         super(" IS NOT NULL", operand);
@@ -35,6 +39,9 @@ public class IsNotNull extends AbstractUnaryPostfixOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象となるinput_parameter
      */
     public IsNotNull(final InputParameter operand) {
         super(" IS NOT NULL", operand);

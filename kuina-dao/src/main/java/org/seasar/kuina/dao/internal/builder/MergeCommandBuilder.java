@@ -23,11 +23,16 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.MergeCommand;
 
 /**
+ * {@link MergeCommand}を作成するコマンドです．
  * 
  * @author koichik
  */
 public class MergeCommandBuilder extends AbstractCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public MergeCommandBuilder() {
         setMethodNamePattern("merge");
     }

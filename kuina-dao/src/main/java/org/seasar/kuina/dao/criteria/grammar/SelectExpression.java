@@ -18,9 +18,21 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのselect_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * select_expression ::=
+ *     single_valued_path_expression |
+ *     aggregate_expression |
+ *     identification_variable |
+ *     OBJECT(identification_variable) |
+ *     constructor_expression
+ * </pre>
  * 
  * @author koichik
  */
 public interface SelectExpression extends Criterion {
-
 }

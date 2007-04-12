@@ -16,9 +16,9 @@
 package org.seasar.kuina.dao.criteria;
 
 /**
+ * JPQLを構築可能な要素のマーカインタフェースです．
  * 
  * @author koichik
  */
 public interface Criteria {
-
 }

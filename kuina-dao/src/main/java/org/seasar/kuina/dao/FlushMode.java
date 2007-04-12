@@ -23,13 +23,17 @@ import java.lang.annotation.Target;
 import javax.persistence.FlushModeType;
 
 /**
+ * 注釈されたメソッドによるJPQL問い合わせ時のフラッシュモードを指定します．
  * 
  * @author koichik
+ * @see javax.persistence.Query#setFlushMode(javax.persistence.FlushModeType)
+ * @see javax.persistence.FlushModeType
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FlushMode {
 
+    /** フラッシュモードのタイプ */
     FlushModeType value();
 
 }

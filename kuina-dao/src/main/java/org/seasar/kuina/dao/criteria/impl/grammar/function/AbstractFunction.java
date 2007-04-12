@@ -24,16 +24,24 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLの関数を表す抽象クラスです．
  * 
  * @author koichik
  */
-public class AbstractFunction {
+public class AbstractFunction implements Criterion {
+
+    // instance fields
+    /** 関数名 */
     protected final String functor;
 
+    /** 関数に渡す引数のリスト */
     protected final List<Criterion> arguments = CollectionsUtil.newArrayList();
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param functor
+     *            関数名
      */
     public AbstractFunction(final String functor) {
         if (StringUtil.isEmpty(functor)) {
@@ -45,6 +53,11 @@ public class AbstractFunction {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param functor
+     *            関数名
+     * @param arguments
+     *            関数に渡す引数の並び
      */
     public AbstractFunction(final String functor, final Criterion... arguments) {
         this(functor);
@@ -69,4 +82,5 @@ public class AbstractFunction {
             context.append(")");
         }
     }
+
 }

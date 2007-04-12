@@ -18,11 +18,27 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのall_or_any_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * all_or_any_expression ::=
+ *     { ALL | ANY | SOME} (subquery)
+ * </pre>
  * 
  * @author koichik
  */
 public interface AllOrAnyExpression extends Criterion {
 
+    /**
+     * 副問い合わせを設定します．
+     * 
+     * @param subquery
+     *            副問い合わせ
+     * @return このインスタンス自身
+     */
     AllOrAnyExpression setSubquery(Subquery subquery);
 
 }

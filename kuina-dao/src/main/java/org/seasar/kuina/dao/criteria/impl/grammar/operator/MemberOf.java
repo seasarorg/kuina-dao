@@ -20,6 +20,7 @@ import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのMEMBER OFを表すクラスです．
  * 
  * @author koichik
  */
@@ -28,6 +29,11 @@ public class MemberOf extends AbstractBinaryOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すentity_expression
+     * @param rhs
+     *            右辺を表すpath_expression
      */
     public MemberOf(final EntityExpression lhs, final PathExpression rhs) {
         super(" MEMBER OF ", lhs, rhs);

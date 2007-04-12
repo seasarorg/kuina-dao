@@ -21,13 +21,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッドによるJPQL問い合わせ時のヒントを複数指定します．
  * 
  * @author koichik
+ * @see javax.persistence.Query#setHint(String, Object)
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Hints {
 
+    /** ヒント指定の配列 */
     Hint[] value();
 
 }

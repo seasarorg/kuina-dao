@@ -16,9 +16,19 @@
 package org.seasar.kuina.dao.internal;
 
 /**
+ * {@link DaoMetadata}を作成するファクトリです．
  * 
  * @author koichik
  */
 public interface DaoMetadataFactory {
+
+    /**
+     * <code>daoClass</code>に対応した{@link DaoMetadata}を作成して返します．
+     * 
+     * @param daoClass
+     *            Daoのインタフェースまたはクラス
+     * @return <code>daoClass</code>に対応した{@link DaoMetadata}
+     */
     DaoMetadata getMetadata(Class<?> daoClass);
+
 }

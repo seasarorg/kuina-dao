@@ -20,20 +20,48 @@ import java.util.Collection;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.framework.util.tiger.ReflectionUtil;
+import org.seasar.kuina.dao.criteria.CriteriaOperations;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
 import org.seasar.kuina.dao.criteria.grammar.InputParameter;
 
 /**
+ * INを使用した問い合わせ条件を作成し，SELECT文に追加するビルダです．
+ * <p>
+ * このビルダは，次のようなCriteria API呼び出しを行います．
+ * </p>
+ * 
+ * <pre>
+ * statement.where(<var>in</var>("pathExpression", <var>parameter</var>("parameterName", vale), ...));
+ * </pre>
+ * 
+ * <p>
+ * <code><var>in</var></code>は<code>operationMethod</code>で表されるメソッドです．
+ * <code><var>parameter</var></code>は<code>parameterMethod</code>で表されるメソッドです．
+ * </p>
  * 
  * @author koichik
  */
 public class InBuilder extends AbstractConditionalExpressionBuilder {
 
-    public InBuilder(final Class<?> entityClass, final String propertyName,
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param propertyPath
+     *            プロパティのパス
+     * @param parameterName
+     *            パラメータ名
+     * @param parameterMethod
+     *            {@link CriteriaOperations}の<code>parameter()</code>メソッド
+     * @param operationMethod
+     *            {@link CriteriaOperations}の問い合わせ条件作成メソッド
+     */
+    public InBuilder(final Class<?> entityClass, final String propertyPath,
             final String parameterName, final Method parameterMethod,
             final Method operationMethod) {
-        super(entityClass, propertyName, parameterName, parameterMethod,
+        super(entityClass, propertyPath, parameterName, parameterMethod,
                 operationMethod);
     }
 
@@ -45,11 +73,18 @@ public class InBuilder extends AbstractConditionalExpressionBuilder {
 
         final Object parameter = createParameters(value);
         final Object expression = ReflectionUtil.invokeStatic(
-                getOperationMethod(), getPropertyName(), parameter);
+                getOperationMethod(), getPathExpression(), parameter);
         statement.where(ConditionalExpression.class.cast(expression));
         return getPropertyPath();
     }
 
+    /**
+     * パラメータ式の配列を作成します．
+     * 
+     * @param values
+     *            IN句のパラメータにバインドされる値の配列または{@link Collection}
+     * @return パラメータ式の配列
+     */
     protected Object createParameters(final Object values) {
         if (Object[].class.isInstance(values)) {
             return createParametersFromArray(Object[].class.cast(values));
@@ -61,6 +96,13 @@ public class InBuilder extends AbstractConditionalExpressionBuilder {
                 new Object[] { values });
     }
 
+    /**
+     * IN句のパラメータにバインドされる値の配列からパラメータ式の配列を作成します．
+     * 
+     * @param values
+     *            IN句のパラメータにバインドされる値の配列または{@link Collection}
+     * @return パラメータの配列
+     */
     protected Object createParametersFromArray(final Object[] values) {
         final InputParameter[] parameters = new InputParameter[values.length];
         for (int i = 0; i < values.length; ++i) {
@@ -70,8 +112,15 @@ public class InBuilder extends AbstractConditionalExpressionBuilder {
         return parameters;
     }
 
+    /**
+     * IN句のパラメータにバインドされる値の{@link Collection}からパラメータ式の配列を作成します．
+     * 
+     * @param values
+     *            IN句のパラメータにバインドされる値の配列または{@link Collection}
+     * @return パラメータの配列
+     */
     protected Object createParameterFromCollection(final Collection<?> values) {
-        final Object[] parameters = new Object[values.size()];
+        final InputParameter[] parameters = new InputParameter[values.size()];
         int i = 0;
         for (final Object value : values) {
             parameters[i++] = ReflectionUtil.invokeStatic(getParameterMethod(),

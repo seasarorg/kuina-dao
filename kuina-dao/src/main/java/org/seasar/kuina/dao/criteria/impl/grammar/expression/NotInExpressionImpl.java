@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.InItem;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのNOT IN演算子を使用したin_expressionを表すクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,11 @@ public class NotInExpressionImpl extends AbstractInExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expressionを表す文字列
+     * @param inItems
+     *            in_itemの並び
      */
     public NotInExpressionImpl(final String pathExpression,
             final InItem... inItems) {
@@ -34,6 +40,11 @@ public class NotInExpressionImpl extends AbstractInExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expression
+     * @param inItems
+     *            in_itemの並び
      */
     public NotInExpressionImpl(final PathExpression pathExpression,
             final InItem... inItems) {

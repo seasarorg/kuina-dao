@@ -28,25 +28,50 @@ import org.seasar.extension.sql.parser.SqlParserImpl;
 import org.seasar.framework.jpa.DialectManager;
 
 /**
+ * SQLを実行する{Command}の共通機能を提供する抽象クラスです．
  * 
  * @author higa
  */
 public abstract class AbstractSqlCommand extends AbstractCommand {
 
+    // instance fields
+    /** SQL */
     protected final String sql;
 
+    /** SQLをパースしたノードツリーのルート */
     protected final Node node;
 
+    /** パラメータ名の配列 */
     protected final String[] parameterNames;
 
+    /** パラメータ型の配列 */
     protected final Class[] parameterTypes;
 
+    /** Dialectマネージャ */
     protected final DialectManager dialectManager;
 
+    /** ステートメント・ファクトリ */
     protected final StatementFactory statementFactory;
 
+    /** フラッシュ・モード */
     protected final FlushModeType flushMode;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param method
+     *            Daoメソッド
+     * @param sql
+     *            SQL
+     * @param parameterNames
+     *            パラメータ名の配列
+     * @param parameterTypes
+     *            パラメータ型の配列
+     * @param dialectManager
+     *            Dialectマネージャ
+     * @param statementFactory
+     *            ステートメント・ファクトリ
+     */
     public AbstractSqlCommand(final Method method, final String sql,
             final String[] parameterNames, final Class[] parameterTypes,
             final DialectManager dialectManager,
@@ -82,6 +107,13 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
         return execute(em, query, args, argTypes);
     }
 
+    /**
+     * 必要に応じて永続コンテキストをフラッシュします．
+     * 
+     * @param em
+     *            エンティティ・マネージャ
+     * @see EntityManager#flush()
+     */
     protected void flushIfNeed(final EntityManager em) {
         if (flushMode == FlushModeType.AUTO
                 || (flushMode == null && em.getFlushMode() == FlushModeType.AUTO)) {
@@ -89,6 +121,19 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
         }
     }
 
+    /**
+     * SQLを実行します．
+     * 
+     * @param em
+     *            エンティティ・マネージャ
+     * @param query
+     *            問い合わせ文字列
+     * @param args
+     *            Daoメソッドの引数の配列
+     * @param argTypes
+     *            パラメータ型の配列
+     * @return SQLの実行結果
+     */
     protected abstract Object execute(final EntityManager em,
             final String query, final Object[] args, Class<?>[] argTypes);
 

@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
 /**
+ * JPQLのANY演算子を使用したall_or_any_expressionを表すクラスです．
  * 
  * @author koichik
  */

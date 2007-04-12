@@ -20,6 +20,7 @@ import org.seasar.kuina.dao.criteria.grammar.EntityExpression;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのNOT MEMBER OFを表すクラスです．
  * 
  * @author koichik
  */
@@ -28,6 +29,11 @@ public class NotMemberOf extends AbstractBinaryOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すentity_expression
+     * @param rhs
+     *            右辺を表すentity_expression
      */
     public NotMemberOf(final EntityExpression lhs, final PathExpression rhs) {
         super(" NOT MEMBER OF ", lhs, rhs);

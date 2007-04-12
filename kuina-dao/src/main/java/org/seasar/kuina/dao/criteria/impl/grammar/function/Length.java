@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningNumerics;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
 
 /**
+ * JPQLのLENGTH関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -27,6 +28,9 @@ public class Length extends AbstractFunction implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param source
+     *            長さを求める文字列のstring_primary
      */
     public Length(final StringPrimary source) {
         super("LENGTH", source);

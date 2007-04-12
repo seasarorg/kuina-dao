@@ -20,14 +20,21 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.NumericLiteral;
 
 /**
+ * JPQLのnumeric_literalを表すクラスです．
  * 
  * @author koichik
  */
 public class NumericLiteralImpl implements NumericLiteral {
+
+    // instance fields
+    /** numeric_literal */
     protected final Number literal;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param literal
+     *            numeric_literalとなる数値
      */
     public NumericLiteralImpl(final Number literal) {
         if (literal == null) {

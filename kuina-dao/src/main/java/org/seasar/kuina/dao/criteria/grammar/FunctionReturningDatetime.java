@@ -18,6 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのfunctions_returning_datetimeを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * functions_returning_datetime ::=
+ *     CURRENT_DATE|
+ *     CURRENT_TIME |
+ *     CURRENT_TIMESTAMP
+ * </pre>
  * 
  * @author koichik
  */

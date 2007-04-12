@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningNumerics;
 import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
 
 /**
+ * JPQLのSQRT関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,9 @@ public class Sqrt extends AbstractFunction implements FunctionReturningNumerics 
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param number
+     *            平方根を求める数値を表すsimple_arithmetic_expression
      */
     public Sqrt(final SimpleArithmeticExpression number) {
         super("SQRT", number);

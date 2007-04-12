@@ -18,9 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのfetch_joinを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * fetch_join ::=
+ *     join_spec FETCH join_association_path_expression
+ * </pre>
  * 
  * @author koichik
  */
 public interface FetchJoin extends Criterion, JoinOrFetchJoin {
-
 }

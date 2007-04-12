@@ -21,14 +21,21 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのpath_expressionを表すクラスです．
  * 
  * @author koichik
  */
 public class PathExpressionImpl implements PathExpression {
+
+    // instance fields
+    /** path_expressionを表す文字列 */
     protected final String pathExpression;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expressionを表す文字列
      */
     public PathExpressionImpl(final String pathExpression) {
         if (StringUtil.isEmpty(pathExpression)) {
@@ -38,13 +45,18 @@ public class PathExpressionImpl implements PathExpression {
         this.pathExpression = pathExpression;
     }
 
+    public void evaluate(final CriteriaContext context) {
+        context.append(pathExpression);
+    }
+
+    /**
+     * オブジェクトの文字列表現を返します．
+     * 
+     * @return このオブジェクトの文字列表現
+     */
     @Override
     public String toString() {
         return pathExpression;
-    }
-
-    public void evaluate(final CriteriaContext context) {
-        context.append(pathExpression);
     }
 
 }

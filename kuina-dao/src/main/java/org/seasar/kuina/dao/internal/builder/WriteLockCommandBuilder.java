@@ -23,11 +23,15 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.WriteLockCommand;
 
 /**
+ * {@link WriteLockCommand}を作成するビルダです．
  * 
  * @author koichik
  */
 public class WriteLockCommandBuilder extends AbstractCommandBuilder {
 
+    /**
+     * インスタンスを構築します。
+     */
     public WriteLockCommandBuilder() {
         setMethodNamePattern("lock|writeLock");
     }

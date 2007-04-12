@@ -18,9 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのboolean_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * boolean_expression ::=
+ *     boolean_primary | (subquery)
+ * </pre>
  * 
  * @author koichik
  */
 public interface BooleanExpression extends Criterion {
-
 }

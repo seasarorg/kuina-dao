@@ -21,6 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッドによるJPQL問い合わせのSELECT句にDISTINCTを指定することを示します．
  * 
  * @author koichik
  */

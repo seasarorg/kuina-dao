@@ -23,6 +23,7 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
+ * JPQLの2項<code>&gt;</code>演算子を表すクラスです．
  * 
  * @author koichik
  */
@@ -31,39 +32,100 @@ public class GreaterThan extends AbstractBinaryOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すpath_expression
+     * @param rhs
+     *            右辺を表すpath_expression
      */
     public GreaterThan(final PathExpression lhs, final PathExpression rhs) {
         super(" > ", lhs, rhs);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すpath_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
     public GreaterThan(final PathExpression lhs, final AllOrAnyExpression rhs) {
         super(" > ", lhs, rhs);
     }
 
-    public GreaterThan(final StringExpression lhs, final StringExpression rhs) {
-        super(" > ", lhs, rhs);
-    }
-
-    public GreaterThan(final StringExpression lhs, final AllOrAnyExpression rhs) {
-        super(" > ", lhs, rhs);
-    }
-
-    public GreaterThan(final DatetimeExpression lhs,
-            final DatetimeExpression rhs) {
-        super(" > ", lhs, rhs);
-    }
-
-    public GreaterThan(final DatetimeExpression lhs,
-            final AllOrAnyExpression rhs) {
-        super(" > ", lhs, rhs);
-    }
-
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すarithmetic_expression
+     * @param rhs
+     *            右辺を表すarithmetic_expression
+     */
     public GreaterThan(final ArithmeticExpression lhs,
             final ArithmeticExpression rhs) {
         super(" > ", lhs, rhs);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すarithmetic_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
     public GreaterThan(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        super(" > ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すstring_expression
+     * @param rhs
+     *            右辺を表すstring_expression
+     */
+    public GreaterThan(final StringExpression lhs, final StringExpression rhs) {
+        super(" > ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すstring_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public GreaterThan(final StringExpression lhs, final AllOrAnyExpression rhs) {
+        super(" > ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すdatetime_expression
+     * @param rhs
+     *            右辺を表すdatetime_expression
+     */
+    public GreaterThan(final DatetimeExpression lhs,
+            final DatetimeExpression rhs) {
+        super(" > ", lhs, rhs);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すdatetime_expression
+     * @param rhs
+     *            右辺を表すall_or_any_expression
+     */
+    public GreaterThan(final DatetimeExpression lhs,
             final AllOrAnyExpression rhs) {
         super(" > ", lhs, rhs);
     }

@@ -21,15 +21,25 @@ import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
+ * JPQLのBETWEENを表す抽象クラスです．
  * 
  * @author koichik
  */
 public class Between extends AbstractBetween {
 
+    // constans
+    /** BETWEEN のキーワード */
     protected static final String OPERATOR = " BETWEEN ";
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象を表すpath_expression
+     * @param from
+     *            範囲の下限を表すpath_expression
+     * @param to
+     *            範囲の上限を表すpath_expression
      */
     public Between(final PathExpression operand, final PathExpression from,
             final PathExpression to) {
@@ -38,6 +48,13 @@ public class Between extends AbstractBetween {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象を表すarithmetic_expression
+     * @param from
+     *            範囲の下限を表すarithmetic_expression
+     * @param to
+     *            範囲の上限を表すarithmetic_expression
      */
     public Between(final ArithmeticExpression operand,
             final ArithmeticExpression from, final ArithmeticExpression to) {
@@ -46,6 +63,13 @@ public class Between extends AbstractBetween {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象を表すstring_expression
+     * @param from
+     *            範囲の下限を表すstring_expression
+     * @param to
+     *            範囲の上限を表すstring_expression
      */
     public Between(final StringExpression operand, final StringExpression from,
             final StringExpression to) {
@@ -54,6 +78,13 @@ public class Between extends AbstractBetween {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operand
+     *            テスト対象を表すdatetime_expression
+     * @param from
+     *            範囲の下限を表すdatetime_expression
+     * @param to
+     *            範囲の上限を表すdatetime_expression
      */
     public Between(final DatetimeExpression operand,
             final DatetimeExpression from, final DatetimeExpression to) {

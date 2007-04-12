@@ -22,10 +22,17 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ConditionalQueryCommand;
 
 /**
+ * {@link ConditionalQueryCommand}を作成するビルダです．
  * 
  * @author koichik
  */
 public class ConditionalQueryCommandBuilder extends AbstractQueryCommandBuilder {
+
+    /**
+     * インスタンスを構築します。
+     */
+    public ConditionalQueryCommandBuilder() {
+    }
 
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {

@@ -21,6 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッドに対応するNamed Queryの名前を明示的に指定することを示します．
  * 
  * @author koichik
  */
@@ -28,6 +29,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QueryName {
 
+    /** Named Queryの名前 */
     String value();
 
 }

@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.operator;
 import org.seasar.kuina.dao.criteria.grammar.StringExpression;
 
 /**
+ * JPQLのLIKEを表すクラスです．
  * 
  * @author koichik
  */
@@ -25,6 +26,11 @@ public class Like extends AbstractLike {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param string
+     *            テスト対象を表すstring_expression
+     * @param pattern
+     *            パターンを表すstring_expression
      */
     public Like(final StringExpression string, final StringExpression pattern) {
         super(false, string, pattern, null);
@@ -32,6 +38,13 @@ public class Like extends AbstractLike {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param string
+     *            テスト対象を表すstring_expression
+     * @param pattern
+     *            パターンを表すstring_expression
+     * @param escape
+     *            エスケープ文字を表すstring_expression
      */
     public Like(final StringExpression string, final StringExpression pattern,
             final StringExpression escape) {

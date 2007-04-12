@@ -16,12 +16,20 @@
 package org.seasar.kuina.dao.internal.condition;
 
 import org.seasar.kuina.dao.criteria.SelectStatement;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 
 /**
+ * パラメータを{@link SelectStatement#setFirstResult(int)}にバインドするビルダです．
  * 
  * @author koichik
  */
 public class FirstResultBuilder implements ConditionalExpressionBuilder {
+
+    /**
+     * インスタンスを構築します。
+     */
+    public FirstResultBuilder() {
+    }
 
     public String appendCondition(final SelectStatement statement,
             final Object value) {

@@ -22,18 +22,37 @@ import org.seasar.kuina.dao.criteria.grammar.OrderbyItem;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのorderby_itemを表すクラスです．
  * 
  * @author koichik
  */
 public class OrderbyItemImpl implements OrderbyItem {
+
+    // instance fields
+    /** path_expression */
     protected final PathExpression pathExpression;
 
+    /** ordering_spec */
     protected final OrderingSpec orderingSpec;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expression
+     */
     public OrderbyItemImpl(final PathExpression pathExpression) {
         this(pathExpression, OrderingSpec.ASC);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expression
+     * @param orderingSpec
+     *            ordering_spec
+     */
     public OrderbyItemImpl(final PathExpression pathExpression,
             final OrderingSpec orderingSpec) {
         if (pathExpression == null) {

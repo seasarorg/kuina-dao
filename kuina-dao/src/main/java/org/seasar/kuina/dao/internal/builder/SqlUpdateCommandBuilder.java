@@ -26,27 +26,53 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.SqlUpdateCommand;
 
 /**
+ * {@link SqlUpdateCommand}を作成するビルダです．
  * 
+ * @author higa
  * @author koichik
  */
 public class SqlUpdateCommandBuilder extends AbstractCommandBuilder {
 
+    // instance fields
+    /** Dialectマネージャ */
     protected DialectManager dialectManager;
 
+    /** ステートメントファクトリ */
     protected StatementFactory statementFactory;
 
+    /**
+     * インスタンスを構築します。
+     */
     public SqlUpdateCommandBuilder() {
         setMethodNamePattern("(insert|update|delete|remove).+");
     }
 
+    /**
+     * Daoヘルパーを設定します．
+     * 
+     * @param daoHelper
+     *            Daoヘルパー
+     */
     public void setDaoHelper(final DaoHelper daoHelper) {
         this.daoHelper = daoHelper;
     }
 
+    /**
+     * Dialectマネージャを設定します．
+     * 
+     * @param dialectManager
+     *            Dialectマネージャ
+     */
     public void setDialectManager(final DialectManager dialectManager) {
         this.dialectManager = dialectManager;
     }
 
+    /**
+     * ステートメントファクトリを設定します．
+     * 
+     * @param statementFactory
+     *            ステートメントファクトリ
+     */
     public void setStatementFactory(final StatementFactory statementFactory) {
         this.statementFactory = statementFactory;
     }

@@ -18,17 +18,30 @@ package org.seasar.kuina.dao.internal.binder;
 import javax.persistence.Query;
 
 /**
+ * 数値を{@link javax.persistence.Query#setFirstResult(int)}にバインドします．
  * 
  * @author koichik
+ * @see javax.persistence.Query#setFirstResult(int)
  */
 public class FirstResultBinder implements ParameterBinder {
 
+    /** 結果を取得する最初の位置 */
     protected final Number value;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public FirstResultBinder() {
         this(null);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param value
+     *            結果を取得する最初の位置
+     */
     public FirstResultBinder(final Number value) {
         this.value = value;
     }

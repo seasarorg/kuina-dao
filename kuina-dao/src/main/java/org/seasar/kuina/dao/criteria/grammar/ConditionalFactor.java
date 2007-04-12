@@ -18,9 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのconditional_factorを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * conditional_factor ::=
+ *     [ NOT ] conditional_primary
+ * </pre>
  * 
  * @author koichik
  */
 public interface ConditionalFactor extends Criterion, ConditionalTerm {
-
 }

@@ -18,9 +18,24 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのsimple_cond_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * simple_cond_expression ::=
+ *     comparison_expression |
+ *     between_expression |
+ *     like_expression |
+ *     in_expression |
+ *     null_comparison_expression |
+ *     empty_collection_comparison_expression |
+ *     collection_member_expression |
+ *     exists_expression
+ * </pre>
  * 
  * @author koichik
  */
 public interface SimpleCondExpression extends Criterion, ConditionalPrimary {
-
 }

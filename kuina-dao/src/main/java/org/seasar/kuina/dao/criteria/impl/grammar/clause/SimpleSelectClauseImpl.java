@@ -26,20 +26,34 @@ import org.seasar.kuina.dao.criteria.grammar.SimpleSelectClause;
 import org.seasar.kuina.dao.criteria.grammar.SimpleSelectExpression;
 
 /**
+ * JPQLのsimple_select_clauseを表すクラスです．
  * 
  * @author koichik
  */
 public class SimpleSelectClauseImpl implements SimpleSelectClause {
 
+    // instance fields
+    /** 問い合わせがDISTINCTの場合は<code>true</code>，それ以外の場合は<code>false</code> */
     protected boolean distinct;
 
+    /** simple_select_expressionのリスト */
     protected final List<Criterion> simpleSelectExpressions = CollectionsUtil
             .newArrayList();
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public SimpleSelectClauseImpl() {
         this(false);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            問い合わせがDISTINCTの場合は<code>true</code>，それ以外の場合は<code>false</code>
+     */
     public SimpleSelectClauseImpl(final boolean distinct) {
         this.distinct = distinct;
     }

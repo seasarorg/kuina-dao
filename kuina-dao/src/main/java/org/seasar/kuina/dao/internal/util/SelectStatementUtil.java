@@ -21,11 +21,22 @@ import org.seasar.kuina.dao.criteria.impl.grammar.expression.OrderbyItemImpl;
 import org.seasar.kuina.dao.criteria.impl.grammar.expression.PathExpressionImpl;
 
 /**
+ * JPQLのSELECT文を扱うユーティリティ・クラスです．
  * 
  * @author koichik
  */
 public class SelectStatementUtil {
 
+    /**
+     * SELECT文のORDERBY句にorderby_itemを追加します．
+     * 
+     * @param identificationVariable
+     *            orderby_itemのidentification_variable
+     * @param selectStatement
+     *            orderby_itemを追加するselect_statement
+     * @param orderbySpec
+     *            orderby_spec
+     */
     public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final Object orderbySpec) {
         if (String.class.isInstance(orderbySpec)) {
@@ -43,11 +54,31 @@ public class SelectStatementUtil {
         }
     }
 
+    /**
+     * SELECT文のORDERBY句にorderby_itemを追加します．
+     * 
+     * @param identificationVariable
+     *            orderby_itemのidentification_variable
+     * @param selectStatement
+     *            orderby_itemを追加するselect_statement
+     * @param orderbySpec
+     *            orderby_spec
+     */
     public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final String orderbySpec) {
         selectStatement.orderby(identificationVariable + "." + orderbySpec);
     }
 
+    /**
+     * SELECT文のORDERBY句にorderby_itemを追加します．
+     * 
+     * @param identificationVariable
+     *            orderby_itemのidentification_variable
+     * @param selectStatement
+     *            orderby_itemを追加するselect_statement
+     * @param orderbySpecs
+     *            orderby_specの配列
+     */
     public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final String[] orderbySpecs) {
         for (final String orderbySpec : orderbySpecs) {
@@ -56,6 +87,16 @@ public class SelectStatementUtil {
         }
     }
 
+    /**
+     * SELECT文のORDERBY句にorderby_itemを追加します．
+     * 
+     * @param identificationVariable
+     *            orderby_itemのidentification_variable
+     * @param selectStatement
+     *            orderby_itemを追加するselect_statement
+     * @param orderbySpec
+     *            orderby_spec
+     */
     public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement, final OrderbySpec orderbySpec) {
         selectStatement.orderby(new OrderbyItemImpl(
@@ -64,6 +105,16 @@ public class SelectStatementUtil {
                         .getOrderingSpec()));
     }
 
+    /**
+     * SELECT文のORDERBY句にorderby_itemを追加します．
+     * 
+     * @param identificationVariable
+     *            orderby_itemのidentification_variable
+     * @param selectStatement
+     *            orderby_itemを追加するselect_statement
+     * @param orderbySpecs
+     *            orderby_specの配列
+     */
     public static void appendOrderbyClause(final String identificationVariable,
             final SelectStatement selectStatement,
             final OrderbySpec[] orderbySpecs) {

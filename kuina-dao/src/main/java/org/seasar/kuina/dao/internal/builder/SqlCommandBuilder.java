@@ -27,29 +27,65 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.SqlCommand;
 
 /**
+ * {@link SqlCommand}を作成するビルダです．
  * 
+ * @author higa
  * @author koichik
  */
 public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
 
+    // instance fields
+    /** Dialectマネージャ */
     protected DialectManager dialectManager;
 
+    /** 結果セットファクトリ */
     protected ResultSetFactory resultSetFactory;
 
+    /** ステートメントファクトリ */
     protected StatementFactory statementFactory;
 
+    /**
+     * インスタンスを構築します。
+     */
+    public SqlCommandBuilder() {
+    }
+
+    /**
+     * Daoヘルパーを設定します．
+     * 
+     * @param daoHelper
+     *            Daoヘルパー
+     */
     public void setDaoHelper(final DaoHelper daoHelper) {
         this.daoHelper = daoHelper;
     }
 
+    /**
+     * Dialectマネージャを設定します．
+     * 
+     * @param dialectManager
+     *            Dialectマネージャ
+     */
     public void setDialectManager(final DialectManager dialectManager) {
         this.dialectManager = dialectManager;
     }
 
+    /**
+     * 結果セットファクトリを設定します．
+     * 
+     * @param resultSetFactory
+     *            結果セットファクトリ
+     */
     public void setResultSetFactory(final ResultSetFactory resultSetFactory) {
         this.resultSetFactory = resultSetFactory;
     }
 
+    /**
+     * ステートメントファクトリを設定します．
+     * 
+     * @param statementFactory
+     *            ステートメントファクトリ
+     */
     public void setStatementFactory(final StatementFactory statementFactory) {
         this.statementFactory = statementFactory;
     }
@@ -74,4 +110,5 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
                         .getParameterTypes(), dialectManager, resultSetFactory,
                 statementFactory);
     }
+
 }

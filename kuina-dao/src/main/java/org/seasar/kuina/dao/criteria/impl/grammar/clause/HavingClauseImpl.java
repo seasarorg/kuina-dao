@@ -21,11 +21,14 @@ import org.seasar.kuina.dao.criteria.grammar.HavingClause;
 import org.seasar.kuina.dao.criteria.impl.grammar.conditional.And;
 
 /**
+ * JPQLのhaving_clauseを表すクラスです．
  * 
  * @author koichik
  */
 public class HavingClauseImpl implements HavingClause {
 
+    // instance fields
+    /** conditional_expression */
     protected ConditionalExpression conditionalExpression;
 
     /**
@@ -34,6 +37,12 @@ public class HavingClauseImpl implements HavingClause {
     public HavingClauseImpl() {
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param expressions
+     *            conditional_expressionの並び
+     */
     public HavingClauseImpl(final ConditionalExpression... expressions) {
         and(expressions);
     }

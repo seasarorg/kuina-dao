@@ -18,9 +18,21 @@ package org.seasar.kuina.dao.internal;
 import javax.persistence.EntityManager;
 
 /**
+ * Daoのオペレーションを実行するコマンドです．
  * 
  * @author koichik
  */
 public interface Command {
+
+    /**
+     * Daoのオペレーションを実行します．
+     * 
+     * @param em
+     *            エンティティ・マネージャ
+     * @param arguments
+     *            Daoのメソッド引数
+     * @return Daoオペレーションの実行結果
+     */
     Object execute(final EntityManager em, final Object[] arguments);
+
 }

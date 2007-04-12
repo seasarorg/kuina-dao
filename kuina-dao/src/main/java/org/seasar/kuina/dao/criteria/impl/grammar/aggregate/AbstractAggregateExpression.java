@@ -20,28 +20,41 @@ import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.grammar.AggregateExpression;
 
 /**
+ * JPQLのaggregate_expressionを表す抽象クラスです．
  * 
  * @author koichik
  */
 public class AbstractAggregateExpression implements AggregateExpression {
-    protected final String operator;
 
+    // instance fields
+    /** 関数名 */
+    protected final String functionName;
+
+    /** DISTINCT の場合は<code>true</code>，それ以外の場合は<code>false</code> */
     protected final boolean distinct;
 
+    /** 集計対象の式 */
     protected final Criterion expression;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param functionName
+     *            関数名
+     * @param distinct
+     *            DISTINCT の場合は<code>true</code>，それ以外の場合は<code>false</code>
+     * @param expression
+     *            集計対象の式
      */
-    public AbstractAggregateExpression(final String operator,
+    public AbstractAggregateExpression(final String functionName,
             final boolean distinct, final Criterion expression) {
-        this.operator = operator;
+        this.functionName = functionName;
         this.distinct = distinct;
         this.expression = expression;
     }
 
     public void evaluate(final CriteriaContext context) {
-        context.append(operator).append("(");
+        context.append(functionName).append("(");
         if (distinct) {
             context.append("DISTINCT ");
         }

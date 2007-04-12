@@ -18,9 +18,18 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのsimple_entity_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * simple_entity_expression ::=
+ *     identification_variable |
+ *     input_parameter
+ * </pre>
  * 
  * @author koichik
  */
 public interface SimpleEntityExpression extends Criterion, EntityExpression {
-
 }

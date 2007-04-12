@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.InItem;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのIN演算子を使用したin_expressionを表すクラスです．
  * 
  * @author koichik
  */
@@ -26,20 +27,45 @@ public class InExpressionImpl extends AbstractInExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expressionを表す文字列
      */
     public InExpressionImpl(final String pathExpression) {
-        this(new PathExpressionImpl(pathExpression));
+        super(" IN ", new PathExpressionImpl(pathExpression));
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expressionを表す文字列
+     * @param inItems
+     *            in_itemsの並び
+     */
     public InExpressionImpl(final String pathExpression,
             final InItem... inItems) {
-        this(new PathExpressionImpl(pathExpression), inItems);
+        super(" IN ", new PathExpressionImpl(pathExpression), inItems);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expression
+     */
     public InExpressionImpl(final PathExpression pathExpression) {
         super(" IN ", pathExpression);
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expression
+     * @param inItems
+     *            in_itemsの並び
+     */
     public InExpressionImpl(final PathExpression pathExpression,
             final InItem... inItems) {
         super(" IN ", pathExpression, inItems);

@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import org.seasar.framework.exception.SRuntimeException;
 
 /**
+ * {@link Orderby}アノテーションで指定したorder_by_specが不正であることを示すためにスローされます．
  * 
  * @author koichik
  */
@@ -27,10 +28,28 @@ public class IllegalOrderbyException extends SRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param method
+     *            注釈されたメソッド
+     * @param text
+     *            注釈に指定されたorder_by_spec
+     */
     public IllegalOrderbyException(final Method method, final String text) {
         super("EKuinaDao2005", new Object[] { method, text });
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param method
+     *            注釈されたメソッド
+     * @param text
+     *            注釈に指定されたorder_by_spec
+     * @param e
+     *            原因となった例外
+     */
     public IllegalOrderbyException(final Method method, final String text,
             final Exception e) {
         super("EKuinaDao2005", new Object[] { method, text }, e);

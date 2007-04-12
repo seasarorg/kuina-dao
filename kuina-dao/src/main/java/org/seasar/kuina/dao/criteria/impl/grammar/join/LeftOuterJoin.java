@@ -22,16 +22,31 @@ import org.seasar.kuina.dao.criteria.grammar.Join;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * 左外部結合を表すクラスです．
  * 
  * @author koichik
  */
 public class LeftOuterJoin extends AbstractJoin implements Join {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param associationPathSpec
+     *            association_path_expression
+     */
     public LeftOuterJoin(final PathExpression associationPathSpec) {
         this(associationPathSpec,
                 getDefaultIdentificationVariable(associationPathSpec));
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param associationPathSpec
+     *            association_path_expression
+     * @param identificationVariable
+     *            identification_variable
+     */
     public LeftOuterJoin(final PathExpression associationPathSpec,
             final IdentificationVariable identificationVariable) {
         super(" LEFT OUTER JOIN ", associationPathSpec, identificationVariable);

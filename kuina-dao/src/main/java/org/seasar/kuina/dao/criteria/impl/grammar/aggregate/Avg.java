@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.aggregate;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのAVG関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -25,6 +26,9 @@ public class Avg extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            AVG関数に適用されるpath_expression
      */
     public Avg(final PathExpression pathExpression) {
         this(false, pathExpression);
@@ -32,6 +36,11 @@ public class Avg extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            DISTINCT の場合は<code>true</code>，それ以外の場合は<code>false</code>
+     * @param pathExpression
+     *            AVG関数に適用されるpath_expression
      */
     public Avg(final boolean distinct, final PathExpression pathExpression) {
         super("AVG", distinct, pathExpression);

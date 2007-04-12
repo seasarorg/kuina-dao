@@ -18,9 +18,26 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのwhere_clauseを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * where_clause ::=
+ *     WHERE conditional_expression
+ * </pre>
  * 
  * @author koichik
  */
 public interface WhereClause extends Criterion {
+
+    /**
+     * conditional_expression
+     * 
+     * @param expressions
+     * @return このインスタンス自身
+     */
     WhereClause and(ConditionalExpression... expressions);
+
 }

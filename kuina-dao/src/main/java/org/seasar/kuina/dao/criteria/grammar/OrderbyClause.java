@@ -18,11 +18,27 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのorderby_clauseを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * orderby_clause ::=
+ *     ORDER BY orderby_item {, orderby_item}*
+ * </pre>
  * 
  * @author koichik
  */
 public interface OrderbyClause extends Criterion {
 
+    /**
+     * orderby_itemを追加します．
+     * 
+     * @param orderbyItems
+     *            orderby_itemの並び
+     * @return このインスタンス自身
+     */
     OrderbyClause add(OrderbyItem... orderbyItems);
 
 }

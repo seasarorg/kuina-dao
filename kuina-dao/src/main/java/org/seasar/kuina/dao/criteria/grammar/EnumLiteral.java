@@ -18,9 +18,12 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのenum_literalを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
  * 
  * @author koichik
  */
 public interface EnumLiteral extends Criterion, Literal, EnumPrimary {
-
 }

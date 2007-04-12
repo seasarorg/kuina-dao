@@ -20,8 +20,10 @@ import java.util.List;
 
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
+import org.seasar.kuina.dao.internal.Command;
 
 /**
+ * 全件検索を行う問い合わせを実行する{@link Command}です．
  * 
  * @author koichik
  */
@@ -29,6 +31,11 @@ public class FindAllQueryCommand extends AbstractDynamicQueryCommand {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
+     * @param method
+     *            Daoメソッド
      */
     public FindAllQueryCommand(final Class<?> entityClass, final Method method) {
         super(entityClass, method, true);

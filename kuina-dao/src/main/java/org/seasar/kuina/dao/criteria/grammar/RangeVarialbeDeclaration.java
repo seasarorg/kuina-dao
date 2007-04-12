@@ -19,11 +19,26 @@ import org.seasar.kuina.dao.criteria.Criterion;
 import org.seasar.kuina.dao.criteria.IdentificationVarialbleVisitor;
 
 /**
+ * JPQLのrange_variable_declarationを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * range_variable_declaration ::=
+ *     abstract_schema_name [AS] identification_variable
+ * </pre>
  * 
  * @author koichik
  */
 public interface RangeVarialbeDeclaration extends Criterion {
 
+    /**
+     * ビジタを受け入れます
+     * 
+     * @param visitor
+     *            ビジタ
+     */
     void accept(IdentificationVarialbleVisitor visitor);
 
 }

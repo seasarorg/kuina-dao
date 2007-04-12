@@ -16,11 +16,16 @@
 package org.seasar.kuina.dao.criteria.impl.grammar.expression;
 
 /**
+ * JPQLのEXISTS演算子を使用したexists_expressionを表すクラスです．
  * 
  * @author koichik
  */
 public class ExistsExpressionImpl extends AbstractExistsExpression {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public ExistsExpressionImpl() {
         super("EXISTS ");
     }

@@ -18,10 +18,18 @@ package org.seasar.kuina.dao.internal.binder;
 import javax.persistence.Query;
 
 /**
+ * バインドを行わないバインダの実装です．
  * 
  * @author koichik
  */
 public class NullBinder implements ParameterBinder {
+
+    /**
+     * インスタンスを構築します。
+     * 
+     */
+    public NullBinder() {
+    }
 
     public void bind(final Query query) {
     }

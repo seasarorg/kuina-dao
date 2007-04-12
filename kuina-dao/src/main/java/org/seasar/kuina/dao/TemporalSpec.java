@@ -23,6 +23,7 @@ import java.lang.annotation.Target;
 import javax.persistence.TemporalType;
 
 /**
+ * 注釈されたメソッド引数の時制を指定することを示します．
  * 
  * @author koichik
  */
@@ -30,6 +31,7 @@ import javax.persistence.TemporalType;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TemporalSpec {
 
+    /** 時制 */
     TemporalType value();
 
 }

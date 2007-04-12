@@ -18,9 +18,17 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのconstructor_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * constructor_expression ::=
+ *     NEW constructor_name ( constructor_item {, constructor_item}* )
+ * </pre>
  * 
  * @author koichik
  */
 public interface ConstructorExpression extends Criterion, SelectExpression {
-
 }

@@ -16,9 +16,19 @@
 package org.seasar.kuina.dao;
 
 /**
+ * JPQLのTRIM関数に指定するtrim_specificationを表す列挙です．
  * 
  * @author koichik
  */
 public enum TrimSpecification {
-    LEADING, TRAILING, BOTH
+
+    /** 文字列の先頭をトリムすることを示します． */
+    LEADING,
+
+    /** 文字列の末尾をトリムすることを示します． */
+    TRAILING,
+
+    /** 文字列の両端をトリムすることを示します． */
+    BOTH
+
 }

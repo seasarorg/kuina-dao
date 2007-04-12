@@ -26,10 +26,17 @@ import org.seasar.kuina.dao.internal.Command;
 import org.seasar.kuina.dao.internal.command.ExampleQueryCommand;
 
 /**
+ * {@link ExampleQueryCommand}を作成するビルダです．
  * 
  * @author koichik
  */
 public class ExampleQueryCommandBuilder extends AbstractQueryCommandBuilder {
+
+    /**
+     * インスタンスを構築します。
+     */
+    public ExampleQueryCommandBuilder() {
+    }
 
     public Command build(final Class<?> daoClass, final Method method) {
         if (!isMatched(method)) {

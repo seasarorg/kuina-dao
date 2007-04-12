@@ -35,29 +35,38 @@ import org.seasar.kuina.dao.internal.CommandBuilder;
 import org.seasar.kuina.dao.internal.DaoMetadata;
 
 /**
+ * Daoメタデータの実装クラスです．
  * 
  * @author koichik
  */
 @Component(instance = InstanceType.PROTOTYPE)
 public class DaoMetadataImpl implements DaoMetadata {
 
-    protected static final Logger logger = Logger
+    // static fields
+    private static final Logger logger = Logger
             .getLogger(DaoMetadataImpl.class);
 
+    // instance fields
+    /** このコンポーネントを定義しているS2コンテナ */
     @Binding(bindingType = BindingType.MUST)
     protected S2Container container;
 
+    /** Daoヘルパー */
     @Binding(bindingType = BindingType.MUST)
     protected DaoHelper daoHelper;
 
+    /** エンティティ・マネージャ・プロバイダ */
     @Binding(bindingType = BindingType.MUST)
     protected EntityManagerProvider entityManagerProvider;
 
+    /** コマンドビルダの配列 */
     @Binding(bindingType = BindingType.MUST)
     protected CommandBuilder[] builders;
 
+    /** エンティティ・マネージャ */
     protected EntityManager entityManager;
 
+    /** メソッドとコマンドのマッピング */
     protected Map<Method, Command> commands = CollectionsUtil.newHashMap();
 
     public void initialize(final Class<?> daoClass) {
@@ -74,10 +83,6 @@ public class DaoMetadataImpl implements DaoMetadata {
         }
     }
 
-    public Command getCommand(final Method method) {
-        return commands.get(method);
-    }
-
     public Object execute(final Method method, final Object[] arguments) {
         final Command command = commands.get(method);
         if (command == null) {
@@ -87,6 +92,18 @@ public class DaoMetadataImpl implements DaoMetadata {
         return command.execute(entityManager, arguments);
     }
 
+    /**
+     * Daoメソッドに対応したコマンドを作成して返します．
+     * <p>
+     * Daoメソッドに対応したコマンドが作成できなかった場合は<code>null</code>を返します．
+     * </p>
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param method
+     *            Daoのメソッド
+     * @return Daoメソッドに対応したコマンド
+     */
     protected Command createCommand(final Class<?> daoClass, final Method method) {
         for (final CommandBuilder builder : builders) {
             final Command command = builder.build(daoClass, method);

@@ -19,16 +19,26 @@ import org.seasar.kuina.dao.criteria.CriteriaContext;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * 単項前置演算子を表すクラスです．
  * 
  * @author koichik
  */
 public class AbstractUnaryPrefixOperator implements Criterion {
+
+    // instance fields
+    /** 演算子 */
     protected final String operator;
 
+    /** オペランド */
     protected final Criterion operand;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param operator
+     *            演算子
+     * @param operand
+     *            オペランド
      */
     public AbstractUnaryPrefixOperator(final String operator,
             final Criterion operand) {
@@ -36,11 +46,9 @@ public class AbstractUnaryPrefixOperator implements Criterion {
         this.operand = operand;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.criteria.Criterion#evaluate(org.seasar.kuina.dao.criteria.CriteriaContext)
-     */
     public void evaluate(final CriteriaContext context) {
         context.append(operator);
         operand.evaluate(context);
     }
+
 }

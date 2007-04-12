@@ -18,11 +18,27 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのgroupby_clauseを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * groupby_clause ::=
+ *     GROUP BY groupby_item {, groupby_item}*
+ * </pre>
  * 
  * @author koichik
  */
 public interface GroupbyClause extends Criterion {
 
+    /**
+     * groupby_itemを追加します．
+     * 
+     * @param groupbyItems
+     *            groupby_itemの並び
+     * @return このインスタンス自身
+     */
     GroupbyClause add(GroupbyItem... groupbyItems);
 
 }

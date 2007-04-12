@@ -21,18 +21,37 @@ import java.util.List;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.framework.util.tiger.ReflectionUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
+import org.seasar.kuina.dao.internal.Command;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 
 /**
+ * Dtoのプロパティを検索条件として問い合わせを実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class DtoQueryCommand extends AbstractDynamicQueryCommand {
 
+    // instance fields
+    /** Dtoのプロパティのgetterメソッドの配列 */
     protected Method[] getterMethods;
 
+    /** 検索条件を構築する{@link ConditionalExpressionBuilder}の配列 */
     protected ConditionalExpressionBuilder[] builders;
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            問い合わせ対象のエンティティ・クラス
+     * @param method
+     *            Daoメソッド
+     * @param resultList
+     *            問い合わせ結果を{@link List}で返す場合に<code>true</code>
+     * @param getterMethods
+     *            Dtoのプロパティのgetterメソッドの配列
+     * @param builders
+     *            検索条件を構築する{@link ConditionalExpressionBuilder}の配列
+     */
     public DtoQueryCommand(final Class<?> entityClass, final Method method,
             final boolean resultList, final Method[] getterMethods,
             final ConditionalExpressionBuilder[] builders) {

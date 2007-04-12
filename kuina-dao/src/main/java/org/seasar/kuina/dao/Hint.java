@@ -21,15 +21,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッドによるJPQL問い合わせ時のヒントを指定します．
  * 
  * @author koichik
+ * @see javax.persistence.Query#setHint(String, Object)
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Hint {
 
+    /** ヒントの名前 */
     String name();
 
+    /** ヒントの値を表現するOGNL式 */
     String value();
 
 }

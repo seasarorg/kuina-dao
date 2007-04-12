@@ -24,12 +24,22 @@ import org.seasar.kuina.dao.criteria.grammar.GroupbyClause;
 import org.seasar.kuina.dao.criteria.grammar.GroupbyItem;
 
 /**
+ * JPQLのgroupby_clauseを表現するクラスです．
  * 
  * @author koichik
  */
 public class GroupbyClauseImpl implements GroupbyClause {
+
+    // instance fields
+    /** groupby_itemのリスト */
     protected List<Criterion> groupbyItems = CollectionsUtil.newArrayList();
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param groupbyItems
+     *            groupby_itemの並び
+     */
     public GroupbyClauseImpl(final GroupbyItem... groupbyItems) {
         add(groupbyItems);
     }

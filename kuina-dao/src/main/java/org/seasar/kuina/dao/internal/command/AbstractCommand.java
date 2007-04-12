@@ -29,16 +29,37 @@ import org.seasar.kuina.dao.IllegalHintValueException;
 import org.seasar.kuina.dao.internal.Command;
 
 /**
+ * Daoメソッドの操作を提供する{@link Command}の共通機能を提供する抽象クラスです．
  * 
  * @author koichik
  */
 public abstract class AbstractCommand implements Command {
 
+    /**
+     * Daoメソッドのフラッシュ・モードを検出して返します．
+     * <p>
+     * Daoメソッドにフラッシュ・モードが指定されなかった場合は<code>null</code>を返します．
+     * </p>
+     * 
+     * @param method
+     *            Daoメソッド
+     * @return Daoメソッドのフラッシュ・モード
+     */
     protected FlushModeType detectFlushMode(final Method method) {
         final FlushMode flushMode = method.getAnnotation(FlushMode.class);
         return flushMode == null ? null : flushMode.value();
     }
 
+    /**
+     * Daoメソッドのヒントを検出してその<code>Map</code>を返します．
+     * <p>
+     * Daoメソッドにヒントが指定されていない場合は空の<code>Map</code>を返します．
+     * </p>
+     * 
+     * @param method
+     *            Daoメソッド
+     * @return Daoメソッドのヒントのマップ
+     */
     protected Map<String, Object> detectHints(final Method method) {
         final Map<String, Object> result = CollectionsUtil.newHashMap();
         final Hints hints = method.getAnnotation(Hints.class);
@@ -54,6 +75,17 @@ public abstract class AbstractCommand implements Command {
         return result;
     }
 
+    /**
+     * Daoメソッドに付けられた{@link Hint}アノテーションの値として指定されたOGNL式を評価した結果を返します．
+     * 
+     * @param method
+     *            Daoメソッド
+     * @param hint
+     *            {@link Hint}アノテーション
+     * @return 値として指定されたOGNL式を評価した結果
+     * @throws IllegalHintValueException
+     *             ヒントの値がOGNL式として評価できなかった場合にスローされます
+     */
     protected Object getHintValue(final Method method, final Hint hint) {
         final String expression = hint.value();
         try {

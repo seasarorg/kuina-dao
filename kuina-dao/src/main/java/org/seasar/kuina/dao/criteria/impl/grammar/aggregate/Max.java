@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.aggregate;
 import org.seasar.kuina.dao.criteria.grammar.PathExpression;
 
 /**
+ * JPQLのMAX関数を表現するクラスです．
  * 
  * @author koichik
  */
@@ -25,6 +26,9 @@ public class Max extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            MAX関数に適用されるpath_expression
      */
     public Max(final PathExpression pathExpression) {
         this(false, pathExpression);
@@ -32,6 +36,11 @@ public class Max extends AbstractAggregateExpression {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param distinct
+     *            DISTINCT の場合は<code>true</code>，それ以外の場合は<code>false</code>
+     * @param pathExpression
+     *            MAX関数に適用されるpath_expression
      */
     public Max(final boolean distinct, final PathExpression pathExpression) {
         super("MAX", distinct, pathExpression);

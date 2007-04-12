@@ -19,6 +19,7 @@ import org.seasar.kuina.dao.criteria.grammar.FunctionReturningStrings;
 import org.seasar.kuina.dao.criteria.grammar.StringPrimary;
 
 /**
+ * JPQLのCONCAT関数を表すクラスです．
  * 
  * @author koichik
  */
@@ -27,6 +28,11 @@ public class Concat extends AbstractFunction implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param string1
+     *            string_primary
+     * @param string2
+     *            <code>string1</code>に連結されるstring_primary
      */
     public Concat(final StringPrimary string1, final StringPrimary string2) {
         super("CONCAT", string1, string2);

@@ -21,13 +21,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 注釈されたメソッドによるJPQL問い合わせのFROM句にFETCH JOINを含めることを示します．
  * 
  * @author koichik
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FetchJoin {
+
+    /** join_spec */
     JoinSpec joinSpec() default JoinSpec.INNER_JOIN;
 
+    /** join_spec_path_expression */
     String value();
+
 }

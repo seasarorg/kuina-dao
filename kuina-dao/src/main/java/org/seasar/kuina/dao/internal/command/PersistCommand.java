@@ -17,30 +17,37 @@ package org.seasar.kuina.dao.internal.command;
 
 import javax.persistence.EntityManager;
 
+import org.seasar.kuina.dao.internal.Command;
+
 /**
+ * {@link EntityManager#persist(Object)}を実行する{@link Command}です．
  * 
  * @author koichik
  */
 public class PersistCommand extends AbstractCommand {
-    protected Class<?> entityType;
+
+    // instance fields
+    /** エンティティ・クラス */
+    protected Class<?> entityClass;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param entityClass
+     *            エンティティ・クラス
      */
-    public PersistCommand(final Class<?> entityType) {
-        this.entityType = entityType;
+    public PersistCommand(final Class<?> entityClass) {
+        this.entityClass = entityClass;
     }
 
-    /**
-     * @see org.seasar.kuina.dao.internal.Command#execute()
-     */
     public Object execute(final EntityManager em, final Object[] arguments) {
         assert arguments != null;
         assert arguments.length == 1;
-        assert entityType.isAssignableFrom(arguments[0].getClass());
+        assert entityClass.isAssignableFrom(arguments[0].getClass());
 
         final Object entity = arguments[0];
         em.persist(entity);
         return null;
     }
+
 }

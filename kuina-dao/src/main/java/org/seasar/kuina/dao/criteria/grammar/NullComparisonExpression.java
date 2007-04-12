@@ -18,10 +18,18 @@ package org.seasar.kuina.dao.criteria.grammar;
 import org.seasar.kuina.dao.criteria.Criterion;
 
 /**
+ * JPQLのnull_comparison_expressionを表します．
+ * <p>
+ * JPQLの詳細はJPA仕様書「4.14 BNF」を参照してください．
+ * </p>
+ * 
+ * <pre>
+ * null_comparison_expression ::=
+ *     {single_valued_path_expression | input_parameter} IS [NOT] NULL
+ * </pre>
  * 
  * @author koichik
  */
 public interface NullComparisonExpression extends Criterion,
         SimpleCondExpression {
-
 }

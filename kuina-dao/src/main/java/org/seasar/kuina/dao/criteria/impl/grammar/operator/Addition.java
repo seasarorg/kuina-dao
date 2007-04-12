@@ -18,6 +18,7 @@ package org.seasar.kuina.dao.criteria.impl.grammar.operator;
 import org.seasar.kuina.dao.criteria.grammar.SimpleArithmeticExpression;
 
 /**
+ * JPQLの2項<code>+</code>演算子を表すクラスです．
  * 
  * @author koichik
  */
@@ -26,6 +27,11 @@ public class Addition extends AbstractBinaryOperator implements
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param lhs
+     *            左辺を表すsimple_arithmetic_expression
+     * @param rhs
+     *            右辺を表すsimple_arithmetic_expression
      */
     public Addition(final SimpleArithmeticExpression lhs,
             final SimpleArithmeticExpression rhs) {
