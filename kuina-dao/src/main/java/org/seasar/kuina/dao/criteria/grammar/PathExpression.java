@@ -26,10 +26,13 @@ import org.seasar.kuina.dao.criteria.Criterion;
  * <pre>
  * single_valued_path_expression ::=
  *     state_field_path_expression | single_valued_association_path_expression
+ * 
  * state_field_path_expression ::=
  *     {identification_variable | single_valued_association_path_expression}.state_field
+ * 
  * single_valued_association_path_expression ::=
- *     identification_variable.{single_valued_association_field.}* single_valued_association_field
+ *     identification_variable.{single_valued_association_field.}*single_valued_association_field
+ * 
  * collection_valued_path_expression ::=
  *     identification_variable.{single_valued_association_field.}*collection_valued_association_field
  * </pre>
