@@ -28,7 +28,7 @@ import org.seasar.kuina.dao.FetchJoin;
 import org.seasar.kuina.dao.FlushMode;
 import org.seasar.kuina.dao.JoinSpec;
 import org.seasar.kuina.dao.entity.Employee;
-import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilder;
+import org.seasar.kuina.dao.internal.ConditionalExpressionBuilder;
 import org.seasar.kuina.dao.internal.condition.ConditionalExpressionBuilderFactory;
 import org.seasar.kuina.dao.internal.condition.FirstResultBuilder;
 import org.seasar.kuina.dao.internal.condition.MaxResultsBuilder;
