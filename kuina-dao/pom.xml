@@ -141,6 +141,12 @@
         </executions>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+      </extension>
+    </extensions>
   </build>
   <repositories>
     <repository>
@@ -174,7 +180,7 @@
     <dependency>
       <groupId>org.seasar.toplink</groupId>
       <artifactId>s2toplink-jpa</artifactId>
-      <version>1.0.0-rc2-SNAPSHOT</version>
+      <version>1.0.0-rc2</version>
       <type>jar</type>
       <scope>runtime</scope>
       <optional>true</optional>
@@ -234,20 +240,19 @@
       <uniqueVersion>false</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Repository</name>
-      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2</url>
+      <url>dav:https://www.seasar.org/maven/maven2</url>
     </repository>
     <snapshotRepository>
       <uniqueVersion>true</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Snapshot Repository</name>
-      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2-snapshot</url>
+      <url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
     </snapshotRepository>
     <site>
       <id>maven.seasar.org</id>
       <url>scp://www.seasar.org/home/groups/kuina/public_html</url>
     </site>
   </distributionManagement>
-
   <reporting>
     <plugins>
       <plugin>
@@ -271,7 +276,6 @@
           </links>
         </configuration>
       </plugin>
-  </plugins>
-</reporting>
-
+    </plugins>
+  </reporting>
 </project>
