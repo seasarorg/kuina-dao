@@ -118,7 +118,7 @@ public interface EmployeeDao {
 					メソッドが呼び出された際に，<code>null</code>でない引数が問い合わせ条件に含まれます．
 					<code>null</code>でない引数が複数ある場合は<code>AND</code>で連結されます．<br/>
 					引数名には演算子をサフィックスで指定することができます．
-					指定可能なサフィックスは<a href="引数およびDTOのプロパティ">「引数およびDTOのプロパティ」</a>を
+					指定可能なサフィックスは<a href="#引数およびDTOのプロパティ">「引数およびDTOのプロパティ」</a>を
 					参照してください．
 					サフィックスを省略すると <code>=</code> 演算子が使用されます．
 				</p>
@@ -192,7 +192,7 @@ SELECT employee FROM Employee AS employee WHERE employee.name = :name AND employ
 					問い合わせ条件に含まれます．
 					<code>null</code>でないプロパティが複数ある場合は<code>AND</code>で連結されます．<br/>
 					DTOのプロパティ名には演算子をサフィックスで指定することができます．
-					指定可能なサフィックスは<a href="引数およびDTOのプロパティ">「引数およびDTOのプロパティ」</a>を
+					指定可能なサフィックスは<a href="#引数およびDTOのプロパティ">「引数およびDTOのプロパティ」</a>を
 					参照してください．
 					サフィックスを省略すると <code>=</code> 演算子が使用されます．
 				</p>
