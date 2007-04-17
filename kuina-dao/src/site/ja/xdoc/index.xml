@@ -12,6 +12,10 @@
 		</section>
 		<section name="News">
 			<dl>
+				<dt>2007/04/16</dt>
+				<dd>
+					<a href="https://ml.seasar.org/mailman/listinfo/jpa">JPAメーリングリスト</a>が開設されました．
+				</dd>
 				<dt>2007/04/12</dt>
 				<dd>
 					Kuina-Dao 1.0.0-rc2 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.0-rc2">Changelog</a>)

@@ -18,7 +18,9 @@
 				<li><p><a href="#条件式による検索">条件式による検索</a></p></li>
 				<li><p><a href="#JPQLによる検索">JPQLによる検索</a></p></li>
 				<li><p><a href="#SQLによる検索">SQLによる検索</a></p></li>
-				<li><p><a href="#引数およびDTOのプロパティ">引数およびDTOのプロパティ</a></p></li>
+				<li><p><a href="#特別な意味を持つ引数名およびDTOのプロパティ名">特別な意味を持つ引数名およびDTOのプロパティ名</a></p></li>
+				<li><p><a href="#関連を表す引数名およびDTOのプロパティ名">関連を表す引数名およびDTOのプロパティ名</a></p></li>
+				<li><p><a href="#引数名およびDTOのプロパティ名のサフィックス">引数名およびDTOのプロパティ名のサフィックス</a></p></li>
 			</ul>
 
 			<subsection name="全件取得">
@@ -370,7 +372,82 @@ WHERE
 				</dl>
 			</subsection>
 
-			<subsection name="引数およびDTOのプロパティ">
+			<subsection name="特別な意味を持つ引数名およびDTOのプロパティ名">
+				<p>
+					引数を条件とする検索およびDTOのプロパティを条件とする検索では，特別な意味を持つ引数名またはプロパティ名があります．
+				</p>
+				<table>
+					<thead>
+						<tr>
+							<th>引数名／DTOのプロパティ名</th>
+							<th>型</th>
+							<th>説明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<code>orderby</code>および<code>orderBy</code>
+							</td>
+							<td>
+								<code>String</code>または<code>String[]</code>または
+								<code>OrderbySpec</code>または<code>OrderbySpec[]</code>
+							</td>
+							<td>
+								ソート順を指定します．
+							</td>
+						</tr>
+						<tr>
+							<td><code>firstResult</code></td>
+							<td><code>int</code>または<code>Integer</code></td>
+							<td>
+								問い合わせで取得する最初の位置を指定します．
+								位置は0から始まります．
+							</td>
+						</tr>
+						<tr>
+							<td><code>maxResults</code></td>
+							<td><code>int</code>または<code>Integer</code></td>
+							<td>
+								問い合わせで取得する最大の件数を指定します．
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					これらの引数名またはプロパティ名を通常の引数またはプロパティとして問い合わせ条件に含める場合は，
+					引数またはプロパティのgetterメソッドに<code>@NamedParameter</code>アノテーションを指定します．
+				</p>
+			</subsection>
+
+			<subsection name="関連を表す引数名およびDTOのプロパティ名">
+				<p>
+					引数を条件とする検索およびDTOのプロパティを条件とする検索では，引数名またはDTOのプロパティ名で関連を表現することができます．
+				</p>
+				<p>
+					引数名またはDTOのプロパティ名で関連を表現するには，関連プロパティ名の後ろに<code>'$'</code>を付加し，
+					関連先エンティティのプロパティ名を続けます．
+				</p>
+<source><![CDATA[
+department$name
+]]></source>
+				<p>
+					上の例では，検索対象のエンティティが持つ関連<code>department</code>のプロパティ<code>name</code>を
+					問い合わせ条件として使用します．
+				</p>
+				<p>
+					関連先エンティティの関連先を連続してしていることもできます．
+				</p>
+<source><![CDATA[
+department$manager$name
+]]></source>
+				<p>
+					上の例では，検索対象のエンティティが持つ関連<code>department</code>の先にあるエンティティが持つ関連
+					<code>manager</code>のプロパティ<code>name</code>を問い合わせ条件として使用します．
+				</p>
+			</subsection>
+
+			<subsection name="引数名およびDTOのプロパティ名のサフィックス">
 				<p>
 					引数を条件とする検索およびDTOのプロパティを条件とする検索では，問い合わせ条件に使用する演算子を
 					引数名またはプロパティ名のサフィックスで指定することができます．
