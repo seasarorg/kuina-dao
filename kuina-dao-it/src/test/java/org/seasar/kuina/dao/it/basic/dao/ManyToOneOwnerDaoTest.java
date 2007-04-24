@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.it.basic.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.OptimisticLockException;
 
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
@@ -40,6 +41,20 @@ public class ManyToOneOwnerDaoTest {
     public void find() throws Exception {
         ManyToOneOwner owner = dao.find(1);
         assertEquals("simagoro", owner.getName());
+    }
+
+    public void findVersion() throws Exception {
+        ManyToOneOwner owner = dao.find(0, 0);
+        assertNull(owner);
+
+        owner = dao.find(1, 1);
+        assertEquals("simagoro", owner.getName());
+
+        try {
+            owner = dao.find(1, 2);
+            fail();
+        } catch (OptimisticLockException expected) {
+        }
     }
 
     public void get() throws Exception {

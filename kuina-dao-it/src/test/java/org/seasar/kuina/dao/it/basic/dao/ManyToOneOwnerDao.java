@@ -25,6 +25,8 @@ public interface ManyToOneOwnerDao {
 
     ManyToOneOwner find(int id);
 
+    ManyToOneOwner find(int id, int version);
+
     ManyToOneOwner getReference(int id);
 
     void persist(ManyToOneOwner owner);

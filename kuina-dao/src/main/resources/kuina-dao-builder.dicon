@@ -18,6 +18,7 @@
 	<component class="org.seasar.kuina.dao.internal.builder.ParameterQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.FindVersionCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.PersistCommandBuilder"/>
