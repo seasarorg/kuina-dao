@@ -795,14 +795,14 @@ public abstract class CriteriaOperations {
      * @param operand
      *            path_expressionを表す文字列
      * @param from
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param to
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return between_expression
      */
     public static BetweenExpression between(final String operand,
             final String from, final String to) {
-        return new Between(path(operand), path(from), path(to));
+        return new Between(path(operand), literal(from), literal(to));
     }
 
     /**
@@ -811,9 +811,9 @@ public abstract class CriteriaOperations {
      * @param operand
      *            path_expressionを表す文字列
      * @param from
-     *            numeric_literal
+     *            numeric_literalとなる数値
      * @param to
-     *            numeric_literal
+     *            numeric_literalとなる数値
      * @return between_expression
      */
     public static BetweenExpression between(final String operand,
@@ -875,11 +875,11 @@ public abstract class CriteriaOperations {
      * @param string
      *            path_expressionを表す文字列
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression like(final String string, final String pattern) {
-        return like(path(string), path(pattern));
+        return like(path(string), literal(pattern));
     }
 
     /**
@@ -902,12 +902,12 @@ public abstract class CriteriaOperations {
      * @param string
      *            string_expression
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalを表す文字列
      * @return like_expression
      */
     public static LikeExpression like(final StringExpression string,
             final String pattern) {
-        return like(string, path(pattern));
+        return like(string, literal(pattern));
     }
 
     /**
@@ -930,14 +930,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            path_expressionを表す文字列
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression like(final String string,
             final String pattern, final String escape) {
-        return like(path(string), path(pattern), path(escape));
+        return like(path(string), literal(pattern), literal(escape));
     }
 
     /**
@@ -946,14 +946,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            path_expressionを表す文字列
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
      *            string_expression
      * @return like_expression
      */
     public static LikeExpression like(final String string,
             final String pattern, final StringExpression escape) {
-        return like(path(string), path(pattern), escape);
+        return like(path(string), literal(pattern), escape);
     }
 
     /**
@@ -964,12 +964,12 @@ public abstract class CriteriaOperations {
      * @param pattern
      *            string_expression
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression like(final String string,
             final StringExpression pattern, final String escape) {
-        return like(path(string), pattern, path(escape));
+        return like(path(string), pattern, literal(escape));
     }
 
     /**
@@ -994,14 +994,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            string_expression
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression like(final StringExpression string,
             final String pattern, final String escape) {
-        return like(string, path(pattern), path(escape));
+        return like(string, literal(pattern), literal(escape));
     }
 
     /**
@@ -1010,14 +1010,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            string_expression
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
      *            string_expression
      * @return like_expression
      */
     public static LikeExpression like(final StringExpression string,
             final String pattern, final StringExpression escape) {
-        return like(string, path(pattern), escape);
+        return like(string, literal(pattern), escape);
     }
 
     /**
@@ -1028,12 +1028,12 @@ public abstract class CriteriaOperations {
      * @param pattern
      *            string_expression
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression like(final StringExpression string,
             final StringExpression pattern, final String escape) {
-        return like(string, pattern, path(escape));
+        return like(string, pattern, literal(escape));
     }
 
     /**
@@ -1058,12 +1058,12 @@ public abstract class CriteriaOperations {
      * @param string
      *            path_expressionを表す文字列
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression notLike(final String string,
             final String pattern) {
-        return notLike(path(string), path(pattern));
+        return notLike(path(string), literal(pattern));
     }
 
     /**
@@ -1086,12 +1086,12 @@ public abstract class CriteriaOperations {
      * @param string
      *            string_expression
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression notLike(final StringExpression string,
             final String pattern) {
-        return notLike(string, path(pattern));
+        return notLike(string, literal(pattern));
     }
 
     /**
@@ -1114,14 +1114,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            path_expressionを表す文字列
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression notLike(final String string,
             final String pattern, final String escape) {
-        return notLike(path(string), path(pattern), path(escape));
+        return notLike(path(string), literal(pattern), literal(escape));
     }
 
     /**
@@ -1130,14 +1130,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            path_expressionを表す文字列
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
      *            string_expression
      * @return like_expression
      */
     public static LikeExpression notLike(final String string,
             final String pattern, final StringExpression escape) {
-        return notLike(path(string), path(pattern), escape);
+        return notLike(path(string), literal(pattern), escape);
     }
 
     /**
@@ -1148,12 +1148,12 @@ public abstract class CriteriaOperations {
      * @param pattern
      *            string_expression
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression notLike(final String string,
             final StringExpression pattern, final String escape) {
-        return notLike(path(string), pattern, path(escape));
+        return notLike(path(string), pattern, literal(escape));
     }
 
     /**
@@ -1178,14 +1178,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            string_expression
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression notLike(final StringExpression string,
             final String pattern, final String escape) {
-        return notLike(string, path(pattern), path(escape));
+        return notLike(string, literal(pattern), literal(escape));
     }
 
     /**
@@ -1194,14 +1194,14 @@ public abstract class CriteriaOperations {
      * @param string
      *            string_expression
      * @param pattern
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param escape
      *            string_expression
      * @return like_expression
      */
     public static LikeExpression notLike(final StringExpression string,
             final String pattern, final StringExpression escape) {
-        return notLike(string, path(pattern), escape);
+        return notLike(string, literal(pattern), escape);
     }
 
     /**
@@ -1212,12 +1212,12 @@ public abstract class CriteriaOperations {
      * @param pattern
      *            string_expression
      * @param escape
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return like_expression
      */
     public static LikeExpression notLike(final StringExpression string,
             final StringExpression pattern, final String escape) {
-        return notLike(string, pattern, path(escape));
+        return notLike(string, pattern, literal(escape));
     }
 
     /**
@@ -1234,6 +1234,1121 @@ public abstract class CriteriaOperations {
     public static LikeExpression notLike(final StringExpression string,
             final StringExpression pattern, final StringExpression escape) {
         return new NotLike(string, pattern, escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression starts(final String string,
+            final String pattern) {
+        return like(path(string), literal(pattern + "%"));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression starts(final String string,
+            final StringPrimary pattern) {
+        return like(path(string), concat(pattern, "%"));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalを表す文字列 (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression starts(final StringExpression string,
+            final String pattern) {
+        return like(string, literal(pattern + "%"));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression starts(final StringExpression string,
+            final StringPrimary pattern) {
+        return new Like(string, concat(pattern, "%"));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression starts(final String string,
+            final String pattern, final String escape) {
+        return like(path(string), literal(pattern + "%"), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression starts(final String string,
+            final String pattern, final StringExpression escape) {
+        return like(path(string), literal(pattern + "%"), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression starts(final String string,
+            final StringPrimary pattern, final String escape) {
+        return like(path(string), concat(pattern, "%"), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression starts(final String string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return like(path(string), concat(pattern, "%"), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression starts(final StringExpression string,
+            final String pattern, final String escape) {
+        return like(string, literal(pattern + "%"), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression starts(final StringExpression string,
+            final String pattern, final StringExpression escape) {
+        return like(string, literal(pattern + "%"), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression starts(final StringExpression string,
+            final StringPrimary pattern, final String escape) {
+        return like(string, concat(pattern, "%"), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression starts(final StringExpression string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return new Like(string, concat(pattern, "%"), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final String string,
+            final String pattern) {
+        return notLike(path(string), literal(pattern + "%"));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final String string,
+            final StringPrimary pattern) {
+        return notLike(path(string), concat(pattern, "%"));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final StringExpression string,
+            final String pattern) {
+        return notLike(string, literal(pattern + "%"));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final StringExpression string,
+            final StringPrimary pattern) {
+        return new NotLike(string, concat(pattern, "%"));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final String string,
+            final String pattern, final String escape) {
+        return notLike(path(string), literal(pattern + "%"), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final String string,
+            final String pattern, final StringExpression escape) {
+        return notLike(path(string), literal(pattern + "%"), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final String string,
+            final StringPrimary pattern, final String escape) {
+        return notLike(path(string), concat(pattern, "%"), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final String string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return notLike(path(string), concat(pattern, "%"), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final StringExpression string,
+            final String pattern, final String escape) {
+        return notLike(string, literal(pattern + "%"), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final StringExpression string,
+            final String pattern, final StringExpression escape) {
+        return notLike(string, literal(pattern + "%"), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final StringExpression string,
+            final StringPrimary pattern, final String escape) {
+        return notLike(string, concat(pattern, "%"), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って前方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notStarts(final StringExpression string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return new NotLike(string, concat(pattern, "%"), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression ends(final String string, final String pattern) {
+        return like(path(string), literal("%" + pattern));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression ends(final String string,
+            final StringPrimary pattern) {
+        return like(path(string), concat(literal("%"), pattern));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalを表す文字列 (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression ends(final StringExpression string,
+            final String pattern) {
+        return like(string, literal("%" + pattern));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression ends(final StringExpression string,
+            final StringPrimary pattern) {
+        return new Like(string, concat(literal("%"), pattern));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression ends(final String string,
+            final String pattern, final String escape) {
+        return like(path(string), literal("%" + pattern), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression ends(final String string,
+            final String pattern, final StringExpression escape) {
+        return like(path(string), literal("%" + pattern), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression ends(final String string,
+            final StringPrimary pattern, final String escape) {
+        return like(path(string), concat(literal("%"), pattern),
+                literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression ends(final String string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return like(path(string), concat(literal("%"), pattern), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression ends(final StringExpression string,
+            final String pattern, final String escape) {
+        return like(string, literal("%" + pattern), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression ends(final StringExpression string,
+            final String pattern, final StringExpression escape) {
+        return like(string, literal("%" + pattern), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression ends(final StringExpression string,
+            final StringPrimary pattern, final String escape) {
+        return like(string, concat(literal("%"), pattern), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression ends(final StringExpression string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return new Like(string, concat(literal("%"), pattern), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final String string,
+            final String pattern) {
+        return notLike(path(string), literal("%" + pattern));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final String string,
+            final StringPrimary pattern) {
+        return notLike(path(string), concat(literal("%"), pattern));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final StringExpression string,
+            final String pattern) {
+        return notLike(string, literal("%" + pattern));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final StringExpression string,
+            final StringPrimary pattern) {
+        return new NotLike(string, concat(literal("%"), pattern));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final String string,
+            final String pattern, final String escape) {
+        return notLike(path(string), literal("%" + pattern), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final String string,
+            final String pattern, final StringExpression escape) {
+        return notLike(path(string), literal("%" + pattern), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final String string,
+            final StringPrimary pattern, final String escape) {
+        return notLike(path(string), concat(literal("%"), pattern),
+                literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final String string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return notLike(path(string), concat(literal("%"), pattern), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final StringExpression string,
+            final String pattern, final String escape) {
+        return notLike(string, literal("%" + pattern), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final StringExpression string,
+            final String pattern, final StringExpression escape) {
+        return notLike(string, literal("%" + pattern), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final StringExpression string,
+            final StringPrimary pattern, final String escape) {
+        return notLike(string, concat(literal("%"), pattern), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って後方一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notEnds(final StringExpression string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return new NotLike(string, concat(literal("%"), pattern), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression contains(final String string,
+            final String pattern) {
+        return like(path(string), literal("%" + pattern + "%"));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression contains(final String string,
+            final StringPrimary pattern) {
+        return like(path(string), concat(literal("%"), pattern, literal("%")));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalを表す文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression contains(final StringExpression string,
+            final String pattern) {
+        return like(string, literal("%" + pattern + "%"));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression contains(final StringExpression string,
+            final StringPrimary pattern) {
+        return new Like(string, concat(literal("%"), pattern, literal("%")));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression contains(final String string,
+            final String pattern, final String escape) {
+        return like(path(string), literal("%" + pattern + "%"), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression contains(final String string,
+            final String pattern, final StringExpression escape) {
+        return like(path(string), literal("%" + pattern + "%"), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression contains(final String string,
+            final StringPrimary pattern, final String escape) {
+        return like(path(string), concat(literal("%"), pattern, literal("%")),
+                literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression contains(final String string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return like(path(string), concat(literal("%"), pattern, literal("%")),
+                escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression contains(final StringExpression string,
+            final String pattern, final String escape) {
+        return like(string, literal("%" + pattern + "%"), literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression contains(final StringExpression string,
+            final String pattern, final StringExpression escape) {
+        return like(string, literal("%" + pattern + "%"), escape);
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression contains(final StringExpression string,
+            final StringPrimary pattern, final String escape) {
+        return like(string, concat(literal("%"), pattern, literal("%")),
+                literal(escape));
+    }
+
+    /**
+     * <code>LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression contains(final StringExpression string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return new Like(string, concat(literal("%"), pattern, literal("%")),
+                escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final String string,
+            final String pattern) {
+        return notLike(path(string), literal("%" + pattern + "%"));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final String string,
+            final StringPrimary pattern) {
+        return notLike(path(string),
+                concat(literal("%"), pattern, literal("%")));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final StringExpression string,
+            final String pattern) {
+        return notLike(string, literal("%" + pattern + "%"));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final StringExpression string,
+            final StringPrimary pattern) {
+        return new NotLike(string, concat(literal("%"), pattern, literal("%")));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final String string,
+            final String pattern, final String escape) {
+        return notLike(path(string), literal("%" + pattern + "%"),
+                literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final String string,
+            final String pattern, final StringExpression escape) {
+        return notLike(path(string), literal("%" + pattern + "%"), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final String string,
+            final StringPrimary pattern, final String escape) {
+        return notLike(path(string),
+                concat(literal("%"), pattern, literal("%")), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            path_expressionを表す文字列
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final String string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return notLike(path(string),
+                concat(literal("%"), pattern, literal("%")), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final StringExpression string,
+            final String pattern, final String escape) {
+        return notLike(string, literal("%" + pattern + "%"), literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_literalとなる文字列 (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final StringExpression string,
+            final String pattern, final StringExpression escape) {
+        return notLike(string, literal("%" + pattern + "%"), escape);
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_literalとなる文字列
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final StringExpression string,
+            final StringPrimary pattern, final String escape) {
+        return notLike(string, concat(literal("%"), pattern, literal("%")),
+                literal(escape));
+    }
+
+    /**
+     * <code>NOT LIKE</code>を使って部分一致をテストする式を作成します．
+     * 
+     * @param string
+     *            string_expression
+     * @param pattern
+     *            string_primary (先頭と末尾にワイルドカードが付加されます)
+     * @param escape
+     *            string_expression
+     * @return like_expression
+     */
+    public static LikeExpression notContains(final StringExpression string,
+            final StringPrimary pattern, final StringExpression escape) {
+        return new NotLike(string, concat(literal("%"), pattern, literal("%")),
+                escape);
     }
 
     /**
@@ -1259,7 +2374,7 @@ public abstract class CriteriaOperations {
      * @param path
      *            path_expressionを表す文字列
      * @param inItems
-     *            numeric_literalの並び
+     *            numeric_literalとなる数値の並び
      * @return in_expression
      */
     public static InExpression in(final String path, final Number... inItems) {
@@ -1276,7 +2391,7 @@ public abstract class CriteriaOperations {
      * @param path
      *            path_expressionを表す文字列
      * @param inItems
-     *            string_literalの並び
+     *            string_literalとなる文字列の並び
      * @return in_expression
      */
     public static InExpression in(final String path, final String... inItems) {
@@ -1293,7 +2408,7 @@ public abstract class CriteriaOperations {
      * @param path
      *            path_expressionを表す文字列
      * @param inItems
-     *            enum_literalの並び
+     *            enum_literalとなる列挙の並び
      * @return in_expression
      */
     public static InExpression in(final String path, final Enum... inItems) {
@@ -1378,7 +2493,7 @@ public abstract class CriteriaOperations {
      * @param path
      *            path_expressionを表す文字列
      * @param inItems
-     *            numeric_literalの並び
+     *            numeric_literalとなる数値の並び
      * @return in_expression
      */
     public static InExpression notIn(final String path, final Number... inItems) {
@@ -1395,7 +2510,7 @@ public abstract class CriteriaOperations {
      * @param path
      *            path_expressionを表す文字列
      * @param inItems
-     *            string_literalの並び
+     *            string_literalとなる文字列の並び
      * @return in_expression
      */
     public static InExpression notIn(final String path, final String... inItems) {
@@ -1412,7 +2527,7 @@ public abstract class CriteriaOperations {
      * @param path
      *            path_expressionを表す文字列
      * @param inItems
-     *            enum_literalの並び
+     *            enum_literalとなる列挙の並び
      * @return in_expression
      */
     public static InExpression notIn(final String path, final Enum... inItems) {
@@ -1882,107 +2997,11 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expressionを表す文字列
      * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs, final String rhs) {
-        return eq(path(lhs), path(rhs));
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            path_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs,
-            final PathExpression rhs) {
-        return eq(path(lhs), rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            all_or_any_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs,
-            final AllOrAnyExpression rhs) {
-        return eq(path(lhs), rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final PathExpression lhs,
-            final String rhs) {
-        return eq(lhs, path(rhs));
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expression
-     * @param rhs
-     *            path_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final PathExpression lhs,
-            final PathExpression rhs) {
-        return new Equal(lhs, rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expression
-     * @param rhs
-     *            all_or_any_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final PathExpression lhs,
-            final AllOrAnyExpression rhs) {
-        return new Equal(lhs, rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
      *            numeric_literalとなる数値
      * @return compairson_expression
      */
     public static ComparisonExpression eq(final String lhs, final Number rhs) {
         return eq(path(lhs), literal(rhs));
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final Number lhs, final String rhs) {
-        return eq(literal(lhs), path(rhs));
     }
 
     /**
@@ -2003,14 +3022,278 @@ public abstract class CriteriaOperations {
      * <code>=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            arithmetic_expression
-     * @param rhs
      *            path_expressionを表す文字列
+     * @param rhs
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
-    public static ComparisonExpression eq(final ArithmeticExpression lhs,
+    public static ComparisonExpression eq(final String lhs, final String rhs) {
+        return eq(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs,
+            final StringExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs,
+            final DatetimeExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            boolean_literalを表す<code>boolean</code>
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs, final boolean rhs) {
+        return eq(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            boolean_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs,
+            final BooleanExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            enum_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs,
+            final EnumExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            entity_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs,
+            final EntityExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            path_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs,
+            final PathExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            all_or_any_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final String lhs,
+            final AllOrAnyExpression rhs) {
+        return eq(path(lhs), rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            numeric_literalとなる数値
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final Number rhs) {
+        return eq(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final ArithmeticExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
             final String rhs) {
-        return eq(lhs, path(rhs));
+        return eq(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final StringExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final DatetimeExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            boolean_literalを表す<code>boolean</code>
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final boolean rhs) {
+        return eq(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            boolean_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final BooleanExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            enum_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final EnumExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            entity_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final EntityExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            path_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final PathExpression rhs) {
+        return new Equal(lhs, rhs);
+    }
+
+    /**
+     * <code>=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            all_or_any_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression eq(final PathExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new Equal(lhs, rhs);
     }
 
     /**
@@ -2031,20 +3314,6 @@ public abstract class CriteriaOperations {
      * <code>=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final Number lhs,
-            final ArithmeticExpression rhs) {
-        return eq(literal(lhs), rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            arithmetic_expression
      * @param rhs
      *            arithmetic_expression
@@ -2066,21 +3335,7 @@ public abstract class CriteriaOperations {
      */
     public static ComparisonExpression eq(final ArithmeticExpression lhs,
             final AllOrAnyExpression rhs) {
-        return eq(lhs, rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            string_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs,
-            final StringExpression rhs) {
-        return eq(path(lhs), rhs);
+        return new Equal(lhs, rhs);
     }
 
     /**
@@ -2089,12 +3344,12 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            string_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
     public static ComparisonExpression eq(final StringExpression lhs,
             final String rhs) {
-        return eq(lhs, path(rhs));
+        return eq(lhs, literal(rhs));
     }
 
     /**
@@ -2129,34 +3384,6 @@ public abstract class CriteriaOperations {
      * <code>=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            datetime_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs,
-            final DatetimeExpression rhs) {
-        return eq(path(lhs), rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expressionを表す文字列
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final DatetimeExpression lhs,
-            final String rhs) {
-        return eq(lhs, path(rhs));
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            datetime_expressionを表す文字列
      * @param rhs
      *            datetime_expressionを表す文字列
@@ -2185,54 +3412,14 @@ public abstract class CriteriaOperations {
      * <code>=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            boolean_literalを表す<code>boolean</code>
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs, final boolean rhs) {
-        return eq(path(lhs), literal(rhs));
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            boolean_literalを表す<code>boolean</code>
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final boolean lhs, final String rhs) {
-        return eq(literal(lhs), path(rhs));
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            boolean_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs,
-            final BooleanExpression rhs) {
-        return eq(path(lhs), rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            boolean_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            boolean_literalを表す<code>boolean</code>
      * @return compairson_expression
      */
     public static ComparisonExpression eq(final BooleanExpression lhs,
-            final String rhs) {
-        return eq(lhs, path(rhs));
+            final boolean rhs) {
+        return eq(lhs, literal(rhs));
     }
 
     /**
@@ -2261,48 +3448,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression eq(final BooleanExpression lhs,
             final AllOrAnyExpression rhs) {
         return new Equal(lhs, rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            enum_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs,
-            final EnumExpression rhs) {
-        return eq(path(lhs), rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            enum_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final EnumExpression lhs,
-            final String rhs) {
-        return eq(lhs, path(rhs));
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            enum_literalとなる列挙
-     * @param rhs
-     *            enum_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final Enum<?> lhs,
-            final EnumExpression rhs) {
-        return eq(literal(lhs), rhs);
     }
 
     /**
@@ -2345,34 +3490,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression eq(final EnumExpression lhs,
             final AllOrAnyExpression rhs) {
         return new Equal(lhs, rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            entity_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final String lhs,
-            final EntityExpression rhs) {
-        return eq(path(lhs), rhs);
-    }
-
-    /**
-     * <code>=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            entity_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression eq(final EntityExpression lhs,
-            final String rhs) {
-        return eq(lhs, path(rhs));
     }
 
     /**
@@ -2409,11 +3526,121 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expressionを表す文字列
      * @param rhs
+     *            numeric_literalとなる数値
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs, final Number rhs) {
+        return ne(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
      *            path_expressionを表す文字列
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs,
+            final ArithmeticExpression rhs) {
+        return ne(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
     public static ComparisonExpression ne(final String lhs, final String rhs) {
-        return ne(path(lhs), path(rhs));
+        return ne(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs,
+            final StringExpression rhs) {
+        return ne(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs,
+            final DatetimeExpression rhs) {
+        return ne(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            boolean_literalを表す<code>boolean</code>
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs, final boolean rhs) {
+        return ne(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            boolean_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs,
+            final BooleanExpression rhs) {
+        return ne(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            enum_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs,
+            final EnumExpression rhs) {
+        return ne(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            entity_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final String lhs,
+            final EntityExpression rhs) {
+        return ne(path(lhs), rhs);
     }
 
     /**
@@ -2436,7 +3663,7 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expressionを表す文字列
      * @param rhs
-     *            all_or_any_expressionを表す文字列
+     *            all_or_any_expression
      * @return compairson_expression
      */
     public static ComparisonExpression ne(final String lhs,
@@ -2450,12 +3677,124 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            numeric_literalとなる数値
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final Number rhs) {
+        return ne(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final ArithmeticExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
     public static ComparisonExpression ne(final PathExpression lhs,
             final String rhs) {
-        return ne(lhs, path(rhs));
+        return ne(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final StringExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final DatetimeExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            boolean_literalを表す<code>boolean</code>
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final boolean rhs) {
+        return ne(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            boolean_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final BooleanExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            enum_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final EnumExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            entity_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final PathExpression lhs,
+            final EntityExpression rhs) {
+        return new NotEqual(lhs, rhs);
     }
 
     /**
@@ -2484,60 +3823,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression ne(final PathExpression lhs,
             final AllOrAnyExpression rhs) {
         return new NotEqual(lhs, rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            numeric_literalとなる数値
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs, final Number rhs) {
-        return ne(path(lhs), literal(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final Number lhs, final String rhs) {
-        return ne(literal(lhs), path(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            aritymetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs,
-            final ArithmeticExpression rhs) {
-        return ne(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            arithemtic_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final ArithmeticExpression lhs,
-            final String rhs) {
-        return ne(lhs, path(rhs));
     }
 
     /**
@@ -2551,6 +3836,48 @@ public abstract class CriteriaOperations {
      */
     public static ComparisonExpression ne(final ArithmeticExpression lhs,
             final Number rhs) {
+        return new NotEqual(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            arithmetic_expression
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final ArithmeticExpression lhs,
+            final ArithmeticExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            arithmetic_expression
+     * @param rhs
+     *            all_or_any_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final ArithmeticExpression lhs,
+            final AllOrAnyExpression rhs) {
+        return new NotEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            string_expression
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ne(final StringExpression lhs,
+            final String rhs) {
         return ne(lhs, literal(rhs));
     }
 
@@ -2558,76 +3885,6 @@ public abstract class CriteriaOperations {
      * <code>&lt;&gt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final Number lhs,
-            final ArithmeticExpression rhs) {
-        return ne(literal(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            arithmetic_expression
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final ArithmeticExpression lhs,
-            final ArithmeticExpression rhs) {
-        return new NotEqual(lhs, rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            arithmetic_expression
-     * @param rhs
-     *            all_or_any_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final ArithmeticExpression lhs,
-            final AllOrAnyExpression rhs) {
-        return new NotEqual(lhs, rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            string_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs,
-            final StringExpression rhs) {
-        return ne(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            string_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final StringExpression lhs,
-            final String rhs) {
-        return ne(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            string_expression
      * @param rhs
      *            string_expression
@@ -2656,37 +3913,9 @@ public abstract class CriteriaOperations {
      * <code>&lt;&gt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
+     *            datetime_expressionを表す文字列
      * @param rhs
-     *            datetime_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs,
-            final DatetimeExpression rhs) {
-        return ne(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final DatetimeExpression lhs,
-            final String rhs) {
-        return ne(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            datetime_expression
+     *            datetime_expressionを表す文字列
      * @return compairson_expression
      */
     public static ComparisonExpression ne(final DatetimeExpression lhs,
@@ -2712,54 +3941,14 @@ public abstract class CriteriaOperations {
      * <code>&lt;&gt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            boolean_literalとなる<code>boolean</code>
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs, final boolean rhs) {
-        return ne(path(lhs), literal(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            boolean_literalとなる<code>boolean</code>
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final boolean lhs, final String rhs) {
-        return ne(literal(lhs), path(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            boolean_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs,
-            final BooleanExpression rhs) {
-        return ne(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            boolean_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            boolean_literalを表す<code>boolean</code>
      * @return compairson_expression
      */
     public static ComparisonExpression ne(final BooleanExpression lhs,
-            final String rhs) {
-        return ne(lhs, path(rhs));
+            final boolean rhs) {
+        return ne(lhs, literal(rhs));
     }
 
     /**
@@ -2788,48 +3977,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression ne(final BooleanExpression lhs,
             final AllOrAnyExpression rhs) {
         return new NotEqual(lhs, rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            enum_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs,
-            final EnumExpression rhs) {
-        return ne(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            enum_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final EnumExpression lhs,
-            final String rhs) {
-        return ne(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            enum_literalとなる列挙
-     * @param rhs
-     *            enum_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final Enum<?> lhs,
-            final EnumExpression rhs) {
-        return ne(literal(lhs), rhs);
     }
 
     /**
@@ -2878,34 +4025,6 @@ public abstract class CriteriaOperations {
      * <code>&lt;&gt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            entity_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final String lhs,
-            final EntityExpression rhs) {
-        return ne(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            entity_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ne(final EntityExpression lhs,
-            final String rhs) {
-        return ne(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            entity_expression
      * @param rhs
      *            entity_expression
@@ -2920,27 +4039,14 @@ public abstract class CriteriaOperations {
      * <code>&lt;&gt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            entity_expression
+     *            entity_expressionを表す文字列
      * @param rhs
-     *            all_or_any_expression
+     *            all_or_any_expressionを表す文字列
      * @return compairson_expression
      */
     public static ComparisonExpression ne(final EntityExpression lhs,
             final AllOrAnyExpression rhs) {
         return new NotEqual(lhs, rhs);
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final String lhs, final String rhs) {
-        return new GreaterThan(path(lhs), path(rhs));
     }
 
     /**
@@ -2962,12 +4068,151 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expressionを表す文字列
      * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final String lhs,
+            final ArithmeticExpression rhs) {
+        return gt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final String lhs, final String rhs) {
+        return gt(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final String lhs,
+            final StringExpression rhs) {
+        return gt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final String lhs,
+            final DatetimeExpression rhs) {
+        return gt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            path_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final String lhs,
+            final PathExpression rhs) {
+        return gt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
      *            all_or_any_expression
      * @return compairson_expression
      */
     public static ComparisonExpression gt(final String lhs,
             final AllOrAnyExpression rhs) {
-        return eq(path(lhs), rhs);
+        return gt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            numeric_literalとなる数値
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final PathExpression lhs,
+            final Number rhs) {
+        return gt(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final PathExpression lhs,
+            final ArithmeticExpression rhs) {
+        return new GreaterThan(lhs, rhs);
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final PathExpression lhs,
+            final String rhs) {
+        return gt(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final PathExpression lhs,
+            final StringExpression rhs) {
+        return new GreaterThan(lhs, rhs);
+    }
+
+    /**
+     * <code>&gt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression gt(final PathExpression lhs,
+            final DatetimeExpression rhs) {
+        return new GreaterThan(lhs, rhs);
     }
 
     /**
@@ -2996,61 +4241,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression gt(final PathExpression lhs,
             final AllOrAnyExpression rhs) {
         return new GreaterThan(lhs, rhs);
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final Number lhs, final String rhs) {
-        return gt(literal(lhs), path(rhs));
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final String lhs,
-            final ArithmeticExpression rhs) {
-        return gt(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            arithmetic_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final ArithmeticExpression lhs,
-            final String rhs) {
-        return gt(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final Number lhs,
-            final ArithmeticExpression rhs) {
-        return gt(literal(lhs), rhs);
     }
 
     /**
@@ -3082,7 +4272,7 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * <code>&gt;</code>を使った式を作成します．
+     * <code>gt&gt;</code>を使った式を作成します．
      * 
      * @param lhs
      *            arithmetic_expression
@@ -3099,28 +4289,14 @@ public abstract class CriteriaOperations {
      * <code>&gt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            string_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final String lhs,
-            final StringExpression rhs) {
-        return gt(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            string_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
     public static ComparisonExpression gt(final StringExpression lhs,
             final String rhs) {
-        return gt(lhs, path(rhs));
+        return gt(lhs, literal(rhs));
     }
 
     /**
@@ -3155,37 +4331,9 @@ public abstract class CriteriaOperations {
      * <code>&gt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
+     *            datetime_expressionを表す文字列
      * @param rhs
-     *            datetime_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final String lhs,
-            final DatetimeExpression rhs) {
-        return gt(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression gt(final DatetimeExpression lhs,
-            final String rhs) {
-        return gt(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&gt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            datetime_expression
+     *            datetime_expressionを表す文字列
      * @return compairson_expression
      */
     public static ComparisonExpression gt(final DatetimeExpression lhs,
@@ -3213,24 +4361,80 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expressionを表す文字列
      * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final String lhs, final String rhs) {
-        return new GreaterOrEqual(path(lhs), path(rhs));
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            numeric_literalとなる数値
-     * @param rhs
-     *            path_expressionを表す文字列
      * @return compairson_expression
      */
     public static ComparisonExpression ge(final String lhs, final Number rhs) {
         return ge(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final String lhs,
+            final ArithmeticExpression rhs) {
+        return ge(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final String lhs, final String rhs) {
+        return ge(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final String lhs,
+            final StringExpression rhs) {
+        return ge(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final String lhs,
+            final DatetimeExpression rhs) {
+        return ge(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            path_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final String lhs,
+            final PathExpression rhs) {
+        return ge(path(lhs), rhs);
     }
 
     /**
@@ -3245,6 +4449,76 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression ge(final String lhs,
             final AllOrAnyExpression rhs) {
         return ge(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            numeric_literalとなる数値
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final PathExpression lhs,
+            final Number rhs) {
+        return ge(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final PathExpression lhs,
+            final ArithmeticExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final PathExpression lhs,
+            final String rhs) {
+        return ge(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final PathExpression lhs,
+            final StringExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&gt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression ge(final PathExpression lhs,
+            final DatetimeExpression rhs) {
+        return new GreaterOrEqual(lhs, rhs);
     }
 
     /**
@@ -3273,61 +4547,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression ge(final PathExpression lhs,
             final AllOrAnyExpression rhs) {
         return new GreaterOrEqual(lhs, rhs);
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final Number lhs, final String rhs) {
-        return ge(literal(lhs), path(rhs));
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final String lhs,
-            final ArithmeticExpression rhs) {
-        return ge(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            arithmetic_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final ArithmeticExpression lhs,
-            final String rhs) {
-        return ge(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final Number lhs,
-            final ArithmeticExpression rhs) {
-        return ge(literal(lhs), rhs);
     }
 
     /**
@@ -3359,7 +4578,7 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * <code>&gt;=</code>を使った式を作成します．
+     * <code>gt&gt;=</code>を使った式を作成します．
      * 
      * @param lhs
      *            arithmetic_expression
@@ -3376,28 +4595,14 @@ public abstract class CriteriaOperations {
      * <code>&gt;=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            string_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final String lhs,
-            final StringExpression rhs) {
-        return ge(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            string_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
     public static ComparisonExpression ge(final StringExpression lhs,
             final String rhs) {
-        return ge(lhs, path(rhs));
+        return ge(lhs, literal(rhs));
     }
 
     /**
@@ -3432,37 +4637,9 @@ public abstract class CriteriaOperations {
      * <code>&gt;=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
+     *            datetime_expressionを表す文字列
      * @param rhs
-     *            datetime_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final String lhs,
-            final DatetimeExpression rhs) {
-        return ge(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression ge(final DatetimeExpression lhs,
-            final String rhs) {
-        return ge(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&gt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            datetime_expression
+     *            datetime_expressionを表す文字列
      * @return compairson_expression
      */
     public static ComparisonExpression ge(final DatetimeExpression lhs,
@@ -3482,19 +4659,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression ge(final DatetimeExpression lhs,
             final AllOrAnyExpression rhs) {
         return new GreaterOrEqual(lhs, rhs);
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final String lhs, final String rhs) {
-        return new LessThan(path(lhs), path(rhs));
     }
 
     /**
@@ -3516,12 +4680,151 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expressionを表す文字列
      * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final String lhs,
+            final ArithmeticExpression rhs) {
+        return lt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final String lhs, final String rhs) {
+        return lt(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final String lhs,
+            final StringExpression rhs) {
+        return lt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final String lhs,
+            final DatetimeExpression rhs) {
+        return lt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            path_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final String lhs,
+            final PathExpression rhs) {
+        return lt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
      *            all_or_any_expression
      * @return compairson_expression
      */
     public static ComparisonExpression lt(final String lhs,
             final AllOrAnyExpression rhs) {
         return lt(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            numeric_literalとなる数値
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final PathExpression lhs,
+            final Number rhs) {
+        return lt(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final PathExpression lhs,
+            final ArithmeticExpression rhs) {
+        return new LessThan(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final PathExpression lhs,
+            final String rhs) {
+        return lt(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final PathExpression lhs,
+            final StringExpression rhs) {
+        return new LessThan(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression lt(final PathExpression lhs,
+            final DatetimeExpression rhs) {
+        return new LessThan(lhs, rhs);
     }
 
     /**
@@ -3550,61 +4853,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression lt(final PathExpression lhs,
             final AllOrAnyExpression rhs) {
         return new LessThan(lhs, rhs);
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final Number lhs, final String rhs) {
-        return lt(literal(lhs), path(rhs));
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final String lhs,
-            final ArithmeticExpression rhs) {
-        return lt(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            arithmetic_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final ArithmeticExpression lhs,
-            final String rhs) {
-        return lt(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final Number lhs,
-            final ArithmeticExpression rhs) {
-        return lt(literal(lhs), rhs);
     }
 
     /**
@@ -3636,7 +4884,7 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * <code>&lt;</code>を使った式を作成します．
+     * <code>lt&lt;</code>を使った式を作成します．
      * 
      * @param lhs
      *            arithmetic_expression
@@ -3653,28 +4901,14 @@ public abstract class CriteriaOperations {
      * <code>&lt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            string_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final String lhs,
-            final StringExpression rhs) {
-        return lt(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            string_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
     public static ComparisonExpression lt(final StringExpression lhs,
             final String rhs) {
-        return lt(lhs, path(rhs));
+        return lt(lhs, literal(rhs));
     }
 
     /**
@@ -3709,37 +4943,9 @@ public abstract class CriteriaOperations {
      * <code>&lt;</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
+     *            datetime_expressionを表す文字列
      * @param rhs
-     *            datetime_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final String lhs,
-            final DatetimeExpression rhs) {
-        return lt(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression lt(final DatetimeExpression lhs,
-            final String rhs) {
-        return lt(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            datetime_expression
+     *            datetime_expressionを表す文字列
      * @return compairson_expression
      */
     public static ComparisonExpression lt(final DatetimeExpression lhs,
@@ -3759,19 +4965,6 @@ public abstract class CriteriaOperations {
     public static ComparisonExpression lt(final DatetimeExpression lhs,
             final AllOrAnyExpression rhs) {
         return new LessThan(lhs, rhs);
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final String lhs, final String rhs) {
-        return new LessOrEqual(path(lhs), path(rhs));
     }
 
     /**
@@ -3793,12 +4986,151 @@ public abstract class CriteriaOperations {
      * @param lhs
      *            path_expressionを表す文字列
      * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final String lhs,
+            final ArithmeticExpression rhs) {
+        return le(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final String lhs, final String rhs) {
+        return le(path(lhs), literal(rhs));
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final String lhs,
+            final StringExpression rhs) {
+        return le(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final String lhs,
+            final DatetimeExpression rhs) {
+        return le(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
+     *            path_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final String lhs,
+            final PathExpression rhs) {
+        return le(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expressionを表す文字列
+     * @param rhs
      *            all_or_any_expression
      * @return compairson_expression
      */
     public static ComparisonExpression le(final String lhs,
             final AllOrAnyExpression rhs) {
         return le(path(lhs), rhs);
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            numeric_literalとなる数値
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final PathExpression lhs,
+            final Number rhs) {
+        return le(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            arithmetic_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final PathExpression lhs,
+            final ArithmeticExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_literalとなる文字列
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final PathExpression lhs,
+            final String rhs) {
+        return le(lhs, literal(rhs));
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            string_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final PathExpression lhs,
+            final StringExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
+    }
+
+    /**
+     * <code>&lt;=</code>を使った式を作成します．
+     * 
+     * @param lhs
+     *            path_expression
+     * @param rhs
+     *            datetime_expression
+     * @return compairson_expression
+     */
+    public static ComparisonExpression le(final PathExpression lhs,
+            final DatetimeExpression rhs) {
+        return new LessOrEqual(lhs, rhs);
     }
 
     /**
@@ -3833,61 +5165,6 @@ public abstract class CriteriaOperations {
      * <code>&lt;=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final Number lhs, final String rhs) {
-        return le(literal(lhs), path(rhs));
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final String lhs,
-            final ArithmeticExpression rhs) {
-        return le(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            arithmetic_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final ArithmeticExpression lhs,
-            final String rhs) {
-        return le(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            numeric_literalとなる数値
-     * @param rhs
-     *            arithmetic_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final Number lhs,
-            final ArithmeticExpression rhs) {
-        return le(literal(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            arithmetic_expression
      * @param rhs
      *            numeric_literalとなる数値
@@ -3913,7 +5190,7 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * <code>&lt;=</code>を使った式を作成します．
+     * <code>lt&lt;=</code>を使った式を作成します．
      * 
      * @param lhs
      *            arithmetic_expression
@@ -3930,28 +5207,14 @@ public abstract class CriteriaOperations {
      * <code>&lt;=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
-     * @param rhs
-     *            string_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final String lhs,
-            final StringExpression rhs) {
-        return le(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
      *            string_expression
      * @param rhs
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return compairson_expression
      */
     public static ComparisonExpression le(final StringExpression lhs,
             final String rhs) {
-        return le(lhs, path(rhs));
+        return lt(lhs, literal(rhs));
     }
 
     /**
@@ -3986,37 +5249,9 @@ public abstract class CriteriaOperations {
      * <code>&lt;=</code>を使った式を作成します．
      * 
      * @param lhs
-     *            path_expressionを表す文字列
+     *            datetime_expressionを表す文字列
      * @param rhs
-     *            datetime_expression
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final String lhs,
-            final DatetimeExpression rhs) {
-        return le(path(lhs), rhs);
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            path_expressionを表す文字列
-     * @return compairson_expression
-     */
-    public static ComparisonExpression le(final DatetimeExpression lhs,
-            final String rhs) {
-        return le(lhs, path(rhs));
-    }
-
-    /**
-     * <code>&lt;=</code>を使った式を作成します．
-     * 
-     * @param lhs
-     *            datetime_expression
-     * @param rhs
-     *            datetime_expression
+     *            datetime_expressionを表す文字列
      * @return compairson_expression
      */
     public static ComparisonExpression le(final DatetimeExpression lhs,
@@ -4606,28 +5841,28 @@ public abstract class CriteriaOperations {
      * <code>LOCATE</code>関数を使った式を作成します．
      * 
      * @param located
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param searched
      *            path_expressionを表す文字列
      * @return function_returning_numerics
      */
     public static FunctionReturningNumerics locate(final String located,
             final String searched) {
-        return locate(path(located), path(searched));
+        return locate(literal(located), path(searched));
     }
 
     /**
      * <code>LOCATE</code>関数を使った式を作成します．
      * 
      * @param located
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @param searched
      *            string_primary
      * @return function_returning_numerics
      */
     public static FunctionReturningNumerics locate(final String located,
             final StringPrimary searched) {
-        return locate(path(located), searched);
+        return locate(literal(located), searched);
     }
 
     /**
@@ -4671,7 +5906,7 @@ public abstract class CriteriaOperations {
      */
     public static FunctionReturningNumerics locate(final String located,
             final String searched, final int start) {
-        return locate(path(located), path(searched), literal(start));
+        return locate(path(located), literal(searched), literal(start));
     }
 
     /**
@@ -4918,12 +6153,42 @@ public abstract class CriteriaOperations {
      * @param string1
      *            path_expressionを表す文字列
      * @param string2
-     *            path_expressionを表す文字列
+     *            string_literalとなる文字列
      * @return function_returing_strings
      */
     public static FunctionReturningStrings concat(final String string1,
             final String string2) {
-        return concat(path(string1), path(string2));
+        return concat(path(string1), literal(string2));
+    }
+
+    /**
+     * <code>CONCAT</code>関数を使った式を作成します．
+     * 
+     * @param string1
+     *            path_expressionを表す文字列
+     * @param string2
+     *            string_primary
+     * @param rest
+     *            string_primary
+     * @return function_returing_strings
+     */
+    public static FunctionReturningStrings concat(final String string1,
+            final StringPrimary string2, final StringPrimary... rest) {
+        return concat(path(string1), string2, rest);
+    }
+
+    /**
+     * <code>CONCAT</code>関数を使った式を作成します．
+     * 
+     * @param string1
+     *            string_primary
+     * @param string2
+     *            string_literalとなる文字列
+     * @return function_returing_strings
+     */
+    public static FunctionReturningStrings concat(final StringPrimary string1,
+            final String string2) {
+        return new Concat(string1, literal(string2));
     }
 
     /**
@@ -4933,11 +6198,17 @@ public abstract class CriteriaOperations {
      *            string_primary
      * @param string2
      *            string_primary
+     * @param rest
+     *            string_primary
      * @return function_returing_strings
      */
     public static FunctionReturningStrings concat(final StringPrimary string1,
-            final StringPrimary string2) {
-        return new Concat(string1, string2);
+            final StringPrimary string2, final StringPrimary... rest) {
+        Concat concat = new Concat(string1, string2);
+        for (final StringPrimary primary : rest) {
+            concat = new Concat(concat, primary);
+        }
+        return concat;
     }
 
     /**

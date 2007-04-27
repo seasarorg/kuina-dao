@@ -183,7 +183,16 @@ public class SelectStatementImplTest extends S2TestCase {
 
     public void testLikeTx() throws Exception {
         List<Employee> list = select().from(Employee.class, "e").where(
-                like("e.name", literal("%子"))).getResultList(em);
+                like("e.name", "%子")).getResultList(em);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals("マキ子", list.get(0).getName());
+        assertEquals("ぴー子", list.get(1).getName());
+    }
+
+    public void testEndsTx() throws Exception {
+        List<Employee> list = select().from(Employee.class, "e").where(
+                like("e.name", "%子")).getResultList(em);
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals("マキ子", list.get(0).getName());
@@ -243,7 +252,7 @@ public class SelectStatementImplTest extends S2TestCase {
 
     public void testLocateTx() throws Exception {
         List<Employee> list = select().from(Employee.class, "e").where(
-                gt(locate(literal("go"), "e.email"), 0)).getResultList(em);
+                gt(locate("go", "e.email"), 0)).getResultList(em);
         assertNotNull(list);
         assertEquals(4, list.size());
         assertEquals("シマゴロー", list.get(0).getName());
@@ -301,7 +310,8 @@ public class SelectStatementImplTest extends S2TestCase {
 
     public void testConcatTx() throws Exception {
         List<Employee> list = select().from(Employee.class, "e").where(
-                ge(length(concat("e.name", "e.email")), 22)).getResultList(em);
+                ge(length(concat("e.name", path("e.email"))), 22))
+                .getResultList(em);
         assertNotNull(list);
         assertEquals(4, list.size());
         assertEquals("シマゴロー", list.get(0).getName());

@@ -370,7 +370,8 @@ public class ManyToOneOwnerDaoTest {
 
     public void _concat() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(concat(
-                "manyToOneOwner.name", "manyToOneOwner.oneToManyInverse.name"),
+                "manyToOneOwner.name",
+                path("manyToOneOwner.oneToManyInverse.name")),
                 literal("simagoroBusiness")));
         assertNotNull(list);
         assertEquals(1, list.size());
