@@ -54,7 +54,7 @@ public abstract class AbstractQueryCommandBuilder extends
      * インスタンスを構築します。
      */
     public AbstractQueryCommandBuilder() {
-        setMethodNamePattern("(get|find).+");
+        setMethodNamePattern("(get|find).*");
     }
 
     /**

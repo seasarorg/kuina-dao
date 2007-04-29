@@ -36,7 +36,7 @@ public class NamedQueryUpdateCommandBuilder extends AbstractCommandBuilder {
      * 
      */
     public NamedQueryUpdateCommandBuilder() {
-        setMethodNamePattern("(update|delete|remove).+");
+        setMethodNamePattern("(update|delete|remove).*");
     }
 
     public Command build(final Class<?> daoClass, final Method method) {

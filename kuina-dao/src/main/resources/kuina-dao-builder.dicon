@@ -12,14 +12,14 @@
 	<component class="org.seasar.kuina.dao.internal.builder.SqlUpdateCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.NamedQueryUpdateCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.FindVersionCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.FindAllQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ExampleQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.DtoQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ParameterQueryCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ConditionalQueryCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.FindCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.FindVersionCommandBuilder"/>
-	<component class="org.seasar.kuina.dao.internal.builder.GetReferenceCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ContainsCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.PersistCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.RemoveCommandBuilder"/>

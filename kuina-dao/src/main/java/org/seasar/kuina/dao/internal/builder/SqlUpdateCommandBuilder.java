@@ -44,7 +44,7 @@ public class SqlUpdateCommandBuilder extends AbstractCommandBuilder {
      * インスタンスを構築します。
      */
     public SqlUpdateCommandBuilder() {
-        setMethodNamePattern("(insert|update|delete|remove).+");
+        setMethodNamePattern("(insert|update|delete|remove).*");
     }
 
     /**
