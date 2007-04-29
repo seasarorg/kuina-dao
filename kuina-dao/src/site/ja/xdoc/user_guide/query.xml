@@ -171,7 +171,7 @@ SELECT employee FROM Employee AS employee WHERE employee.id = :id
 					<dt>メソッド名 (正規表現)</dt>
 					<dd>
 <source><![CDATA[
-(get|find).+
+(get|find).*
 ]]></source>
 					</dd>
 					<dt>引数</dt>
@@ -206,7 +206,7 @@ SELECT employee FROM Employee AS employee WHERE employee.name = :name
 					<dt>メソッド名 (正規表現)</dt>
 					<dd>
 <source><![CDATA[
-(get|find).+
+(get|find).*
 ]]></source>
 					</dd>
 					<dt>引数</dt>
@@ -245,7 +245,7 @@ SELECT employee FROM Employee AS employee WHERE employee.name = :name AND employ
 					<dt>メソッド名 (正規表現)</dt>
 					<dd>
 <source><![CDATA[
-(get|find).+
+(get|find).*
 ]]></source>
 					</dd>
 					<dt>引数</dt>
@@ -279,7 +279,7 @@ SELECT employee FROM Employee AS employee WHERE employee.name LIKE :name
 					<dt>メソッド名 (正規表現)</dt>
 					<dd>
 <source><![CDATA[
-(get|find).+
+(get|find).*
 ]]></source>
 					</dd>
 					<dt>引数</dt>
@@ -319,7 +319,7 @@ public interface EmployeeDao {
 					<dt>メソッド名 (正規表現)</dt>
 					<dd>
 <source><![CDATA[
-(get|find).+
+(get|find).*
 ]]></source>
 					</dd>
 					<dt>引数</dt>
@@ -366,7 +366,7 @@ public interface EmployeeDao {
 					<dt>メソッド名 (正規表現)</dt>
 					<dd>
 <source><![CDATA[
-(get|find).+
+(get|find).*
 ]]></source>
 					</dd>
 					<dt>引数</dt>

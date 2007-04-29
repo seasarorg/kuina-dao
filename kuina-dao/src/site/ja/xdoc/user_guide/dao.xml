@@ -157,49 +157,49 @@ public interface EmployeeDao extends GenericDao<Employee, Long> {
 								</tr>
 								<tr>
 									<td>引数を条件とする検索</td>
-									<td><code>(get|find).+</code></td>
+									<td><code>(get|find).*</code></td>
 									<td>問い合わせ条件に含めるエンティティのプロパティの並び</td>
 									<td>エンティティまたはエンティティの<code>List</code></td>
 								</tr>
 								<tr>
 									<td>エンティティのプロパティを条件とする検索</td>
-									<td><code>(get|find).+</code></td>
+									<td><code>(get|find).*</code></td>
 									<td>エンティティ</td>
 									<td>エンティティまたはエンティティの<code>List</code></td>
 								</tr>
 								<tr>
 									<td>DTOのプロパティを条件とする検索</td>
-									<td><code>(get|find).+</code></td>
+									<td><code>(get|find).*</code></td>
 									<td>DTO</td>
 									<td>エンティティまたはエンティティの<code>List</code></td>
 								</tr>
 								<tr>
 									<td>条件式による検索</td>
-									<td><code>(get|find).+</code></td>
+									<td><code>(get|find).*</code></td>
 									<td>条件式の並び</td>
 									<td>エンティティまたはエンティティの<code>List</code></td>
 								</tr>
 								<tr>
 									<td>JPQLによる検索</td>
-									<td><code>(get|find).+</code></td>
+									<td><code>(get|find).*</code></td>
 									<td>JPQLに含まれるパラメータの並び</td>
 									<td>エンティティまたはエンティティの<code>List</code></td>
 								</tr>
 								<tr>
 									<td>SQLによる検索</td>
-									<td><code>(get|find).+</code></td>
+									<td><code>(get|find).*</code></td>
 									<td>SQLに含まれるパラメータの並び</td>
 									<td>DTOまたはDTOの<code>List</code></td>
 								</tr>
 								<tr>
 									<td>JPQLによる更新・削除</td>
-									<td><code>(update|delete|remove).+</code></td>
+									<td><code>(update|delete|remove).*</code></td>
 									<td>JPQLに含まれるパラメータの並び</td>
 									<td><code>void</code>または<code>int</code> (更新または削除された行数)</td>
 								</tr>
 								<tr>
 									<td>SQLによる挿入・更新・削除</td>
-									<td><code>(insert|update|delete|remove).+</code></td>
+									<td><code>(insert|update|delete|remove).*</code></td>
 									<td>SQLに含まれるパラメータの並び</td>
 									<td><code>void</code>または<code>int</code> (更新または削除された行数)</td>
 								</tr>
