@@ -22,6 +22,10 @@ package org.seasar.kuina.dao.criteria.impl.grammar.expression;
  */
 public class AnyExpressionImpl extends AbstractAllOrAnyExpression {
 
+    /**
+     * インスタンスを構築します。
+     * 
+     */
     public AnyExpressionImpl() {
         super("ANY ");
     }

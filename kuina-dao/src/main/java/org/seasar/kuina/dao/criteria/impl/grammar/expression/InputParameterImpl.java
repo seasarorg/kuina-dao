@@ -45,6 +45,11 @@ public class InputParameterImpl implements InputParameter {
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param name
+     *            パラメータの名前
+     * @param value
+     *            パラメータの値
      */
     public InputParameterImpl(final String name, final Object value) {
         assertName(name);
@@ -53,6 +58,16 @@ public class InputParameterImpl implements InputParameter {
         this.temporalType = null;
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param name
+     *            パラメータの名前
+     * @param value
+     *            パラメータの値
+     * @param temporalType
+     *            パラメータの時制
+     */
     public InputParameterImpl(final String name, final Date value,
             final TemporalType temporalType) {
         assertName(name);
@@ -62,6 +77,16 @@ public class InputParameterImpl implements InputParameter {
         this.temporalType = temporalType;
     }
 
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param name
+     *            パラメータの名前
+     * @param value
+     *            パラメータの値
+     * @param temporalType
+     *            パラメータの時制
+     */
     public InputParameterImpl(final String name, final Calendar value,
             final TemporalType temporalType) {
         assertName(name);

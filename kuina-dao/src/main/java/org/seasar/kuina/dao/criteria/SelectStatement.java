@@ -201,6 +201,8 @@ public interface SelectStatement extends Criteria {
     /**
      * 問い合わせを実行して結果を{@link java.util.List}で返します．
      * 
+     * @param <T>
+     *            戻り値のリストの要素型
      * @param em
      *            エンティティ・マネージャ
      * @return 問い合わせ結果のリスト
@@ -211,6 +213,8 @@ public interface SelectStatement extends Criteria {
     /**
      * 問い合わせを実行して単一の結果を返します．
      * 
+     * @param <T>
+     *            戻り値のリストの要素型
      * @param em
      *            エンティティ・マネージャ
      * @return 問い合わせの結果

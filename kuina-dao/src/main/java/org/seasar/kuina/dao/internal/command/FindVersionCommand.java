@@ -50,8 +50,9 @@ public class FindVersionCommand extends ParameterQueryCommand {
      * @param builders
      *            検索条件を構築する{@link ConditionalExpressionBuilder}の配列
      */
-    public FindVersionCommand(Class<?> entityClass, Method method,
-            String[] parameterNames, ConditionalExpressionBuilder[] builders) {
+    public FindVersionCommand(final Class<?> entityClass, final Method method,
+            final String[] parameterNames,
+            final ConditionalExpressionBuilder[] builders) {
         super(entityClass, method, false, parameterNames, builders);
         final EntityDesc entityDesc = EntityDescFactory
                 .getEntityDesc(entityClass);
@@ -60,7 +61,7 @@ public class FindVersionCommand extends ParameterQueryCommand {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Object execute(EntityManager em, Object[] arguments) {
+    public Object execute(final EntityManager em, final Object[] arguments) {
         try {
             final Object entity = super.execute(em, arguments);
             final Object version = attributeDesc.getValue(entity);
@@ -68,7 +69,7 @@ public class FindVersionCommand extends ParameterQueryCommand {
                 throw new OptimisticLockException(entity);
             }
             return entity;
-        } catch (NoResultException ignore) {
+        } catch (final NoResultException ignore) {
             return null;
         }
     }

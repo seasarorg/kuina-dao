@@ -74,8 +74,8 @@ public class ExampleQueryCommand extends AbstractDynamicQueryCommand {
     }
 
     @Override
-    protected List<String> bindParameter(SelectStatement statement,
-            Object[] arguments) {
+    protected List<String> bindParameter(final SelectStatement statement,
+            final Object[] arguments) {
         if (orderby >= 0) {
             SelectStatementUtil.appendOrderbyClause(identificationVariable,
                     statement, arguments[orderby]);

@@ -21,7 +21,6 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
-import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.Disposable;
 import org.seasar.framework.util.DisposableUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
@@ -35,10 +34,6 @@ import org.seasar.kuina.dao.internal.DaoMetadataFactory;
  */
 @Component
 public class DaoMetadataFactoryImpl implements DaoMetadataFactory, Disposable {
-
-    // static fields
-    private static final Logger logger = Logger
-            .getLogger(DaoMetadataFactoryImpl.class);
 
     // instance fields
     /** ファクトリが初期化済みであることを示します */

@@ -24,16 +24,27 @@ import org.seasar.kuina.dao.internal.DaoMetadata;
 import org.seasar.kuina.dao.internal.DaoMetadataFactory;
 
 /**
+ * Daoインタフェースに適用されるインターセプタです．
+ * <p>
+ * Daoインタフェースの振る舞いはこのインターセプタによって提供されます．
+ * </p>
  * 
  * @author koichik
  */
 public class KuinaDaoInterceptor extends AbstractInterceptor {
+
+    // constants
     private static final long serialVersionUID = 1L;
 
+    // instance fields
+    /** メタデータ・ファクトリ */
     protected final DaoMetadataFactory metadataFactory;
 
     /**
      * インスタンスを構築します。
+     * 
+     * @param metadataFactory
+     *            メタデータ・ファクトリ
      */
     public KuinaDaoInterceptor(final DaoMetadataFactory metadataFactory) {
         this.metadataFactory = metadataFactory;

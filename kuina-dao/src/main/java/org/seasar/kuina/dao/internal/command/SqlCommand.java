@@ -64,6 +64,8 @@ public class SqlCommand extends AbstractSqlCommand {
      *            パラメータ型の配列
      * @param dialectManager
      *            Dialectマネージャ
+     * @param resultSetFactory
+     *            リザルトセット・ファクトリ
      * @param statementFactory
      *            ステートメント・ファクトリ
      */

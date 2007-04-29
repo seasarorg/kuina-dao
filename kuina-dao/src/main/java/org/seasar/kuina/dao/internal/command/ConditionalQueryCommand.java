@@ -18,7 +18,6 @@ package org.seasar.kuina.dao.internal.command;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.tiger.CollectionsUtil;
 import org.seasar.kuina.dao.criteria.SelectStatement;
 import org.seasar.kuina.dao.criteria.grammar.ConditionalExpression;
@@ -35,10 +34,6 @@ public class ConditionalQueryCommand extends AbstractDynamicQueryCommand {
     /** 空の{@link List} */
     protected static final List<String> EMPTY_LIST = CollectionsUtil
             .newArrayList();
-
-    // static fields
-    protected static final Logger logger = Logger
-            .getLogger(ConditionalQueryCommand.class);
 
     /**
      * インスタンスを構築します。
