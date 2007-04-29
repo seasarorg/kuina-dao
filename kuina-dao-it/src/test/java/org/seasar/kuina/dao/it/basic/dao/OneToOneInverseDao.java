@@ -15,30 +15,13 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
+import org.seasar.kuina.dao.GenericDao;
 import org.seasar.kuina.dao.it.entity.OneToOneInverse;
 
 /**
  * 
  * @author nakamura
  */
-public interface OneToOneInverseDao {
-
-    OneToOneInverse find(int id);
-
-    OneToOneInverse getReference(int id);
-
-    void persist(OneToOneInverse owner);
-
-    void remove(OneToOneInverse owner);
-
-    boolean contains(OneToOneInverse owner);
-
-    void refresh(OneToOneInverse owner);
-
-    OneToOneInverse merge(OneToOneInverse owner);
-
-    void readLock(OneToOneInverse owner);
-
-    void writeLock(OneToOneInverse owner);
-
+public interface OneToOneInverseDao extends
+        GenericDao<OneToOneInverse, Integer> {
 }

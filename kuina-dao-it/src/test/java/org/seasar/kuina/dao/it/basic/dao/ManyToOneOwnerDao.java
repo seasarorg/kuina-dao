@@ -15,32 +15,15 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
+import org.seasar.kuina.dao.GenericDao;
 import org.seasar.kuina.dao.it.entity.ManyToOneOwner;
 
 /**
  * 
  * @author nakamura
  */
-public interface ManyToOneOwnerDao {
-
-    ManyToOneOwner find(int id);
+public interface ManyToOneOwnerDao extends GenericDao<ManyToOneOwner, Integer> {
 
     ManyToOneOwner find(int id, int version);
-
-    ManyToOneOwner getReference(int id);
-
-    void persist(ManyToOneOwner owner);
-
-    void remove(ManyToOneOwner owner);
-
-    boolean contains(ManyToOneOwner owner);
-
-    void refresh(ManyToOneOwner owner);
-
-    ManyToOneOwner merge(ManyToOneOwner owner);
-
-    void readLock(ManyToOneOwner owner);
-
-    void writeLock(ManyToOneOwner owner);
 
 }

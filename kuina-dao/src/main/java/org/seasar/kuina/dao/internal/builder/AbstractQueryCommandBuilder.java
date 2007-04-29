@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
-import org.seasar.framework.util.tiger.ReflectionUtil;
+import org.seasar.framework.util.tiger.GenericUtil;
 import org.seasar.kuina.dao.FirstResult;
 import org.seasar.kuina.dao.MaxResults;
 import org.seasar.kuina.dao.NamedParameter;
@@ -115,7 +115,7 @@ public abstract class AbstractQueryCommandBuilder extends
     @Override
     protected Class<?> getTargetClass(final Class<?> daoClass,
             final Method method) {
-        final Class<?> resultClass = getResultClass(method);
+        final Class<?> resultClass = getResultClass(daoClass, method);
         if (resultClass != null) {
             final EntityDesc entityDesc = EntityDescFactory
                     .getEntityDesc(resultClass);
@@ -129,16 +129,19 @@ public abstract class AbstractQueryCommandBuilder extends
     /**
      * メソッドの戻り値型が{@link List}ならその要素型を，それ以外の場合は戻り値型を返します．
      * 
+     * @param daoClass
+     *            Daoクラス
      * @param method
      *            メソッド
      * @return メソッドの戻り値型が{@link List}ならその要素型を，それ以外の場合は戻り値型
      */
-    protected Class<?> getResultClass(final Method method) {
+    protected Class<?> getResultClass(final Class<?> daoClass,
+            final Method method) {
         if (isResultList(method)) {
-            return ReflectionUtil.getElementTypeOfList(method
-                    .getGenericReturnType());
+            return GenericUtil.getActualElementClassOfList(method
+                    .getGenericReturnType(), getTypeVariableMap(daoClass));
         }
-        final Class<?> returnType = method.getReturnType();
+        final Class<?> returnType = getActualReturnClass(daoClass, method);
         return returnType == void.class ? null : returnType;
     }
 

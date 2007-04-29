@@ -42,7 +42,8 @@ public class PersistCommandBuilder extends AbstractCommandBuilder {
             return null;
         }
 
-        final Class<?>[] parameterTypes = method.getParameterTypes();
+        final Class<?>[] parameterTypes = getActualParameterClasses(daoClass,
+                method);
         if (parameterTypes.length != 1) {
             return null;
         }

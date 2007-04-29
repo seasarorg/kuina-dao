@@ -88,8 +88,8 @@ public class SqlUpdateCommandBuilder extends AbstractCommandBuilder {
         }
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
         return new SqlUpdateCommand(method, sql, beanDesc
-                .getMethodParameterNames(method), method.getParameterTypes(),
-                dialectManager, statementFactory);
+                .getMethodParameterNames(method), getActualParameterClasses(
+                daoClass, method), dialectManager, statementFactory);
     }
 
 }

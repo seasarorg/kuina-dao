@@ -1,6 +1,6 @@
 <project name="kuina-dao" default="dist" basedir=".">
-	<property name="ver" value="1.0.0-rc2"/>
-	<property name="releaseDate" value="2007/04/12"/>
+	<property name="ver" value="1.0.0-rc3-SNAPSHOT"/>
+	<property name="releaseDate" value="2007/mm/dd"/>
 
 	<target name="fix-site">
 		<mkdir dir="target/site/en"/>
@@ -29,11 +29,11 @@
 			</zipfileset>
 			<zipfileset prefix="kuina-dao/doc" dir="target/site">
 			</zipfileset>
-			<zipfileset prefix="kuina-dao-it-hibernate" dir="../kuina-dao-it">
+			<zipfileset prefix="kuina-dao-it-hibernate" dir="../kuina-dao-it-hibernate">
 				<exclude name="**/build/**"/>
 				<exclude name="**/target/**"/>
 			</zipfileset>
-			<zipfileset prefix="kuina-dao-it-toplink" dir="../kuina-dao-it">
+			<zipfileset prefix="kuina-dao-it-toplink" dir="../kuina-dao-it-toplink">
 				<exclude name="**/build/**"/>
 				<exclude name="**/target/**"/>
 			</zipfileset>

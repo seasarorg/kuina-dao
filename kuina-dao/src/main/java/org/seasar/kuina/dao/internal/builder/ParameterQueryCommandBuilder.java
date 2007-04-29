@@ -56,7 +56,8 @@ public class ParameterQueryCommandBuilder extends
             return null;
         }
 
-        for (final Class<?> parameterType : method.getParameterTypes()) {
+        final Class<?>[] parameterTypes = getActualParameterClasses(daoClass, method);
+        for (final Class<?> parameterType : parameterTypes) {
             if (!isAcceptableType(ClassUtil
                     .getWrapperClassIfPrimitive(parameterType))) {
                 return null;
@@ -64,7 +65,7 @@ public class ParameterQueryCommandBuilder extends
         }
 
         final ConditionalExpressionBuilder[] builders = createBuilders(
-                entityClass, method, parameterNames);
+                entityClass, method, parameterTypes, parameterNames);
         return new ParameterQueryCommand(entityClass, method, isResultList(method),
                 parameterNames, builders);
     }
@@ -97,14 +98,15 @@ public class ParameterQueryCommandBuilder extends
      *            エンティティクラス
      * @param method
      *            Daoメソッド
+     * @param parameterTypes
+     *            Daoメソッドの型
      * @param parameterNames
      *            Daoメソッドの引数
      * @return 問い合わせ条件を作成する{@link ConditionalExpressionBuilder}の配列
      */
     protected ConditionalExpressionBuilder[] createBuilders(
             final Class<?> entityClass, final Method method,
-            final String[] parameterNames) {
-        final Class<?>[] parameterTypes = method.getParameterTypes();
+            final Class<?>[] parameterTypes, final String[] parameterNames) {
         final Annotation[][] parameterAnnotations = method
                 .getParameterAnnotations();
         final List<ConditionalExpressionBuilder> builders = CollectionsUtil

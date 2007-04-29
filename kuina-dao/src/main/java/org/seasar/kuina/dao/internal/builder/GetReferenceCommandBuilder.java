@@ -42,12 +42,13 @@ public class GetReferenceCommandBuilder extends AbstractCommandBuilder {
             return null;
         }
 
-        final Class<?>[] parameterTypes = method.getParameterTypes();
+        final Class<?>[] parameterTypes = getActualParameterClasses(daoClass,
+                method);
         if (parameterTypes.length != 1) {
             return null;
         }
 
-        final Class<?> returnType = method.getReturnType();
+        final Class<?> returnType = getActualReturnClass(daoClass, method);
         if (returnType.isPrimitive()) {
             return null;
         }

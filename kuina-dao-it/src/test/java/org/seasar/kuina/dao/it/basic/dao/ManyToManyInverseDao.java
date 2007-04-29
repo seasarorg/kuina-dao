@@ -15,30 +15,13 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
+import org.seasar.kuina.dao.GenericDao;
 import org.seasar.kuina.dao.it.entity.ManyToManyInverse;
 
 /**
  * 
  * @author nakamura
  */
-public interface ManyToManyInverseDao {
-
-    ManyToManyInverse find(int id);
-
-    ManyToManyInverse get(int id);
-
-    void persist(ManyToManyInverse inverse);
-
-    void remove(ManyToManyInverse inverse);
-
-    boolean contains(ManyToManyInverse inverse);
-
-    void refresh(ManyToManyInverse inverse);
-
-    ManyToManyInverse merge(ManyToManyInverse inverse);
-
-    void readLock(ManyToManyInverse inverse);
-
-    void writeLock(ManyToManyInverse inverse);
-
+public interface ManyToManyInverseDao extends
+        GenericDao<ManyToManyInverse, Integer> {
 }

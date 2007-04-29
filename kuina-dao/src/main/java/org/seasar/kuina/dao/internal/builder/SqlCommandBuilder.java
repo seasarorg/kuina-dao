@@ -99,16 +99,16 @@ public class SqlCommandBuilder extends AbstractQueryCommandBuilder {
         if (sql == null) {
             return null;
         }
-        final Class<?> targetClass = getResultClass(method);
+        final Class<?> targetClass = getResultClass(daoClass, method);
         if (targetClass == null) {
             throw new IllegalStateException(daoClass.getName() + "#"
                     + method.getName() + "()");
         }
         final BeanDesc beanDesc = BeanDescFactory.getBeanDesc(daoClass);
         return new SqlCommand(method, isResultList(method), targetClass, sql,
-                beanDesc.getMethodParameterNames(method), method
-                        .getParameterTypes(), dialectManager, resultSetFactory,
-                statementFactory);
+                beanDesc.getMethodParameterNames(method),
+                getActualParameterClasses(daoClass, method), dialectManager,
+                resultSetFactory, statementFactory);
     }
 
 }

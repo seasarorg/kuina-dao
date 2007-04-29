@@ -12,6 +12,7 @@
 				<li><p><a href="#全件取得">全件取得</a></p></li>
 				<li><p><a href="#主キーによる検索">主キーによる検索</a></p></li>
 				<li><p><a href="#主キーによる検索 (リファレンスのみ)">主キーによる検索 (リファレンスのみ)</a></p></li>
+				<li><p><a name="#主キーとバージョンによる検索">主キーとバージョンによる検索</a></p></li>
 				<li><p><a href="#引数を条件とする検索">引数を条件とする検索</a></p></li>
 				<li><p><a href="#エンティティのプロパティを条件とする検索">エンティティのプロパティを条件とする検索</a></p></li>
 				<li><p><a href="#DTOのプロパティを条件とする検索">DTOのプロパティを条件とする検索</a></p></li>
@@ -59,6 +60,10 @@ SELECT employee FROM Employee AS employee
 				<p>
 					主キーを指定してエンティティを取得するメソッドです．
 				</p>
+				<p>
+					検索は<code>EntityManager#find(Class, Object)</code>メソッドによって行われます．
+					引数で指定された主キーに該当するエンティティが存在しない場合は<code>null</code>が返されます．
+				</p>
 				<dl>
 					<dt>メソッド名 (正規表現)</dt>
 					<dd>
@@ -78,18 +83,19 @@ public interface EmployeeDao {
 }
 ]]></source>
 					</dd>
-					<dt>実行されるJPQL</dt>
-					<dd>
-<source><![CDATA[
-SELECT employee FROM Employee AS employee WHERE employee.id = :id
-]]></source>
-					</dd>
 				</dl>
 			</subsection>
 
 			<subsection name="主キーによる検索 (リファレンスのみ)">
 				<p>
-					主キーを指定してエンティティのリファレンスを取得するメソッドです．
+					主キーを指定してエンティティを取得するメソッドです．
+					返されるエンティティの状態は遅延ロードされます．
+					エンティティの状態に最初にアクセスしたときに遅延ロードが発生します．
+				</p>
+				<p>
+					検索は<code>EntityManager#getReference(Class, Object)</code>メソッドによって行われます．
+					引数で指定された主キーに該当するエンティティが存在しない場合でもエンティティが返されますが，
+					このエンティティの状態にアクセスしたときに<code>javax.persistence.ObjectNotFoundException</code>がスローされます．
 				</p>
 				<dl>
 					<dt>メソッド名 (正規表現)</dt>
@@ -108,6 +114,43 @@ SELECT employee FROM Employee AS employee WHERE employee.id = :id
 public interface EmployeeDao {
     Employee getReference(int id);
 }
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="主キーとバージョンによる検索">
+				<p>
+					主キーとバージョンを指定してエンティティを取得するメソッドです．
+				</p>
+				<p>
+					引数で指定された主キーに該当するエンティティが存在しない場合は<code>null</code>が返されます．
+					引数で指定されたバージョンとエンティティのバージョンが一致しない場合は
+					<code>javax.persistence.OptimisticLockException</code>がスローされます．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+get|find
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティの主キー, エンティティのバージョンプロパティ</dd>
+					<dt>戻り値</dt>
+					<dd>エンティティ</dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    Employee find(int id, int version);
+}
+]]></source>
+					</dd>
+					<dt>実行されるJPQL</dt>
+					<dd>
+<source><![CDATA[
+SELECT employee FROM Employee AS employee WHERE employee.id = :id
 ]]></source>
 					</dd>
 				</dl>

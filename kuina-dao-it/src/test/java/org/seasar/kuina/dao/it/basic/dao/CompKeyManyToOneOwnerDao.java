@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
+import org.seasar.kuina.dao.GenericDao;
 import org.seasar.kuina.dao.it.entity.CompKeyManyToOneOwner;
 import org.seasar.kuina.dao.it.entity.CompKeyManyToOneOwnerId;
 
@@ -22,23 +23,6 @@ import org.seasar.kuina.dao.it.entity.CompKeyManyToOneOwnerId;
  * 
  * @author nakamura
  */
-public interface CompKeyManyToOneOwnerDao {
-
-    CompKeyManyToOneOwner find(CompKeyManyToOneOwnerId id);
-
-    CompKeyManyToOneOwner getReference(CompKeyManyToOneOwnerId id);
-
-    void persist(CompKeyManyToOneOwner owner);
-
-    void remove(CompKeyManyToOneOwner owner);
-
-    boolean contains(CompKeyManyToOneOwner owner);
-
-    void refresh(CompKeyManyToOneOwner owner);
-
-    CompKeyManyToOneOwner merge(CompKeyManyToOneOwner owner);
-
-    void readLock(CompKeyManyToOneOwner owner);
-
-    void writeLock(CompKeyManyToOneOwner owner);
+public interface CompKeyManyToOneOwnerDao extends
+        GenericDao<CompKeyManyToOneOwner, CompKeyManyToOneOwnerId> {
 }

@@ -42,24 +42,25 @@ public class FindCommandBuilder extends AbstractCommandBuilder {
             return null;
         }
 
-        final Class<?>[] parameterTypes = method.getParameterTypes();
+        final Class<?>[] parameterTypes = getActualParameterClasses(daoClass,
+                method);
         if (parameterTypes.length != 1) {
             return null;
         }
 
-        final Class<?> returnType = method.getReturnType();
-        if (returnType.isPrimitive() || returnType.isArray()
-                || Collection.class.isInstance(returnType)) {
+        final Class<?> returnClass = getActualReturnClass(daoClass, method);
+        if (returnClass.isPrimitive() || returnClass.isArray()
+                || Collection.class.isInstance(returnClass)) {
             return null;
         }
 
         final EntityDesc entityDesc = EntityDescFactory
-                .getEntityDesc(returnType);
+                .getEntityDesc(returnClass);
         if (entityDesc == null) {
             return null;
         }
 
-        return new FindCommand(returnType);
+        return new FindCommand(returnClass);
     }
 
 }

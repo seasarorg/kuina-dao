@@ -12,6 +12,12 @@
 			<p>
 				DAOはエンティティ毎に作成することが推奨されます．
 			</p>
+			<ul>
+				<li><p><a href="#パッケージ">パッケージ</a></p></li>
+				<li><p><a href="#インタフェース">インタフェース</a></p></li>
+				<li><p><a href="#GenericDaoインタフェース">GenericDaoインタフェース</a></p></li>
+				<li><p><a href="#メソッド">メソッド</a></p></li>
+			</ul>
 
 			<subsection name="パッケージ">
 				<p>
@@ -33,125 +39,174 @@
 				</ul>
 			</subsection>
 
+			<subsection name="GenericDaoインタフェース">
+				<p>
+					Kuina-Daoでは，DAOインタフェースの基本メソッドを定義したGeneric DAOインタフェースを用意しています．
+				</p>
+				<ul>
+					<li><p><code>org.seasar.kuina.dao.GenericDao&lt;ENTITY, ID&gt;</code></p></li>
+				</ul>
+				<p>
+					型変数<code>ENTITY</code>はDAOの操作対象となるエンティティの型，
+					型変数<code>ID</code>はDAOの操作対象となるエンティティのIDプロパティ／フィールド (主キー) の型です．
+				</p>
+				<p>
+					Generic DAOインタフェースを拡張すると，<a href="#基本メソッド">基本メソッド</a>を
+					DAOインタフェースに定義しなくても使用することが可能となります．
+				</p>
+<source><![CDATA[
+public interface EmployeeDao extends GenericDao<Employee, Long> {
+    // カスタムメソッド
+    ...
+}
+]]></source>
+			</subsection>
+
 			<subsection name="メソッド">
 				<p>
 					DAOインタフェースにはエンティティを操作するためのメソッドを定義します．
 					Kuina-Daoはメソッドの名前や引数・戻り値から実行すべき操作を判断します．
 				</p>
-				<table>
-					<thead>
-						<tr>
-							<th>操作</th>
-							<th>メソッド名 (正規表現)</th>
-							<th>引数</th>
-							<th>戻り値</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>全件取得</td>
-							<td><code>(get|find)All</code></td>
-							<td>なし</td>
-							<td>エンティティの<code>List</code></td>
-						</tr>
-						<tr>
-							<td>主キーによる検索</td>
-							<td><code>get|find</code></td>
-							<td>エンティティの主キー</td>
-							<td>エンティティ</td>
-						</tr>
-						<tr>
-							<td>主キーによる検索 (リファレンスのみ)</td>
-							<td><code>(get|find)Reference</code></td>
-							<td>エンティティの主キー</td>
-							<td>エンティティ</td>
-						</tr>
-						<tr>
-							<td>引数を条件とする検索</td>
-							<td><code>(get|find).+</code></td>
-							<td>問い合わせ条件に含めるエンティティのプロパティの並び</td>
-							<td>エンティティまたはエンティティの<code>List</code></td>
-						</tr>
-						<tr>
-							<td>エンティティのプロパティを条件とする検索</td>
-							<td><code>(get|find).+</code></td>
-							<td>エンティティ</td>
-							<td>エンティティまたはエンティティの<code>List</code></td>
-						</tr>
-						<tr>
-							<td>DTOのプロパティを条件とする検索</td>
-							<td><code>(get|find).+</code></td>
-							<td>DTO</td>
-							<td>エンティティまたはエンティティの<code>List</code></td>
-						</tr>
-						<tr>
-							<td>条件式による検索</td>
-							<td><code>(get|find).+</code></td>
-							<td>条件式の並び</td>
-							<td>エンティティまたはエンティティの<code>List</code></td>
-						</tr>
-						<tr>
-							<td>JPQLによる検索</td>
-							<td><code>(get|find).+</code></td>
-							<td>JPQLに含まれるパラメータの並び</td>
-							<td>エンティティまたはエンティティの<code>List</code></td>
-						</tr>
-						<tr>
-							<td>SQLによる検索</td>
-							<td><code>(get|find).+</code></td>
-							<td>SQLに含まれるパラメータの並び</td>
-							<td>DTOまたはDTOの<code>List</code></td>
-						</tr>
-						<tr>
-							<td>エンティティの永続化</td>
-							<td><code>persist</code></td>
-							<td>エンティティ</td>
-							<td><code>void</code></td>
-						</tr>
-						<tr>
-							<td>エンティティの削除</td>
-							<td><code>remove</code></td>
-							<td>エンティティ</td>
-							<td><code>void</code></td>
-						</tr>
-						<tr>
-							<td>JPQLによる更新・削除</td>
-							<td><code>(update|delete|remove).+</code></td>
-							<td>JPQLに含まれるパラメータの並び</td>
-							<td><code>void</code>または<code>int</code> (更新または削除された行数)</td>
-						</tr>
-						<tr>
-							<td>SQLによる挿入・更新・削除</td>
-							<td><code>(insert|update|delete|remove).+</code></td>
-							<td>SQLに含まれるパラメータの並び</td>
-							<td><code>void</code>または<code>int</code> (更新または削除された行数)</td>
-						</tr>
-						<tr>
-							<td>エンティティのマージ</td>
-							<td><code>merge</code></td>
-							<td>エンティティ</td>
-							<td>エンティティ</td>
-						</tr>
-						<tr>
-							<td>エンティティのリフレッシュ</td>
-							<td><code>refresh</code></td>
-							<td>エンティティ</td>
-							<td><code>void</code></td>
-						</tr>
-						<tr>
-							<td>エンティティのリードロック</td>
-							<td><code>readLock</code></td>
-							<td>エンティティ</td>
-							<td><code>void</code></td>
-						</tr>
-						<tr>
-							<td>エンティティのライトロック</td>
-							<td><code>writeLock</code></td>
-							<td>エンティティ</td>
-							<td><code>void</code></td>
-						</tr>
-					</tbody>
-				</table>
+				<dl>
+					<dt><a name="基本メソッド">基本メソッド</a></dt>
+					<dd>
+						<table>
+							<thead>
+								<tr>
+									<th>操作</th>
+									<th>メソッド名 (正規表現)</th>
+									<th>引数</th>
+									<th>戻り値</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>全件取得</td>
+									<td><code>(get|find)All</code></td>
+									<td>なし</td>
+									<td>エンティティの<code>List</code></td>
+								</tr>
+								<tr>
+									<td>主キーによる検索</td>
+									<td><code>get|find</code></td>
+									<td>エンティティの主キー</td>
+									<td>エンティティ</td>
+								</tr>
+								<tr>
+									<td>主キーによる検索 (リファレンスのみ)</td>
+									<td><code>(get|find)Reference</code></td>
+									<td>エンティティの主キー</td>
+									<td>エンティティ</td>
+								</tr>
+								<tr>
+									<td>エンティティの永続化</td>
+									<td><code>persist</code></td>
+									<td>エンティティ</td>
+									<td><code>void</code></td>
+								</tr>
+								<tr>
+									<td>エンティティの削除</td>
+									<td><code>remove</code></td>
+									<td>エンティティ</td>
+									<td><code>void</code></td>
+								</tr>
+								<tr>
+									<td>エンティティのマージ</td>
+									<td><code>merge</code></td>
+									<td>エンティティ</td>
+									<td>エンティティ</td>
+								</tr>
+								<tr>
+									<td>エンティティのリフレッシュ</td>
+									<td><code>refresh</code></td>
+									<td>エンティティ</td>
+									<td><code>void</code></td>
+								</tr>
+								<tr>
+									<td>エンティティのリードロック</td>
+									<td><code>readLock</code></td>
+									<td>エンティティ</td>
+									<td><code>void</code></td>
+								</tr>
+								<tr>
+									<td>エンティティのライトロック</td>
+									<td><code>writeLock</code></td>
+									<td>エンティティ</td>
+									<td><code>void</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</dd>
+					<dt><a name="#カスタムメソッド">カスタムメソッド</a></dt>
+					<dd>
+						<table>
+							<thead>
+								<tr>
+									<th>操作</th>
+									<th>メソッド名 (正規表現)</th>
+									<th>引数</th>
+									<th>戻り値</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>主キーとバージョンによる検索</td>
+									<td><code>get|find</code></td>
+									<td>エンティティの主キー, バージョン</td>
+									<td>エンティティ</td>
+								</tr>
+								<tr>
+									<td>引数を条件とする検索</td>
+									<td><code>(get|find).+</code></td>
+									<td>問い合わせ条件に含めるエンティティのプロパティの並び</td>
+									<td>エンティティまたはエンティティの<code>List</code></td>
+								</tr>
+								<tr>
+									<td>エンティティのプロパティを条件とする検索</td>
+									<td><code>(get|find).+</code></td>
+									<td>エンティティ</td>
+									<td>エンティティまたはエンティティの<code>List</code></td>
+								</tr>
+								<tr>
+									<td>DTOのプロパティを条件とする検索</td>
+									<td><code>(get|find).+</code></td>
+									<td>DTO</td>
+									<td>エンティティまたはエンティティの<code>List</code></td>
+								</tr>
+								<tr>
+									<td>条件式による検索</td>
+									<td><code>(get|find).+</code></td>
+									<td>条件式の並び</td>
+									<td>エンティティまたはエンティティの<code>List</code></td>
+								</tr>
+								<tr>
+									<td>JPQLによる検索</td>
+									<td><code>(get|find).+</code></td>
+									<td>JPQLに含まれるパラメータの並び</td>
+									<td>エンティティまたはエンティティの<code>List</code></td>
+								</tr>
+								<tr>
+									<td>SQLによる検索</td>
+									<td><code>(get|find).+</code></td>
+									<td>SQLに含まれるパラメータの並び</td>
+									<td>DTOまたはDTOの<code>List</code></td>
+								</tr>
+								<tr>
+									<td>JPQLによる更新・削除</td>
+									<td><code>(update|delete|remove).+</code></td>
+									<td>JPQLに含まれるパラメータの並び</td>
+									<td><code>void</code>または<code>int</code> (更新または削除された行数)</td>
+								</tr>
+								<tr>
+									<td>SQLによる挿入・更新・削除</td>
+									<td><code>(insert|update|delete|remove).+</code></td>
+									<td>SQLに含まれるパラメータの並び</td>
+									<td><code>void</code>または<code>int</code> (更新または削除された行数)</td>
+								</tr>
+							</tbody>
+						</table>
+					</dd>
+				</dl>
 			</subsection>
 		</section>
 	</body>

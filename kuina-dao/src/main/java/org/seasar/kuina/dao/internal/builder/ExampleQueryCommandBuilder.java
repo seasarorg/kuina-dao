@@ -43,7 +43,7 @@ public class ExampleQueryCommandBuilder extends AbstractQueryCommandBuilder {
             return null;
         }
 
-        final Class<?> entityClass = getResultClass(method);
+        final Class<?> entityClass = getResultClass(daoClass, method);
         if (entityClass == null) {
             return null;
         }
@@ -54,7 +54,8 @@ public class ExampleQueryCommandBuilder extends AbstractQueryCommandBuilder {
             return null;
         }
 
-        final Class<?>[] parameterTypes = method.getParameterTypes();
+        final Class<?>[] parameterTypes = getActualParameterClasses(daoClass,
+                method);
         final int parameterSize = parameterTypes.length;
         if (parameterSize == 0 || parameterTypes[0] != entityClass) {
             return null;

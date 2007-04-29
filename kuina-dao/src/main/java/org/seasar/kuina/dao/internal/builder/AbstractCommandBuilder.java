@@ -17,9 +17,13 @@ package org.seasar.kuina.dao.internal.builder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
@@ -36,7 +40,10 @@ import org.seasar.framework.jpa.metadata.EntityDesc;
 import org.seasar.framework.jpa.metadata.EntityDescFactory;
 import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.ClassUtil;
+import org.seasar.framework.util.Disposable;
+import org.seasar.framework.util.DisposableUtil;
 import org.seasar.framework.util.tiger.CollectionsUtil;
+import org.seasar.framework.util.tiger.GenericUtil;
 import org.seasar.kuina.dao.PositionalParameter;
 import org.seasar.kuina.dao.QueryName;
 import org.seasar.kuina.dao.TargetEntity;
@@ -59,6 +66,13 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
     private static final Logger logger = Logger
             .getLogger(AbstractCommandBuilder.class);
 
+    /** パラメータ化された型が持つ型変数をキー、型引数を値とする{@link Map}のキャッシュ */
+    protected static final ConcurrentMap<Class<?>, Map<TypeVariable<?>, Type>> typeVariableMapCache = CollectionsUtil
+            .newConcurrentHashMap();
+
+    /** キャッシュが初期化済みであることを示します */
+    protected static boolean initialized;
+
     // instance fields
     /** 命名規約 */
     @Binding(bindingType = BindingType.MUST)
@@ -74,6 +88,25 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
 
     /** メソッド名の正規表現パターン */
     protected Pattern methodNamePattern;
+
+    /**
+     * クラスを初期化します。
+     * <p>
+     * S2コンテナの終了時にキャッシュを破棄するよう構成します。
+     * </p>
+     */
+    protected static synchronized void initialize() {
+        if (!initialized) {
+            DisposableUtil.add(new Disposable() {
+
+                public void dispose() {
+                    typeVariableMapCache.clear();
+                    initialized = false;
+                }
+
+            });
+        }
+    }
 
     /**
      * インスタンスを構築します。
@@ -399,6 +432,60 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
         } catch (final Exception ignore) {
         }
         return false;
+    }
+
+    /**
+     * クラスの定義に使用されている，パラメータ化された型(クラスまたはインタフェース)が持つ型変数をキー，型引数を値とする{@link Map}を返します．
+     * 
+     * @param clazz
+     *            クラス
+     * @return パラメータ化された型が持つ型変数をキー、型引数を値とする{@link Map}
+     */
+    protected Map<TypeVariable<?>, Type> getTypeVariableMap(final Class<?> clazz) {
+        initialize();
+        final Map<TypeVariable<?>, Type> typeVariableMap = typeVariableMapCache
+                .get(clazz);
+        if (typeVariableMap != null) {
+            return typeVariableMap;
+        }
+        return CollectionsUtil.putIfAbsent(typeVariableMapCache, clazz,
+                GenericUtil.getTypeVariableMap(clazz));
+    }
+
+    /**
+     * メソッド引数の実際の型の配列を返します。
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param method
+     *            Daoメソッド
+     * @return メソッド引数の実際の型の配列
+     */
+    protected Class<?>[] getActualParameterClasses(final Class<?> daoClass,
+            final Method method) {
+        final Map<TypeVariable<?>, Type> map = getTypeVariableMap(daoClass);
+        final Type[] parameterTypes = method.getGenericParameterTypes();
+        final Class<?>[] parameterClasses = new Class[parameterTypes.length];
+        for (int i = 0; i < parameterTypes.length; ++i) {
+            parameterClasses[i] = GenericUtil.getActualClass(parameterTypes[i],
+                    map);
+        }
+        return parameterClasses;
+    }
+
+    /**
+     * メソッド戻り値の実際の型を返します。
+     * 
+     * @param daoClass
+     *            Daoクラス
+     * @param method
+     *            Daoメソッド
+     * @return メソッド戻り値の実際の型
+     */
+    protected Class<?> getActualReturnClass(final Class<?> daoClass,
+            final Method method) {
+        return GenericUtil.getActualClass(method.getGenericReturnType(),
+                getTypeVariableMap(daoClass));
     }
 
 }

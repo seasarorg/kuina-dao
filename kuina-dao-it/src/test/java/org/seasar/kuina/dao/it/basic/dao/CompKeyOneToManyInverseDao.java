@@ -15,6 +15,7 @@
  */
 package org.seasar.kuina.dao.it.basic.dao;
 
+import org.seasar.kuina.dao.GenericDao;
 import org.seasar.kuina.dao.it.entity.CompKeyOneToManyInverse;
 import org.seasar.kuina.dao.it.entity.CompKeyOneToManyInverseId;
 
@@ -22,23 +23,6 @@ import org.seasar.kuina.dao.it.entity.CompKeyOneToManyInverseId;
  * 
  * @author nakamura
  */
-public interface CompKeyOneToManyInverseDao {
-
-    CompKeyOneToManyInverse find(CompKeyOneToManyInverseId id);
-
-    CompKeyOneToManyInverse getReference(CompKeyOneToManyInverseId id);
-
-    void persist(CompKeyOneToManyInverse inverse);
-
-    void remove(CompKeyOneToManyInverse inverse);
-
-    boolean contains(CompKeyOneToManyInverse inverse);
-
-    void refresh(CompKeyOneToManyInverse inverse);
-
-    CompKeyOneToManyInverse merge(CompKeyOneToManyInverse inverse);
-
-    void readLock(CompKeyOneToManyInverse inverse);
-
-    void writeLock(CompKeyOneToManyInverse inverse);
+public interface CompKeyOneToManyInverseDao extends
+        GenericDao<CompKeyOneToManyInverse, CompKeyOneToManyInverseId> {
 }
