@@ -5899,14 +5899,110 @@ public abstract class CriteriaOperations {
      * @param located
      *            path_expressionを表す文字列
      * @param searched
-     *            path_expressionを表す文字列
+     *            string_literalとなる数値文字列
      * @param start
      *            numeric_literalとなる数値
      * @return function_returning_numerics
      */
     public static FunctionReturningNumerics locate(final String located,
             final String searched, final int start) {
-        return locate(path(located), literal(searched), literal(start));
+        return locate(literal(located), path(searched), literal(start));
+    }
+
+    /**
+     * <code>LOCATE</code>関数を使った式を作成します．
+     * 
+     * @param located
+     *            path_expressionを表す文字列
+     * @param searched
+     *            string_literalとなる数値文字列
+     * @param start
+     *            simple_arithmetic_expression
+     * @return function_returning_numerics
+     */
+    public static FunctionReturningNumerics locate(final String located,
+            final String searched, final SimpleArithmeticExpression start) {
+        return locate(literal(located), path(searched), start);
+    }
+
+    /**
+     * <code>LOCATE</code>関数を使った式を作成します．
+     * 
+     * @param located
+     *            string_literalとなる文字列
+     * @param searched
+     *            string_primary
+     * @param start
+     *            numeric_literalとなる数値
+     * @return function_returning_numerics
+     */
+    public static FunctionReturningNumerics locate(final String located,
+            final StringPrimary searched, final int start) {
+        return locate(literal(located), searched, literal(start));
+    }
+
+    /**
+     * <code>LOCATE</code>関数を使った式を作成します．
+     * 
+     * @param located
+     *            string_literalとなる文字列
+     * @param searched
+     *            string_primary
+     * @param start
+     *            simple_arithmetic_expression
+     * @return function_returning_numerics
+     */
+    public static FunctionReturningNumerics locate(final String located,
+            final StringPrimary searched, final SimpleArithmeticExpression start) {
+        return locate(literal(located), searched, start);
+    }
+
+    /**
+     * <code>LOCATE</code>関数を使った式を作成します．
+     * 
+     * @param located
+     *            string_primary
+     * @param searched
+     *            string_literalとなる文字列
+     * @param start
+     *            numeric_literalとなる数値
+     * @return function_returning_numerics
+     */
+    public static FunctionReturningNumerics locate(final StringPrimary located,
+            final String searched, final int start) {
+        return locate(located, path(searched), literal(start));
+    }
+
+    /**
+     * <code>LOCATE</code>関数を使った式を作成します．
+     * 
+     * @param located
+     *            string_primary
+     * @param searched
+     *            string_literalとなる文字列
+     * @param start
+     *            simple_arithmetic_expression
+     * @return function_returning_numerics
+     */
+    public static FunctionReturningNumerics locate(final StringPrimary located,
+            final String searched, final SimpleArithmeticExpression start) {
+        return locate(located, path(searched), start);
+    }
+
+    /**
+     * <code>LOCATE</code>関数を使った式を作成します．
+     * 
+     * @param located
+     *            string_primary
+     * @param searched
+     *            string_primary
+     * @param start
+     *            simple_arithmetic_expression
+     * @return function_returning_numerics
+     */
+    public static FunctionReturningNumerics locate(final StringPrimary located,
+            final StringPrimary searched, final int start) {
+        return locate(located, searched, literal(start));
     }
 
     /**

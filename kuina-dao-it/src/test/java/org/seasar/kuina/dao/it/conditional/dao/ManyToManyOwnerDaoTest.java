@@ -38,7 +38,7 @@ public class ManyToManyOwnerDaoTest {
 
     public void _eq() throws Exception {
         List<ManyToManyOwner> list = dao.findByCondition(eq(
-                "manyToManyOwner.name", literal("simagoro")));
+                "manyToManyOwner.name", "simagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());

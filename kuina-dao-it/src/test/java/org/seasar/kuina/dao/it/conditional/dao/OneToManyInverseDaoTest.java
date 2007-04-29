@@ -38,7 +38,7 @@ public class OneToManyInverseDaoTest {
 
     public void _eq() throws Exception {
         List<OneToManyInverse> list = dao.findByCondition(eq(
-                "oneToManyInverse.name", literal("Account")));
+                "oneToManyInverse.name", "Account"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("Account", list.get(0).getName());

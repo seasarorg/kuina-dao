@@ -118,7 +118,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _eq_date() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(
-                "manyToOneOwner.birthday", literal("1953-10-01")));
+                "manyToOneOwner.birthday", "1953-10-01"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -163,14 +163,14 @@ public class ManyToOneOwnerDaoTest {
     public void _eq_entity() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(
                 "manyToOneOwner.oneToManyInverse",
-                "manyToOneOwner.subOneToManyInverse"));
+                path("manyToOneOwner.subOneToManyInverse")));
         assertNotNull(list);
         assertEquals(0, list.size());
     }
 
     public void _ne() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(ne(
-                "manyToOneOwner.name", literal("simagoro")));
+                "manyToOneOwner.name", "simagoro"));
         assertNotNull(list);
         assertEquals(29, list.size());
         assertNotNull("gochin", list.get(0).getName());
@@ -198,7 +198,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _like() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(like(
-                "manyToOneOwner.name", literal("ma%")));
+                "manyToOneOwner.name", "ma%"));
         assertNotNull(list);
         assertEquals(3, list.size());
         assertNotNull("maki", list.get(0).getName());
@@ -208,7 +208,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _like2() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(like(
-                "manyToOneOwner.name", literal("ma%"), literal("\\")));
+                "manyToOneOwner.name", "ma%", "\\"));
         assertNotNull(list);
         assertEquals(3, list.size());
         assertNotNull("maki", list.get(0).getName());
@@ -306,7 +306,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(
-                trim("manyToOneOwner.name"), literal("simagoro")));
+                trim("manyToOneOwner.name"), "simagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -314,7 +314,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim2() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(trim('s',
-                "manyToOneOwner.name"), literal("imagoro")));
+                "manyToOneOwner.name"), "imagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -322,7 +322,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim_leading() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(trim(LEADING,
-                "manyToOneOwner.name"), literal("simagoro")));
+                "manyToOneOwner.name"), "simagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -330,7 +330,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim_leading2() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(trim(LEADING, 's',
-                "manyToOneOwner.name"), literal("imagoro")));
+                "manyToOneOwner.name"), "imagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -338,7 +338,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim_trailing() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(trim(TRAILING,
-                "manyToOneOwner.name"), literal("simagoro")));
+                "manyToOneOwner.name"), "simagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -346,7 +346,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim_trailing2() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(trim(TRAILING, 'o',
-                "manyToOneOwner.name"), literal("simagor")));
+                "manyToOneOwner.name"), "simagor"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -354,7 +354,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim_both() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(trim(BOTH,
-                "manyToOneOwner.name"), literal("simagoro")));
+                "manyToOneOwner.name"), "simagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -362,7 +362,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _trim_both2() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(trim(BOTH, 's',
-                "manyToOneOwner.name"), literal("imagoro")));
+                "manyToOneOwner.name"), "imagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -372,7 +372,7 @@ public class ManyToOneOwnerDaoTest {
         List<ManyToOneOwner> list = dao.findByCondition(eq(concat(
                 "manyToOneOwner.name",
                 path("manyToOneOwner.oneToManyInverse.name")),
-                literal("simagoroBusiness")));
+                "simagoroBusiness"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -380,7 +380,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _substring() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(substring(
-                "manyToOneOwner.name", 3, 5), literal("magor")));
+                "manyToOneOwner.name", 3, 5), "magor"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
@@ -388,8 +388,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _lowner() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(
-                lower("manyToOneOwner.oneToManyInverse.name"),
-                literal("personnel")));
+                lower("manyToOneOwner.oneToManyInverse.name"), "personnel"));
         assertNotNull(list);
         assertEquals(3, list.size());
         assertNotNull("nekomaru", list.get(0).getName());
@@ -399,8 +398,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _upper() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(eq(
-                upper("manyToOneOwner.oneToManyInverse.name"),
-                literal("PERSONNEL")));
+                upper("manyToOneOwner.oneToManyInverse.name"), "PERSONNEL"));
         assertNotNull(list);
         assertEquals(3, list.size());
         assertNotNull("nekomaru", list.get(0).getName());
@@ -418,7 +416,7 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void _locate() throws Exception {
-        List<ManyToOneOwner> list = dao.findByCondition(eq(locate(literal("s"),
+        List<ManyToOneOwner> list = dao.findByCondition(eq(locate("s",
                 "manyToOneOwner.name"), 3));
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -427,8 +425,8 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void _locate2() throws Exception {
-        List<ManyToOneOwner> list = dao.findByCondition(eq(locate(literal("s"),
-                path("manyToOneOwner.name"), literal(2)), 3));
+        List<ManyToOneOwner> list = dao.findByCondition(eq(locate("s",
+                "manyToOneOwner.name", 2), 3));
         assertNotNull(list);
         assertEquals(2, list.size());
         assertNotNull("rasukal", list.get(0).getName());
@@ -486,7 +484,7 @@ public class ManyToOneOwnerDaoTest {
 
     public void _parenthesis() throws Exception {
         List<ManyToOneOwner> list = dao.findByCondition(parenthesis(or(like(
-                "manyToOneOwner.name", literal("u%")), gt(
+                "manyToOneOwner.name", "u%"), gt(
                 "manyToOneOwner.hireFiscalYear", 2000))), lt(
                 "manyToOneOwner.weight", 52));
         assertNotNull(list);

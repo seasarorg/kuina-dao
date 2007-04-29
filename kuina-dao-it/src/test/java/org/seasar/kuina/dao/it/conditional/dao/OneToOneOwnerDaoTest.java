@@ -38,7 +38,7 @@ public class OneToOneOwnerDaoTest {
 
     public void _eq() throws Exception {
         List<OneToOneOwner> list = dao.findByCondition(eq("oneToOneOwner.name",
-                literal("simagoro")));
+                "simagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
