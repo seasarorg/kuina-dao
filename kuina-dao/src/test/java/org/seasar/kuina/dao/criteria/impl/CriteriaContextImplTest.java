@@ -39,6 +39,8 @@ public class CriteriaContextImplTest extends EasyMockTestCase {
     @EasyMock(EasyMockType.STRICT)
     Query query;
 
+    Calendar calendar = Calendar.getInstance();
+
     public void testGetQueryString() throws Exception {
         CriteriaContextImpl context = new CriteriaContextImpl();
         context.append(false).append((byte) 1).append('b').append(0.1D).append(
@@ -56,8 +58,7 @@ public class CriteriaContextImplTest extends EasyMockTestCase {
         context.setParameter("boolean", true);
         context.setParameter("enum", TemporalType.DATE);
         context.setParameter("date", new Date(0), TemporalType.DATE);
-        context.setParameter("calendar", Calendar.getInstance(),
-                TemporalType.TIMESTAMP);
+        context.setParameter("calendar", calendar, TemporalType.TIMESTAMP);
         context.setParameter("sqlDate", new java.sql.Date(10));
         context.setParameter("sqlTime", new java.sql.Time(20));
         context.setParameter("sqlTimestamp", new java.sql.Timestamp(30));
@@ -71,9 +72,8 @@ public class CriteriaContextImplTest extends EasyMockTestCase {
         expect(query.setParameter("enum", TemporalType.DATE)).andReturn(query);
         expect(query.setParameter("date", new Date(0), TemporalType.DATE))
                 .andReturn(query);
-        expect(
-                query.setParameter("calendar", Calendar.getInstance(),
-                        TemporalType.TIMESTAMP)).andReturn(query);
+        expect(query.setParameter("calendar", calendar, TemporalType.TIMESTAMP))
+                .andReturn(query);
         expect(query.setParameter("sqlDate", new java.sql.Date(10))).andReturn(
                 query);
         expect(query.setParameter("sqlTime", new java.sql.Time(20))).andReturn(
