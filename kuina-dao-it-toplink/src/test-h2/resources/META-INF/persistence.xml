@@ -13,7 +13,6 @@
 			<property name="toplink.target-database" value="oracle.toplink.essentials.platform.database.H2Platform"/>
         	<property name="toplink.logging.level" value="FINE"/>
 			<property name="s2toplink.abstractUnitName" value="persistenceUnit"/>
-        	
         	<!-- for test -->
         	<property name="toplink.cache.shared.default" value="false"/>
  		</properties>
