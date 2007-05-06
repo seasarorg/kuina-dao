@@ -63,13 +63,18 @@ public class DaoMetadataImpl implements DaoMetadata {
     @Binding(bindingType = BindingType.MUST)
     protected CommandBuilder[] builders;
 
+    /** Daoクラス */
+    protected Class<?> daoClass;
+
     /** エンティティ・マネージャ */
     protected EntityManager entityManager;
 
     /** メソッドとコマンドのマッピング */
-    protected Map<Method, Command> commands = CollectionsUtil.newHashMap();
+    protected Map<Method, CommandHolder> commands = CollectionsUtil
+            .newHashMap();
 
     public void initialize(final Class<?> daoClass) {
+        this.daoClass = daoClass;
         final String dsName = daoHelper.getDataSourceName(daoClass);
         entityManager = entityManagerProvider.getEntityManger(dsName);
 
@@ -78,13 +83,16 @@ public class DaoMetadataImpl implements DaoMetadata {
                     || method.isBridge()) {
                 continue;
             }
-            final Command command = createCommand(daoClass, method);
-            commands.put(method, command);
+            commands.put(method, new CommandHolder(method));
         }
     }
 
     public Object execute(final Method method, final Object[] arguments) {
-        final Command command = commands.get(method);
+        final CommandHolder holder = commands.get(method);
+        if (holder == null) {
+            return NOT_INVOKED;
+        }
+        final Command command = holder.get();
         if (command == null) {
             return NOT_INVOKED;
         }
@@ -117,6 +125,39 @@ public class DaoMetadataImpl implements DaoMetadata {
         }
         logger.log("WKuinaDao3001", new Object[] { daoClass, method });
         return null;
+    }
+
+    public class CommandHolder {
+
+        protected final Method method;
+
+        protected volatile boolean initialized;
+
+        protected Command command;
+
+        /**
+         * インスタンスを構築します。
+         * 
+         * @param daoClass
+         * @param method
+         */
+        public CommandHolder(final Method method) {
+            this.method = method;
+        }
+
+        /**
+         * コマンドを返します。
+         * 
+         * @return コマンド
+         */
+        public Command get() {
+            if (!initialized) {
+                command = createCommand(daoClass, method);
+                initialized = true;
+            }
+            return command;
+        }
+
     }
 
 }
