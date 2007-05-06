@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 	http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
-	<persistence-unit name="kuinaDaoItPersistenceUnit" transaction-type="JTA">
+	<persistence-unit name="persistenceUnit" transaction-type="JTA">
 		<provider>oracle.toplink.essentials.PersistenceProvider</provider>
 		<jta-data-source>jdbc/dataSource</jta-data-source>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -12,7 +12,6 @@
 			<property name="toplink.target-server" value="org.seasar.toplink.jpa.platform.server.S2ServerPlatform"/>
 			<property name="toplink.target-database" value="oracle.toplink.essentials.platform.database.H2Platform"/>
         	<property name="toplink.logging.level" value="FINE"/>
-			<property name="s2toplink.abstractUnitName" value="persistenceUnit"/>
         	<!-- for test -->
         	<property name="toplink.cache.shared.default" value="false"/>
  		</properties>
