@@ -22,4 +22,10 @@
 	<component name="entityManagerFactory" class="javax.persistence.EntityManagerFactory">
 		persistenceUnitProvider.entityManagerFactory
 	</component>
+	
+	<component name="entityManager" class="org.seasar.framework.jpa.impl.TxScopedEntityManagerProxy">
+		<aspect pointcut="createNamedQuery">
+			<component class="org.seasar.toplink.jpa.aop.interceptors.S2TopLinkEntityManagerInterceptor"/>
+		</aspect>
+	</component>
 </components>
