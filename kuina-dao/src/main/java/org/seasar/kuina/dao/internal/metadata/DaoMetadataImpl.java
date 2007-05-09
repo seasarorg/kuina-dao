@@ -89,10 +89,7 @@ public class DaoMetadataImpl implements DaoMetadata {
 
     public Object execute(final Method method, final Object[] arguments) {
         final CommandHolder holder = commands.get(method);
-        if (holder == null) {
-            return NOT_INVOKED;
-        }
-        final Command command = holder.get();
+        final Command command = holder != null ? holder.get() : null;
         if (command == null) {
             return NOT_INVOKED;
         }
@@ -127,19 +124,29 @@ public class DaoMetadataImpl implements DaoMetadata {
         return null;
     }
 
+    /**
+     * コマンドを遅延初期化して保持するためのクラスです．
+     * 
+     * @author koichik
+     */
     public class CommandHolder {
 
+        /** メソッド */
         protected final Method method;
 
+        /** 初期化済みなら<code>true</code> */
         protected volatile boolean initialized;
 
+        /** コマンド */
         protected Command command;
 
         /**
          * インスタンスを構築します。
          * 
          * @param daoClass
+         *            Daoクラス
          * @param method
+         *            メソッド
          */
         public CommandHolder(final Method method) {
             this.method = method;
