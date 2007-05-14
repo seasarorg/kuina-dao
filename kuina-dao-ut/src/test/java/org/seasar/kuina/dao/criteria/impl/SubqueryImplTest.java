@@ -52,7 +52,7 @@ public class SubqueryImplTest extends S2TestCase {
 
     public void testInTx() throws Exception {
         List<Employee> list = select().from(Employee.class, "e").where(
-                in("e.belongTo.id", subselect("b.id").from(BelongTo.class, "b")
+                in("e.id", subselect("b.employee.id").from(BelongTo.class, "b")
                         .where(le("b.id", 10)))).getResultList(em);
         assertNotNull(list);
         assertEquals(10, list.size());
