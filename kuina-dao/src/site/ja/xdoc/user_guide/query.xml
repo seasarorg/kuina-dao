@@ -355,8 +355,8 @@ public interface EmployeeDao {
 			<subsection name="SQLによる検索">
 				<p>
 					S2Dao相当の2WAY-SQLファイルを使用して問い合わせを行うメソッドです．<br/>
-					問い合わせの結果は任意のDTOにマップすることができます．
-					問い合わせの結果セットと名前の一致するDTOのプロパティに値が設定されます．<br/>
+					問い合わせの結果は任意のDTOまたは<code>Map</code>にマップすることができます．
+					DTOにマップする場合は，問い合わせ結果のカラム名と名前の一致するDTOのプロパティに値が設定されます．<br/>
 					使用するSQLファイルの名前は，Daoのインタフェース名 (先頭小文字) とメソッド名をアンダースコアで連結し，
 					拡張子 <code>.sql</code> を付加したものになります．
 					SQLファイルはDaoインタフェースのパッケージと同じ階層のディレクトリに配置します．<br/>
@@ -372,7 +372,7 @@ public interface EmployeeDao {
 					<dt>引数</dt>
 					<dd>SQLに含まれるパラメータの並び</dd>
 					<dt>戻り値</dt>
-					<dd>DTOまたはDTOの<code>List</code></dd>
+					<dd>DTOまたはDTOの<code>List</code>または<code>Map</code>または<code>Map</code>の<code>List</code></dd>
 					<dt>例</dt>
 					<dd>
 <source><![CDATA[

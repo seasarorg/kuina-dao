@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.it.sql.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.FlushModeType;
 
@@ -37,6 +38,8 @@ public interface ManyToOneOwnerDao {
     EmpDto findByIdWithCommitFlushMode(Integer id);
 
     List<EmpDto> findAll();
+
+    List<Map<String, Object>> findAllAsMap();
 
     int deleteAll();
 }

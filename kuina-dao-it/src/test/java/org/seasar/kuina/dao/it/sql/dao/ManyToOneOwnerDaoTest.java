@@ -16,6 +16,7 @@
 package org.seasar.kuina.dao.it.sql.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
@@ -78,6 +79,13 @@ public class ManyToOneOwnerDaoTest {
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
+    }
+
+    public void findAllAsMap() throws Exception {
+        List<Map<String, Object>> list = dao.findAllAsMap();
+        assertNotNull(list);
+        assertEquals(30, list.size());
+        assertEquals("simagoro", list.get(0).get("name"));
     }
 
     public void deleteAll() throws Exception {

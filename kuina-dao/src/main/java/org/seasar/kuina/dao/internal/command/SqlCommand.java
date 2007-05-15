@@ -17,6 +17,7 @@ package org.seasar.kuina.dao.internal.command;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -26,6 +27,8 @@ import org.seasar.extension.jdbc.StatementFactory;
 import org.seasar.extension.jdbc.impl.BasicSelectHandler;
 import org.seasar.extension.jdbc.impl.BeanListResultSetHandler;
 import org.seasar.extension.jdbc.impl.BeanResultSetHandler;
+import org.seasar.extension.jdbc.impl.MapListResultSetHandler;
+import org.seasar.extension.jdbc.impl.MapResultSetHandler;
 import org.seasar.framework.jpa.Dialect;
 import org.seasar.framework.jpa.DialectManager;
 import org.seasar.kuina.dao.internal.Command;
@@ -85,11 +88,8 @@ public class SqlCommand extends AbstractSqlCommand {
     @Override
     protected Object execute(final EntityManager em, final String query,
             final Object[] args, final Class<?>[] argTypes) {
-        final ResultSetHandler rsHandler = resultList ? new BeanListResultSetHandler(
-                beanClass)
-                : new BeanResultSetHandler(beanClass);
         final BasicSelectHandler handler = new BasicSelectHandler();
-        handler.setResultSetHandler(rsHandler);
+        handler.setResultSetHandler(createResultSetHandler());
         if (resultSetFactory != null) {
             handler.setResultSetFactory(resultSetFactory);
         }
@@ -99,6 +99,20 @@ public class SqlCommand extends AbstractSqlCommand {
         handler.setSql(query);
         final Dialect dialect = dialectManager.getDialect(em);
         return handler.execute(dialect.getConnection(em), args, argTypes);
+    }
+
+    /**
+     * {@link ResultSetHandler}を作成して返します。
+     * 
+     * @return {@link ResultSetHandler}
+     */
+    protected ResultSetHandler createResultSetHandler() {
+        if (Map.class.isAssignableFrom(beanClass)) {
+            return resultList ? new MapListResultSetHandler()
+                    : new MapResultSetHandler();
+        }
+        return resultList ? new BeanListResultSetHandler(beanClass)
+                : new BeanResultSetHandler(beanClass);
     }
 
 }

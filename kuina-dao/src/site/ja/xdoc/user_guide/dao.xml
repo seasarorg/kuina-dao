@@ -189,7 +189,7 @@ public interface EmployeeDao extends GenericDao<Employee, Long> {
 									<td>SQLによる検索</td>
 									<td><code>(get|find).*</code></td>
 									<td>SQLに含まれるパラメータの並び</td>
-									<td>DTOまたはDTOの<code>List</code></td>
+									<td>DTOまたはDTOの<code>List</code>または<code>Map</code>または<code>Map</code>の<code>List</code></td>
 								</tr>
 								<tr>
 									<td>JPQLによる更新・削除</td>
