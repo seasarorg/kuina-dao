@@ -31,6 +31,11 @@ public class NullBinderTest extends EasyMockTestCase {
     @EasyMock(EasyMockType.STRICT)
     Query query;
 
+    /**
+     * Positional Parameter のテスト．
+     * 
+     * @throws Exception
+     */
     public void testPositionalParameter() throws Exception {
         NullBinder binder = new NullBinder();
         binder.bind(query, null);

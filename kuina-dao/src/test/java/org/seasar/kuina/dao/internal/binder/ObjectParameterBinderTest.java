@@ -33,20 +33,40 @@ public class ObjectParameterBinderTest extends EasyMockTestCase {
     @EasyMock(EasyMockType.STRICT)
     Query query;
 
+    /**
+     * Named Parameter のテスト．
+     * 
+     * @throws Exception
+     */
     public void testNamedParameter() throws Exception {
         ObjectParameterBinder binder = new ObjectParameterBinder("name");
         binder.bind(query, "Hoge");
     }
 
+    /**
+     * {@link #testNamedParameter()}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordNamedParameter() throws Exception {
         expect(query.setParameter("name", "Hoge")).andReturn(query);
     }
 
+    /**
+     * Positional Parameter のテスト．
+     * 
+     * @throws Exception
+     */
     public void testPositionalParameter() throws Exception {
         ObjectParameterBinder binder = new ObjectParameterBinder(1);
         binder.bind(query, "Hoge");
     }
 
+    /**
+     * {@link #testPositionalParameter()}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordPositionalParameter() throws Exception {
         expect(query.setParameter(1, "Hoge")).andReturn(query);
     }

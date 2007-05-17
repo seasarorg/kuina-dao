@@ -33,11 +33,21 @@ public class FirstResultBinderTest extends EasyMockTestCase {
     @EasyMock(EasyMockType.STRICT)
     Query query;
 
+    /**
+     * Positional Parameter のテスト．
+     * 
+     * @throws Exception
+     */
     public void testPositionalParameter() throws Exception {
         FirstResultBinder binder = new FirstResultBinder();
         binder.bind(query, 1);
     }
 
+    /**
+     * {@link #testPositionalParameter()}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordPositionalParameter() throws Exception {
         expect(query.setFirstResult(1)).andReturn(query);
     }

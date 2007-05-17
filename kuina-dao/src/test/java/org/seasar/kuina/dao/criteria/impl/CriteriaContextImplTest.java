@@ -41,6 +41,11 @@ public class CriteriaContextImplTest extends EasyMockTestCase {
 
     Calendar calendar = Calendar.getInstance();
 
+    /**
+     * {@link CriteriaContextImpl#getQueryString()}のテスト．
+     * 
+     * @throws Exception
+     */
     public void testGetQueryString() throws Exception {
         CriteriaContextImpl context = new CriteriaContextImpl();
         context.append(false).append((byte) 1).append('b').append(0.1D).append(
@@ -51,6 +56,11 @@ public class CriteriaContextImplTest extends EasyMockTestCase {
                 context.getQueryString());
     }
 
+    /**
+     * {@link CriteriaContextImpl#fillParameters(Query)}のテスト．
+     * 
+     * @throws Exception
+     */
     public void testFillParameters() throws Exception {
         CriteriaContextImpl context = new CriteriaContextImpl();
         context.setParameter("string", "STRING");
@@ -65,6 +75,11 @@ public class CriteriaContextImplTest extends EasyMockTestCase {
         context.fillParameters(query);
     }
 
+    /**
+     * {@link #testFillParameters}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordFillParameters() throws Exception {
         expect(query.setParameter("string", "STRING")).andReturn(query);
         expect(query.setParameter("int", 10)).andReturn(query);

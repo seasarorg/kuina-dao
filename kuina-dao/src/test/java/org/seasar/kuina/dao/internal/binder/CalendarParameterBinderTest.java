@@ -46,23 +46,43 @@ public class CalendarParameterBinderTest extends EasyMockTestCase {
         calendar.setTime(new Date());
     }
 
+    /**
+     * Named Parameter のテスト．
+     * 
+     * @throws Exception
+     */
     public void testNamedParameter() throws Exception {
         CalendarParameterBinder binder = new CalendarParameterBinder("name",
                 TemporalType.DATE);
         binder.bind(query, calendar);
     }
 
+    /**
+     * {@link #testFillParameters}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordNamedParameter() throws Exception {
         expect(query.setParameter("name", calendar, TemporalType.DATE))
                 .andReturn(query);
     }
 
+    /**
+     * Positional Parameterのテスト．
+     * 
+     * @throws Exception
+     */
     public void testPositionalParameter() throws Exception {
         CalendarParameterBinder binder = new CalendarParameterBinder(1,
                 TemporalType.TIME);
         binder.bind(query, calendar);
     }
 
+    /**
+     * {@link #testPositionalParameter()}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordPositionalParameter() throws Exception {
         expect(query.setParameter(1, calendar, TemporalType.TIME)).andReturn(
                 query);

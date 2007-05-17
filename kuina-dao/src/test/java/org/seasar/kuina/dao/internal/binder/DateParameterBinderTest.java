@@ -43,23 +43,43 @@ public class DateParameterBinderTest extends EasyMockTestCase {
         super.setUp();
     }
 
+    /**
+     * Named Parameter のテスト．
+     * 
+     * @throws Exception
+     */
     public void testNamedParameter() throws Exception {
         DateParameterBinder binder = new DateParameterBinder("name",
                 TemporalType.DATE);
         binder.bind(query, date);
     }
 
+    /**
+     * {@link #testNamedParameter()}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordNamedParameter() throws Exception {
         expect(query.setParameter("name", date, TemporalType.DATE)).andReturn(
                 query);
     }
 
+    /**
+     * Positional Parameter のテスト．
+     * 
+     * @throws Exception
+     */
     public void testPositionalParameter() throws Exception {
         DateParameterBinder binder = new DateParameterBinder(1,
                 TemporalType.TIME);
         binder.bind(query, date);
     }
 
+    /**
+     * {@link #testPositionalParameter()}のMockの動作を記録．
+     * 
+     * @throws Exception
+     */
     public void recordPositionalParameter() throws Exception {
         expect(query.setParameter(1, date, TemporalType.TIME)).andReturn(query);
     }
