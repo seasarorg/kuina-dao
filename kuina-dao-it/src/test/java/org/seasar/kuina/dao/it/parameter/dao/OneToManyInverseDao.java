@@ -18,6 +18,8 @@ package org.seasar.kuina.dao.it.parameter.dao;
 import java.util.List;
 
 import org.seasar.kuina.dao.Distinct;
+import org.seasar.kuina.dao.FetchJoin;
+import org.seasar.kuina.dao.JoinSpec;
 import org.seasar.kuina.dao.Orderby;
 import org.seasar.kuina.dao.it.entity.OneToManyInverse;
 import org.seasar.kuina.dao.it.entity.SalaryRate;
@@ -49,5 +51,10 @@ public interface OneToManyInverseDao {
     @Orderby("id")
     List<OneToManyInverse> findByRelationship(
             String manyToOneOwners$subOneToManyInverse$name);
+
+    @Distinct
+    @Orderby("id")
+    @FetchJoin(joinSpec = JoinSpec.LEFT_OUTER_JOIN, value = "manyToOneOwners")
+    List<OneToManyInverse> findByNameFetchJoin(String name);
 
 }

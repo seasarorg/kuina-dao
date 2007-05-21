@@ -73,4 +73,13 @@ public class OneToManyInverseDaoTest {
         assertEquals("General Administration", list.get(0).getName());
     }
 
+    public void findByNameFetchJoin() throws Exception {
+        List<OneToManyInverse> list = dao.findByNameFetchJoin("Personnel");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        OneToManyInverse inverse = list.get(0);
+        assertEquals("Personnel", inverse.getName());
+        assertEquals(3, inverse.getManyToOneOwners().size());
+    }
+
 }
