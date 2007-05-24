@@ -123,8 +123,8 @@ public interface GenericDao<ENTITY, ID> {
      * 
      * @param entity
      *            エンティティ
-     * @see javax.persistence.EntityManager#lock(javax.persistence.LockModeType,
-     *      Object)
+     * @see javax.persistence.EntityManager#lock(Object,
+     *      javax.persistence.LockModeType)
      */
     void readLock(@ParameterName("entity")
     ENTITY entity);
@@ -134,8 +134,8 @@ public interface GenericDao<ENTITY, ID> {
      * 
      * @param entity
      *            エンティティ
-     * @see javax.persistence.EntityManager#lock(javax.persistence.LockModeType,
-     *      Object)
+     * @see javax.persistence.EntityManager#lock(Object,
+     *      javax.persistence.LockModeType)
      */
     void writeLock(@ParameterName("entity")
     ENTITY entity);

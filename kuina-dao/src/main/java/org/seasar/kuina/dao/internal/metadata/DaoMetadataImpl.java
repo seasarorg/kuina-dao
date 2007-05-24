@@ -143,8 +143,6 @@ public class DaoMetadataImpl implements DaoMetadata {
         /**
          * インスタンスを構築します。
          * 
-         * @param daoClass
-         *            Daoクラス
          * @param method
          *            メソッド
          */
