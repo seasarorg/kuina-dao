@@ -5,6 +5,36 @@ Kuina-Dao Changelog
  ------
 
 
+
+Version {1.0.0} (2007/05/24)
+
+* 移行の注意
+
+  Kuina-Dao 1.0.0 は Seasar2.4.13 および，S2Hibernate 1.0.0 または S2Toplink-JPA 1.0.0-rc3 との組み合わせで動作します．
+  これ以前のバージョンでは動作しないのでご注意ください．
+
+* 変更点
+
+** Improvement
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-10}KUINA-10}}] - Criteria APIを見直しました．
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-12}KUINA-12}}] - 検索系メソッド名のパターンを (find|get).+ から (find|get).* に変更しました．
+
+** New Feature
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-9}KUINA-9}}] - バージョンを指定できるfind()メソッドをサポートしました．
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-11}KUINA-11}}] - generics を使った GenericDao をサポートしました．
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-13}KUINA-13}}] - SQLによる問い合わせで結果をMapまたはMapのListで取得できるようにしました．
+
+** Task
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-8}KUINA-8}}] - 特別な意味を持つパラメータ名（firstResult・maxResults・orderbyや$)をドキュメントに記述しました．
+
+
+
 Version {1.0.0-rc2} (2007/04/12)
 
 * 移行の注意
@@ -16,14 +46,14 @@ Version {1.0.0-rc2} (2007/04/12)
 
 ** Improvement
 
-    * [KUINA-7] - Named Queryを 1. <<<\<DaoのFQN\>.\<Daoメソッド名\>>>>，2. <<<\<Daoの単純名\>.\<Daoメソッド名\>>>>，3. <<<\<エンティティ名\>.\<Daoメソッド名\>>>> の順で検索するようにしました．
+    * [{{{https://www.seasar.org/issues/browse/KUINA-7}KUINA-7}}] - Named Queryを 1. <<<\<DaoのFQN\>.\<Daoメソッド名\>>>>，2. <<<\<Daoの単純名\>.\<Daoメソッド名\>>>>，3. <<<\<エンティティ名\>.\<Daoメソッド名\>>>> の順で検索するようにしました．
 
 ** New Feature
 
-    * [KUINA-1] - 問い合わせのフラッシュ・モードをDaoメソッドに@FlushModeアノテーションを付けることで指定することができるようになりました．
+    * [{{{https://www.seasar.org/issues/browse/KUINA-1}KUINA-1}}] - 問い合わせのフラッシュ・モードをDaoメソッドに@FlushModeアノテーションを付けることで指定することができるようになりました．
 
-    * [KUINA-2] - 問い合わせのヒントをDaoメソッドに@Hints・@Hintアノテーションを付けることで指定することができるようになりました．
+    * [{{{https://www.seasar.org/issues/browse/KUINA-2}KUINA-2}}] - 問い合わせのヒントをDaoメソッドに@Hints・@Hintアノテーションを付けることで指定することができるようになりました．
 
-    * [KUINA-4] - @EmbeddedIdアノテーションを使用した複合キーをサポートしました (@IdClassは未サポート)．
+    * [{{{https://www.seasar.org/issues/browse/KUINA-4}KUINA-4}}] - @EmbeddedIdアノテーションを使用した複合キーをサポートしました (@IdClassは未サポート)．
 
-    * [KUINA-5] - ソート順をDaoメソッドに@Orderbyアノテーションを付けることで指定することができるようになりました．
+    * [{{{https://www.seasar.org/issues/browse/KUINA-5}KUINA-5}}] - ソート順をDaoメソッドに@Orderbyアノテーションを付けることで指定することができるようになりました．

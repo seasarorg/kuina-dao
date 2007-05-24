@@ -1,6 +1,6 @@
 <project name="kuina-dao" default="dist" basedir=".">
-	<property name="ver" value="1.0.0-rc3-SNAPSHOT"/>
-	<property name="releaseDate" value="2007/mm/dd"/>
+	<property name="ver" value="1.0.0"/>
+	<property name="releaseDate" value="2007/05/24"/>
 
 	<target name="fix-site">
 		<mkdir dir="target/site/en"/>
