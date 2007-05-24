@@ -27,10 +27,11 @@
 				<dt>ドキュメントの修正・コミット</dt>
 				<dd>
 					<ul>
-						<li><p>kuina-dao/src/site/index.xml</p></li>
-						<li><p>kuina-dao/src/site/downloads.xml</p></li>
-						<li><p>kuina-dao/src/site/ja/index.xml</p></li>
-						<li><p>kuina-dao/src/site/ja/downloads.xml</p></li>
+						<li><p>kuina-dao/src/site/xdoc/index.xml</p></li>
+						<li><p>kuina-dao/src/site/xdoc/downloads.xml</p></li>
+						<li><p>kuina-dao/src/site/ja/xdoc/index.xml</p></li>
+						<li><p>kuina-dao/src/site/ja/xdoc/downloads.xml</p></li>
+						<li><p>kuina-dao/src/site/ja/apt/changelog.xml</p></li>
 					</ul>
 				</dd>
 			</dl>
@@ -49,12 +50,6 @@
 				<dd>
 <source>
 <kbd>mvn site</kbd>
-</source>
-				</dd>
-				<dt>配布ファイルの作成</dt>
-				<dd>
-<source>
-<kbd>ant</kbd>
 </source>
 				</dd>
 				<dt>サイトのデプロイ</dt>

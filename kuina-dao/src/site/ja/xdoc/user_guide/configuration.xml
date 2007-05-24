@@ -202,12 +202,12 @@
 <source>
 &lt;persistence&gt;
   &lt;persistence-unit name="<b>h2PersistenceUnit</b>" transaction-type="JTA"&gt;
-    &lt;jta-data-source&gt;dataSourceProxy&lt;/jta-data-source&gt;
+    &lt;jta-data-source&gt;jdbc/dataSource&lt;/jta-data-source&gt;
     ...（略）...
   &lt;/persistence-unit&gt;
 
   &lt;persistence-unit name="<b>derbyPersistenceUnit</b>" transaction-type="JTA"&gt;
-    &lt;jta-data-source&gt;dataSourceProxy&lt;/jta-data-source&gt;
+    &lt;jta-data-source&gt;jdbc/dataSource&lt;/jta-data-source&gt;
     ...（略）...
   &lt;/persistence-unit&gt;
 &lt;/persistence&gt;    
@@ -217,59 +217,61 @@
 					永続ユニット<code>h2PersistenceUnit</code>用の設定ファイルです．
 				</p>
 				<p>
-					<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数には
+					<code>ContainerPersistenceUnitProvider</code>の<code>abstractUnitName</code>プロパティには
 					Seasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を，
-					2番目の引数には実際の永続ユニットである<code>h2PersistenceUnit</code>を渡します．
-					最初の引数からエンティティとマッピングファイルが自動で検出され，
-					2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます．
+					<code>unitName</code>プロパティには実際の永続ユニットである<code>h2PersistenceUnit</code>を設定します．
+					<code>unitName</code>プロパティの永続ユニットに自動で検出されたエンティティとマッピングファイルが登録されます．
 				</p>
-				<p>	
+				<p>
 					<code>EntityManager</code>を表すコンポーネントの名前は
 					&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります．
 				</p>
 <source>
 &lt;components&gt;
-  &lt;include path="s2hibernate-jpa.dicon"/&gt;
+  &lt;include path=&quot;s2hibernate-jpa.dicon&quot;/&gt;
 
-  &lt;component name="h2EntityManagerFactory" class="javax.persistence.EntityManagerFactory"&gt;
-    jpa.persistenceUnitManager.getEntityManagerFactory("<b>persistenceUnit</b>", "<b>h2PersistenceUnit</b>")
+  &lt;component name=&quot;<b>h2PersistenceUnitProvider</b>&quot;
+      class=&quot;org.seasar.framework.jpa.impl.ContainerPersistenceUnitProvider&quot;&gt;
+    &lt;property name=&quot;abstractUnitName&quot;&gt;&quot;<b>persistenceUnit</b>&quot;&lt;/property&gt;
+    &lt;property name=&quot;unitName&quot;&gt;&quot;<b>h2PersistenceUnit</b>&quot;&lt;/property&gt;
   &lt;/component&gt;
 
-  &lt;component name="<b>h2EntityManager</b>" class="org.seasar.framework.jpa.impl.TxScopedEntityManagerProxy"/&gt;
+  &lt;component name=&quot;<b>h2EntityManagerFactory</b>&quot; class=&quot;javax.persistence.EntityManagerFactory&quot;&gt;
+    <b>h2PersistenceUnitProvider</b>.entityManagerFactory
+  &lt;/component&gt;
 
-  &lt;component class="org.seasar.hibernate.jpa.metadata.HibernateEntityDescProvider"/&gt;
-  
-  &lt;component name="dataSourceProxy" class="org.seasar.extension.datasource.impl.SingletonDataSourceProxy"/&gt;
-
+  &lt;component name=&quot;<b>h2EntityManager</b>&quot;
+      class=&quot;org.seasar.framework.jpa.impl.TxScopedEntityManagerProxy&quot;/&gt;
 &lt;/components&gt;
 </source>
 				<h5>derby-jpa.dicon</h5>
 				<p>
 					永続ユニット<code>derbyPersistenceUnit</code>用の設定ファイルです．
-				</p>	
-					<code>jpa.persistenceUnitManager.getEntityManagerFactory</code>の最初の引数には
+				</p>
+					<code>ContainerPersistenceUnitProvider</code>の<code>abstractUnitName</code>プロパティには
 					Seasar2でのデフォルトの永続ユニット名である<code>persistenceUnit</code>を，
-					2番目の引数には実際の永続ユニットである<code>derbyPersistenceUnit</code>を渡します．
-					最初の引数からエンティティとマッピングファイルが自動で検出され，
-					2番目の引数の永続ユニットにエンティティとマッピングファイルが登録されます．
-				<p>	
+					<code>unitName</code>プロパティには実際の永続ユニットである<code>derbyPersistenceUnit</code>を設定します．
+					<code>unitName</code>プロパティの永続ユニットに自動で検出されたエンティティとマッピングファイルが登録されます．
+				<p>
 					<code>EntityManager</code>を表すコンポーネントの名前は
 					&quot;<var>対応するデータソースのプレフィックス</var><code>EntityManager</code>&quot;にする必要があります．
 				</p>
 <source>
 &lt;components&gt;
-  &lt;include path="s2hibernate-jpa.dicon"/&gt;
+  &lt;include path=&quot;s2hibernate-jpa.dicon&quot;/&gt;
 
-  &lt;component name="derbyEntityManagerFactory" class="javax.persistence.EntityManagerFactory"&gt;
-    jpa.persistenceUnitManager.getEntityManagerFactory("<b>persistenceUnit</b>", "<b>derbyPersistenceUnit</b>")
+  &lt;component name=&quot;<b>derbyPersistenceUnitProvider</b>&quot;
+      class=&quot;org.seasar.framework.jpa.impl.ContainerPersistenceUnitProvider&quot;&gt;
+    &lt;property name=&quot;abstractUnitName&quot;&gt;&quot;<b>persistenceUnit</b>&quot;&lt;/property&gt;
+    &lt;property name=&quot;unitName&quot;&gt;&quot;<b>derbyPersistenceUnit</b>&quot;&lt;/property&gt;
   &lt;/component&gt;
 
-  &lt;component name="<b>derbyEntityManager</b>" class="org.seasar.framework.jpa.impl.TxScopedEntityManagerProxy"/&gt;
+  &lt;component name=&quot;<b>derbyEntityManagerFactory</b>&quot; class=&quot;javax.persistence.EntityManagerFactory&quot;&gt;
+    <b>derbyPersistenceUnitProvider</b>.entityManagerFactory
+  &lt;/component&gt;
 
-  &lt;component class="org.seasar.hibernate.jpa.metadata.HibernateEntityDescProvider"/&gt;
-
-  &lt;component name="dataSourceProxy" class="org.seasar.extension.datasource.impl.SingletonDataSourceProxy"/&gt;
-  
+  &lt;component name=&quot;<b>derbyEntityManager</b>&quot;
+      class=&quot;org.seasar.framework.jpa.impl.TxScopedEntityManagerProxy&quot;/&gt;
 &lt;/components&gt;
 </source>
 				<h5>jpa.dicon</h5>
@@ -283,7 +285,8 @@
   &lt;include path="h2-jpa.dicon"/&gt;
   &lt;include path="derby-jpa.dicon"/&gt;
   
-  &lt;component name="<b>entityManager</b>" class="<b>org.seasar.framework.jpa.impl.SelectableEntityManagerProxy</b>"/&gt;
+  &lt;component name="<b>entityManager</b>"
+      class="<b>org.seasar.framework.jpa.impl.SelectableEntityManagerProxy</b>"/&gt;
 
 &lt;/components&gt;
 </source>
