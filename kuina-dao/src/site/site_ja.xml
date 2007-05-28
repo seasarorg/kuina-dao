@@ -40,6 +40,7 @@
     <menu name="Documentation">
       <item name="FAQ" href="faq.html"/>
       <item name="Install" href="install.html"/>
+      <item name="Introduction(PDF)" href="sc2007spring_Aa1_Kuina.pdf"/>
       <item name="User Guide" href="user_guide/index.html"/>
       <item name="Javadoc" href="../apidocs/index.html"/>
     </menu>

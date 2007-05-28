@@ -12,7 +12,11 @@
 		</section>
 		<section name="News">
 			<dl>
-				<dt>2007/04/12</dt>
+				<dt>2007/05/28</dt>
+				<dd>
+					Seasar Conference 2007 Springのセッション「<a href="sc2007spring_Aa1_Kuina.pdf">Kuina-Dao入門</a>」の資料を公開しました．
+				</dd>
+				<dt>2007/05/24</dt>
 				<dd>
 					Kuina-Dao 1.0.0 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.0">Changelog</a>)
 				</dd>
