@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="Shift_JIS"?>
 
 <!--
  | Copyright 2001-2005 The Apache Software Foundation.
@@ -32,16 +32,17 @@
       <item name="Maven 2" href="http://maven.apache.org/maven2/"/>
     </links>
     <menu name="About">
-      <item name="Home" href="index.html"/>
-      <item name="License" href="license.html"/>
-      <item name="Downloads" href="downloads.html"/>
+      <item name="ホーム" href="index.html"/>
+      <item name="ライセンス" href="license.html"/>
+      <item name="ダウンロード" href="downloads.html"/>
       <item name="Changelog" href="changelog.html"/>
     </menu>
-    <menu name="Documentation">
+    <menu name="ドキュメント">
       <item name="FAQ" href="faq.html"/>
-      <item name="Install" href="install.html"/>
-      <item name="Introduction(PDF)" href="sc2007spring_Aa1_Kuina.pdf"/>
-      <item name="User Guide" href="user_guide/index.html"/>
+      <item name="インストール" href="install.html"/>
+      <item name="Kuina-Dao入門(PDF)" href="sc2007spring_Aa1_Kuina.pdf"/>
+      <item name="ファーストステップ・ガイド" href="firststep/index.html"/>
+      <item name="ユーザ・ガイド" href="user_guide/index.html"/>
       <item name="Javadoc" href="../apidocs/index.html"/>
     </menu>
     ${reports}

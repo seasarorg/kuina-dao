@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Kuina-Daoファーストステップ・ガイド</title>
+	</properties>
+	<body>
+		<section name="目次">
+			<ul>
+				<li><p><a href="standalone.html">スタンドアロン編</a></p>
+					<ul>
+						<li><p><a href="standalone.html#Eclipseプラグインのインストール">Eclipseプラグインのインストール</a></p></li>
+						<li><p><a href="standalone.html#Kuina-Daoプロジェクトの作成">Kuina-Daoプロジェクトの作成</a></p></li>
+						<li><p><a href="standalone.html#H2 Database Engineの起動">H2 Database Engineの起動</a></p></li>
+						<li><p><a href="standalone.html#DatabaseViewの表示">DatabaseViewの表示</a></p></li>
+						<li><p><a href="standalone.html#DeptエンティティとDeptDaoの作成">DeptエンティティとDeptDaoの作成</a></p></li>
+						<li><p><a href="standalone.html#DeptDaoTestの作成と実行">DeptDaoTestの作成と実行</a></p></li>
+						<li><p><a href="standalone.html#EmpエンティティとEmpDaoの作成">EmpエンティティとEmpDaoの作成</a></p></li>
+						<li><p><a href="standalone.html#EmpとDeptの関連の設定">EmpとDeptの関連の設定</a></p></li>
+						<li><p><a href="standalone.html#EmpDaoにメソッド追加">EmpDaoにメソッド追加</a></p></li>
+						<li><p><a href="standalone.html#EmpDaoTestの作成と実行">EmpDaoTestの作成と実行</a></p></li>
+						<li><p><a href="standalone.html#SQLを確認する">SQLを確認する</a></p></li>
+						<li><p><a href="standalone.html#FETCH JOINを使用する">FETCH JOINを使用する</a></p></li>
+					</ul>
+				</li>
+				<li><p><a href="web.html">Webアプリケーション編</a></p>
+					<ul>
+						<li><p><a href="">準備中</a></p></li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+	</body>
+</document>

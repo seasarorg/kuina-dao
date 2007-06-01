@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Kuina-Daoファーストステップ・ガイド - スタンドアロン編</title>
+	</properties>
+	<body>
+		<section name="スタンドアロン編">
+			<p>
+				Eclipseプラグイン「Dolteng」を使用すると簡単にKuina-Daoを使用することができます．
+			</p>
+			<ul>
+				<li><p><a href="#Eclipseプラグインのインストール">Eclipseプラグインのインストール</a></p></li>
+				<li><p><a href="#Kuina-Daoプロジェクトの作成">Kuina-Daoプロジェクトの作成</a></p></li>
+				<li><p><a href="#H2 Database Engineの起動">H2 Database Engineの起動</a></p></li>
+				<li><p><a href="#DatabaseViewの表示">DatabaseViewの表示</a></p></li>
+				<li><p><a href="#DeptエンティティとDeptDaoの作成">DeptエンティティとDeptDaoの作成</a></p></li>
+				<li><p><a href="#DeptDaoTestの作成と実行">DeptDaoTestの作成と実行</a></p></li>
+				<li><p><a href="#EmpエンティティとEmpDaoの作成">EmpエンティティとEmpDaoの作成</a></p></li>
+				<li><p><a href="#EmpとDeptの関連の設定">EmpとDeptの関連の設定</a></p></li>
+				<li><p><a href="#EmpDaoにメソッド追加">EmpDaoにメソッド追加</a></p></li>
+				<li><p><a href="#EmpDaoTestの作成と実行">EmpDaoTestの作成と実行</a></p></li>
+				<li><p><a href="#SQLを確認する">SQLを確認する</a></p></li>
+				<li><p><a href="#FETCH JOINを使用する">FETCH JOINを使用する</a></p></li>
+			</ul>
+		</section>
+		<section name="Eclipseプラグインのインストール">
+			<p>
+				以下の更新サイトからEclipseプラグインDoltengおよびDbLauncherをインストールしてください．
+			</p>
+			<ul>
+				<li><p><code>http://eclipse.seasar.org/updates/3.2/</code></p></li>
+			</ul>
+		</section>
+		<section name="Kuina-Daoプロジェクトの作成">
+			<p>
+				Doltengを使用してKuina-Dao用の新規Javaプロジェクトを作成します．
+			</p>
+			<ul>
+				<li><p><key>Ctrl+N</key> (またはメニューから「File」－「New」－「Project」) を選択してください．</p></li>
+				<li><p>ウィザードが開きます．</p></li>
+			</ul>
+			<img src="../images/firststep/01.gif" width="500" height="500"/>
+			<ul>
+				<li><p>「Chura」－「Chura Project」を選択して「Next」ボタンを押下します．</p></li>
+				<li><p>「Create a Chura Project」ページが表示されます．</p></li>
+			</ul>
+			<img src="../images/firststep/02.gif" width="500" height="500"/>
+			<ul>
+				<li><p>「Project name」に"<code>kuina-example</code>"と入力します．</p></li>
+				<li><p>「Root Package Name」に"<code>kuina.example</code>"と入力します．</p></li>
+				<li><p>「Project Type」で「Kuna-Dao Only」を選択します．</p></li>
+				<li><p>「Finish」ボタンを押下します．</p></li>
+			</ul>
+			<p>
+				<code>kuina-example</code>プロジェクトが作成されます．
+			</p>
+			<img src="../images/firststep/03.gif" width="800" height="636"/>
+			<p>
+				Kuina-Daoを使用するために必要なJarファイルは全て揃っています．
+				また，サンプル用のデータベースも作成されています．
+				ここでプロジェクトをビルドしておきます．
+			</p>
+			<ul>
+				<li><p><code>kuina-example</code>プロジェクトを選択して右クリック「Build Project」を選択します．</p></li>
+			</ul>
+		</section>
+		<section name="H2 Database Engineの起動">
+			<p>
+				DbLauncherを使用して<a href="http://www.h2database.com/">H2 Database Engine</a>を起動します．
+			</p>
+			<ul>
+				<li><p>「<code>kuina-example</code>」プロジェクトを右クリックして「H2」－「Start H2 Server」を選択します．</p></li>
+				<li><p>「<code>kuina-example</code>」プロジェクトにH2が起動したことを示す緑三角のマーカが表示されます．</p></li>
+				<li><p>「Console」ビューにH2のメッセージが表示されます．</p></li>
+			</ul>
+			<img src="../images/firststep/04.gif" width="800" height="636"/>
+		</section>
+		<section name="DatabaseViewの表示">
+			<ul>
+				<li><p>「Window」－「Show View」－「Other」を選択します．</p></li>
+			</ul>
+			<img src="../images/firststep/05.gif" width="276" height="400"/>
+			<ul>
+				<li><p>「Show View」ダイアログで「Dolteng」－「DatabaseView」を選択します．</p></li>
+				<li><p>「OK」ボタンを押下します．</p></li>
+				<li><p>「DatabaseView」ビューが表示されます．</p></li>
+			</ul>
+			<img src="../images/firststep/06.gif" width="800" height="636"/>
+			<p>
+				「kuina-example」－「jdbc.dicon」－「PUBLIC」を開くとサンプルデータベースに含まれる2つのテーブルDEPTとEMPを確認することができます．
+			</p>
+		</section>
+		<section name="DeptエンティティとDeptDaoの作成">
+			<p>
+				Doltengを使用してエンティティとDaoを生成します．
+			</p>
+			<ul>
+				<li><p>「DatabaseView」で「DEPT」を右クリックして「New Dao or Entity」を選択します．</p></li>
+				<li><p>「New Entity」ウィザードが開きます．</p></li>
+			</ul>
+			<img src="../images/firststep/07.gif" width="619" height="586"/>
+			<ul>
+				<li><p>「Finish」ボタンを押下します．</p></li>
+			</ul>
+			<p>
+				エンティティクラス<code>Dept</code>およびDaoインタフェース<code>DeptDao</code>が生成されます．
+			</p>
+			<img src="../images/firststep/08.gif" width="800" height="636"/>
+		</section>
+		<section name="DeptDaoTestの作成と実行">
+			<p>
+				主キーを指定して<code>Dept</code>を検索するテストクラスを作成します．
+			</p>
+			<ul>
+				<li><p><code>src/test/java</code>フォルダにある<code>kuina.example.dao</code>パッケージを選択して「New」－「Class」を選択します．</p></li>
+			</ul>
+			<img src="../images/firststep/09.gif" width="503" height="586"/>
+			<ul>
+				<li><p>「Name」に"<code>DeptDaoTest</code>"と入力します．</p></li>
+				<li><p>「Superclass」に"<code>org.seasar.extension.unit.S2TestCase</code>"を入力します．</p></li>
+				<li><p>「Finish」ボタンを押下します．</p></li>
+			</ul>
+			<p>
+				作成されたテストクラスにフィールドとメソッドを追加します．
+			</p>
+<source><![CDATA[
+public class DeptDaoTest extends S2TestCase {
+
+	DeptDao deptDao;
+
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		include("app.dicon");
+	}
+
+	public void testFindTx() throws Exception {
+		Dept dept = deptDao.find(1);
+		assertEquals("ACCOUNTING", dept.getDeptName());
+	}
+}
+]]></source>
+			<p>
+				テストを実行します．
+			</p>
+			<img src="../images/firststep/10.gif" width="800" height="636"/>
+			<p>
+				グリーンバーが表示されれば成功です．
+				「<a href="../user_guide/diigu.html">Diigu</a>で処理されていません。クリーンビルドしてください。」というメッセージが表示されてテストが失敗した場合はクリーンビルドして再度テストを実行してください．
+			</p>
+		</section>
+		<section name="EmpエンティティとEmpDaoの作成">
+			<ul>
+				<li><p>「DatabaseView」で「EMP」を右クリックして「New Dao or Entity」を選択します．</p></li>
+				<li><p>「New Entity」ウィザードが開きます．</p></li>
+			</ul>
+			<img src="../images/firststep/11.gif" width="619" height="586"/>
+			<ul>
+				<li><p>「Finish」ボタンを押下します．</p></li>
+			</ul>
+			<p>
+				エンティティクラス<code>Emp</code>およびDaoインタフェース<code>EmpDao</code>が生成されます．
+			</p>
+		</section>
+		<section name="EmpとDeptの関連の設定">
+			<p>
+				EmpとDeptの間に関連を設定します．
+			</p>
+			<ul>
+				<li><p><code>Emp</code>クラスのフィールド<code>deptId</code>とメソッド<code>getDeptId()/setDeptId(Integer)</code>を削除します．</p></li>
+				<li><p><code>Emp</code>クラスに関連のフィールド及びgetter/seterメソッドを追加します．</p></li>
+			</ul>
+<source><![CDATA[
+	@ManyToOne
+	@JoinColumn(name = "DEPT_ID")
+	private Dept dept;
+
+	public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+]]></source>
+			<ul>
+				<li><p><code>Dept</code>クラスに関連のフィールド及びgetter/seterメソッドを追加します．</p></li>
+			</ul>
+<source><![CDATA[
+	@OneToMany(mappedBy = "dept")
+	private List<Emp> employees;
+
+	public List<Emp> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Emp> employees) {
+		this.employees = employees;
+	}
+]]></source>
+		</section>
+		<section name="EmpDaoにメソッド追加">
+			<p>
+				部署名を指定して従業員を検索するメソッドを<code>Empdao</code>に追加します．
+			</p>
+<source><![CDATA[
+	public List<Emp> findByDeptName(String dept$deptName);
+]]></source>
+		</section>
+		<section name="EmpDaoTestの作成と実行">
+			<p>
+				EmpDaoをテストするためのクラスを作成します．
+			</p>
+			<ul>
+				<li><p><code>src/test/java</code>フォルダにある<code>kuina.example.dao</code>パッケージを選択して「New」－「Class」を選択します．</p></li>
+			</ul>
+			<img src="../images/firststep/12.gif" width="503" height="586"/>
+			<ul>
+				<li><p>「Name」に"<code>EmpDaoTest</code>"と入力します．</p></li>
+				<li><p>「Superclass」に"<code>org.seasar.extension.unit.S2TestCase</code>"を入力します．</p></li>
+				<li><p>「Finish」ボタンを押下します．</p></li>
+			</ul>
+			<p>
+				作成されたテストクラスにフィールドとメソッドを追加します．
+			</p>
+<source><![CDATA[
+	EmpDao empDao;
+
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		include("app.dicon");
+	}
+
+	public void testFindByDeptNameTx() throws Exception {
+		List<Emp> empList = empDao.findByDeptName("ACCOUNTING");
+		assertEquals(3, empList.size());
+		for (Emp emp : empList) {
+			System.out.println(emp.getEmpName() + " : "
+					+ emp.getDept().getDeptName());
+		}
+	}
+]]></source>
+			<p>
+				テストを実行します．
+				グリーンバーが表示されれば成功です．
+				「<a href="../user_guide/diigu.html">Diigu</a>で処理されていません。クリーンビルドしてください。」というメッセージが表示されてテストが失敗した場合はクリーンビルドして再度テストを実行してください．
+			</p>
+		</section>
+		<section name="SQLを確認する">
+			<p>
+				実行されるSQLを確認しましょう．
+			</p>
+			<ul>
+				<li><p><code>src/main/resources</code>フォルダにある<code>log4j.properties</code>ファイルに以下の内容を追加します．</p></li>
+			</ul>
+<source><![CDATA[
+log4j.category.org.hibernate=DEBUG, C
+log4j.additivity.org.hibernate=false
+]]></source>
+			<p>
+				<code>EmpDaoTest</code>を実行します．
+				「Console」ビューに次のようにSQLが表示されます．
+			</p>
+<source><![CDATA[
+DEBUG 2007-06-02 06:12:26,812 [main] 
+    select
+        emp0_.id as id1_,
+        emp0_.EMP_NO as EMP2_1_,
+        emp0_.EMP_NAME as EMP3_1_,
+        emp0_.MGR_ID as MGR4_1_,
+        emp0_.hiredate as hiredate1_,
+        emp0_.sal as sal1_,
+        emp0_.VERSION_NO as VERSION7_1_,
+        emp0_.DEPT_ID as DEPT8_1_ 
+    from
+        Emp emp0_ 
+    inner join
+        Dept dept1_ 
+            on emp0_.DEPT_ID=dept1_.id 
+    where
+        dept1_.DEPT_NAME=?
+
+DEBUG 2007-06-02 06:12:26,921 [main] 
+    select
+        dept0_.id as id0_0_,
+        dept0_.DEPT_NO as DEPT2_0_0_,
+        dept0_.DEPT_NAME as DEPT3_0_0_,
+        dept0_.loc as loc0_0_,
+        dept0_.VERSION_NO as VERSION5_0_0_ 
+    from
+        Dept dept0_ 
+    where
+        dept0_.id=?
+]]></source>
+			<p>
+				SQLが2回発行されています．
+				最初のSQLではEMP表のカラムだけを取得しています．
+				テストメソッドが部門名を表示しようとするとDEPT表のカラムが取得されます (遅延フェッチ)．
+			</p>
+		</section>
+		<section name="FETCH JOINを使用する">
+			<p>
+				遅延フェッチを防ぐためにFETCH JOINを使うようにしましょう．
+				<code>EmpDao</code>の<code>findByDeptName(String)</code>メソッドに<code>@FetchJoin</code>アノテーションを付加します．
+			</p>
+<source><![CDATA[
+	@FetchJoin("dept")
+	public List<Emp> findByDeptName(String dept$deptName);
+]]></source>
+			<p>
+				<code>EmpDaoTest</code>を実行します．
+				「Console」ビューに次のようにSQLが表示されます．
+			</p>
+<source><![CDATA[
+DEBUG 2007-06-02 06:19:04,609 [main] 
+    select
+        emp0_.id as id1_0_,
+        dept1_.id as id0_1_,
+        emp0_.EMP_NO as EMP2_1_0_,
+        emp0_.EMP_NAME as EMP3_1_0_,
+        emp0_.MGR_ID as MGR4_1_0_,
+        emp0_.hiredate as hiredate1_0_,
+        emp0_.sal as sal1_0_,
+        emp0_.VERSION_NO as VERSION7_1_0_,
+        emp0_.DEPT_ID as DEPT8_1_0_,
+        dept1_.DEPT_NO as DEPT2_0_1_,
+        dept1_.DEPT_NAME as DEPT3_0_1_,
+        dept1_.loc as loc0_1_,
+        dept1_.VERSION_NO as VERSION5_0_1_ 
+    from
+        Emp emp0_ 
+    inner join
+        Dept dept1_ 
+            on emp0_.DEPT_ID=dept1_.id 
+    where
+        dept1_.DEPT_NAME=?
+]]></source>
+			<p>
+				発行されるSQLが1回になりました．
+			</p>
+		</section>
+	</body>
+</document>
