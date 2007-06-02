@@ -6,11 +6,16 @@
 	<body>
 		<section name="目次">
 			<ul>
-				<li><p><a href="standalone.html">スタンドアロン編</a></p>
+				<li><p><a href="install.html">インストール編</a></p></li>
+				<li>
+					<p>
+						<a href="standalone.html">スタンドアロン編</a>
+						(<a href="standalone-movie.html">ムービー</a>)
+					</p>
 					<ul>
-						<li><p><a href="standalone.html#Eclipseプラグインのインストール">Eclipseプラグインのインストール</a></p></li>
 						<li><p><a href="standalone.html#Kuina-Daoプロジェクトの作成">Kuina-Daoプロジェクトの作成</a></p></li>
 						<li><p><a href="standalone.html#H2 Database Engineの起動">H2 Database Engineの起動</a></p></li>
+						<li><p><a href="standalone.html#サンプルデータベースの確認">サンプルデータベースの確認</a></p></li>
 						<li><p><a href="standalone.html#DatabaseViewの表示">DatabaseViewの表示</a></p></li>
 						<li><p><a href="standalone.html#DeptエンティティとDeptDaoの作成">DeptエンティティとDeptDaoの作成</a></p></li>
 						<li><p><a href="standalone.html#DeptDaoTestの作成と実行">DeptDaoTestの作成と実行</a></p></li>
@@ -22,9 +27,9 @@
 						<li><p><a href="standalone.html#FETCH JOINを使用する">FETCH JOINを使用する</a></p></li>
 					</ul>
 				</li>
-				<li><p><a href="web.html">Webアプリケーション編</a></p>
+				<li><p>Webアプリケーション編</p>
 					<ul>
-						<li><p><a href="">準備中</a></p></li>
+						<li><p>準備中</p></li>
 					</ul>
 				</li>
 			</ul>

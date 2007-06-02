@@ -6,12 +6,13 @@
 	<body>
 		<section name="スタンドアロン編">
 			<p>
-				Eclipseプラグイン「Dolteng」を使用すると簡単にKuina-Daoを使用することができます．
+				Eclipseプラグイン「Dolteng」を使用すると簡単にKuina-Daoを試すことができます．
+				動画版は<a href="standalone-movie.html">こちら</a>．
 			</p>
 			<ul>
-				<li><p><a href="#Eclipseプラグインのインストール">Eclipseプラグインのインストール</a></p></li>
 				<li><p><a href="#Kuina-Daoプロジェクトの作成">Kuina-Daoプロジェクトの作成</a></p></li>
 				<li><p><a href="#H2 Database Engineの起動">H2 Database Engineの起動</a></p></li>
+				<li><p><a href="#サンプルデータベースの確認">サンプルデータベースの確認</a></p></li>
 				<li><p><a href="#DatabaseViewの表示">DatabaseViewの表示</a></p></li>
 				<li><p><a href="#DeptエンティティとDeptDaoの作成">DeptエンティティとDeptDaoの作成</a></p></li>
 				<li><p><a href="#DeptDaoTestの作成と実行">DeptDaoTestの作成と実行</a></p></li>
@@ -23,45 +24,35 @@
 				<li><p><a href="#FETCH JOINを使用する">FETCH JOINを使用する</a></p></li>
 			</ul>
 		</section>
-		<section name="Eclipseプラグインのインストール">
-			<p>
-				以下の更新サイトからEclipseプラグインDoltengおよびDbLauncherをインストールしてください．
-			</p>
-			<ul>
-				<li><p><code>http://eclipse.seasar.org/updates/3.2/</code></p></li>
-			</ul>
-		</section>
 		<section name="Kuina-Daoプロジェクトの作成">
 			<p>
-				Doltengを使用してKuina-Dao用の新規Javaプロジェクトを作成します．
+				Doltengを使用してKuina-Dao用の新規Javaプロジェクトを作成しましょう．
 			</p>
 			<ul>
-				<li><p><key>Ctrl+N</key> (またはメニューから「File」－「New」－「Project」) を選択してください．</p></li>
-				<li><p>ウィザードが開きます．</p></li>
+				<li><p>メニューから「File」－「New」－「Project」を選択してください．</p></li>
+				<li><p>「New」ウィザードが開きます．</p></li>
+				<li><p>「Chura」－「Chura Project」を選択して「Next」ボタンを押下してください．</p></li>
 			</ul>
-			<img src="../images/firststep/01.gif" width="500" height="500"/>
+			<img src="../images/firststep/standalone01.gif" width="500" height="500"/>
 			<ul>
-				<li><p>「Chura」－「Chura Project」を選択して「Next」ボタンを押下します．</p></li>
 				<li><p>「Create a Chura Project」ページが表示されます．</p></li>
+				<li><p>「Project name」に"<code>kuina-example</code>"と入力してください．</p></li>
+				<li><p>「Root Package Name」に"<code>kuina.example</code>"と入力してください．</p></li>
+				<li><p>「Project Type」で「Kuna-Dao Only」を選択してください．</p></li>
+				<li><p>「Finish」ボタンを押下してください．</p></li>
 			</ul>
-			<img src="../images/firststep/02.gif" width="500" height="500"/>
-			<ul>
-				<li><p>「Project name」に"<code>kuina-example</code>"と入力します．</p></li>
-				<li><p>「Root Package Name」に"<code>kuina.example</code>"と入力します．</p></li>
-				<li><p>「Project Type」で「Kuna-Dao Only」を選択します．</p></li>
-				<li><p>「Finish」ボタンを押下します．</p></li>
-			</ul>
+			<img src="../images/firststep/standalone02.gif" width="500" height="500"/>
 			<p>
 				<code>kuina-example</code>プロジェクトが作成されます．
-			</p>
-			<img src="../images/firststep/03.gif" width="800" height="636"/>
-			<p>
 				Kuina-Daoを使用するために必要なJarファイルは全て揃っています．
 				また，サンプル用のデータベースも作成されています．
+			</p>
+			<img src="../images/firststep/standalone03.gif" width="800" height="636"/>
+			<p>
 				ここでプロジェクトをビルドしておきます．
 			</p>
 			<ul>
-				<li><p><code>kuina-example</code>プロジェクトを選択して右クリック「Build Project」を選択します．</p></li>
+				<li><p><code>kuina-example</code>プロジェクトを選択して右クリック「Build Project」を選択してください．</p></li>
 			</ul>
 		</section>
 		<section name="H2 Database Engineの起動">
@@ -69,59 +60,84 @@
 				DbLauncherを使用して<a href="http://www.h2database.com/">H2 Database Engine</a>を起動します．
 			</p>
 			<ul>
-				<li><p>「<code>kuina-example</code>」プロジェクトを右クリックして「H2」－「Start H2 Server」を選択します．</p></li>
+				<li><p>「<code>kuina-example</code>」プロジェクトを右クリックして「H2」－「Start H2 Server」を選択してください．</p></li>
 				<li><p>「<code>kuina-example</code>」プロジェクトにH2が起動したことを示す緑三角のマーカが表示されます．</p></li>
 				<li><p>「Console」ビューにH2のメッセージが表示されます．</p></li>
 			</ul>
-			<img src="../images/firststep/04.gif" width="800" height="636"/>
+			<img src="../images/firststep/standalone04.gif" width="800" height="636"/>
+		</section>
+		<section name="サンプルデータベースの確認">
+			<p>
+				H2のサンプルのデータベースを確認しましょう．
+			</p>
+			<ul>
+				<li><p>「<code>kuina-example</code>」プロジェクトを右クリックして「H2」－「View Database Manager」を選択してください．</p></li>
+				<li><p>WebブラウザにH2のログイン画面が表示されます．</p></li>
+				<li><p>「JDBC URL」が"<code>jdbc:h2:tcp://localhost:9092/demo</code>"を入力してください．</p></li>
+				<li><p>「接続」ボタンを押下してください．</p></li>
+			</ul>
+			<img src="../images/firststep/standalone05.gif" width="800" height="600"/>
+			<ul>
+				<li><p>Webブラウザに「H2 Console」画面が表示されます．</p></li>
+				<li><p>左のペインにDoltengが作成したテーブル<code>DEPT</code>と<code>EMP</code>が表示されています．</p></li>
+			</ul>
+			<img src="../images/firststep/standalone06.gif" width="800" height="600"/>
+			<ul>
+				<li><p>左のペインで"<code>DEPT</code>"をクリックしてください．</p></li>
+				<li><p>「SQLステートメント」テキストエリアに"<code>SELECT * FROM DEPT</code>"が入力されます．</p></li>
+				<li><p>「実行」ボタンを押下するとSQLが実行されます．</p></li>
+			</ul>
+			<img src="../images/firststep/standalone07.gif" width="800" height="600"/>
 		</section>
 		<section name="DatabaseViewの表示">
-			<ul>
-				<li><p>「Window」－「Show View」－「Other」を選択します．</p></li>
-			</ul>
-			<img src="../images/firststep/05.gif" width="276" height="400"/>
-			<ul>
-				<li><p>「Show View」ダイアログで「Dolteng」－「DatabaseView」を選択します．</p></li>
-				<li><p>「OK」ボタンを押下します．</p></li>
-				<li><p>「DatabaseView」ビューが表示されます．</p></li>
-			</ul>
-			<img src="../images/firststep/06.gif" width="800" height="636"/>
 			<p>
-				「kuina-example」－「jdbc.dicon」－「PUBLIC」を開くとサンプルデータベースに含まれる2つのテーブルDEPTとEMPを確認することができます．
+				DoltengでテーブルからエンティティクラスやDaoインタフェースを生成するために「DatabaseView」ビューを表示します．
 			</p>
+			<ul>
+				<li><p>メニューから「Window」－「Show View」－「Other」を選択してください．</p></li>
+				<li><p>「Show View」ダイアログが開きます．</p></li>
+				<li><p>「Dolteng」－「DatabaseView」を選択してください．</p></li>
+				<li><p>「OK」ボタンを押下してください．</p></li>
+			</ul>
+			<img src="../images/firststep/standalone08.gif" width="276" height="400"/>
+			<p>
+				「DatabaseView」ビューが表示されます．
+				「kuina-example」－「jdbc.dicon」－「PUBLIC」を開くとサンプルデータベースに含まれる2つのテーブル
+				<code>DEPT</code>と<code>EMP</code>を確認することができます．
+			</p>
+			<img src="../images/firststep/standalone09.gif" width="800" height="636"/>
 		</section>
 		<section name="DeptエンティティとDeptDaoの作成">
 			<p>
-				Doltengを使用してエンティティとDaoを生成します．
+				Doltengを使用してエンティティとDaoを生成しましょう．
 			</p>
 			<ul>
-				<li><p>「DatabaseView」で「DEPT」を右クリックして「New Dao or Entity」を選択します．</p></li>
+				<li><p>「DatabaseView」で「<code>DEPT</code>」テーブルを右クリックして「New Dao or Entity」を選択してください．</p></li>
 				<li><p>「New Entity」ウィザードが開きます．</p></li>
+				<li><p>「Finish」ボタンを押下してください．</p></li>
 			</ul>
-			<img src="../images/firststep/07.gif" width="619" height="586"/>
-			<ul>
-				<li><p>「Finish」ボタンを押下します．</p></li>
-			</ul>
+			<img src="../images/firststep/standalone10.gif" width="619" height="586"/>
 			<p>
 				エンティティクラス<code>Dept</code>およびDaoインタフェース<code>DeptDao</code>が生成されます．
+				<code>DeptDao</code>には基本的なメソッドが定義済みなのですぐに使うことができます．
 			</p>
-			<img src="../images/firststep/08.gif" width="800" height="636"/>
+			<img src="../images/firststep/standalone11.gif" width="800" height="636"/>
 		</section>
 		<section name="DeptDaoTestの作成と実行">
 			<p>
-				主キーを指定して<code>Dept</code>を検索するテストクラスを作成します．
+				<a href="../user_guide/query.html#主キーによる検索">主キーを指定して
+				<code>Dept</code>を検索する</a>テストクラスを作成しましょう．
 			</p>
 			<ul>
-				<li><p><code>src/test/java</code>フォルダにある<code>kuina.example.dao</code>パッケージを選択して「New」－「Class」を選択します．</p></li>
-			</ul>
-			<img src="../images/firststep/09.gif" width="503" height="586"/>
-			<ul>
+				<li><p><code>src/test/java</code>フォルダにある<code>kuina.example.dao</code>パッケージを選択して
+				「New」－「Class」を選択してください．</p></li>
 				<li><p>「Name」に"<code>DeptDaoTest</code>"と入力します．</p></li>
 				<li><p>「Superclass」に"<code>org.seasar.extension.unit.S2TestCase</code>"を入力します．</p></li>
 				<li><p>「Finish」ボタンを押下します．</p></li>
 			</ul>
+			<img src="../images/firststep/standalone12.gif" width="503" height="586"/>
 			<p>
-				作成されたテストクラスにフィールドとメソッドを追加します．
+				作成されたテストクラスにフィールドとメソッドを追加してください．
 			</p>
 <source><![CDATA[
 public class DeptDaoTest extends S2TestCase {
@@ -141,34 +157,34 @@ public class DeptDaoTest extends S2TestCase {
 }
 ]]></source>
 			<p>
-				テストを実行します．
+				テストを実行してください．
 			</p>
-			<img src="../images/firststep/10.gif" width="800" height="636"/>
 			<p>
 				グリーンバーが表示されれば成功です．
-				「<a href="../user_guide/diigu.html">Diigu</a>で処理されていません。クリーンビルドしてください。」というメッセージが表示されてテストが失敗した場合はクリーンビルドして再度テストを実行してください．
+				「<a href="../user_guide/diigu.html">Diigu</a>で処理されていません。クリーンビルドしてください。」という
+				メッセージが表示されてテストが失敗した場合は，プロジェクトをクリーンビルドして再度テストを実行してください．
 			</p>
+			<img src="../images/firststep/standalone13.gif" width="800" height="636"/>
 		</section>
 		<section name="EmpエンティティとEmpDaoの作成">
 			<ul>
-				<li><p>「DatabaseView」で「EMP」を右クリックして「New Dao or Entity」を選択します．</p></li>
+				<li><p>「DatabaseView」で「<code>EMP</code>」テーブルを右クリックして「New Dao or Entity」を選択してください．</p></li>
 				<li><p>「New Entity」ウィザードが開きます．</p></li>
+				<li><p>「Finish」ボタンを押下してください．</p></li>
 			</ul>
-			<img src="../images/firststep/11.gif" width="619" height="586"/>
-			<ul>
-				<li><p>「Finish」ボタンを押下します．</p></li>
-			</ul>
+			<img src="../images/firststep/standalone14.gif" width="619" height="586"/>
 			<p>
 				エンティティクラス<code>Emp</code>およびDaoインタフェース<code>EmpDao</code>が生成されます．
 			</p>
 		</section>
 		<section name="EmpとDeptの関連の設定">
 			<p>
-				EmpとDeptの間に関連を設定します．
+				EmpとDeptの間に関連を設定しましょう．
 			</p>
 			<ul>
-				<li><p><code>Emp</code>クラスのフィールド<code>deptId</code>とメソッド<code>getDeptId()/setDeptId(Integer)</code>を削除します．</p></li>
-				<li><p><code>Emp</code>クラスに関連のフィールド及びgetter/seterメソッドを追加します．</p></li>
+				<li><p><code>Emp</code>クラスのフィールド<code>deptId</code>と
+				メソッド<code>getDeptId()/setDeptId(Integer)</code>を削除してください．</p></li>
+				<li><p><code>Emp</code>クラスに関連のフィールド及びgetter/seterメソッドを追加してください．</p></li>
 			</ul>
 <source><![CDATA[
 	@ManyToOne
@@ -184,7 +200,7 @@ public class DeptDaoTest extends S2TestCase {
 	}
 ]]></source>
 			<ul>
-				<li><p><code>Dept</code>クラスに関連のフィールド及びgetter/seterメソッドを追加します．</p></li>
+				<li><p><code>Dept</code>クラスに関連のフィールド及びgetter/seterメソッドを追加してください．</p></li>
 			</ul>
 <source><![CDATA[
 	@OneToMany(mappedBy = "dept")
@@ -201,28 +217,37 @@ public class DeptDaoTest extends S2TestCase {
 		</section>
 		<section name="EmpDaoにメソッド追加">
 			<p>
-				部署名を指定して従業員を検索するメソッドを<code>Empdao</code>に追加します．
+				Kuina-Daoでは，メソッドを定義するだけである程度複雑な問い合わせも可能です．
+				部署名を指定して従業員を検索するメソッドを追加しましょう．
 			</p>
+			<ul>
+				<li><p><code>EmpDao</code>に次のメソッドを追加してください．</p></li>
+			</ul>
 <source><![CDATA[
 	public List<Emp> findByDeptName(String dept$deptName);
 ]]></source>
+			<p>
+				このように，<a href="../user_guide/query.html#引数を条件とする検索">問い合わせ条件を引数の名前で指定</a>します．
+				ここでは，<code>$</code>で区切ることで
+				<a href="../user_guide/query.html#関連を表す引数名およびDTOのプロパティ名">関連先エンティティの
+				プロパティを問い合わせ条件</a>としています．
+			</p>
 		</section>
 		<section name="EmpDaoTestの作成と実行">
 			<p>
-				EmpDaoをテストするためのクラスを作成します．
+				EmpDaoをテストするためのクラスを作成しましょう．
 			</p>
 			<ul>
-				<li><p><code>src/test/java</code>フォルダにある<code>kuina.example.dao</code>パッケージを選択して「New」－「Class」を選択します．</p></li>
-			</ul>
-			<img src="../images/firststep/12.gif" width="503" height="586"/>
-			<ul>
-				<li><p>「Name」に"<code>EmpDaoTest</code>"と入力します．</p></li>
+				<li><p><code>src/test/java</code>フォルダにある<code>kuina.example.dao</code>パッケージを選択して
+				「New」－「Class」を選択してください．</p></li>
+				<li><p>「Name」に"<code>EmpDaoTest</code>"と入力してください．</p></li>
 				<li><p>「Superclass」に"<code>org.seasar.extension.unit.S2TestCase</code>"を入力します．</p></li>
-				<li><p>「Finish」ボタンを押下します．</p></li>
+				<li><p>「Finish」ボタンを押下してください．</p></li>
 			</ul>
-			<p>
-				作成されたテストクラスにフィールドとメソッドを追加します．
-			</p>
+			<img src="../images/firststep/standalone15.gif" width="503" height="586"/>
+			<ul>
+				<li><p>作成されたテストクラスにフィールドとメソッドを追加してください．</p></li>
+			</ul>
 <source><![CDATA[
 	EmpDao empDao;
 
@@ -242,9 +267,12 @@ public class DeptDaoTest extends S2TestCase {
 	}
 ]]></source>
 			<p>
-				テストを実行します．
+				テストを実行してください．
+			</p>
+			<p>
 				グリーンバーが表示されれば成功です．
-				「<a href="../user_guide/diigu.html">Diigu</a>で処理されていません。クリーンビルドしてください。」というメッセージが表示されてテストが失敗した場合はクリーンビルドして再度テストを実行してください．
+				「<a href="../user_guide/diigu.html">Diigu</a>で処理されていません。クリーンビルドしてください。」という
+				メッセージが表示されてテストが失敗した場合はクリーンビルドして再度テストを実行してください．
 			</p>
 		</section>
 		<section name="SQLを確認する">
@@ -252,14 +280,15 @@ public class DeptDaoTest extends S2TestCase {
 				実行されるSQLを確認しましょう．
 			</p>
 			<ul>
-				<li><p><code>src/main/resources</code>フォルダにある<code>log4j.properties</code>ファイルに以下の内容を追加します．</p></li>
+				<li><p><code>src/main/resources</code>フォルダにある<code>log4j.properties</code>ファイルに
+				以下の内容を追加してください．</p></li>
 			</ul>
 <source><![CDATA[
 log4j.category.org.hibernate=DEBUG, C
 log4j.additivity.org.hibernate=false
 ]]></source>
 			<p>
-				<code>EmpDaoTest</code>を実行します．
+				<code>EmpDaoTest</code>を実行してください．
 				「Console」ビューに次のようにSQLが表示されます．
 			</p>
 <source><![CDATA[
@@ -296,20 +325,26 @@ DEBUG 2007-06-02 06:12:26,921 [main]
 			<p>
 				SQLが2回発行されています．
 				最初のSQLではEMP表のカラムだけを取得しています．
-				テストメソッドが部門名を表示しようとするとDEPT表のカラムが取得されます (遅延フェッチ)．
+				テストメソッドが部門名を表示しようとするとDEPT表のカラムが取得されます．
+				このように，関連をたどることで遅延フェッチが行われるのがJPAの特徴です．
 			</p>
 		</section>
 		<section name="FETCH JOINを使用する">
 			<p>
-				遅延フェッチを防ぐためにFETCH JOINを使うようにしましょう．
-				<code>EmpDao</code>の<code>findByDeptName(String)</code>メソッドに<code>@FetchJoin</code>アノテーションを付加します．
+				遅延フェッチによってSQLが何回も発行されてしまうことを防ぎたい場合はFETCH JOINを使うことができます．
+				Kuina-DaoではアノテーションによってFETCH JOINすることを指定できます．
 			</p>
+			<ul>
+				<li><p><code>EmpDao</code>の<code>findByDeptName(String)</code>メソッドに
+				<a href="../user_guide/annotation.xml#@FetchJoinアノテーション"><code>@FetchJoin</code>アノテーション</a>を
+				付加してください．</p></li>
+			</ul>
 <source><![CDATA[
 	@FetchJoin("dept")
 	public List<Emp> findByDeptName(String dept$deptName);
 ]]></source>
 			<p>
-				<code>EmpDaoTest</code>を実行します．
+				<code>EmpDaoTest</code>を実行してください．
 				「Console」ビューに次のようにSQLが表示されます．
 			</p>
 <source><![CDATA[
