@@ -137,9 +137,6 @@ public abstract class ConditionalExpressionBuilderFactory {
             .getMethod(CriteriaOperations.class, "parameter", String.class,
                     Object.class);
 
-    private ConditionalExpressionBuilderFactory() {
-    }
-
     /**
      * {@link ConditionalExpressionBuilder}の配列を作成して返します．
      * 
