@@ -15,6 +15,8 @@
  */
 package org.seasar.kuina.dao;
 
+import java.util.List;
+
 import org.seasar.framework.beans.annotation.ParameterName;
 
 /**
@@ -24,7 +26,7 @@ import org.seasar.framework.beans.annotation.ParameterName;
  * </p>
  * 
  * <pre>
- * public interface EmployeeDao extends GenericDao<Employee, Long> {
+ * public interface EmployeeDao extends GenericDao&lt;Employee, Long&gt; {
  *   // some methods
  * }
  * </pre>
@@ -37,6 +39,13 @@ import org.seasar.framework.beans.annotation.ParameterName;
  * @author koichik
  */
 public interface GenericDao<ENTITY, ID> {
+
+    /**
+     * エンティティを全件取得してその{@link List}を返します．
+     * 
+     * @return エンティティのリスト
+     */
+    List<ENTITY> findAll();
 
     /**
      * Idプロパティ (主キー) を指定してエンティティを検索します．
