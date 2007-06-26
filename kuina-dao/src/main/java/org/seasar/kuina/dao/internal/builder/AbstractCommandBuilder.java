@@ -389,8 +389,11 @@ public abstract class AbstractCommandBuilder implements CommandBuilder {
             names.add(queryName.value());
         }
 
-        names.add(daoClass.getName() + "." + method.getName());
-        names.add(daoClass.getSimpleName() + "." + method.getName());
+        final Class<?> daoInterface = daoClass.isInterface() ? daoClass
+                : ClassUtil.forName(convention.toInterfaceClassName(daoClass
+                        .getName()));
+        names.add(daoInterface.getName() + "." + method.getName());
+        names.add(daoInterface.getSimpleName() + "." + method.getName());
 
         final Class<?> targetClass = getTargetClass(daoClass, method);
         if (targetClass != null) {

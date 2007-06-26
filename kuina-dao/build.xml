@@ -1,6 +1,7 @@
 <project name="kuina-dao" default="dist" basedir=".">
-	<property name="ver" value="1.0.0"/>
-	<property name="releaseDate" value="2007/05/24"/>
+	<tstamp>
+		<format property="releaseDate" pattern="yyyy/MM/dd" locale="ja,JP"/>
+	</tstamp>
 
 	<target name="fix-site">
 		<mkdir dir="target/site/en"/>

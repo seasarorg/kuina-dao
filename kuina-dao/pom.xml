@@ -4,41 +4,29 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 >
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- The Basics -->
   <groupId>org.seasar.kuina</groupId>
   <artifactId>kuina-dao</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+
+  <!-- More Project Information -->
   <name>Kuina-Dao Project</name>
-  <version>1.0.0</version>
   <description></description>
   <url>http://kuina.seasar.org/</url>
-  <issueManagement>
-    <system>JIRA</system>
-    <url><![CDATA[https://www.seasar.org/issues/browse/KUINA]]></url>
-  </issueManagement>
   <inceptionYear>2006</inceptionYear>
-  <mailingLists>
-    <mailingList>
-      <name>Seasar-user</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/seasar-user</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-user</unsubscribe>
-      <post>seasar-user@ml.seasar.org</post>
-      <archive>http://ml.seasar.org/archives/seasar-user/</archive>
-    </mailingList>
-    <mailingList>
-      <name>Seasar-dev</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/seasar-dev</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-dev</unsubscribe>
-      <post>seasar-dev@ml.seasar.org</post>
-      <archive>http://ml.seasar.org/archives/seasar-dev/</archive>
-    </mailingList>
-    <mailingList>
-      <name>Seasar-user-en</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/seasar-user-en</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-user-en</unsubscribe>
-      <post>seasar-user-en@ml.seasar.org</post>
-      <archive>http://ml.seasar.org/archives/seasar-user-en/</archive>
-    </mailingList>
-  </mailingLists>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <organization>
+    <name>The Seasar Foundation</name>
+    <url>http://www.seasar.org/</url>
+  </organization>
   <developers>
     <developer>
       <id>higa</id>
@@ -70,34 +58,91 @@
       <timezone>+9</timezone>
     </developer>
   </developers>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+
+  <!-- Environment Settings -->
+  <issueManagement>
+    <system>JIRA</system>
+    <url>https://www.seasar.org/issues/browse/KUINA</url>
+  </issueManagement>
+  <mailingLists>
+    <mailingList>
+      <name>Seasar-user</name>
+      <subscribe>https://www.seasar.org/mailman/listinfo/seasar-user</subscribe>
+      <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-user</unsubscribe>
+      <post>seasar-user@ml.seasar.org</post>
+      <archive>http://ml.seasar.org/archives/seasar-user/</archive>
+    </mailingList>
+    <mailingList>
+      <name>Seasar-dev</name>
+      <subscribe>https://www.seasar.org/mailman/listinfo/seasar-dev</subscribe>
+      <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-dev</unsubscribe>
+      <post>seasar-dev@ml.seasar.org</post>
+      <archive>http://ml.seasar.org/archives/seasar-dev/</archive>
+    </mailingList>
+    <mailingList>
+      <name>Seasar-user-en</name>
+      <subscribe>https://www.seasar.org/mailman/listinfo/seasar-user-en</subscribe>
+      <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-user-en</unsubscribe>
+      <post>seasar-user-en@ml.seasar.org</post>
+      <archive>http://ml.seasar.org/archives/seasar-user-en/</archive>
+    </mailingList>
+  </mailingLists>
   <scm>
     <connection>scm:svn:https://www.seasar.org/svn/kuina/trunk/kuina-dao/</connection>
     <developerConnection>scm:svn:https://www.seasar.org/svn/kuina/trunk/kuina-dao/</developerConnection>
     <!--<url>http://www.seasar.org/websvn/listing.php?repname=kuina</url>-->
     <url>http://svn.seasar.org/browse/?root=kuina</url>
   </scm>
-  <organization>
-    <name>The Seasar Foundation</name>
-    <url>http://www.seasar.org/</url>
-  </organization>
+  <repositories>
+    <repository>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>http://maven.seasar.org/maven2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>http://maven.seasar.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>dav:https://www.seasar.org/maven/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>true</uniqueVersion>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
+      <url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
+    </snapshotRepository>
+    <site>
+      <id>www.seasar.org</id>
+      <url>scp://www.seasar.org/home/groups/kuina/public_html</url>
+    </site>
+  </distributionManagement>
+
+  <!-- Build Settings -->
   <build>
     <defaultGoal>validate</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <source>1.5</source>
             <target>1.5</target>
             <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <configuration>
+            <updateReleaseInfo>true</updateReleaseInfo>
           </configuration>
         </plugin>
         <plugin>
@@ -125,15 +170,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>javadoc</id>
-            <phase>site</phase>
-            <goals>
-              <goal>javadoc</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
           <encoding>UTF-8</encoding>
           <docencoding>UTF-8</docencoding>
@@ -141,17 +177,25 @@
           <links>
             <link>http://java.sun.com/javaee/5/docs/api/</link>
           	<link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
-            <link>http://s2container.seasar.org/ja/s2-framework/apidocs/</link>
-            <link>http://s2container.seasar.org/ja/s2-extension/apidocs/</link>
-            <link>http://s2container.seasar.org/ja/s2-tiger/apidocs/</link>
             <link>http://aopalliance.sourceforge.net/doc/</link>
             <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
             <link>http://www.csg.is.titech.ac.jp/~chiba/javassist/html/</link>
             <link>http://www.ognl.org/2.6.9/Documentation/javadoc/</link>
-            <link>http://www.junit.org/junit/javadoc/3.8.1/</link>
             <link>http://www.junit.org/junit/javadoc/4.3/</link>
+            <link>http://www.junit.org/junit/javadoc/3.8.1/</link>
+            <link>http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/</link>
+            <link>http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/</link>
+            <link>http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/</link>
           </links>
         </configuration>
+        <executions>
+          <execution>
+            <phase>site</phase>
+            <goals>
+              <goal>javadoc</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
 		<artifactId>maven-antrun-plugin</artifactId>
@@ -161,7 +205,9 @@
             <phase>site</phase>
             <configuration>
               <tasks>
-                <ant antfile="build.xml" target="dist" inheritRefs="true" />
+                <ant antfile="build.xml" target="dist">
+                  <property name="ver" value="${version}"/>
+                </ant>
               </tasks>
             </configuration>
             <goals>
@@ -178,20 +224,8 @@
       </extension>
     </extensions>
   </build>
-  <repositories>
-    <repository>
-      <id>maven.seasar.org</id>
-      <name>The Seasar Foundation Maven2 Repository</name>
-      <url>http://maven.seasar.org/maven2</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>maven.seasar.org</id>
-      <name>The Seasar Foundation Maven2 Repository</name>
-      <url>http://maven.seasar.org/maven2</url>
-    </pluginRepository>
-  </pluginRepositories>
+
+  <!-- Dependency Settings -->
   <dependencies>
     <dependency>
       <groupId>org.seasar.container</groupId>
@@ -265,22 +299,4 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>maven.seasar.org</id>
-      <name>The Seasar Foundation Maven2 Repository</name>
-      <url>dav:https://www.seasar.org/maven/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>true</uniqueVersion>
-      <id>maven.seasar.org</id>
-      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
-      <url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
-    </snapshotRepository>
-    <site>
-      <id>www.seasar.org</id>
-      <url>scp://www.seasar.org/home/groups/kuina/public_html</url>
-    </site>
-  </distributionManagement>
 </project>
