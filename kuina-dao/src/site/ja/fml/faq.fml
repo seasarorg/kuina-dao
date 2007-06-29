@@ -132,6 +132,18 @@
 				Diigu Maven plugin の利用方法は，Seasar-Wikiの「<a href="http://www.seasar.org/wiki/index.php?Diigu%2Fdiigu-maven-plugin">Diigu/diigu-maven-plugin</a>」を参考にしてください．
 			</answer>
 		</faq>
+		<faq id="diigu-clean">
+			<question>
+				「Diiguで処理されていません。クリーンビルドしてください。」とか言ってきやがるんだけど？
+			</question>
+			<answer>
+				Diigu Eclipse Plugin は Eclipse からコンパイル等によりクラスファイルが変更されたイベントを受け取ってクラスファイルをエンハンスしますが，
+				Eclipse が全てのイベントを通知してくれるわけではなく， コンパイルによって Diigu がエンハンスした情報が消えてしまう場合がよくあります．
+				<br/>
+				このメッセージが出た場合は Dao を含んだプロジェクトをクリーンビルドしてください．
+				クリーンビルドは「Project」－「Clean」で行います．
+			</answer>
+		</faq>
 		<!--
 		<faq id="">
 			<question>
