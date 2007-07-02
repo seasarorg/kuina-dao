@@ -49,7 +49,7 @@ public class SqlUpdateCommand extends AbstractSqlCommand {
      *            ステートメント・ファクトリ
      */
     public SqlUpdateCommand(final Method method, final String sql,
-            final String[] parameterNames, final Class[] parameterTypes,
+            final String[] parameterNames, final Class<?>[] parameterTypes,
             final DialectManager dialectManager,
             final StatementFactory statementFactory) {
         super(method, sql, parameterNames, parameterTypes, dialectManager,

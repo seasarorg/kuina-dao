@@ -2411,7 +2411,7 @@ public abstract class CriteriaOperations {
      *            enum_literalとなる列挙の並び
      * @return in_expression
      */
-    public static InExpression in(final String path, final Enum... inItems) {
+    public static InExpression in(final String path, final Enum<?>... inItems) {
         final InExpression inExpression = new InExpressionImpl(path(path));
         for (final Enum<?> inItem : inItems) {
             inExpression.add(literal(inItem));
@@ -2530,7 +2530,8 @@ public abstract class CriteriaOperations {
      *            enum_literalとなる列挙の並び
      * @return in_expression
      */
-    public static InExpression notIn(final String path, final Enum... inItems) {
+    public static InExpression notIn(final String path,
+            final Enum<?>... inItems) {
         final InExpression notInExpression = new NotInExpressionImpl(path(path));
         for (final Enum<?> inItem : inItems) {
             notInExpression.add(literal(inItem));

@@ -45,7 +45,7 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
     protected final String[] parameterNames;
 
     /** パラメータ型の配列 */
-    protected final Class[] parameterTypes;
+    protected final Class<?>[] parameterTypes;
 
     /** Dialectマネージャ */
     protected final DialectManager dialectManager;
@@ -73,7 +73,7 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
      *            ステートメント・ファクトリ
      */
     public AbstractSqlCommand(final Method method, final String sql,
-            final String[] parameterNames, final Class[] parameterTypes,
+            final String[] parameterNames, final Class<?>[] parameterTypes,
             final DialectManager dialectManager,
             final StatementFactory statementFactory) {
         this.sql = sql;
@@ -89,7 +89,7 @@ public abstract class AbstractSqlCommand extends AbstractCommand {
         flushIfNeed(em);
         String query = sql;
         Object[] args = parameters;
-        Class[] argTypes = null;
+        Class<?>[] argTypes = null;
         if (parameterNames != null) {
             final SqlContext sqlContext = new SqlContextImpl();
             for (int i = 0; i < parameterNames.length; ++i) {
