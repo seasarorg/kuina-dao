@@ -38,7 +38,7 @@
 				<li><p>「Create a Chura Project」ページが表示されます．</p></li>
 				<li><p>「Project name」に"<code>kuina-example</code>"と入力してください．</p></li>
 				<li><p>「Root Package Name」に"<code>kuina.example</code>"と入力してください．</p></li>
-				<li><p>「Project Type」で「Kuna-Dao Only」を選択してください．</p></li>
+				<li><p>「Project Type」で「Kuina-Dao Only」を選択してください．</p></li>
 				<li><p>「Finish」ボタンを押下してください．</p></li>
 			</ul>
 			<img src="../images/firststep/standalone02.gif" width="500" height="500"/>
