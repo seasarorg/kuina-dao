@@ -102,4 +102,11 @@ public class ManyToManyOwnerDaoTest {
         em.flush();
     }
 
+    public void detach() throws Exception {
+        ManyToManyOwner owner = dao.find(3);
+        dao.detach(owner);
+        assertFalse(dao.contains(owner));
+        assertNotSame(owner, dao.find(3));
+    }
+
 }

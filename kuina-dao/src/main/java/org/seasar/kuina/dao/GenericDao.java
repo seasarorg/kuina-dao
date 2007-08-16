@@ -86,10 +86,10 @@ public interface GenericDao<ENTITY, ID> {
     ENTITY entity);
 
     /**
-     * エンティティを削除します。
+     * 管理されたエンティティを削除します。
      * 
      * @param entity
-     *            エンティティ
+     *            管理されたエンティティ
      * @see javax.persistence.EntityManager#remove(Object)
      */
     void remove(@ParameterName("entity")
@@ -107,20 +107,19 @@ public interface GenericDao<ENTITY, ID> {
     ENTITY entity);
 
     /**
-     * データベースからエンティティの最新の状態を取得し、エンティティに反映します。
+     * 管理されたエンティティを永続コンテキストから分離します。
      * 
      * @param entity
-     *            エンティティ
-     * @see javax.persistence.EntityManager#refresh(Object)
+     *            管理されたエンティティ
      */
-    void refresh(@ParameterName("entity")
+    void detach(@ParameterName("entity")
     ENTITY entity);
 
     /**
      * 新規または分離されたエンティティを永続コンテキストに加えます。
      * 
      * @param entity
-     *            エンティティ
+     *            新規または分離されたエンティティ
      * @return マージされたエンティティ
      * @see javax.persistence.EntityManager#merge(Object)
      */
@@ -128,10 +127,20 @@ public interface GenericDao<ENTITY, ID> {
     ENTITY entity);
 
     /**
-     * エンティティを{@link javax.persistence.LockModeType.READ}でロックします。
+     * データベースからエンティティの最新の状態を取得し、エンティティに反映します。
      * 
      * @param entity
-     *            エンティティ
+     *            管理されたエンティティ
+     * @see javax.persistence.EntityManager#refresh(Object)
+     */
+    void refresh(@ParameterName("entity")
+    ENTITY entity);
+
+    /**
+     * 管理されたエンティティを{@link javax.persistence.LockModeType.READ}でロックします。
+     * 
+     * @param entity
+     *            管理されたエンティティ
      * @see javax.persistence.EntityManager#lock(Object,
      *      javax.persistence.LockModeType)
      */
@@ -139,10 +148,10 @@ public interface GenericDao<ENTITY, ID> {
     ENTITY entity);
 
     /**
-     * エンティティを{@link javax.persistence.LockModeType.WRITE}でロックします。
+     * 管理されたエンティティを{@link javax.persistence.LockModeType.WRITE}でロックします。
      * 
      * @param entity
-     *            エンティティ
+     *            管理されたエンティティ
      * @see javax.persistence.EntityManager#lock(Object,
      *      javax.persistence.LockModeType)
      */

@@ -27,4 +27,5 @@
 	<component class="org.seasar.kuina.dao.internal.builder.RefreshCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.ReadLockCommandBuilder"/>
 	<component class="org.seasar.kuina.dao.internal.builder.WriteLockCommandBuilder"/>
+	<component class="org.seasar.kuina.dao.internal.builder.DetachCommandBuilder"/>
 </components>

@@ -111,6 +111,18 @@ public interface EmployeeDao extends GenericDao<Employee, Long> {
 									<td><code>void</code></td>
 								</tr>
 								<tr>
+									<td>エンティティが管理されているか判定</td>
+									<td><code>contains</code></td>
+									<td>エンティティ</td>
+									<td>管理されたエンティティなら<code>true</code></td>
+								</tr>
+								<tr>
+									<td>エンティティの分離</td>
+									<td><code>detach</code></td>
+									<td>エンティティ</td>
+									<td><code>void</code></td>
+								</tr>
+								<tr>
 									<td>エンティティのマージ</td>
 									<td><code>merge</code></td>
 									<td>エンティティ</td>
