@@ -33,6 +33,20 @@
 						<li><p><a href="query.html#引数名およびDTOのプロパティ名のサフィックス">引数名およびDTOのプロパティ名のサフィックス</a></p></li>
 					</ul>
 				</li>
+				<li><p><a href="other_method.html">その他メソッド</a></p>
+					<ul>
+						<li><p><a href="other_method.html#エンティティの永続化">エンティティの永続化</a></p></li>
+						<li><p><a href="other_method.html#エンティティの削除">エンティティの削除</a></p></li>
+						<li><p><a href="other_method.html#管理されたエンティティか判定">管理されたエンティティか判定</a></p></li>
+						<li><p><a href="other_method.html#エンティティの分離">エンティティの分離</a></p></li>
+						<li><p><a href="other_method.html#エンティティのマージ">エンティティのマージ</a></p></li>
+						<li><p><a href="other_method.html#エンティティのリフレッシュ">エンティティのリフレッシュ</a></p></li>
+						<li><p><a href="other_method.html#エンティティのリードロック">エンティティのリードロック</a></p></li>
+						<li><p><a href="other_method.html#エンティティのライトロック">エンティティのライトロック</a></p></li>
+						<li><p><a href="other_method.html#JPQLによる更新・削除">JPQLによる更新・削除</a></p></li>
+						<li><p><a href="other_method.html#SQLによる挿入・更新・削除">SQLによる挿入・更新・削除</a></p></li>
+					</ul>
+				</li>
 				<li><p><a href="annotation.html">アノテーション一覧</a></p></li>
 				<li><p><a href="configuration.html">コンフィグレーション</a></p>
 					<ul>

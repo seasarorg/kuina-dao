@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Kuina-Daoユーザ・ガイド - その他メソッド</title>
+	</properties>
+	<body>
+		<section name="その他メソッド">
+			<p>
+				DAO (Data Access Object) インタフェースには様々なメソッドを持たせることができます．
+			</p>
+			<ul>
+				<li><p><a href="#エンティティの永続化">エンティティの永続化</a></p></li>
+				<li><p><a href="#エンティティの削除">エンティティの削除</a></p></li>
+				<li><p><a href="#管理されたエンティティか判定">管理されたエンティティか判定</a></p></li>
+				<li><p><a href="#エンティティの分離">エンティティの分離</a></p></li>
+				<li><p><a href="#エンティティのマージ">エンティティのマージ</a></p></li>
+				<li><p><a href="#エンティティのリフレッシュ">エンティティのリフレッシュ</a></p></li>
+				<li><p><a href="#エンティティのリードロック">エンティティのリードロック</a></p></li>
+				<li><p><a href="#エンティティのライトロック">エンティティのライトロック</a></p></li>
+				<li><p><a href="#JPQLによる更新・削除">JPQLによる更新・削除</a></p></li>
+				<li><p><a href="#SQLによる挿入・更新・削除">SQLによる挿入・更新・削除</a></p></li>
+			</ul>
+
+			<subsection name="エンティティの永続化">
+				<p>
+					エンティティを永続化するメソッドです．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+persist
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティ</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code></dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    void persist(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="エンティティの削除">
+				<p>
+					エンティティを削除するメソッドです．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+remove
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティ</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code></dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    void remove(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="管理されたエンティティか判定">
+				<p>
+					エンティティが永続コンテキストに管理されているか判定するメソッドです．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+contains
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティ</dd>
+					<dt>戻り値</dt>
+					<dd><code>boolean</code> (管理されたエンティティなら<code>true</code>)</dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    boolean contains(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="エンティティの分離">
+				<p>
+					管理されたエンティティを永続コンテキストから分離するメソッドです．
+				</p>
+				<p>
+					エンティティ単位で分離する方法はJPA使用で定められていないため，
+					このメソッドはJPA実装固有の方法で実現されます．
+					エンティティ単位の分離が実現できないJPA実装では<code>UnsupportedOperationException</code>がスローされます．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+detach
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティ</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code></dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    void detach(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="エンティティのマージ">
+				<p>
+					分離されたエンティティを永続コンテキストにマージするメソッドです．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+merge
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>分離されたエンティティ</dd>
+					<dt>戻り値</dt>
+					<dd>管理されたエンティティ</dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    Employee merge(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="エンティティのリフレッシュ">
+				<p>
+					管理されたエンティティのを最新の状態にするメソッドです．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+refresh
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティ</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code></dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    void refresh(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="エンティティのリードロック">
+				<p>
+					管理されたエンティティのリードロックを獲得するメソッドです．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+readLock
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティ</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code></dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    void readLock(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="エンティティのライトロック">
+				<p>
+					管理されたエンティティのライトロックを獲得するメソッドです．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+writeLock
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>エンティティ</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code></dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    void writeLock(Employee emp);
+}
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="JPQLによる更新・削除">
+				<p>
+					Named Queryを使用して更新・削除を行うメソッドです．<br/>
+					使用するNamed Queryの名前はDaoのインタフェース名または問い合わせ対象のエンティティ名と，メソッド名をピリオドで
+					連結したものになります．
+					メソッドに<code>@QueryName</code>を付けることにより，使用するNamed Queryの名前を
+					明示的に指定することもできます．
+					検索順は次のとおりです．
+				</p>
+				<ol>
+					<li><p>(もしあれば) <code>@QueryName</code>アノテーションで指定された名前</p></li>
+					<li><p>&lt;DaoのFQN&gt;.&lt;Daoのメソッド名&gt;</p></li>
+					<li><p>&lt;Daoの単純名&gt;.&lt;Daoのメソッド名&gt;</p></li>
+					<li><p>&lt;エンティティ名&gt;.&lt;Daoのメソッド名&gt;</p></li>
+				</ol>
+				<p>
+					JPQLは@NamedQueryアノテーションまたはマッピングファイルで定義します．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+(update|delete|remove).*
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>JPQLに含まれるパラメータの並び</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code>または<code>int</code> (更新または削除された行数)</dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    int updateSalaryByName(String name, int salary);
+}
+]]></source>
+					</dd>
+					<dt>実行されるNamed Queryの例</dt>
+					<dd>
+<source><![CDATA[
+<named-query name="Employee.updateSalaryByName">
+  <query>
+    UPDATE
+      Employee
+    SET
+      salary = :salary
+    WHERE
+      name = :name
+  </query>
+</named-query>
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+
+			<subsection name="SQLによる挿入・更新・削除">
+				<p>
+					S2Dao相当の2WAY-SQLファイルを使用して挿入・更新・削除を行うメソッドです．<br/>
+					使用するSQLファイルの名前は，Daoのインタフェース名 (先頭小文字) とメソッド名をアンダースコアで連結し，
+					拡張子 <code>.sql</code> を付加したものになります．
+					SQLファイルはDaoインタフェースのパッケージと同じ階層のディレクトリに配置します．<br/>
+					SQLによる検索は，JPA (<code>EntityManager</code>) を使用せず，JDBC APIを直接使用します．
+				</p>
+				<dl>
+					<dt>メソッド名 (正規表現)</dt>
+					<dd>
+<source><![CDATA[
+(insert|update|delete|remove).*
+]]></source>
+					</dd>
+					<dt>引数</dt>
+					<dd>SQLに含まれるパラメータの並び</dd>
+					<dt>戻り値</dt>
+					<dd><code>void</code>または<code>int</code> (更新または削除された行数)</dd>
+					<dt>例</dt>
+					<dd>
+<source><![CDATA[
+public interface EmployeeDao {
+    List<EmployeeDto> deleteByDepartmentName(String departmentName);
+}
+]]></source>
+					</dd>
+					<dt>実行されるSQLファイルの名前の例</dt>
+					<dd>
+<source><![CDATA[
+employeeDao_deleteByDepartmentName.sql
+]]></source>
+					</dd>
+					<dt>実行されるSQLファイルの例</dt>
+					<dd>
+<source><![CDATA[
+DELETE
+  Employee
+WHERE 
+  department.name = /*departmentName*/'foo'
+]]></source>
+					</dd>
+				</dl>
+			</subsection>
+		</section>
+	</body>
+</document>
