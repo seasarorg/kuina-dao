@@ -80,7 +80,7 @@ public class DaoMetadataImpl implements DaoMetadata {
 
         for (final Method method : daoClass.getMethods()) {
             if (!Modifier.isAbstract(method.getModifiers())
-                    || method.isBridge()) {
+                    || method.isBridge() || method.isSynthetic()) {
                 continue;
             }
             commands.put(method, new CommandHolder(method));
