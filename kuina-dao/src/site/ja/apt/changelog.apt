@@ -6,6 +6,29 @@ Kuina-Dao Changelog
 
 
 
+Version {1.0.1-rc1} (2007/10/23)
+
+* 移行の注意
+
+  Kuina-Dao 1.0.1-rc1 は Seasar2.4.18-rc1 および，S2Hibernate-JPA 1.0.1-rc1 または S2Toplink-JPA 1.0.0-rc4 との組み合わせで動作します．
+  これ以前のバージョンでは動作しないのでご注意ください．
+
+* 変更点
+    
+** Bug
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-15}KUINA-15}}] - GenericDao に findAll() メソッドを追加しました．
+
+** Improvement
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-14}KUINA-14}}] - NamedQuery の名前および SQL ファイルの名前をメソッドが定義されている Dao インタフェースから求めるようにしました．
+
+** New Feature
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-16}KUINA-16}}] - 永続コンテキストから特定の管理されたエンティティを切り離す detach(Object) メソッドを Dao に持てるようにしました．
+
+
+
 Version {1.0.0} (2007/05/24)
 
 * 移行の注意

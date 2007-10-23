@@ -8,7 +8,7 @@
   <!-- The Basics -->
   <groupId>org.seasar.kuina</groupId>
   <artifactId>kuina-dao</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1-rc1</version>
   <packaging>jar</packaging>
 
   <!-- More Project Information -->
@@ -230,13 +230,13 @@
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-tiger</artifactId>
-      <version>2.4.18-SNAPSHOT</version>
+      <version>2.4.18-rc1</version>
       <type>jar</type>
     </dependency>
     <dependency>
       <groupId>org.seasar.hibernate</groupId>
       <artifactId>s2hibernate-jpa</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1-rc1</version>
       <type>jar</type>
       <scope>runtime</scope>
       <optional>true</optional>
@@ -244,7 +244,7 @@
     <dependency>
       <groupId>org.seasar.toplink</groupId>
       <artifactId>s2toplink-jpa</artifactId>
-      <version>1.0.0-rc3</version>
+      <version>1.0.0-rc4</version>
       <type>jar</type>
       <scope>runtime</scope>
       <optional>true</optional>
