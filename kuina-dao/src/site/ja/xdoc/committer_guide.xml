@@ -43,7 +43,7 @@
 				<dt>デプロイ</dt>
 				<dd>
 <source>
-<kbd>mvn deploy -Dmaven.test.ski=true</kbd>
+<kbd>mvn deploy -Dmaven.test.skip=true</kbd>
 </source>
 				</dd>
 				<dt>サイトデプロイ</dt>
