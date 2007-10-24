@@ -37,31 +37,32 @@ public class OneToManyInverseDaoTest {
     private OneToManyInverseDao dao;
 
     public void _eq() throws Exception {
-        List<OneToManyInverse> list = dao.findByCondition(eq(
-                "oneToManyInverse.name", "Account"));
+        List<OneToManyInverse> list =
+            dao.findByCondition(eq("oneToManyInverse.name", "Account"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("Account", list.get(0).getName());
     }
 
     public void _size() throws Exception {
-        List<OneToManyInverse> list = dao.findByCondition(eq(
-                size("oneToManyInverse.manyToOneOwners"), 3));
+        List<OneToManyInverse> list =
+            dao
+                .findByCondition(eq(size("oneToManyInverse.manyToOneOwners"), 3));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("Account", list.get(0).getName());
     }
 
     public void _isEmpty() throws Exception {
-        List<OneToManyInverse> list = dao
-                .findByCondition(isEmpty("oneToManyInverse.manyToOneOwners"));
+        List<OneToManyInverse> list =
+            dao.findByCondition(isEmpty("oneToManyInverse.manyToOneOwners"));
         assertNotNull(list);
         assertEquals(0, list.size());
     }
 
     public void _isNotEmpty() throws Exception {
-        List<OneToManyInverse> list = dao
-                .findByCondition(isNotEmpty("oneToManyInverse.manyToOneOwners"));
+        List<OneToManyInverse> list =
+            dao.findByCondition(isNotEmpty("oneToManyInverse.manyToOneOwners"));
         assertNotNull(list);
         assertEquals(6, list.size());
     }

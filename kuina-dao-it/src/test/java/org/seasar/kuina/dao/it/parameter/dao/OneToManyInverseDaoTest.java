@@ -49,16 +49,16 @@ public class OneToManyInverseDaoTest {
     }
 
     public void findByOwnerSalaryRateOwnerWeight() throws Exception {
-        List<OneToManyInverse> list = dao.findByOwnerSalaryRateOwnerWeight(
-                SalaryRate.SENIOR, 60);
+        List<OneToManyInverse> list =
+            dao.findByOwnerSalaryRateOwnerWeight(SalaryRate.SENIOR, 60);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("Business", list.get(0).getName());
     }
 
     public void findByOwnerSalaryRateSubOwnerWeight() throws Exception {
-        List<OneToManyInverse> list = dao.findByOwnerSalaryRateSubOwnerWeight(
-                SalaryRate.SENIOR, 60);
+        List<OneToManyInverse> list =
+            dao.findByOwnerSalaryRateSubOwnerWeight(SalaryRate.SENIOR, 60);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("Business", list.get(0).getName());

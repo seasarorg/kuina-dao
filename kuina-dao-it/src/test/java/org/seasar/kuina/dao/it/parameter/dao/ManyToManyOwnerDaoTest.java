@@ -43,8 +43,8 @@ public class ManyToManyOwnerDaoTest {
     }
 
     public void findByManyToManyInverseName() throws Exception {
-        List<ManyToManyOwner> list = dao
-                .findByManyToManyInverseName("Personnel");
+        List<ManyToManyOwner> list =
+            dao.findByManyToManyInverseName("Personnel");
         assertNotNull(list);
         assertEquals(4, list.size());
         assertEquals("maki", list.get(0).getName());

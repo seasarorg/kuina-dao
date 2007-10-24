@@ -45,7 +45,8 @@ public class CompKeyOneToManyInverseDaoTest {
         info.setBloodType("A");
         owner.setInfo(info);
         owner.setName("simagoro");
-        Set<CompKeyManyToOneOwner> owners = new HashSet<CompKeyManyToOneOwner>();
+        Set<CompKeyManyToOneOwner> owners =
+            new HashSet<CompKeyManyToOneOwner>();
         owners.add(owner);
         CompKeyOneToManyInverse inverse = new CompKeyOneToManyInverse();
         inverse.setCompKeyManyToOneOwners(owners);
@@ -57,7 +58,8 @@ public class CompKeyOneToManyInverseDaoTest {
 
     public void findByExampleEmptyEntity() throws Exception {
         CompKeyManyToOneOwner owner = new CompKeyManyToOneOwner();
-        Set<CompKeyManyToOneOwner> owners = new HashSet<CompKeyManyToOneOwner>();
+        Set<CompKeyManyToOneOwner> owners =
+            new HashSet<CompKeyManyToOneOwner>();
         owners.add(owner);
         CompKeyOneToManyInverse inverse = new CompKeyOneToManyInverse();
         inverse.setCompKeyManyToOneOwners(owners);
@@ -88,7 +90,8 @@ public class CompKeyOneToManyInverseDaoTest {
         owner.setName("simagoro");
         CompKeyManyToOneOwner owner2 = new CompKeyManyToOneOwner();
         owner2.setName("miya");
-        List<CompKeyManyToOneOwner> owners = new ArrayList<CompKeyManyToOneOwner>();
+        List<CompKeyManyToOneOwner> owners =
+            new ArrayList<CompKeyManyToOneOwner>();
         owners.add(owner);
         owners.add(owner2);
         CompKeyOneToManyInverse inverse = new CompKeyOneToManyInverse();
@@ -106,8 +109,8 @@ public class CompKeyOneToManyInverseDaoTest {
 
     public void findByExampleOrderby() throws Exception {
         CompKeyOneToManyInverse inverse = new CompKeyOneToManyInverse();
-        List<CompKeyOneToManyInverse> list = dao.findByExampleOrderby(inverse,
-                "name");
+        List<CompKeyOneToManyInverse> list =
+            dao.findByExampleOrderby(inverse, "name");
         assertNotNull(list);
         assertEquals(6, list.size());
         assertEquals("Account", list.get(0).getName());
@@ -120,8 +123,8 @@ public class CompKeyOneToManyInverseDaoTest {
 
     public void findByExamplePaging() throws Exception {
         CompKeyOneToManyInverse inverse = new CompKeyOneToManyInverse();
-        List<CompKeyOneToManyInverse> list = dao.findByExamplePaging(inverse,
-                3, 2);
+        List<CompKeyOneToManyInverse> list =
+            dao.findByExamplePaging(inverse, 3, 2);
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals("Account", list.get(0).getName());

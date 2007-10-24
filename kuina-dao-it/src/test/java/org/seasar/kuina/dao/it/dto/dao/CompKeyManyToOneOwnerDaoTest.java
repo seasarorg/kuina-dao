@@ -78,10 +78,10 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findByDto_compKeyOneToManyInverse_EQ() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(3,
-                DateUtil.newDate(2007, 1, 1));
-        CompKeyOneToManyInverse compKeyOneToManyInverse = em.find(
-                CompKeyOneToManyInverse.class, id);
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(3, DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverse compKeyOneToManyInverse =
+            em.find(CompKeyOneToManyInverse.class, id);
         CompKeyManyToOneOwnerDto dto = new CompKeyManyToOneOwnerDto();
         dto.setCompKeyOneToManyInverse_EQ(compKeyOneToManyInverse);
         dto.setOrderby("id.pk1");

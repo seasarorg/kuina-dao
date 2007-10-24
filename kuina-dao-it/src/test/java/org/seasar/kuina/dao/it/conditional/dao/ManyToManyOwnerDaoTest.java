@@ -37,30 +37,33 @@ public class ManyToManyOwnerDaoTest {
     private ManyToManyOwnerDao dao;
 
     public void _eq() throws Exception {
-        List<ManyToManyOwner> list = dao.findByCondition(eq(
-                "manyToManyOwner.name", "simagoro"));
+        List<ManyToManyOwner> list =
+            dao.findByCondition(eq("manyToManyOwner.name", "simagoro"));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("simagoro", list.get(0).getName());
     }
 
     public void _size() throws Exception {
-        List<ManyToManyOwner> list = dao.findByCondition(eq(
-                size("manyToManyOwner.manyToManyInverses"), 3));
+        List<ManyToManyOwner> list =
+            dao.findByCondition(eq(
+                size("manyToManyOwner.manyToManyInverses"),
+                3));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertNotNull("maki", list.get(0).getName());
     }
 
     public void _isEmpty() throws Exception {
-        List<ManyToManyOwner> list = dao
-                .findByCondition(isEmpty("manyToManyOwner.manyToManyInverses"));
+        List<ManyToManyOwner> list =
+            dao.findByCondition(isEmpty("manyToManyOwner.manyToManyInverses"));
         assertNotNull(list);
         assertEquals(0, list.size());
     }
 
     public void _isNotEmpty() throws Exception {
-        List<ManyToManyOwner> list = dao
+        List<ManyToManyOwner> list =
+            dao
                 .findByCondition(isNotEmpty("manyToManyOwner.manyToManyInverses"));
         assertNotNull(list);
         assertEquals(6, list.size());

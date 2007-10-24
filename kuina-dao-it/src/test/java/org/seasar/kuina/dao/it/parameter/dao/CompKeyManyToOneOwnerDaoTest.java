@@ -46,8 +46,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     private CompKeyManyToOneOwnerDao dao;
 
     public void findByPk2() throws Exception {
-        List<CompKeyManyToOneOwner> list = dao.findByPk2(DateUtil.newDate(2007,
-                1, 1));
+        List<CompKeyManyToOneOwner> list =
+            dao.findByPk2(DateUtil.newDate(2007, 1, 1));
         assertNotNull(list);
         assertEquals(30, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -71,8 +71,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findByNameBloodType() throws Exception {
-        List<CompKeyManyToOneOwner> list = dao.findByNameBloodType("simagoro",
-                null);
+        List<CompKeyManyToOneOwner> list =
+            dao.findByNameBloodType("simagoro", null);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -88,17 +88,19 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findByNameBloodType3() throws Exception {
-        List<CompKeyManyToOneOwner> list = dao
-                .findByNameBloodType("maru", "AB");
+        List<CompKeyManyToOneOwner> list =
+            dao.findByNameBloodType("maru", "AB");
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("maru", list.get(0).getName());
     }
 
     public void findByBloodTypeOrderbyHeightWeight() throws Exception {
-        List<CompKeyManyToOneOwner> list = dao
-                .findByBloodTypeOrderbyHeightWeight("A", "info.height",
-                        "info.weight");
+        List<CompKeyManyToOneOwner> list =
+            dao.findByBloodTypeOrderbyHeightWeight(
+                "A",
+                "info.height",
+                "info.weight");
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("roly", list.get(0).getName());
@@ -158,8 +160,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findByBirthTimestamp() throws Exception {
-        java.sql.Timestamp timestamp = java.sql.Timestamp
-                .valueOf("1959-09-03 08:00:00");
+        java.sql.Timestamp timestamp =
+            java.sql.Timestamp.valueOf("1959-09-03 08:00:00");
         List<CompKeyManyToOneOwner> list = dao.findByBirthTimestamp(timestamp);
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -183,8 +185,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findByEmployeeStatus() throws Exception {
-        List<CompKeyManyToOneOwner> list = dao
-                .findByEmployeeStatus(EmployeeStatus.CONTRACT);
+        List<CompKeyManyToOneOwner> list =
+            dao.findByEmployeeStatus(EmployeeStatus.CONTRACT);
         assertNotNull(list);
         assertEquals(10, list.size());
         assertEquals("maki", list.get(0).getName());
@@ -200,8 +202,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findBySalaryRate() throws Exception {
-        List<CompKeyManyToOneOwner> list = dao
-                .findBySalaryRate(SalaryRate.MANAGER);
+        List<CompKeyManyToOneOwner> list =
+            dao.findBySalaryRate(SalaryRate.MANAGER);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("maki", list.get(0).getName());
@@ -217,12 +219,12 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findByOneToManyInverse() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(3,
-                DateUtil.newDate(2007, 1, 1));
-        CompKeyOneToManyInverse inverse = em.find(
-                CompKeyOneToManyInverse.class, id);
-        List<CompKeyManyToOneOwner> list = dao
-                .findByCompKeyOneToManyInverse(inverse);
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(3, DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverse inverse =
+            em.find(CompKeyOneToManyInverse.class, id);
+        List<CompKeyManyToOneOwner> list =
+            dao.findByCompKeyOneToManyInverse(inverse);
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("nekomaru", list.get(0).getName());
@@ -231,8 +233,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void findByOneToManyInverseName() throws Exception {
-        List<CompKeyManyToOneOwner> list = dao
-                .findByCompKeyOneToManyInverseName("Personnel");
+        List<CompKeyManyToOneOwner> list =
+            dao.findByCompKeyOneToManyInverseName("Personnel");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("nekomaru", list.get(0).getName());

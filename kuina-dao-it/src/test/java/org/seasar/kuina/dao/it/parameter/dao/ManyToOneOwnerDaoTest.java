@@ -85,8 +85,8 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByBloodTypeOrderbyHeightWeight() throws Exception {
-        List<ManyToOneOwner> list = dao.findByBloodTypeOrderbyHeightWeight("A",
-                "height", "weight");
+        List<ManyToOneOwner> list =
+            dao.findByBloodTypeOrderbyHeightWeight("A", "height", "weight");
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("roly", list.get(0).getName());
@@ -146,8 +146,8 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByBirthTimestamp() throws Exception {
-        java.sql.Timestamp timestamp = java.sql.Timestamp
-                .valueOf("1959-09-03 08:00:00");
+        java.sql.Timestamp timestamp =
+            java.sql.Timestamp.valueOf("1959-09-03 08:00:00");
         List<ManyToOneOwner> list = dao.findByBirthTimestamp(timestamp);
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -171,8 +171,8 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByEmployeeStatus() throws Exception {
-        List<ManyToOneOwner> list = dao
-                .findByEmployeeStatus(EmployeeStatus.CONTRACT);
+        List<ManyToOneOwner> list =
+            dao.findByEmployeeStatus(EmployeeStatus.CONTRACT);
         assertNotNull(list);
         assertEquals(10, list.size());
         assertEquals("maki", list.get(0).getName());

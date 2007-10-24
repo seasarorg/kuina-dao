@@ -40,47 +40,58 @@ public class OneToOneOwnerTest {
     private EntityManager em;
 
     public void _inner() throws Exception {
-        List<OneToOneOwner> list = select("oo").from(
-                join(OneToOneOwner.class, "oo").inner("oo.oneToOneInverse",
-                        "oi")).getResultList(em);
+        List<OneToOneOwner> list = select("oo")
+            .from(
+                join(OneToOneOwner.class, "oo").inner(
+                    "oo.oneToOneInverse",
+                    "oi"))
+            .getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void _innerFetch() throws Exception {
-        List<OneToOneOwner> list = select("oo").from(
+        List<OneToOneOwner> list = select("oo")
+            .from(
                 join(OneToOneOwner.class, "oo")
-                        .innerFetch("oo.oneToOneInverse")).getResultList(em);
+                    .innerFetch("oo.oneToOneInverse"))
+            .getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void _left() throws Exception {
-        List<OneToOneOwner> list = select("oo").from(
+        List<OneToOneOwner> list = select("oo")
+            .from(
                 join(OneToOneOwner.class, "oo")
-                        .left("oo.oneToOneInverse", "oi")).getResultList(em);
+                    .left("oo.oneToOneInverse", "oi"))
+            .getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void _leftFetch() throws Exception {
         List<OneToOneOwner> list = select("oo")
-                .from(
-                        join(OneToOneOwner.class, "oo").leftFetch(
-                                "oo.oneToOneInverse")).getResultList(em);
+            .from(
+                join(OneToOneOwner.class, "oo").leftFetch("oo.oneToOneInverse"))
+            .getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void crossJoin() throws Exception {
-        List<Object[]> list = select().from(OneToOneOwner.class,
-                OneToOneInverse.class).orderby("oneToOneOwner.id",
-                "oneToOneInverse.id").getResultList(em);
+        List<Object[]> list = select().from(
+            OneToOneOwner.class,
+            OneToOneInverse.class).orderby(
+            "oneToOneOwner.id",
+            "oneToOneInverse.id").getResultList(em);
         assertNotNull(list);
         assertEquals(36, list.size());
-        assertEquals("simagoro", OneToOneOwner.class.cast(list.get(0)[0])
-                .getName());
-        assertEquals("Business", OneToOneInverse.class.cast(list.get(0)[1])
-                .getName());
+        assertEquals("simagoro", OneToOneOwner.class
+            .cast(list.get(0)[0])
+            .getName());
+        assertEquals("Business", OneToOneInverse.class
+            .cast(list.get(0)[1])
+            .getName());
     }
 }

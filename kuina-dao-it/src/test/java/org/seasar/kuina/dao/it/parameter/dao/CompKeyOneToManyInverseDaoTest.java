@@ -37,8 +37,8 @@ public class CompKeyOneToManyInverseDaoTest {
     protected CompKeyOneToManyInverseDao dao;
 
     public void findByPk2() throws Exception {
-        List<CompKeyOneToManyInverse> list = dao.findByPk2(DateUtil.newDate(
-                2007, 1, 1));
+        List<CompKeyOneToManyInverse> list =
+            dao.findByPk2(DateUtil.newDate(2007, 1, 1));
         assertNotNull(list);
         assertEquals(6, list.size());
         assertEquals("Business", list.get(0).getName());
@@ -52,15 +52,15 @@ public class CompKeyOneToManyInverseDaoTest {
     }
 
     public void findByManyToOneOwnerName() throws Exception {
-        CompKeyOneToManyInverse inverse = dao
-                .findByCompKeyManyToOneOwnerName("simagoro");
+        CompKeyOneToManyInverse inverse =
+            dao.findByCompKeyManyToOneOwnerName("simagoro");
         assertNotNull(inverse);
         assertEquals("Business", inverse.getName());
     }
 
     public void findByOwnerSalaryRateOwnerWeight() throws Exception {
-        List<CompKeyOneToManyInverse> list = dao
-                .findByOwnerSalaryRateOwnerWeight(SalaryRate.SENIOR, 60);
+        List<CompKeyOneToManyInverse> list =
+            dao.findByOwnerSalaryRateOwnerWeight(SalaryRate.SENIOR, 60);
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("Business", list.get(0).getName());

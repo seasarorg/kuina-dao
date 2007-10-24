@@ -39,50 +39,63 @@ public class OneToManyInverseTest {
     private EntityManager em;
 
     public void _inner() throws Exception {
-        List<OneToManyInverse> list = selectDistinct("o").from(
-                join(OneToManyInverse.class, "o").inner("o.manyToOneOwners",
-                        "m")).getResultList(em);
+        List<OneToManyInverse> list =
+            selectDistinct("o").from(
+                join(OneToManyInverse.class, "o").inner(
+                    "o.manyToOneOwners",
+                    "m")).getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void _innerFetch() throws Exception {
-        List<OneToManyInverse> list = selectDistinct("o").from(
+        List<OneToManyInverse> list =
+            selectDistinct("o").from(
                 join(OneToManyInverse.class, "o").innerFetch(
-                        "o.manyToOneOwners")).getResultList(em);
+                    "o.manyToOneOwners")).getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void _left() throws Exception {
-        List<OneToManyInverse> list = selectDistinct("o").from(
+        List<OneToManyInverse> list =
+            selectDistinct("o").from(
                 join(OneToManyInverse.class, "o")
-                        .left("o.manyToOneOwners", "m")).getResultList(em);
+                    .left("o.manyToOneOwners", "m")).getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void _leftFetch() throws Exception {
-        List<OneToManyInverse> list = selectDistinct("o").from(
+        List<OneToManyInverse> list =
+            selectDistinct("o").from(
                 join(OneToManyInverse.class, "o")
-                        .leftFetch("o.manyToOneOwners")).getResultList(em);
+                    .leftFetch("o.manyToOneOwners")).getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());
     }
 
     public void _memberOf() throws Exception {
-        List<OneToManyInverse> list = selectDistinct("o").from(
-                join(OneToManyInverse.class, "o").inner("o.manyToOneOwners",
-                        "m")).where(memberOf("m", "o.subManyToOneOwners"))
+        List<OneToManyInverse> list =
+            selectDistinct("o")
+                .from(
+                    join(OneToManyInverse.class, "o").inner(
+                        "o.manyToOneOwners",
+                        "m"))
+                .where(memberOf("m", "o.subManyToOneOwners"))
                 .getResultList(em);
         assertNotNull(list);
         assertEquals(0, list.size());
     }
 
     public void _notMemberOf() throws Exception {
-        List<OneToManyInverse> list = selectDistinct("o").from(
-                join(OneToManyInverse.class, "o").inner("o.manyToOneOwners",
-                        "m")).where(notMemberOf("m", "o.subManyToOneOwners"))
+        List<OneToManyInverse> list =
+            selectDistinct("o")
+                .from(
+                    join(OneToManyInverse.class, "o").inner(
+                        "o.manyToOneOwners",
+                        "m"))
+                .where(notMemberOf("m", "o.subManyToOneOwners"))
                 .getResultList(em);
         assertNotNull(list);
         assertEquals(6, list.size());

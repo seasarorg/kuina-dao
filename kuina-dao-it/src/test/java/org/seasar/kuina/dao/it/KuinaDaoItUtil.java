@@ -40,8 +40,8 @@ public class KuinaDaoItUtil {
         final String fileName = Env.getValue() + ".properties";
         if (ResourceUtil.isExist(fileName)) {
             final Properties props = ResourceUtil.getProperties(fileName);
-            final String key = method.getDeclaringClass().getName() + "#"
-                    + method.getName();
+            final String key =
+                method.getDeclaringClass().getName() + "#" + method.getName();
             return props.get(key) == null;
         }
         return true;

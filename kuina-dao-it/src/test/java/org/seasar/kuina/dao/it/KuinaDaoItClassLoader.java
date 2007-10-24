@@ -36,14 +36,16 @@ import sun.misc.URLClassPath;
  * @author koichik
  */
 public class KuinaDaoItClassLoader extends URLClassLoader {
+
     protected URLClassPath beforeClassPath;
 
     protected AccessControlContext acc;
 
     public KuinaDaoItClassLoader(final String[] beforeClassPath,
             final String[] afterClassPath) {
-        super(toURL(afterClassPath), Thread.currentThread()
-                .getContextClassLoader());
+        super(toURL(afterClassPath), Thread
+            .currentThread()
+            .getContextClassLoader());
         this.beforeClassPath = new URLClassPath(toURL(beforeClassPath));
         acc = AccessController.getContext();
     }
@@ -64,6 +66,7 @@ public class KuinaDaoItClassLoader extends URLClassLoader {
     @Override
     public URL getResource(final String name) {
         URL url = (URL) AccessController.doPrivileged(new PrivilegedAction() {
+
             public Object run() {
                 return beforeClassPath.findResource(name, true);
             }
@@ -83,6 +86,7 @@ public class KuinaDaoItClassLoader extends URLClassLoader {
         final Enumeration e = beforeClassPath.findResources(name, true);
         final Enumeration[] tmp = new Enumeration[2];
         tmp[0] = new Enumeration<URL>() {
+
             private URL url = null;
 
             private boolean next() {
@@ -90,14 +94,17 @@ public class KuinaDaoItClassLoader extends URLClassLoader {
                     return true;
                 }
                 do {
-                    final URL u = (URL) AccessController.doPrivileged(
+                    final URL u =
+                        (URL) AccessController.doPrivileged(
                             new PrivilegedAction() {
+
                                 public Object run() {
                                     if (!e.hasMoreElements())
                                         return null;
                                     return e.nextElement();
                                 }
-                            }, acc);
+                            },
+                            acc);
                     if (u == null)
                         break;
                     url = beforeClassPath.checkURL(u);

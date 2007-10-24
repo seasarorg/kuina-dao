@@ -64,10 +64,10 @@ public class CompKeyOneToManyInverseId implements Serializable {
     public boolean equals(Object other) {
         if (!(other instanceof CompKeyOneToManyInverseId))
             return false;
-        CompKeyOneToManyInverseId castOther = CompKeyOneToManyInverseId.class
-                .cast(other);
+        CompKeyOneToManyInverseId castOther =
+            CompKeyOneToManyInverseId.class.cast(other);
         return getPk1().equals(castOther.getPk1())
-                && getPk2().equals(castOther.getPk2());
+            && getPk2().equals(castOther.getPk2());
     }
 
     @Override

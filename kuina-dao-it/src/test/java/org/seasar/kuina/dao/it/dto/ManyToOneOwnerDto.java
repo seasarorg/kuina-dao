@@ -187,7 +187,8 @@ public class ManyToOneOwnerDto {
 
     public void setOneToManyInverse$subManyToOneOwners$name_EQ(
             String oneToManyInverse$subManyToOneOwners$name_EQ) {
-        this.oneToManyInverse$subManyToOneOwners$name_EQ = oneToManyInverse$subManyToOneOwners$name_EQ;
+        this.oneToManyInverse$subManyToOneOwners$name_EQ =
+            oneToManyInverse$subManyToOneOwners$name_EQ;
     }
 
     public String[] getOrderby() {

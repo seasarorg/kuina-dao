@@ -41,25 +41,26 @@ public class CompKeyManyToOneOwnerDaoTest {
     private CompKeyManyToOneOwnerDao dao;
 
     public void find() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.find(id);
         assertEquals("simagoro", owner.getName());
     }
 
     public void get() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.getReference(id);
         assertEquals("simagoro", owner.getName());
     }
 
     public void persist() throws Exception {
-        CompKeyOneToManyInverse inverse = em.find(
-                CompKeyOneToManyInverse.class, new CompKeyOneToManyInverseId(1,
-                        DateUtil.newDate(2007, 1, 1)));
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 2));
+        CompKeyOneToManyInverse inverse =
+            em.find(
+                CompKeyOneToManyInverse.class,
+                new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1)));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 2));
         CompKeyManyToOneOwner owner = new CompKeyManyToOneOwner();
         owner.setId(id);
         owner.setCompKeyOneToManyInverse(inverse);
@@ -69,8 +70,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void remove() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.find(id);
         dao.remove(owner);
         assertFalse(em.contains(owner));
@@ -78,8 +79,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void merge() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.find(id);
         assertEquals("simagoro", owner.getName());
         em.clear();
@@ -91,8 +92,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void contains() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.find(id);
         assertTrue(dao.contains(owner));
 
@@ -101,8 +102,8 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void refresh() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.find(id);
         assertEquals("simagoro", owner.getName());
         owner.setName("hoge");
@@ -111,16 +112,16 @@ public class CompKeyManyToOneOwnerDaoTest {
     }
 
     public void readLock() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.find(id);
         dao.readLock(owner);
         em.flush();
     }
 
     public void writeLock() throws Exception {
-        CompKeyManyToOneOwnerId id = new CompKeyManyToOneOwnerId(1, DateUtil
-                .newDate(2007, 1, 1));
+        CompKeyManyToOneOwnerId id =
+            new CompKeyManyToOneOwnerId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyManyToOneOwner owner = dao.find(id);
         dao.writeLock(owner);
         em.flush();

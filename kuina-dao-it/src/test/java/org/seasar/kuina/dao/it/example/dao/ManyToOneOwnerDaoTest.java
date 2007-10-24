@@ -51,7 +51,7 @@ public class ManyToOneOwnerDaoTest {
     public void findByExampleDate() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBirthday(new SimpleDateFormat("yyyy-MM-dd")
-                .parse("1953-10-01"));
+            .parse("1953-10-01"));
         List<ManyToOneOwner> list = dao.findByExample(owner);
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -149,8 +149,8 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByExampleSqlTimestamp() throws Exception {
-        java.sql.Timestamp timestamp = java.sql.Timestamp
-                .valueOf("1959-09-03 08:00:00");
+        java.sql.Timestamp timestamp =
+            java.sql.Timestamp.valueOf("1959-09-03 08:00:00");
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBirthTimestamp(timestamp);
         List<ManyToOneOwner> list = dao.findByExample(owner);
@@ -183,8 +183,8 @@ public class ManyToOneOwnerDaoTest {
     public void findByExampleOrderby2() throws Exception {
         ManyToOneOwner owner = new ManyToOneOwner();
         owner.setBloodType("A");
-        List<ManyToOneOwner> list = dao.findByExampleOrderby(owner, "height",
-                "weight");
+        List<ManyToOneOwner> list =
+            dao.findByExampleOrderby(owner, "height", "weight");
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("roly", list.get(0).getName());

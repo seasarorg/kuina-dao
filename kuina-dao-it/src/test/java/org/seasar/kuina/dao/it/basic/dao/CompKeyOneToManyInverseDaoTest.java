@@ -40,23 +40,23 @@ public class CompKeyOneToManyInverseDaoTest {
     private CompKeyOneToManyInverseDao dao;
 
     public void find() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.find(id);
         assertEquals("Business", inverse.getName());
     }
 
     public void get() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.getReference(id);
         assertEquals("Business", inverse.getName());
     }
 
     public void persist() throws Exception {
         CompKeyOneToManyInverse inverse = new CompKeyOneToManyInverse();
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 2));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 2));
         inverse.setId(id);
         dao.persist(inverse);
         assertTrue(em.contains(inverse));
@@ -64,11 +64,11 @@ public class CompKeyOneToManyInverseDaoTest {
     }
 
     public void remove() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.find(id);
         for (final CompKeyManyToOneOwner owner : inverse
-                .getCompKeyManyToOneOwners()) {
+            .getCompKeyManyToOneOwners()) {
             em.remove(owner);
         }
         dao.remove(inverse);
@@ -77,8 +77,8 @@ public class CompKeyOneToManyInverseDaoTest {
     }
 
     public void merge() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.find(id);
         assertEquals("Business", inverse.getName());
         em.clear();
@@ -90,8 +90,8 @@ public class CompKeyOneToManyInverseDaoTest {
     }
 
     public void contains() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.find(id);
         assertTrue(dao.contains(inverse));
 
@@ -100,8 +100,8 @@ public class CompKeyOneToManyInverseDaoTest {
     }
 
     public void refresh() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.find(id);
         assertEquals("Business", inverse.getName());
         inverse.setName("hoge");
@@ -110,16 +110,16 @@ public class CompKeyOneToManyInverseDaoTest {
     }
 
     public void readLock() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.find(id);
         dao.readLock(inverse);
         em.flush();
     }
 
     public void writeLock() throws Exception {
-        CompKeyOneToManyInverseId id = new CompKeyOneToManyInverseId(1,
-                DateUtil.newDate(2007, 1, 1));
+        CompKeyOneToManyInverseId id =
+            new CompKeyOneToManyInverseId(1, DateUtil.newDate(2007, 1, 1));
         CompKeyOneToManyInverse inverse = dao.find(id);
         dao.writeLock(inverse);
         em.flush();

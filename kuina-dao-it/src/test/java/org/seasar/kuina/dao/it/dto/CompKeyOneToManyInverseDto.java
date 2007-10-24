@@ -53,7 +53,8 @@ public class CompKeyOneToManyInverseDto {
 
     public void setCompKeyManyToOneOwners$id$pk2_EQ(
             Date compKeyManyToOneOwners$id$pk2_EQ) {
-        this.compKeyManyToOneOwners$id$pk2_EQ = compKeyManyToOneOwners$id$pk2_EQ;
+        this.compKeyManyToOneOwners$id$pk2_EQ =
+            compKeyManyToOneOwners$id$pk2_EQ;
     }
 
     public String getCompKeyManyToOneOwners$info$bloodType_EQ() {
@@ -62,7 +63,8 @@ public class CompKeyOneToManyInverseDto {
 
     public void setCompKeyManyToOneOwners$info$bloodType_EQ(
             String compKeyManyToOneOwners$info$bloodType_EQ) {
-        this.compKeyManyToOneOwners$info$bloodType_EQ = compKeyManyToOneOwners$info$bloodType_EQ;
+        this.compKeyManyToOneOwners$info$bloodType_EQ =
+            compKeyManyToOneOwners$info$bloodType_EQ;
     }
 
     public Integer getCompKeyManyToOneOwners$info$weight_GT() {
@@ -71,7 +73,8 @@ public class CompKeyOneToManyInverseDto {
 
     public void setCompKeyManyToOneOwners$info$weight_GT(
             Integer compKeyManyToOneOwners$info$weight_GT) {
-        this.compKeyManyToOneOwners$info$weight_GT = compKeyManyToOneOwners$info$weight_GT;
+        this.compKeyManyToOneOwners$info$weight_GT =
+            compKeyManyToOneOwners$info$weight_GT;
     }
 
     public int getMaxResults() {

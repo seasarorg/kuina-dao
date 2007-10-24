@@ -52,8 +52,7 @@ public class CompKeyManyToOneOwnerDaoTest {
         CompKeyManyToOneOwner owner = new CompKeyManyToOneOwner();
         CompKeyManyToOneOwnerInfo info = new CompKeyManyToOneOwnerInfo();
         info
-                .setBirthday(new SimpleDateFormat("yyyy-MM-dd")
-                        .parse("1953-10-01"));
+            .setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse("1953-10-01"));
         owner.setInfo(info);
         List<CompKeyManyToOneOwner> list = dao.findByExample(owner);
         assertNotNull(list);
@@ -112,8 +111,8 @@ public class CompKeyManyToOneOwnerDaoTest {
         CompKeyManyToOneOwnerInfo info = new CompKeyManyToOneOwnerInfo();
         info.setBloodType("AB");
         owner.setInfo(info);
-        List<CompKeyManyToOneOwner> list = dao.findByExampleOrderby(owner,
-                "info.birthday");
+        List<CompKeyManyToOneOwner> list =
+            dao.findByExampleOrderby(owner, "info.birthday");
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals("maru", list.get(0).getName());
@@ -126,8 +125,8 @@ public class CompKeyManyToOneOwnerDaoTest {
         CompKeyManyToOneOwnerInfo info = new CompKeyManyToOneOwnerInfo();
         info.setBloodType("A");
         owner.setInfo(info);
-        List<CompKeyManyToOneOwner> list = dao.findByExampleOrderby(owner,
-                "info.height", "info.weight");
+        List<CompKeyManyToOneOwner> list =
+            dao.findByExampleOrderby(owner, "info.height", "info.weight");
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("roly", list.get(0).getName());
@@ -148,8 +147,8 @@ public class CompKeyManyToOneOwnerDaoTest {
         CompKeyManyToOneOwnerInfo info = new CompKeyManyToOneOwnerInfo();
         info.setBloodType("A");
         owner.setInfo(info);
-        List<CompKeyManyToOneOwner> list = dao.findByExamplePaging(owner, -1,
-                -1);
+        List<CompKeyManyToOneOwner> list =
+            dao.findByExamplePaging(owner, -1, -1);
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("simagoro", list.get(0).getName());
@@ -160,8 +159,8 @@ public class CompKeyManyToOneOwnerDaoTest {
         CompKeyManyToOneOwnerInfo info = new CompKeyManyToOneOwnerInfo();
         info.setBloodType("A");
         owner.setInfo(info);
-        List<CompKeyManyToOneOwner> list = dao
-                .findByExamplePaging(owner, 1, -1);
+        List<CompKeyManyToOneOwner> list =
+            dao.findByExamplePaging(owner, 1, -1);
         assertNotNull(list);
         assertEquals(10, list.size());
         assertEquals("michiro", list.get(0).getName());

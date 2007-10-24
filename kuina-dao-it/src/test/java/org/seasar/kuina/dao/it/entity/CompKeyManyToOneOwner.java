@@ -45,8 +45,8 @@ public class CompKeyManyToOneOwner {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns( {
-            @JoinColumn(name = "COMPKEYONETOMANYINVERSE_PK1", referencedColumnName = "PK1"),
-            @JoinColumn(name = "COMPKEYONETOMANYINVERSE_PK2", referencedColumnName = "PK2") })
+        @JoinColumn(name = "COMPKEYONETOMANYINVERSE_PK1", referencedColumnName = "PK1"),
+        @JoinColumn(name = "COMPKEYONETOMANYINVERSE_PK2", referencedColumnName = "PK2") })
     private CompKeyOneToManyInverse compKeyOneToManyInverse;
 
     public CompKeyManyToOneOwnerId getId() {

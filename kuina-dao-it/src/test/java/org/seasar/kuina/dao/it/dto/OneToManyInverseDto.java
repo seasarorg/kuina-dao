@@ -62,7 +62,8 @@ public class OneToManyInverseDto {
 
     public void setManyToOneOwners$subOneToManyInverse$id_EQ(
             Integer manyToOneOwners$subOneToManyInverse$id_EQ) {
-        this.manyToOneOwners$subOneToManyInverse$id_EQ = manyToOneOwners$subOneToManyInverse$id_EQ;
+        this.manyToOneOwners$subOneToManyInverse$id_EQ =
+            manyToOneOwners$subOneToManyInverse$id_EQ;
     }
 
     public String getManyToOneOwners$subOneToManyInverse$name_CONTAINS() {
@@ -71,7 +72,8 @@ public class OneToManyInverseDto {
 
     public void setManyToOneOwners$subOneToManyInverse$name_CONTAINS(
             String manyToOneOwners$subOneToManyInverse$name_CONTAINS) {
-        this.manyToOneOwners$subOneToManyInverse$name_CONTAINS = manyToOneOwners$subOneToManyInverse$name_CONTAINS;
+        this.manyToOneOwners$subOneToManyInverse$name_CONTAINS =
+            manyToOneOwners$subOneToManyInverse$name_CONTAINS;
     }
 
     public Integer getManyToOneOwners$weight_GT() {

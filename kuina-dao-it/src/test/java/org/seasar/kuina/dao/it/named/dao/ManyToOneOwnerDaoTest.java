@@ -72,8 +72,8 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void findByBirthday() throws Exception {
-        List<ManyToOneOwner> list = dao.findByBirthday(DateUtil.newDate(1953,
-                10, 1));
+        List<ManyToOneOwner> list =
+            dao.findByBirthday(DateUtil.newDate(1953, 10, 1));
         assertNotNull(list);
         assertEquals(1, list.size());
         assertEquals("simagoro", list.get(0).getName());
