@@ -6,6 +6,20 @@ Kuina-Dao Changelog
 
 
 
+Version {1.0.1} (2007/12/22)
+
+* 移行の注意
+
+  Kuina-Dao 1.0.1 は Seasar2.4.19 および，S2Hibernate-JPA 1.0.1 または S2Toplink-JPA 1.0.0 との組み合わせで動作します．
+  これ以前のバージョンでは動作しないのでご注意ください．
+
+* 変更点
+
+    Seasar2.4.19 および，S2Hibernate-JPA 1.0.1 または S2Toplink-JPA 1.0.0 に対応しました．
+    ソース的には 1.0.1-rc1 から変更ありません．
+
+
+
 Version {1.0.1-rc1} (2007/10/23)
 
 * 移行の注意
@@ -14,7 +28,7 @@ Version {1.0.1-rc1} (2007/10/23)
   これ以前のバージョンでは動作しないのでご注意ください．
 
 * 変更点
-    
+
 ** Bug
 
     * [{{{https://www.seasar.org/issues/browse/KUINA-15}KUINA-15}}] - GenericDao に findAll() メソッドを追加しました．
