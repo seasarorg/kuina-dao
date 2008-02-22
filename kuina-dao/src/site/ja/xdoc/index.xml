@@ -12,6 +12,10 @@
 		</section>
 		<section name="News">
 			<dl>
+				<dt>2008/02/22</dt>
+				<dd>
+					翔泳社刊「<a href="http://www.seshop.com/detail.asp?pid=8767">Javaデータアクセス実践講座</a>」(松信嘉範著)でKuina-Daoが紹介されました．
+				</dd>
 				<dt>2007/12/22</dt>
 				<dd>
 					Kuina-Dao 1.0.1 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.1">Changelog</a>)
