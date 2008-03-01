@@ -43,4 +43,18 @@
 		class="org.seasar.extension.dbcp.impl.DataSourceImpl"
 	/>
 
+	<component name="nonJtaDataSource"
+		class="org.seasar.openjpa.datasource.impl.NonJtaDataSourceImpl">
+		<property name="driverClassName">
+			"org.apache.derby.jdbc.EmbeddedDriver"
+		</property>
+		<property name="URL">
+			"jdbc:derby:"
+				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.kuina.dao.it.KuinaDaoItUtil@class).getCanonicalPath()
+				+ "/data/derby"
+		</property>
+		<property name="user">""</property>
+		<property name="password">""</property>
+	</component>
+
 </components>
