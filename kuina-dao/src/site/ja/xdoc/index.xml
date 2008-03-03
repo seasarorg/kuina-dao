@@ -6,23 +6,53 @@
 	<body>
 		<section name="Welcome">
 			<p>
-				Kuina-Dao は，JavaEE 5 の O/R マッピング標準，Java Persistence API (JPA) 上で利用可能な Data Access Object (DAO) フレームワークです．
-				Kuina-Dao を利用することにより，Java インタフェースを定義するだけで動的な問い合わせを作成したり，名前付き問い合わせを容易に呼び出したりすることが可能になります．
+				Kuina-Dao は，JavaEE 5 の O/R マッピング標準，Java Persistence API
+				(JPA) 上で利用可能な Data Access Object (DAO) フレームワークです．
+				Kuina-Dao を利用することにより，Java
+				インタフェースを定義するだけで動的な問い合わせを作成したり，名前付き問い合わせを容易に呼び出したりすることが可能になります．
 			</p>
 		</section>
 		<section name="News">
 			<dl>
-				<dt>2008/02/22</dt>
+				<dt>2008/02/29</dt>
 				<dd>
-					翔泳社刊「<a href="http://www.seshop.com/detail.asp?pid=8767">Javaデータアクセス実践講座</a>」(松信嘉範著)でKuina-Daoが紹介されました．
+					<div>
+						中村年宏著「
+						<a
+							href="http://www.amazon.co.jp/exec/obidos/ASIN/4839925941/">
+							Seasar2とHibernateで学ぶデータベースアクセス JPA 入門
+						</a>
+						」(毎日コミュニケーションズ)が発売されました．
+					</div>
+					<div>Kuina-Daoが紹介されています．</div>
+				</dd>
+				<dt>2008/02/28</dt>
+				<dd>
+					<div>
+						松信嘉範著「
+						<a
+							href="http://www.amazon.co.jp/exec/obidos/ASIN/4798116025/">
+							Javaデータアクセス実践講座
+						</a>
+						」(翔泳社)が発売されました．
+					</div>
+					<div>Kuina-Daoが紹介されています．</div>
 				</dd>
 				<dt>2007/12/22</dt>
 				<dd>
-					Kuina-Dao 1.0.1 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.1">Changelog</a>)
+					Kuina-Dao 1.0.1 をリリースしました． (
+					<a href="downloads.html">ダウンロード</a>
+					) (
+					<a href="changelog.html#1.0.1">Changelog</a>
+					)
 				</dd>
 				<dt>2007/10/23</dt>
 				<dd>
-					Kuina-Dao 1.0.1-rc1 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.1-rc1">Changelog</a>)
+					Kuina-Dao 1.0.1-rc1 をリリースしました． (
+					<a href="downloads.html">ダウンロード</a>
+					) (
+					<a href="changelog.html#1.0.1-rc1">Changelog</a>
+					)
 				</dd>
 				<dt>2007/07/24</dt>
 				<dd>
@@ -30,33 +60,61 @@
 				</dd>
 				<dt>2007/06/02</dt>
 				<dd>
-					「<a href="firststep/index.html">Kuina-Daoファーストステップ・ガイド</a>」を追加しました．
-					<a href="firststep/standalone-movie.html">「スタンドアロン編」の動画</a>もあります．
+					「
+					<a href="firststep/index.html">
+						Kuina-Daoファーストステップ・ガイド
+					</a>
+					」を追加しました．
+					<a href="firststep/standalone-movie.html">
+						「スタンドアロン編」の動画
+					</a>
+					もあります．
 				</dd>
 				<dt>2007/05/28</dt>
 				<dd>
-					Seasar Conference 2007 Springのセッション「<a href="sc2007spring_Aa1_Kuina.pdf">Kuina-Dao入門</a>」の資料を公開しました．
+					Seasar Conference 2007 Springのセッション「
+					<a href="sc2007spring_Aa1_Kuina.pdf">Kuina-Dao入門</a>
+					」の資料を公開しました．
 				</dd>
 				<dt>2007/05/24</dt>
 				<dd>
-					Kuina-Dao 1.0.0 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.0">Changelog</a>)
+					Kuina-Dao 1.0.0 をリリースしました． (
+					<a href="downloads.html">ダウンロード</a>
+					) (
+					<a href="changelog.html#1.0.0">Changelog</a>
+					)
 				</dd>
 				<dt>2007/04/16</dt>
 				<dd>
-					<a href="https://ml.seasar.org/mailman/listinfo/jpa">JPAメーリングリスト</a>が開設されました．
+					<a
+						href="https://ml.seasar.org/mailman/listinfo/jpa">
+						JPAメーリングリスト
+					</a>
+					が開設されました．
 				</dd>
 				<dt>2007/04/12</dt>
 				<dd>
-					Kuina-Dao 1.0.0-rc2 をリリースしました． (<a href="downloads.html">ダウンロード</a>) (<a href="changelog.html#1.0.0-rc2">Changelog</a>)
+					Kuina-Dao 1.0.0-rc2 をリリースしました． (
+					<a href="downloads.html">ダウンロード</a>
+					) (
+					<a href="changelog.html#1.0.0-rc2">Changelog</a>
+					)
 				</dd>
 				<dt>2007/03/29</dt>
 				<dd>
-					技術評論社刊「<a href="http://gihyo.jp/book/2007/978-4-7741-3070-5/">Java Expert #01</a>」に
-					Kuina-Daoの紹介記事「特集3 Hibernate＆Kuina-Daoで楽々JPA」が掲載されました．
+					技術評論社刊「
+					<a
+						href="http://gihyo.jp/book/2007/978-4-7741-3070-5/">
+						Java Expert #01
+					</a>
+					」に Kuina-Daoの紹介記事「特集3
+					Hibernate＆Kuina-Daoで楽々JPA」が掲載されました．
 				</dd>
 				<dt>2007/01/14</dt>
 				<dd>
-					Kuina-Dao 1.0.0-rc1 をリリースしました． (<a href="downloads.html">ダウンロード</a>)
+					Kuina-Dao 1.0.0-rc1 をリリースしました． (
+					<a href="downloads.html">ダウンロード</a>
+					)
 				</dd>
 			</dl>
 		</section>
