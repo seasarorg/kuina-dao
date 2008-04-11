@@ -51,7 +51,7 @@ public abstract class ConditionalExpressionBuilderFactory {
 
     /** IN演算子のサフィックスと対応する{@link CriteriaOperations}のメソッド名 */
     protected static final String[][] IN_OPERATIONS = new String[][] {
-            { "_IN", "in" }, { "_NOT_IN", "notIn" } };
+            { "_NOT_IN", "notIn" }, { "_IN", "in" } };
 
     /** LIKE演算子のサフィックスと対応するパターンのプレフィックスおよびサフィックス */
     protected static final String[][] LIKE_OPERATIONS = new String[][] {

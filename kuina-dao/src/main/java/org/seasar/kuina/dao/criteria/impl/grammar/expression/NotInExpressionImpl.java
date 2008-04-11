@@ -30,12 +30,32 @@ public class NotInExpressionImpl extends AbstractInExpression {
      * 
      * @param pathExpression
      *            path_expressionを表す文字列
+     */
+    public NotInExpressionImpl(final String pathExpression) {
+        this(new PathExpressionImpl(pathExpression));
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expressionを表す文字列
      * @param inItems
      *            in_itemの並び
      */
     public NotInExpressionImpl(final String pathExpression,
             final InItem... inItems) {
         this(new PathExpressionImpl(pathExpression), inItems);
+    }
+
+    /**
+     * インスタンスを構築します。
+     * 
+     * @param pathExpression
+     *            path_expression
+     */
+    public NotInExpressionImpl(final PathExpression pathExpression) {
+        super(" NOT IN ", pathExpression);
     }
 
     /**
