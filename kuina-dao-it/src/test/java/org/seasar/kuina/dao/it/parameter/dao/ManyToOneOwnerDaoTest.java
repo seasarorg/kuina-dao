@@ -44,8 +44,8 @@ public class ManyToOneOwnerDaoTest {
 
     private ManyToOneOwnerDao dao;
 
-    public void findByBloodType() throws Exception {
-        List<ManyToOneOwner> list = dao.findByBloodType("B", "AB");
+    public void findByBloodTypeIn() throws Exception {
+        List<ManyToOneOwner> list = dao.findByBloodTypeIn("B", "AB");
         assertNotNull(list);
         assertEquals(11, list.size());
         assertEquals("gochin", list.get(0).getName());
@@ -59,6 +59,31 @@ public class ManyToOneOwnerDaoTest {
         assertEquals("tonton", list.get(8).getName());
         assertEquals("mikel", list.get(9).getName());
         assertEquals("miya", list.get(10).getName());
+    }
+
+    public void findByBloodTypeNotIn() throws Exception {
+        List<ManyToOneOwner> list = dao.findByBloodTypeNotIn("B", "AB");
+        assertNotNull(list);
+        assertEquals(19, list.size());
+        assertEquals("simagoro", list.get(0).getName());
+        assertEquals("maki", list.get(1).getName());
+        assertEquals("michiro", list.get(2).getName());
+        assertEquals("coo", list.get(3).getName());
+        assertEquals("sara", list.get(4).getName());
+        assertEquals("minami", list.get(5).getName());
+        assertEquals("pko", list.get(6).getName());
+        assertEquals("goma", list.get(7).getName());
+        assertEquals("monchi", list.get(8).getName());
+        assertEquals("piyo", list.get(9).getName());
+        assertEquals("kuma", list.get(10).getName());
+        assertEquals("gon", list.get(11).getName());
+        assertEquals("q", list.get(12).getName());
+        assertEquals("ma", list.get(13).getName());
+        assertEquals("sary", list.get(14).getName());
+        assertEquals("usa", list.get(15).getName());
+        assertEquals("uta", list.get(16).getName());
+        assertEquals("roly", list.get(17).getName());
+        assertEquals("su", list.get(18).getName());
     }
 
     public void findByNameBloodType() throws Exception {
@@ -238,7 +263,7 @@ public class ManyToOneOwnerDaoTest {
         assertNotNull(list);
         assertEquals(11, list.size());
 
-        list = dao.findByBloodType("B", "AB");
+        list = dao.findByBloodTypeIn("B", "AB");
         assertNotNull(list);
         assertEquals(12, list.size());
     }

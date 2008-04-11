@@ -35,7 +35,10 @@ import org.seasar.kuina.dao.it.entity.SalaryRate;
 public interface ManyToOneOwnerDao {
 
     @Orderby("id")
-    List<ManyToOneOwner> findByBloodType(String... bloodType_IN);
+    List<ManyToOneOwner> findByBloodTypeIn(String... bloodType_IN);
+
+    @Orderby("id")
+    List<ManyToOneOwner> findByBloodTypeNotIn(String... bloodType_NOT_IN);
 
     @Orderby("id")
     List<ManyToOneOwner> findByNameBloodType(String name, String bloodType);
