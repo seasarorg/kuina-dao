@@ -94,24 +94,24 @@ public class ManyToOneOwnerDaoTest {
     }
 
     public void getCount() throws Exception {
-        int count = dao.getCount();
-        assertEquals(30, count);
+        Number count = dao.getCount();
+        assertEquals(30, count.intValue());
     }
 
     public void getCountByBloodType() throws Exception {
-        int count = dao.getCountByBloodType("AB");
-        assertEquals(3, count);
+        Number count = dao.getCountByBloodType("AB");
+        assertEquals(3, count.intValue());
     }
 
     public void getCountByBloodTypeNoFlush() throws Exception {
         ManyToOneOwner owner = em.find(ManyToOneOwner.class, 4);
         owner.setBloodType("O");
 
-        int count = dao.getCountByBloodTypeNoFlush("AB");
-        assertEquals(3, count);
+        Number count = dao.getCountByBloodTypeNoFlush("AB");
+        assertEquals(3, count.intValue());
 
         count = dao.getCountByBloodType("AB");
-        assertEquals(2, count);
+        assertEquals(2, count.intValue());
     }
 
     public void findByWeight() {

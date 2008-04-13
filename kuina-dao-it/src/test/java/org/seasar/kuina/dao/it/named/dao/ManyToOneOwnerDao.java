@@ -55,16 +55,16 @@ public interface ManyToOneOwnerDao {
     String getName(Integer id);
 
     @QueryName("named.dao.ManyToOneOwner.getCount")
-    Integer getCount();
+    Number getCount();
 
     @PositionalParameter
     @QueryName("named.dao.ManyToOneOwner.getCountByBloodType")
-    Integer getCountByBloodType(String bloodType);
+    Number getCountByBloodType(String bloodType);
 
     @PositionalParameter
     @QueryName("named.dao.ManyToOneOwner.getCountByBloodType")
     @FlushMode(FlushModeType.COMMIT)
-    Integer getCountByBloodTypeNoFlush(String bloodType);
+    Number getCountByBloodTypeNoFlush(String bloodType);
 
     List<ManyToOneOwner> findByWeigth(Integer weight);
 
