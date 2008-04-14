@@ -6,8 +6,8 @@
 	version="1.0"
 >
 	<persistence-unit name="persistenceUnit" transaction-type="JTA">
-		<jta-data-source>dataSourceProxy</jta-data-source>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>jdbc/dataSource</jta-data-source>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.transaction.manager_lookup_class" value="org.seasar.hibernate.jpa.transaction.SingletonTransactionManagerProxyLookup"/>
