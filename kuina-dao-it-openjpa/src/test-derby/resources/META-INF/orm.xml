@@ -9,7 +9,7 @@
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="ManyToManyInverse_Id_Generator2"/>
-				<table-generator name="ManyToManyInverse_Id_Generator2" pk-column-value="ManyToManyInverse_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="ManyToManyInverse_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="ManyToManyInverse_Id_Sequence2" allocation-size="1"/>
 			</id>
 		</attributes>
 	</entity>
@@ -17,7 +17,7 @@
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="ManyToManyOwner_Id_Generator2"/>
-				<table-generator name="ManyToManyOwner_Id_Generator2" pk-column-value="ManyToManyOwner_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="ManyToManyOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="ManyToManyOwner_Id_Sequence2" allocation-size="1"/>
 			</id>
 		</attributes>
 	</entity>
@@ -25,7 +25,7 @@
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="ManyToOneOwner_Id_Generator2"/>
-				<table-generator name="ManyToOneOwner_Id_Generator2" pk-column-value="ManyToOneOwner_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="ManyToOneOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="ManyToOneOwner_Id_Sequence2" allocation-size="1"/>
 			</id>
 		</attributes>
 	</entity>
@@ -33,7 +33,7 @@
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="OneToManyInverse_Id_Generator2"/>
-				<table-generator name="OneToManyInverse_Id_Generator2" pk-column-value="OneToManyInverse_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="OneToManyInverse_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToManyInverse_Id_Sequence2" allocation-size="1"/>
 			</id>
 		</attributes>
 	</entity>
@@ -41,7 +41,7 @@
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="OneToOneInverse_Id_Generator2"/>
-				<table-generator name="OneToOneInverse_Id_Generator2" pk-column-value="OneToOneInverse_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="OneToOneInverse_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToOneInverse_Id_Sequence2" allocation-size="1"/>
 			</id>
 		</attributes>
 	</entity>
@@ -49,7 +49,7 @@
 		<attributes>
 			<id name="id">
 				<generated-value strategy="TABLE" generator="OneToOneOwner_Id_Generator2"/>
-				<table-generator name="OneToOneOwner_Id_Generator2" pk-column-value="OneToOneOwner_Id_Sequence2" allocation-size="1"/>
+				<table-generator name="OneToOneOwner_Id_Generator2" table="SEQUENCE" pk-column-name="SEQ_NAME" value-column-name="SEQ_COUNT" pk-column-value="OneToOneOwner_Id_Sequence2" allocation-size="1"/>
 			</id>
 		</attributes>
 	</entity>
