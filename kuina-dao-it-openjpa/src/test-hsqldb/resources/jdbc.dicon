@@ -23,9 +23,6 @@
 			"org.hsqldb.jdbcDriver"
 		</property>
 		<property name="URL">
-			<!--
-			"jdbc:hsqldb:hsql://localhost:9001"
-			-->
 			"jdbc:hsqldb:file:"
 				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.kuina.dao.it.KuinaDaoItUtil@class).getCanonicalPath()
 				+ "/data/hsqldb/demo"
@@ -47,14 +44,8 @@
 	/>
 
 	<component name="nonJtaDataSource"
-		class="org.seasar.openjpa.datasource.impl.NonJtaDataSourceImpl">
-		<property name="driverClassName">
-			"org.hsqldb.jdbcDriver"
-		</property>
-		<property name="URL">
-			<!--
-			"jdbc:hsqldb:hsql://localhost:9001"
-			-->
+		class="org.hsqldb.jdbc.jdbcDataSource">
+		<property name="database">
 			"jdbc:hsqldb:file:"
 				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.kuina.dao.it.KuinaDaoItUtil@class).getCanonicalPath()
 				+ "/data/hsqldb/demo"
