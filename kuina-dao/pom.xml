@@ -230,7 +230,7 @@
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-tiger</artifactId>
-      <version>2.4.19</version>
+      <version>2.4.25</version>
       <type>jar</type>
     </dependency>
     <dependency>
@@ -244,7 +244,23 @@
     <dependency>
       <groupId>org.seasar.toplink</groupId>
       <artifactId>s2toplink-jpa</artifactId>
+      <version>1.0.1</version>
+      <type>jar</type>
+      <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.seasar.openjpa</groupId>
+      <artifactId>s2openjpa</artifactId>
       <version>1.0.0</version>
+      <type>jar</type>
+      <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.seasar.eclipselink</groupId>
+      <artifactId>s2eclipselink-jpa</artifactId>
+      <version>1.0.0-rc1</version>
       <type>jar</type>
       <scope>runtime</scope>
       <optional>true</optional>
