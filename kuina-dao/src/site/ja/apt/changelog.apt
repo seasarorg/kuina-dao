@@ -6,6 +6,14 @@ Kuina-Dao Changelog
 
 
 
+Version {1.0.2} (2008/07/05)
+
+* 変更点
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-17}KUINA-17}}] - 引数を条件とする検索等で，_NOT_IN が動かない問題を修正しました．
+
+
+
 Version {1.0.1} (2007/12/22)
 
 * 移行の注意

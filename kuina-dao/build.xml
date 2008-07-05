@@ -38,6 +38,10 @@
 				<exclude name="**/build/**"/>
 				<exclude name="**/target/**"/>
 			</zipfileset>
+			<zipfileset prefix="kuina-dao-it-openjpa" dir="../kuina-dao-it-openjpa">
+				<exclude name="**/build/**"/>
+				<exclude name="**/target/**"/>
+			</zipfileset>
 		</zip>
 	</target>
 </project>

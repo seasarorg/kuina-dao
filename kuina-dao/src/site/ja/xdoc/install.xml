@@ -82,6 +82,26 @@
 					使用するRDBMSは<code>src/test-env/resources/env_ut.txt</code>で指定できます．
 					</p>
 				</dd>
+				<dt>
+					<code>kuina-dao-it-openjpa</code>
+				</dt>
+				<dd>
+					<p>
+					Kuina-DaoとApache OpenJPAを組み合わせてテストするためのEclipseプロジェクトです．
+					Kuina-Daoのサンプルとして参照してください．
+					</p>
+					<p>
+					以下のRDBMSを使用します．
+					</p>
+					<ul>
+						<li><p>HSQLDB</p></li>
+						<li><p>H2 Database Engine</p></li>
+						<li><p>Apache Derby</p></li>
+					</ul>
+					<p>
+					使用するRDBMSは<code>src/test-env/resources/env_ut.txt</code>で指定できます．
+					</p>
+				</dd>
 			</dl>
 		</section>
 		<section name="Eclipseでの利用">
@@ -108,6 +128,15 @@
 				</p>
 				<ul>
 					<li><p><a href="http://s2toplink.sandbox.seasar.org">S2TopLink-JPA</a></p></li>
+				</ul>
+				<p>
+					依存するバージョンについては「<a href="dependencies.html">プロジェクトの依存関係</a>」を参照してください．
+				</p>
+				<p>
+					kuina-dao-it-openjpaを使用する場合は以下のプロダクトをワークスペースにインポートしてください．
+				</p>
+				<ul>
+					<li><p><a href="http://s2openjpa.sandbox.seasar.org">S2OpenJPA</a></p></li>
 				</ul>
 				<p>
 					依存するバージョンについては「<a href="dependencies.html">プロジェクトの依存関係</a>」を参照してください．
@@ -141,9 +170,9 @@
 					</li>
 					<li>
 						<p>
-							「Projects」で "kuina-dao"，"kuina-dao-it-hibernate"，"kuina-dao-it-toplink"が
+							「Projects」で "kuina-dao"，"kuina-dao-it-hibernate"，"kuina-dao-it-toplink"，"kuina-dao-it-openjpa"が
 							チェックされていることを確認して「Finish」ボタンを押下します．
-							"kuina-dao-it-hibernate"，"kuina-dao-it-toplink"は必要なければチェックを外して構いません．
+							"kuina-dao-it-hibernate"，"kuina-dao-it-toplink"，"kuina-dao-it-openjpa"は必要なければチェックを外して構いません．
 						</p>
 					</li>
 				</ul>
@@ -212,6 +241,12 @@
 				</p>
 				<ul>
 					<li><p><a href="http://s2toplink.sandbox.seasar.org">S2TopLink-JPA</a></p></li>
+				</ul>
+				<p>
+					kuina-dao-it-openjpaを使用する場合は以下のプロダクトを利用できるようにしてください．
+				</p>
+				<ul>
+					<li><p><a href="http://s2openjpa.sandbox.seasar.org">S2OpenJPA</a></p></li>
 				</ul>
 				<p>
 					依存するバージョンについては「<a href="dependencies.html">プロジェクトの依存関係</a>」を参照してください．
