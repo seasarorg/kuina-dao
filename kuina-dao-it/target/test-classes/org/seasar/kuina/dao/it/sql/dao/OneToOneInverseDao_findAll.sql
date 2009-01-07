@@ -1,1 +1,0 @@
-select id, name from OneToOneInverse order by id

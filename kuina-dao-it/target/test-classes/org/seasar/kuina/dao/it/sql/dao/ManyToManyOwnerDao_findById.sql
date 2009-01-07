@@ -1,1 +1,0 @@
-select id, name from ManyToManyOwner where id = /*id*/0

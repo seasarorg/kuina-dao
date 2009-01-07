@@ -1,1 +1,0 @@
-select id, name from ManyToOneOwner order by id
