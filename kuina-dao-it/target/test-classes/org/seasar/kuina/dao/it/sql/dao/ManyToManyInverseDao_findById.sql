@@ -1,0 +1,1 @@
+select id, name from ManyToManyInverse where id = /*id*/0

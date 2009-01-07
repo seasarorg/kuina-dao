@@ -1,0 +1,1 @@
+select id, name from OneToOneInverse where id = /*id*/0

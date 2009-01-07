@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<component class="org.seasar.framework.convention.impl.NamingConventionImpl">
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it"</arg>
+		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.basic"</arg>
+		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.conditional"</arg>
+		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.dto"</arg>
+		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.example"</arg>
+		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.findall"</arg>
+		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.named"</arg>
+		</initMethod>		
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.parameter"</arg>
+		</initMethod>
+		<initMethod name="addRootPackageName">
+			<arg>"org.seasar.kuina.dao.it.sql"</arg>
+		</initMethod>
+	</component>
+</components>
