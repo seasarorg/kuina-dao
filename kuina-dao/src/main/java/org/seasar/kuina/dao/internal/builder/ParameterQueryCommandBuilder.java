@@ -39,8 +39,8 @@ public class ParameterQueryCommandBuilder extends
 
     /** パラメータとして受け入れ可能な型の配列 */
     protected static final Class<?>[] ACCEPTABLE_TYPES = new Class<?>[] {
-        Number.class, String.class, Boolean.class, Date.class, Calendar.class, Enum.class,
-    };
+            Number.class, String.class, Boolean.class, Date.class,
+            Calendar.class, Enum.class, };
 
     /**
      * インスタンスを構築します。
@@ -56,8 +56,23 @@ public class ParameterQueryCommandBuilder extends
             return null;
         }
 
-        final Class<?>[] parameterTypes = getActualParameterClasses(daoClass, method);
-        for (final Class<?> parameterType : parameterTypes) {
+        final Class<?>[] parameterTypes = getActualParameterClasses(daoClass,
+                method);
+        final Annotation[][] annotationsArray = method
+                .getParameterAnnotations();
+        for (int i = 0; i < parameterNames.length; ++i) {
+            final String parameterName = parameterNames[i];
+            final Class<?> parameterType = parameterTypes[i];
+            final Annotation[] annotations = annotationsArray[i];
+            if (isOrderby(parameterName, annotations)) {
+                continue;
+            }
+            if (isFirstResult(parameterName, annotations)) {
+                continue;
+            }
+            if (isMaxResults(parameterName, annotations)) {
+                continue;
+            }
             if (!isAcceptableType(ClassUtil
                     .getWrapperClassIfPrimitive(parameterType))) {
                 return null;
@@ -66,8 +81,8 @@ public class ParameterQueryCommandBuilder extends
 
         final ConditionalExpressionBuilder[] builders = createBuilders(
                 entityClass, method, parameterTypes, parameterNames);
-        return new ParameterQueryCommand(entityClass, method, isResultList(method),
-                parameterNames, builders);
+        return new ParameterQueryCommand(entityClass, method,
+                isResultList(method), parameterNames, builders);
     }
 
     /**
