@@ -494,6 +494,18 @@ public abstract class CriteriaOperations {
     /**
      * 集計関数<code>COUNT</code>を適用した式を作成します．
      * 
+     * @param variable
+     *            identification_variable
+     * @return aggregate_expression
+     */
+    public static AggregateExpression count(
+            final IdentificationVariable variable) {
+        return new Count(variable);
+    }
+
+    /**
+     * 集計関数<code>COUNT</code>を適用した式を作成します．
+     * 
      * @param path
      *            path_expression
      * @return aggregate_expression
@@ -511,6 +523,18 @@ public abstract class CriteriaOperations {
      */
     public static AggregateExpression countDistinct(final String path) {
         return countDistinct(path(path));
+    }
+
+    /**
+     * <code>DISTINCT</code>を含んだ集計関数<code>COUNT</code>を適用した式を作成します．
+     * 
+     * @param variable
+     *            identification_variable
+     * @return aggregate_expression
+     */
+    public static AggregateExpression countDistinct(
+            final IdentificationVariable variable) {
+        return new Count(true, variable);
     }
 
     /**
@@ -701,7 +725,8 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * 指定されたabstract_schema_nameとidentification_variableを持つidentification_variable_declarationを作成します．
+     * 指定されたabstract_schema_nameとidentification_variableを持つidentification_variable_declarationを作成します
+     * ．
      * 
      * @param entityClass
      *            abstract_schema_name
@@ -728,7 +753,8 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * 指定されたabstract_schema_nameとidentification_variableを持つidentification_variable_declarationを作成します．
+     * 指定されたabstract_schema_nameとidentification_variableを持つidentification_variable_declarationを作成します
+     * ．
      * 
      * @param joinedClass
      *            abstract_schema_name
@@ -743,7 +769,8 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * 指定されたconditional_expressionを<code>OR</code>演算子で連結したconditional_expressionを作成します．
+     * 指定されたconditional_expressionを<code>OR</code>
+     * 演算子で連結したconditional_expressionを作成します．
      * 
      * @param expressions
      *            conditional_expressionの並び
@@ -755,7 +782,8 @@ public abstract class CriteriaOperations {
     }
 
     /**
-     * 指定されたconditional_expressionを<code>AND</code>演算子で連結したconditional_expressionを作成します．
+     * 指定されたconditional_expressionを<code>AND</code>
+     * 演算子で連結したconditional_expressionを作成します．
      * 
      * @param expressions
      *            conditional_expressionの並び
