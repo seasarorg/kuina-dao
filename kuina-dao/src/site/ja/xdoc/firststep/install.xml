@@ -9,67 +9,55 @@
 				Kuina-Daoを簡単に使用するためのEclipseプラグイン「Dolteng」「Diigu」「DbLauncher」をインストールします．
 			</p>
 			<ul>
-				<li><p>Eclipseのメニューから「Help」－「Software Updates」－「Find and Install」を選択してください．</p></li>
-				<li><p>「Install/Updates」ウィザードが開きます．</p></li>
-				<li><p>「Search for new features to install」を選択してください．</p></li>
-				<li><p>「Next」ボタンを押下してください．</p></li>
+				<li><p>Eclipseのメニューから「Help」－「Software Updates」を選択してください．</p></li>
+				<li><p>「Software Updates and Add-ons」ダイアログが開きます．</p></li>
+				<li><p>「Available Software」タブを選択してください．</p></li>
 			</ul>
-			<img src="../images/firststep/plugin01.gif" width="600" height="566"/>
+			<img src="../images/firststep/plugin01.gif" />
 			<ul>
-				<li><p>「Install」ページが開きます．</p></li>
-				<li><p>「New Remote Site」ボタンを押下してください．</p></li>
+				<li><p>「Add Site」ボタンを押下してください．</p></li>
+				<li><p>「Add Site」ダイアログが開きます．</p></li>
+				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.1</code>"と入力してください．</p></li>
 			</ul>
-			<img src="../images/firststep/plugin02.gif" width="600" height="525"/>
+			<img src="../images/firststep/plugin02.gif" />
 			<ul>
-				<li><p>「New Update Site」ダイアログが開きます．</p></li>
-				<li><p>「Name」に"<code>Seasar Project Updates 3.1</code>"と入力してください．</p></li>
-				<li><p>「URL」に"<code>http://eclipse.seasar.org/updates/3.1/</code>"と入力してください．</p></li>
 				<li><p>「OK」ボタンを押下してください．</p></li>
+				<li><p>「Software Updates and Add-ons」ダイアログに戻ります．</p></li>
+				<li><p>続けて「Add Site」ボタンを押下してください．</p></li>
+				<li><p>「Add Site」ダイアログが開きます．</p></li>
+				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.2</code>"と入力してください．</p></li>
 			</ul>
-			<img src="../images/firststep/plugin03.gif" width="356" height="150"/>
+			<img src="../images/firststep/plugin03.gif" />
 			<ul>
-				<li><p>「Install」ページに戻ります．</p></li>
-				<li><p>続けて「New Remote Site」ボタンを押下してください．</p></li>
-				<li><p>「New Update Site」ダイアログが開きます．</p></li>
-				<li><p>「Name」に"<code>Seasar Project Updates 3.2</code>"と入力してください．</p></li>
-				<li><p>「URL」に"<code>http://eclipse.seasar.org/updates/3.2/</code>"と入力してください．</p></li>
 				<li><p>「OK」ボタンを押下してください．</p></li>
+				<li><p>「Software Updates and Add-ons」ダイアログに戻ります．</p></li>
+				<li><p>続けて「Add Site」ボタンを押下してください．</p></li>
+				<li><p>「Add Site」ダイアログが開きます．</p></li>
+				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.3</code>"と入力してください．</p></li>
 			</ul>
-			<img src="../images/firststep/plugin04.gif" width="356" height="150"/>
+			<img src="../images/firststep/plugin04.gif" />
 			<ul>
-				<li><p>「Install」ページに戻ります．</p></li>
-				<li><p>追加されたSeasarプロジェクトのアップデートサイトがチェック状態になっていることを確認してください．</p></li>
+				<li><p>「OK」ボタンを押下してください．</p></li>
+				<li><p>「Software Updates and Add-ons」ダイアログに戻ります．</p></li>
+				<li><p>「<code>http://eclipse.seasar.org/updates/3.1</code>」の下の「Diigu」をチェックしてください．</p></li>
+				<li><p>「<code>http://eclipse.seasar.org/updates/3.2</code>」の下の「DbLauncher」をチェックしてください．</p></li>
+				<li><p>「<code>http://eclipse.seasar.org/updates/3.3</code>」の下の「Dolteng」をチェックしてください．</p></li>
+			</ul>
+			<img src="../images/firststep/plugin05.gif" />
+			<ul>
+				<li><p>「Install」ボタンを押下してください．</p></li>
+				<li><p>「Install」ダイアログが開きます．</p></li>
+				<li><p>選択したプラグインが表示されていることを確認してください．</p></li>
+			</ul>
+			<img src="../images/firststep/plugin06.gif" />
+			<ul>
 				<li><p>「Finish」ボタンを押下してください．</p></li>
+				<li><p>「Software Updates」ダイアログが開きます．</p></li>
 			</ul>
-			<img src="../images/firststep/plugin05.gif" width="600" height="525"/>
+			<img src="../images/firststep/plugin07.gif" />
 			<ul>
-				<li><p>「Updates」ページが開きます．</p></li>
-				<li><p>「Seasar Project Updates 3.1」の下の「Diigu」をチェックしてください．</p></li>
-				<li><p>「Seasar Project Updates 3.2」の下の「DbLauncher」および「Dolteng」をチェックしてください．</p></li>
-				<li><p>「Next」ボタンを押下してください．</p></li>
-			</ul>
-			<img src="../images/firststep/plugin06.gif" width="600" height="500"/>
-			<ul>
-				<li><p>「Install」ページが開きます．</p></li>
-				<li><p>ライセンスを確認して「I accept the terms in the license agreement」を選択してください．</p></li>
-				<li><p>「Next」ボタンを押下してください．</p></li>
-			</ul>
-			<img src="../images/firststep/plugin07.gif" width="600" height="500"/>
-			<ul>
-				<li><p>「Install」ページが開きます．</p></li>
-				<li><p>「Finish」ボタンを押下してください．</p></li>
-			</ul>
-			<img src="../images/firststep/plugin08.gif" width="600" height="500"/>
-			<ul>
-				<li><p>「Verification」ページが開きます．</p></li>
-				<li><p>「Install All」ボタンを押下してください．</p></li>
-			</ul>
-			<img src="../images/firststep/plugin09.gif" width="600" height="500"/>
-			<ul>
-				<li><p>「Install/Update」ダイアログが開きます．</p></li>
 				<li><p>「Yes」ボタンを押下してください．</p></li>
 			</ul>
-			<img src="../images/firststep/plugin10.gif" width="441" height="146"/>
 			<p>
 				Eclipseが再起動してインストールは終了です．
 				「<a href="standalone.html">スタンドアロン編</a>」へ進んでください．

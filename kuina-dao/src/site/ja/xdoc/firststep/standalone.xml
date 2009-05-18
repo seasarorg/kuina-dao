@@ -31,14 +31,15 @@
 			<ul>
 				<li><p>メニューから「File」－「New」－「Project」を選択してください．</p></li>
 				<li><p>「New」ウィザードが開きます．</p></li>
-				<li><p>「Chura」－「Chura Project」を選択して「Next」ボタンを押下してください．</p></li>
+				<li><p>「Dolteng」－「Dolteng Project」を選択して「Next」ボタンを押下してください．</p></li>
 			</ul>
 			<img src="../images/firststep/standalone01.gif" width="500" height="500"/>
 			<ul>
-				<li><p>「Create a Chura Project」ページが表示されます．</p></li>
+				<li><p>「Create a Dolteng Project」ページが表示されます．</p></li>
 				<li><p>「Project name」に"<code>kuina-example</code>"と入力してください．</p></li>
 				<li><p>「Root Package Name」に"<code>kuina.example</code>"と入力してください．</p></li>
-				<li><p>「Project Type」で「Kuina-Dao Only」を選択してください．</p></li>
+				<li><p>「Application Type」で「Standalone Application」を選択してください．</p></li>
+				<li><p>「Persistence」で「Kuina-Dao (Hibernate)」を選択してください．</p></li>
 				<li><p>「Finish」ボタンを押下してください．</p></li>
 			</ul>
 			<img src="../images/firststep/standalone02.gif" width="500" height="500"/>
