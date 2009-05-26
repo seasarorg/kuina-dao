@@ -38,11 +38,14 @@
       <item name="Changelog" href="changelog.html"/>
     </menu>
     <menu name="ドキュメント">
-      <item name="FAQ" href="faq.html"/>
       <item name="インストール" href="install.html"/>
-      <item name="Kuina-Dao入門(PDF)" href="sc2007spring_Aa1_Kuina.pdf"/>
-      <item name="ファーストステップ・ガイド" href="firststep/index.html"/>
+      <item name="ファーストステップ・ガイド" href="firststep/index.html" collapse="true">
+        <item name="インストール編" href="firststep/install.html"/>
+        <item name="スタンドアロン編" href="firststep/standalone.html"/>
+      </item>
       <item name="ユーザ・ガイド" href="user_guide/index.html"/>
+      <item name="Kuina-Dao入門(PDF)" href="sc2007spring_Aa1_Kuina.pdf"/>
+      <item name="FAQ" href="faq.html"/>
       <item name="Javadoc" href="../apidocs/index.html"/>
     </menu>
     ${reports}

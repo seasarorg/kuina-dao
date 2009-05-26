@@ -17,7 +17,7 @@
 			<ul>
 				<li><p>「Add Site」ボタンを押下してください．</p></li>
 				<li><p>「Add Site」ダイアログが開きます．</p></li>
-				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.1</code>"と入力してください．</p></li>
+				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.1/</code>"と入力してください．</p></li>
 			</ul>
 			<img src="../images/firststep/plugin02.gif" />
 			<ul>
@@ -25,7 +25,7 @@
 				<li><p>「Software Updates and Add-ons」ダイアログに戻ります．</p></li>
 				<li><p>続けて「Add Site」ボタンを押下してください．</p></li>
 				<li><p>「Add Site」ダイアログが開きます．</p></li>
-				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.2</code>"と入力してください．</p></li>
+				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.2/</code>"と入力してください．</p></li>
 			</ul>
 			<img src="../images/firststep/plugin03.gif" />
 			<ul>
@@ -33,7 +33,7 @@
 				<li><p>「Software Updates and Add-ons」ダイアログに戻ります．</p></li>
 				<li><p>続けて「Add Site」ボタンを押下してください．</p></li>
 				<li><p>「Add Site」ダイアログが開きます．</p></li>
-				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.3</code>"と入力してください．</p></li>
+				<li><p>「Location」に"<code>http://eclipse.seasar.org/updates/3.3/</code>"と入力してください．</p></li>
 			</ul>
 			<img src="../images/firststep/plugin04.gif" />
 			<ul>
