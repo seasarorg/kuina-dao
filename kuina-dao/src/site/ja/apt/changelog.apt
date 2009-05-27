@@ -6,9 +6,25 @@ Kuina-Dao Changelog
 
 
 
+Version {1.0.3} (2009/05/27)
+
+* 変更点
+
+** Bug
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-18}KUINA-18}}] - エンティティクラス名が JPQL の予約語とマッチする場合，自動生成される JPQL の identification_variable が予約語のままになってしまう問題を修正しました．[Seasar-user:17269]
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-19}KUINA-19}}] - 引数を条件とする検索で，ソート順を指定するパラメータの型に OrderbySpec を指定すると NoSuchMethodError となる問題を修正しました．[Seasar-user:17381]
+
+    * [{{{https://www.seasar.org/issues/browse/KUINA-20}KUINA-20}}] - CriteriaOperations に IdentificationVariable を引数とする count() および countDistinct() を定義しました．[Seasar-user:17438]
+
+
+
 Version {1.0.2} (2008/07/05)
 
 * 変更点
+
+** Bug
 
     * [{{{https://www.seasar.org/issues/browse/KUINA-17}KUINA-17}}] - 引数を条件とする検索等で，_NOT_IN が動かない問題を修正しました．
 
