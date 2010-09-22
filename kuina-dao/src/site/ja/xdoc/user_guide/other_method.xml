@@ -292,7 +292,7 @@ public interface EmployeeDao {
 			<subsection name="SQLによる挿入・更新・削除">
 				<p>
 					S2Dao相当の2WAY-SQLファイルを使用して挿入・更新・削除を行うメソッドです．<br/>
-					使用するSQLファイルの名前は，Daoのインタフェース名 (先頭小文字) とメソッド名をアンダースコアで連結し，
+					使用するSQLファイルの名前は，Daoのインタフェース名 とメソッド名をアンダースコアで連結し，
 					拡張子 <code>.sql</code> を付加したものになります．
 					SQLファイルはDaoインタフェースのパッケージと同じ階層のディレクトリに配置します．<br/>
 					SQLによる検索は，JPA (<code>EntityManager</code>) を使用せず，JDBC APIを直接使用します．
