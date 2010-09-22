@@ -319,7 +319,7 @@ public interface EmployeeDao {
 					<dt>実行されるSQLファイルの名前の例</dt>
 					<dd>
 <source><![CDATA[
-employeeDao_deleteByDepartmentName.sql
+EmployeeDao_deleteByDepartmentName.sql
 ]]></source>
 					</dd>
 					<dt>実行されるSQLファイルの例</dt>

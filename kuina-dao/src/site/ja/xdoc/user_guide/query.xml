@@ -396,7 +396,7 @@ public class EmployeeDto {
 					<dt>実行されるSQLファイルの名前の例</dt>
 					<dd>
 <source><![CDATA[
-employeeDao_findByDepartmentName.sql
+EmployeeDao_findByDepartmentName.sql
 ]]></source>
 					</dd>
 					<dt>実行されるSQLファイルの例</dt>
