@@ -434,7 +434,7 @@ WHERE
 							</td>
 							<td>
 								<code>String</code>または<code>String[]</code>または
-								<code>OrderbySpec</code>または<code>OrderbySpec[]</code>
+								<code>OrderingSpec</code>または<code>OrderingSpec[]</code>
 							</td>
 							<td>
 								ソート順を指定します．
